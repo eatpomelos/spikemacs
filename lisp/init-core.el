@@ -1,17 +1,14 @@
-(require 'package)
-(package-initialize)
-;; 之前的那些初始化的设置可以在后面再次加进来
-;; ivy 作为框架中最重要的一个包来进行使用
+;; doom中定义的一些使用的宏
+(defconst EMACS27+ (> emacs-major-version 26))
+(defconst EMACS28+ (> emacs-major-version 27))
+(defconst IS-MAC     (eq system-type 'darwin))
+(defconst IS-LINUX   (eq system-type 'gnu/linux))
+(defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
+(defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
-(setq package-archives
-	    '(("gnu" . "http://elpa.emacs-china.org/gnu/")
-	      ("melpa" . "http://elpa.emacs-china.org/melpa/")
-	      ("org" . "http://elpa.emacs-china.org/org/")))
-
-;; 使用use-package来更好地配置自己的配置，后面就可以用它来管理自己的配置了
-(require 'use-package)
 
 (require 'init-evil)
+(require 'init-tools)
 ;; 配置ivy相关的一些快捷键等，这里考虑要不要继续使用use-package来进行管理。
 (use-package ivy
   :ensure t

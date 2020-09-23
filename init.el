@@ -6,7 +6,7 @@
 
 (global-set-key (kbd "<f2>") 'spikemacs-open-init-file)
 
-;; 可以将自己需要的功能呢配起来， 后面再将自己的配置进行一个结构的更新。
+;; 可以将自己需要的功能先配起来， 后面再将自己的配置进行一个结构的更新。
 ;; 首先设置自己的读取目录，这里使用了两个函数来动态确定自己的emacs的.emacs.d的路径
 (defconst spikemacs-dir
   (eval-when-compile (file-truename user-emacs-directory)))
@@ -20,6 +20,7 @@
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 
 (require 'init-default)
+(require 'init-packages)
 (require 'init-core)
 (require 'init-binding)
 (require 'init-ui)

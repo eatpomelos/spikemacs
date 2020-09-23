@@ -18,8 +18,12 @@
       "fj" 'dired-jump
       "fr" 'counsel-recentf
       "bd" 'kill-this-buffer
-      "bs" 'switch-to-scrtch-buffer
+      "bb" 'counsel-switch-buffer
       "TAB" 'evil-switch-to-windows-last-buffer
+      "hk" 'describe-key
+      "hv" 'describe-variable
+      "hf" 'describe-function
+      "hb" 'describe-bindings
       )
     )
 
@@ -28,6 +32,25 @@
     :init
     (global-evil-surround-mode 1)
     )
-)
+
+  ;; 设置更方便的注释方式，这里可以将自己以前的配置添加进来
+  (use-package evil-nerd-commenter
+    :defer 2
+    :config
+    (evil-leader/set-key
+      ;; 下面的是官方文档中的快捷键设置，先注释掉，需要的时候开启想要的功能
+      ;; "ci" 'evilnc-comment-or-uncomment-lines
+      "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+      "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
+      "cc" 'evilnc-copy-and-comment-lines
+      "cp" 'evilnc-comment-or-uncomment-paragraphs
+      ;; "cr" 'comment-or-uncomment-region
+      ;; "cv" 'evilnc-toggle-invert-comment-line-by-line
+      ;; "."  'evilnc-copy-and-comment-operator
+      ;; "\\" 'evilnc-comment-operator	; if you prefer backslash key
+      )
+    (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
+    )
+  )
 
 (provide 'init-evil)

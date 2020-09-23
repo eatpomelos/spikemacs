@@ -1,0 +1,18 @@
+.local/
+eshell/
+recentf
+
+auto-save-list/
+smex-items
+
+# compiled files
+*.elc
+*.lib
+*.fas
+*.dat
+*.eld
+
+# transient/os temp files
+*.cache-*
+*.log
+.directory

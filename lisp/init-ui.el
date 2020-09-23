@@ -11,6 +11,8 @@
   (doom-modeline-mode 1)
   )
 
+(require 'init-dashboard)
+
 ;; winnum-mode
 (use-package winum
   :ensure t
