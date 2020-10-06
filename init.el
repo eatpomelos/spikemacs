@@ -4,6 +4,11 @@
   (find-file "~/.emacs.d/init.el")
   )
 
+(defun spikemacs-switch-to-scratch ()
+  (interactive)
+  (save-excursion
+    (switch-to-buffer "*scratch*")))
+
 (global-set-key (kbd "<f2>") 'spikemacs-open-init-file)
 
 ;; 可以将自己需要的功能先配起来， 后面再将自己的配置进行一个结构的更新。

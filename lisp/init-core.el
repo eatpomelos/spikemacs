@@ -1,4 +1,4 @@
-;; doom中定义的一些使用的宏
+;; doom中定义的一些使用的值
 (defconst EMACS27+ (> emacs-major-version 26))
 (defconst EMACS28+ (> emacs-major-version 27))
 (defconst IS-MAC     (eq system-type 'darwin))

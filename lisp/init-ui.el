@@ -5,6 +5,12 @@
 (require 'dracula-theme)
 (load-theme 'dracula)
 
+;; 修改scratch buffer 头部显示的文字。
+(setq initial-scratch-message (purecopy "\
+;;形而上者谓之道 形而下者谓之器
+;;                      -- 《易经·系辞》
+"))
+
 (use-package doom-modeline
   :ensure t
   :init

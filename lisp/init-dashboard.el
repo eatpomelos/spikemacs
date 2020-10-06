@@ -35,7 +35,7 @@
 ;;     /____\:\ \ \  /__\::\__/\\: \ )  \ \\:\____/\. \  \  \ \:.\ \  \ \:\_\ \ \/____\:\ 
 ;;     \_____\/\_\/  \________\/ \__\/\__\/ \_____\/\__\/ \__\/\__\/\__\/\_____\/\_____\/ 
 
-;; 可能还要对快捷键进行一个适配
+;; 实际上这里设置的变量是无效的，因为dashboard插件中是定义的一个静态变量，因此无法改变
 
 (defvar +spike-dashboard-name "*spikemacs*")
 
@@ -57,7 +57,7 @@
   ;; 实际上这个变量定义的是一个固定的值，所以这个改动是没用的
   ;;(setq dashboard-buffer-name +spike-dashboard-name)
   (setq dashboard-set-init-info t)
-  (setq dashboard-init-info +spike-dashboard-info)
+  ;; (setq dashboard-init-info +spike-dashboard-info)
   (setq dashboard-banner-logo-title "Welcome to spikemacs")
   
   ;; Content is not centered by default. To center, set
@@ -66,26 +66,27 @@
   ;; To disable shortcut "jump" indicators for each section, set
   (setq dashboard-show-shortcuts t)
 
+  (setq dashboard-startup-banner 'logo)
   ;; 开启图标,但是图标的大小实在诡异，这里先注释掉
   ;; (setq dashboard-set-heading-icons t)
   ;; (setq dashboard-set-file-icons t)
 
-;;  (setq dashboard-set-navigator t)
-;; Format: "(icon title help action face prefix suffix)"
-;; (setq dashboard-navigator-buttons
-;;       `(;; line1
-;;         ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
-;;          "Homepage"
-;;          "Browse homepage"
-;;          (lambda (&rest _) (browse-url "homepage")))
-;;         ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
-;;         ("?" "" "?/h" #'show-help nil "<" ">"))
-;;          ;; line 2
-;;         ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
-;;           "Linkedin"
-;;           ""
-;;           (lambda (&rest _) (browse-url "homepage")))
-;;          ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
+  ;;  (setq dashboard-set-navigator t)
+  ;; Format: "(icon title help action face prefix suffix)"
+  ;; (setq dashboard-navigator-buttons
+  ;;       `(;; line1
+  ;;         ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+  ;;          "Homepage"
+  ;;          "Browse homepage"
+  ;;          (lambda (&rest _) (browse-url "homepage")))
+  ;;         ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
+  ;;         ("?" "" "?/h" #'show-help nil "<" ">"))
+  ;;          ;; line 2
+  ;;         ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
+  ;;           "Linkedin"
+  ;;           ""
+  ;;           (lambda (&rest _) (browse-url "homepage")))
+  ;;          ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
 
   ;; 默认的注脚美观程度更好
   ;; (setq dashboard-set-footer nil)
@@ -103,6 +104,6 @@
   :config
   (add-to-list 'dashboard-items '(agenda) t)
   (dashboard-setup-startup-hook)
-)
+  )
 
 (provide 'init-dashboard)

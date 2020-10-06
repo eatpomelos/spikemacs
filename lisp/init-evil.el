@@ -19,19 +19,20 @@
       "fr" 'counsel-recentf
       "bd" 'kill-this-buffer
       "bb" 'counsel-switch-buffer
+      "bs" 'spikemacs-switch-to-scratch
       "TAB" 'evil-switch-to-windows-last-buffer
       "hk" 'describe-key
       "hv" 'describe-variable
       "hf" 'describe-function
       "hb" 'describe-bindings
+      "ff" 'counsel-find-file
       )
     )
 
   (use-package evil-surround
     :defer 3
     :init
-    (global-evil-surround-mode 1)
-    )
+    (global-evil-surround-mode 1))
 
   ;; 设置更方便的注释方式，这里可以将自己以前的配置添加进来
   (use-package evil-nerd-commenter
@@ -49,8 +50,6 @@
       ;; "."  'evilnc-copy-and-comment-operator
       ;; "\\" 'evilnc-comment-operator	; if you prefer backslash key
       )
-    (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
-    )
-  )
+    (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)))
 
 (provide 'init-evil)
