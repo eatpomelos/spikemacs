@@ -18,4 +18,17 @@
   :config
   (add-hook 'emacs-lisp-mode-hook 'lispy-mode))
 
+
+;; 定义自己的group来管理自己的一些自定义的东西：
+;; 主题，face，后续使用的一些包的默认配置都加在这个froup中
+
+;; (defvar spk-packages
+;;   '(spk-dashboard)
+;;   "The packages of private config.")
+
+;; ;; 递归把所有包都放到load-path中去，需要解决的问题是类型的转换
+;; (dolist (pkg spk-packages)
+;;   (when (file-exists-p (concat spikemacs-local-packges-dir (make-string (nth 0 spk-packages)))))
+;;   (add-to-list 'load-path))
+
 (provide 'init-packages)

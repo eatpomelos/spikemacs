@@ -2,12 +2,13 @@
 ;; 关闭提示音和自动备份
 (setq ring-bell-function 'ignore)
 (setq make-backup-files nil)
+(setq w32-use-full-screen-buffer t)
 
-;; 设置一些在后面使用到的路径
-;; 设置用来防止保存的或者下载的路径，这个路径在后面要写入.gitignore规则
-
-(setq url-configuration-directory (concat spikemacs-local-dir "url/"))
-(setq url-cache-directory (concat spikemacs-local-dir "url/cache/"))
+;; 设置一些文件夹的位置
+(setq-default browse-url-temp-dir (concat spikemacs-local-dir "url/"))
+(setq-default temporary-file-directory (concat spikemacs-local-dir "url/"))
+(setq-default url-configuration-directory (concat spikemacs-local-dir "url/"))
+(setq-default url-cache-directory (concat spikemacs-local-dir "url/cache/"))
 
 ;; 下面更改了路径之后读取不到package，暂时不知道是什么原因，先将原来的目录改回来，之后找到原因再做调整。
 (setq package-user-dir (concat spikemacs-local-dir "elpa"))
@@ -33,6 +34,13 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
+
+;; 选中文字后可以直接替换，使用了evil的时候这个配置没用
+;; (delete-selection-mode t)
+
+;; 避免在切换不同文件按之后生成很多的buffer
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
 ;; 高亮更改文本,但是这个配置不好用的地方在于你保存了之后，不会自动取消你之前改变的文本
 (global-highlight-changes-mode 1)

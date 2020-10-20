@@ -35,6 +35,8 @@
 ;;     /____\:\ \ \  /__\::\__/\\: \ )  \ \\:\____/\. \  \  \ \:.\ \  \ \:\_\ \ \/____\:\ 
 ;;     \_____\/\_\/  \________\/ \__\/\__\/ \_____\/\__\/ \__\/\__\/\__\/\_____\/\_____\/ 
 
+;; 设置方法：将以上图标保存为n.txt 放到dashboard目录下的banners目录下
+
 ;; 实际上这里设置的变量是无效的，因为dashboard插件中是定义的一个静态变量，因此无法改变
 
 (defvar +spike-dashboard-name "*spikemacs*")
@@ -62,11 +64,11 @@
   
   ;; Content is not centered by default. To center, set
   (setq dashboard-center-content t)
-
   ;; To disable shortcut "jump" indicators for each section, set
   (setq dashboard-show-shortcuts t)
 
-  (setq dashboard-startup-banner 'logo)
+  ;; 设置banner为自己的spikemacs图标
+  (setq dashboard-startup-banner 4)
   ;; 开启图标,但是图标的大小实在诡异，这里先注释掉
   ;; (setq dashboard-set-heading-icons t)
   ;; (setq dashboard-set-file-icons t)

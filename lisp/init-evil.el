@@ -26,6 +26,7 @@
       "hf" 'describe-function
       "hb" 'describe-bindings
       "ff" 'counsel-find-file
+      "sp" 'counsel-rg
       )
     )
 
@@ -50,6 +51,22 @@
       ;; "."  'evilnc-copy-and-comment-operator
       ;; "\\" 'evilnc-comment-operator	; if you prefer backslash key
       )
-    (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)))
+    (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines))
+
+  ;; 使用evil-smartparents来进行智能匹配，首先简单设置一下快捷键，但是开启全局smartparents的时候会有一个问题，就是在elisp中单引号的问题
+  (use-package evil-smartparens
+    :defer 2
+    :init
+    (require 'smartparens)
+    (smartparens-global-mode t)
+    (evil-smartparens-mode t)
+    :config
+    ;; 设置当写elisp的时候单引号不补全成两个
+    (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+    (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
+
+    (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+    )
+  )
 
 (provide 'init-evil)

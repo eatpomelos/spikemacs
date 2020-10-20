@@ -6,9 +6,7 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
-
 (require 'init-evil)
-(require 'init-tools)
 ;; 配置ivy相关的一些快捷键等，这里考虑要不要继续使用use-package来进行管理。
 (use-package ivy
   :ensure t
@@ -23,6 +21,12 @@
   (counsel-mode 1)
   )
 ;; 安装完成ｉｖｙ去阅读文档，讲其中的一些东西进行配置，了解自己使用的插件
+
+;; 当M-x的时候显示文档
+(use-package ivy-rich
+  :ensure t
+  :config
+  (ivy-rich-mode t))
 
 (use-package which-key
   :ensure t
@@ -41,5 +45,9 @@
   (setq company-idle-delay 0.1)
   (setq company-minimum-prefix-length 1)
   )
+
+;; 在core中加载其余的模块，在init中只要加载部分
+(require 'init-org)
+(require 'init-tools)
 
 (provide 'init-core)
