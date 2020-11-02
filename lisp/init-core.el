@@ -6,6 +6,18 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
+;; 定义group来管理自己的一些配置
+(defgroup spikemacs nil
+  "Spikemacs configuration."
+  :prefix "spk-"
+  :group 'convenience)
+
+(defcustom spk-theme 'dracula
+  "The default color theme, change this in your /personal/preload config."
+  :type 'symbol
+  :group 'spikemacs)
+
+
 (require 'init-evil)
 ;; 配置ivy相关的一些快捷键等，这里考虑要不要继续使用use-package来进行管理。
 (use-package ivy
@@ -44,6 +56,18 @@
   :config
   (setq company-idle-delay 0.1)
   (setq company-minimum-prefix-length 1)
+  )
+
+;; 安装magit用来提交git
+(use-package magit
+  :ensure t
+  ;; 下面init关键字需要一个列表 
+  :init
+  (defadvice magit-status (after spk-magit-hack activate)
+    (evil-insert-state))
+  :config
+  (evil-leader/set-key
+    "gs" 'magit-status)
   )
 
 ;; 在core中加载其余的模块，在init中只要加载部分

@@ -1,11 +1,20 @@
 ;; 这个文件用来配置和界面相关的一些东西,主要是主题这些东西，还有配置modeline等一些东西
 (setq-default cursor-type 'bar)
 
-;; 配置主题为吸血鬼主题
-(require 'dracula-theme)
-(load-theme 'dracula)
+;; 把自己定义的主题添加进来
+(add-to-list 'load-path
+	     (concat spk-local-packges-dir "spk-mint-theme"))
 
+(require 'spk-mint-theme)
+
+;; 配置主题为吸血鬼主题
+;; (require 'dracula-theme)
+(load-theme spk-theme)
+
+;; 设置默认语言环境
 (set-language-environment 'utf-8)
+(prefer-coding-system 'utf-8)
+(setq default-file-name-coding-system 'utf-8)
 
 ;; 定义插入在scratch中的message上
 (defconst spk-scratch-messages
@@ -52,22 +61,21 @@
   (winum-mode 1)
   :config
   (evil-leader/set-key
-   "0" 'winum-select-window-0-or-10
-   "1" 'winum-select-window-1
-   "2" 'winum-select-window-2
-   "3" 'winum-select-window-3
-   "4" 'winum-select-window-4
-   "5" 'winum-select-window-5
-   "6" 'winum-select-window-6
-   "w/" 'split-window-right
-   "w-" 'split-window-below
-   )
+    "0" 'winum-select-window-0-or-10
+    "1" 'winum-select-window-1
+    "2" 'winum-select-window-2
+    "3" 'winum-select-window-3
+    "4" 'winum-select-window-4
+    "5" 'winum-select-window-5
+    "6" 'winum-select-window-6
+    "w/" 'split-window-right
+    "wm" 'delete-other-windows
+    "w-" 'split-window-below
+    "wL" 'evil-window-move-far-right
+    "wH" 'evil-window-move-far-left
+    "wJ" 'evil-window-move-very-bottom
+    "wK" 'evil-window-move-very-top
+    )
   )
-
-;; 把自己定义的主题添加进来
-(add-to-list 'load-path
-	     (concat spikemacs-local-packges-dir "spk-mint-theme"))
-
-(require 'spk-mint-theme)
 
 (provide 'init-ui)

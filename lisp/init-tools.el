@@ -31,24 +31,13 @@
     )
   )
 
-
 ;; 用来存放自己的一些临时的测试函数
-(defun spk-func1 ()
-  (interactive)
-  (load-theme 'dracula))
-
-(defun spk-func2 ()
-  (interactive)
-  (load-theme 'spk-mint))
-
-(global-set-key (kbd "<f3>") 'spk-func1)
-(global-set-key (kbd "<f5>") 'spk-func2)
 
 ;; 在自己的配置文件路径中查找文件
 (defun spk-find-local-conf ()
   "Find local config in the local path."
   (interactive)
-  (counsel-find-file (concat spikemacs-dir "lisp/")))
+  (counsel-find-file (concat spk-dir "lisp/")))
 
 ;; 打开电脑上的其他emacs配置
 (defun spk-find-emacs-confs ()
@@ -60,12 +49,40 @@
 		(IS-LINUX "~/emacs-config")))
     (counsel-find-file emacs-conf-dir)))
 
-;; 使用懒猫大佬的snails 暂时体会不到使用的提升，暂时不添加进来
-;; (add-to-list 'load-path "~/.emacs.d/.local/packages/snails/")
-;; (require 'snails)
+;; 打开自己的readme，时刻提醒自己关注自己需要关注的东西
+(defun spk-open-readme ()
+  "Open my plan file."
+  (interactive)
+  (let* ((readme-path nil))
+    (setq readme-path (concat spk-org-directory "spk-readme.org"))
+    (counsel-find-file readme-path)
+    ))
 
-;; ;; 当调用snails的时候，自动进入evil-insert-state
-;; (defadvice snails (after spk-snails-hack activate)
-;;   (evil-insert-state))
+;; 定义插入的latex模板
+(defun spk-insert-latex-templet ()
+  "Insert a latex templet."
+  (interactive)
+  (let* ((latex-templet nil))
+    (setq latex-templet
+	  "# -*- coding: utf-8 -*-
+#+LATEX_COMPILER:xelatex
+#+LATEX_CLASS:org-article
+#+OPTIONS: toc:t\n")
+    (insert latex-templet)
+    ))
+
+;; 切换黑白主题
+;;;###autoload
+(defun spk-theme-toggle ()
+  "Toggle theme in spk-mint-theme and dracula."
+  (interactive)
+  (let* ((next-theme nil))
+    (setq next-theme (cond ((eq spk-theme 'spk-mint) 'dracula)
+			   ((eq spk-theme 'dracula) 'spk-mint)
+			   (t 'spk-mint)))
+    (setq spk-theme next-theme)
+    (load-theme spk-theme)
+    ))
+(global-set-key (kbd "<f3>") 'spk-theme-toggle)
 
 (provide 'init-tools)

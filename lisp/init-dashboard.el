@@ -60,7 +60,7 @@
   ;;(setq dashboard-buffer-name +spike-dashboard-name)
   (setq dashboard-set-init-info t)
   ;; (setq dashboard-init-info +spike-dashboard-info)
-  (setq dashboard-banner-logo-title "Welcome to spikemacs")
+  (setq dashboard-banner-logo-title "Welcome to spikemacs.And do not forget to check your readme file!")
   
   ;; Content is not centered by default. To center, set
   (setq dashboard-center-content t)

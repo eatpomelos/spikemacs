@@ -5,13 +5,13 @@
 (setq w32-use-full-screen-buffer t)
 
 ;; 设置一些文件夹的位置
-(setq-default browse-url-temp-dir (concat spikemacs-local-dir "url/"))
-(setq-default temporary-file-directory (concat spikemacs-local-dir "url/"))
-(setq-default url-configuration-directory (concat spikemacs-local-dir "url/"))
-(setq-default url-cache-directory (concat spikemacs-local-dir "url/cache/"))
+(setq-default browse-url-temp-dir (concat spk-local-dir "url/"))
+(setq-default temporary-file-directory (concat spk-local-dir "url/"))
+(setq-default url-configuration-directory (concat spk-local-dir "url/"))
+(setq-default url-cache-directory (concat spk-local-dir "url/cache/"))
 
 ;; 下面更改了路径之后读取不到package，暂时不知道是什么原因，先将原来的目录改回来，之后找到原因再做调整。
-(setq package-user-dir (concat spikemacs-local-dir "elpa"))
+(setq package-user-dir (concat spk-local-dir "elpa"))
       
 (setq default-directory "~")
 
@@ -25,7 +25,7 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(setq custom-file (expand-file-name "custom.el" spikemacs-dir))
+(setq custom-file (expand-file-name "custom.el" spk-dir))
 (load custom-file 'no-error 'no-message)
 
 ;; (setq inhibit-splash-screen t)
@@ -57,5 +57,7 @@
 
 ;; 开启括号的补全
 (electric-pair-mode 1)
+
+;; 设置文件编码模式，有时候会显示乱码需要处理
 
 (provide 'init-default)

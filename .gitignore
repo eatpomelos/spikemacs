@@ -16,3 +16,7 @@ smex-items
 *.cache-*
 *.log
 .directory
+
+bookmarks
+server/
+transient/

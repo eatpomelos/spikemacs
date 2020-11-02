@@ -18,6 +18,12 @@
   :config
   (add-hook 'emacs-lisp-mode-hook 'lispy-mode))
 
+;; 当在编程语言的mode下开启此模式，显示前面的
+(use-package highlight-indent-guides
+  ;; :url https://github.com/DarthFennec/highlight-indent-guides
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
 
 ;; 定义自己的group来管理自己的一些自定义的东西：
 ;; 主题，face，后续使用的一些包的默认配置都加在这个froup中
@@ -28,7 +34,7 @@
 
 ;; ;; 递归把所有包都放到load-path中去，需要解决的问题是类型的转换
 ;; (dolist (pkg spk-packages)
-;;   (when (file-exists-p (concat spikemacs-local-packges-dir (make-string (nth 0 spk-packages)))))
+;;   (when (file-exists-p (concat spk-local-packges-dir (make-string (nth 0 spk-packages)))))
 ;;   (add-to-list 'load-path))
 
 (provide 'init-packages)

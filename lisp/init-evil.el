@@ -19,7 +19,7 @@
       "fr" 'counsel-recentf
       "bd" 'kill-this-buffer
       "bb" 'counsel-switch-buffer
-      "bs" 'spikemacs-switch-to-scratch
+      "bs" 'spk-switch-to-scratch
       "TAB" 'evil-switch-to-windows-last-buffer
       "hk" 'describe-key
       "hv" 'describe-variable
