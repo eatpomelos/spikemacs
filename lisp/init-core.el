@@ -73,5 +73,6 @@
 ;; 在core中加载其余的模块，在init中只要加载部分
 (require 'init-org)
 (require 'init-tools)
+(require 'init-prog)
 
 (provide 'init-core)

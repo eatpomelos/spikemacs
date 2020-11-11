@@ -9,7 +9,11 @@
 (setq-default temporary-file-directory (concat spk-local-dir "url/"))
 (setq-default url-configuration-directory (concat spk-local-dir "url/"))
 (setq-default url-cache-directory (concat spk-local-dir "url/cache/"))
+(setq-default tramp-auto-save-directory (concat spk-local-dir "auto-save/"))
+(setq-default message-auto-save-directory (concat spk-local-dir "auto-save/"))
 
+;; 设置recentf 临时文件的位置
+(setq recentf-save-file (concat spk-local-tmp-dir "recentf"))
 ;; 下面更改了路径之后读取不到package，暂时不知道是什么原因，先将原来的目录改回来，之后找到原因再做调整。
 (setq package-user-dir (concat spk-local-dir "elpa"))
       
@@ -42,18 +46,18 @@
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
-;; 高亮更改文本,但是这个配置不好用的地方在于你保存了之后，不会自动取消你之前改变的文本
-(global-highlight-changes-mode 1)
-;; 当保存了buffer之后，移除之前的高亮,另外，当移除更改的时候也需要移除高亮
-(defadvice save-buffer (after spike-remove-highlight activate)
-  (when (highlight-changes-mode)
-    (highlight-changes-remove-highlight (point-min) (point-max))))
+;; ;; 高亮更改文本,但是这个配置不好用的地方在于你保存了之后，不会自动取消你之前改变的文本
+;; (global-highlight-changes-mode 1)
+;; ;; 当保存了buffer之后，移除之前的高亮,另外，当移除更改的时候也需要移除高亮
+;; (defadvice save-buffer (after spike-remove-highlight activate)
+;;   (when (highlight-changes-mode)
+;;     (highlight-changes-remove-highlight (point-min) (point-max))))
 
-;; 当撤销到最后一步的时候也需要取消高亮
-(defadvice undo-tree-undo (after spik-remove-highlight activate)
-  (when (highlight-changes-mode)
-    (unless (buffer-modified-p)
-      (highlight-changes-remove-highlight (point-min) (point-max)))))
+;; ;; 当撤销到最后一步的时候也需要取消高亮
+;; (defadvice undo-tree-undo (after spik-remove-highlight activate)
+;;   (when (highlight-changes-mode)
+;;     (unless (buffer-modified-p)
+;;       (highlight-changes-remove-highlight (point-min) (point-max)))))
 
 ;; 开启括号的补全
 (electric-pair-mode 1)

@@ -81,6 +81,12 @@
     (org-agenda-day-view)
     (evil-insert-state)))
 
+(use-package org-pomodoro
+  :defer t
+  :init
+  (evil-set-initial-state 'org-agenda-mode 'emacs)
+  )
+
 ;; ;; 配置pandoc用于导出pdf等文件，windows上安装了latex和pandoc但是这两个软件集成windows都不正常，需要花时间去进行配置
 ;; (with-eval-after-load 'ox
 ;;   (use-package ox-pandoc

@@ -78,6 +78,49 @@
   (interactive)
   (let* ((next-theme nil))
     (setq next-theme (cond ((eq spk-theme 'spk-mint) 'dracula)
+			   ((eq spk-theme 'dracula) 'dark-mint)
+			   ((eq spk-theme 'dark-mint) 'spk-mint)
+			   (t 'dark-mint)))
+    (load-theme next-theme)
+    (setq spk-theme next-theme)
+    ))
+
+(global-set-key (kbd "<f3>") 'spk-theme-toggle)
+
+;; 快速打开自己的配置文件，当打开了buffer之后，点击打开出现问题，不知道什么原因
+(defun spk-create-quick-config-link (label link)
+  (insert label ": ")
+  (insert-button link
+		 'action (lambda (_) (find-file link))
+		 'follow-link t)
+  (insert "\n"))
+
+(defun spk-quick-config-links ()
+  "Quick open config files."
+  (interactive)
+  (let ((buf (get-buffer-create "*Config Links*"))
+	(configs '(("Emacs" . "d:/HOME/.emacs.d")
+		   ("Doom" . "d:/HOME/configs/doom.d"))))
+    (with-current-buffer buf
+      (erase-buffer)
+      (mapcar (lambda (item)
+		(spk-create-quick-config-link (car item) (cdr item)))
+	      configs))
+    (pop-to-buffer buf t)))
+
+;; #' 是一个语法糖，表示取对应符号的function，因为emacs lisp的函数和变量是分在两个命名空间的。
+(define-key global-map (kbd "<f9>") #'spk-quick-config-links)
+
+;; 设置一些命令的别名 
+(defalias 'elisp-mode 'emacs-lisp-mode)
+
+;; 切换黑白主题
+;;;###autoload
+(defun spk-theme-toggle ()
+  "Toggle theme in spk-mint-theme and dracula."
+  (interactive)
+  (let* ((next-theme nil))
+    (setq next-theme (cond ((eq spk-theme 'spk-mint) 'dracula)
 			   ((eq spk-theme 'dracula) 'spk-mint)
 			   (t 'spk-mint)))
     (setq spk-theme next-theme)

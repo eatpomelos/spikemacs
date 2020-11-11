@@ -12,9 +12,17 @@
 (defconst spk-local-dir
   (concat spk-dir ".local/"))
 
+(defconst spk-local-tmp-dir
+  (concat spk-local-dir "tmp/")
+  "Directory of temp files.")
+  
 ;; 私有包放置的位置，可能是没有加入elpa的包或者是自己为了学elisp而抄的或者写的demo
 (defconst spk-local-packges-dir
   (concat spk-local-dir "packages/"))
+
+;; 放置一些模板的地址，主要是一些函数以及机制的使用实例，后续设计具体的一些实现和模板
+(defconst spk-local-templet-dir
+  (concat spk-local-dir "templet/"))
 
 (add-to-list 'load-path (concat spk-dir "lisp"))
 
@@ -23,11 +31,13 @@
 (require 'dired)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 
+;; 考虑优化一下下面的加载顺序和依赖关系
 (require 'init-default)
 (require 'init-packages)
 (require 'init-core)
 (require 'init-binding)
 (require 'init-ui)
 
+(put 'narrow-to-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
