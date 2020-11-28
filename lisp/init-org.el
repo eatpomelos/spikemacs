@@ -75,11 +75,11 @@
 
 	))
 
-;; 在进入org-capture之后进入day-view
-(defadvice org-agenda (after spk-capture-hack activate)
-  (progn
-    (org-agenda-day-view)
-    (evil-insert-state)))
+;; ;; 在进入org-capture之后进入day-view
+;; (defadvice org-agenda (after spk-capture-hack activate)
+;;   (progn
+;;     (org-agenda-day-view)
+;;     (evil-insert-state)))
 
 (use-package org-pomodoro
   :defer t

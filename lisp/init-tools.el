@@ -31,6 +31,13 @@
     )
   )
 
+;; 用来分析emacs启动速度，从而优化启动速度 
+(use-package esup
+  :ensure t
+  :pin melpa
+  :commands (esup)
+  )
+
 ;; 用来存放自己的一些临时的测试函数
 
 ;; 在自己的配置文件路径中查找文件
@@ -127,5 +134,16 @@
     (load-theme spk-theme)
     ))
 (global-set-key (kbd "<f3>") 'spk-theme-toggle)
+
+(setq alpha-list '((100 100) (75 45)))
+(defun loop-alpha ()
+  (interactive)
+  (let ((h (car alpha-list))) ;; head value will set to
+    ((lambda (a ab)
+       (set-frame-parameter (selected-frame) 'alpha (list a ab))
+       (add-to-list 'default-frame-alist (cons 'alpha (list a ab)))
+       ) (car h) (car (cdr h)))
+    (setq alpha-list (cdr (append alpha-list (list h))))))
+(global-set-key (kbd "<f7>") 'loop-alpha)
 
 (provide 'init-tools)

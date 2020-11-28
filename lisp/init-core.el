@@ -1,11 +1,3 @@
-;; doom中定义的一些使用的值
-(defconst EMACS27+ (> emacs-major-version 26))
-(defconst EMACS28+ (> emacs-major-version 27))
-(defconst IS-MAC     (eq system-type 'darwin))
-(defconst IS-LINUX   (eq system-type 'gnu/linux))
-(defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
-(defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
-
 ;; 定义group来管理自己的一些配置
 (defgroup spikemacs nil
   "Spikemacs configuration."
@@ -67,8 +59,10 @@
     (evil-insert-state))
   :config
   (evil-leader/set-key
-    "gs" 'magit-status)
-  )
+    "gs" 'magit-status
+    "gb" 'magit-blame-addition
+    "gq" 'magit-blame-quit
+    ))
 
 ;; 在core中加载其余的模块，在init中只要加载部分
 (require 'init-org)

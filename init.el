@@ -1,4 +1,12 @@
-;; 现在还没有写出一个很好的配置的能力，请不要多想，首先自己把自己的一些刚需先实现，然后再去考虑多余的东西
+;; 加快启动速度
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6)
+
+(add-hook 'emacs-startup-hook
+  (lambda ()
+    (setq gc-cons-threshold 16777216 ; 16mb
+          gc-cons-percentage 0.1)))
+
 (defun spk-switch-to-scratch ()
   (interactive)
   (save-excursion
@@ -32,6 +40,7 @@
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 
 ;; 考虑优化一下下面的加载顺序和依赖关系
+(require 'spk-lib)
 (require 'init-default)
 (require 'init-packages)
 (require 'init-core)
@@ -39,5 +48,5 @@
 (require 'init-ui)
 
 (put 'narrow-to-region 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)

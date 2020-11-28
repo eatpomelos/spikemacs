@@ -11,4 +11,8 @@
 
 (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
 
+;; 定义编程快捷键
+
+;; (define-key c-mode-map (kbd "DEL") #'c-hungry-delete)
+
 (provide 'init-prog)
