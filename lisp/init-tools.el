@@ -38,6 +38,13 @@
   :commands (esup)
   )
 
+;; 快速选中的一些接口
+(use-package expand-region
+  :defer t
+  :init
+  (define-key evil-insert-state-map (kbd "C-\-") 'er/contract-region)
+  (define-key evil-insert-state-map (kbd "C-=") 'er/expand-region)
+  )
 ;; 用来存放自己的一些临时的测试函数
 
 ;; 在自己的配置文件路径中查找文件

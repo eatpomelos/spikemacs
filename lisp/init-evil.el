@@ -16,6 +16,7 @@
     :config
     (evil-leader/set-key
       "fj" 'dired-jump
+      "fy" 'spk/yank-buffer-filename
       "fr" 'counsel-recentf
       "bd" 'kill-this-buffer
       "bb" 'counsel-switch-buffer

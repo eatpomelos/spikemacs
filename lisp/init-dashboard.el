@@ -51,6 +51,11 @@
 ;;(add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom)) 
 ;;(add-to-list 'dashboard-items '(custom) t)
 
+
+(add-to-list 'load-path (concat spk-local-packges-dir "spk-dashboard"))
+;; (require 'spk-dashboard)
+;; (spk-dashboard-setup-startup-hook)
+
 (use-package dashboard
   :ensure t
 
@@ -73,17 +78,17 @@
   ;; (setq dashboard-set-heading-icons t)
   ;; (setq dashboard-set-file-icons t)
 
-  ;;  (setq dashboard-set-navigator t)
+  (setq dashboard-set-navigator t)
   ;; Format: "(icon title help action face prefix suffix)"
   ;; (setq dashboard-navigator-buttons
   ;;       `(;; line1
   ;;         ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
-  ;;          "Homepage"
-  ;;          "Browse homepage"
-  ;;          (lambda (&rest _) (browse-url "homepage")))
-  ;;         ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
-  ;;         ("?" "" "?/h" #'show-help nil "<" ">"))
-  ;;          ;; line 2
+  ;;           "Homepage"
+  ;;           "Browse homepage"
+  ;;           (lambda (&rest _) (browse-url "homepage")))
+  ;;          ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
+  ;;          ("?" "" "?/h" #'show-help nil "<" ">"))
+  ;;         ;; line 2
   ;;         ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
   ;;           "Linkedin"
   ;;           ""
@@ -91,13 +96,13 @@
   ;;          ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
 
   ;; 默认的注脚美观程度更好
-  ;; (setq dashboard-set-footer nil)
+  (setq dashboard-set-footer nil)
   (setq dashboard-set-footer t)
-  ;; (setq dashboard-footer-messages '("Dashboard is pretty cool!"))
-  ;; (setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
-  ;;                                                    :height 1.1
-  ;;                                                    :v-adjust -0.05
-  ;;                                                    :face 'font-lock-keyword-face))
+  (setq dashboard-footer-messages '("Dashboard is pretty cool!"))
+  (setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
+                                                     :height 1.1
+                                                     :v-adjust -0.05
+                                                     :face 'font-lock-keyword-face))
 
   ;; 与org agenda相关的设置
   (setq show-week-agenda-p t)

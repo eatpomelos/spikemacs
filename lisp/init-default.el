@@ -12,11 +12,27 @@
 (setq-default tramp-auto-save-directory (concat spk-local-dir "auto-save/"))
 (setq-default message-auto-save-directory (concat spk-local-dir "auto-save/"))
 
+;; 设置transient一些文件的保存位置
+(setq-default transient-history-file (concat spk-local-tmp-dir "transient/history.el"))
+(setq-default transient-levels-file (concat spk-local-tmp-dir "transient/levels.el"))
+(setq-default transient-values-file (concat spk-local-tmp-dir "transient/values.el"))
+
+(setq-default bookmark-file (concat spk-local-tmp-dir "bookmarks"))
+;; 设置server认证的目录位置
+(setq-default server-auth-dir (concat spk-local-dir "server/"))
+
+;; 设置自动保存的前缀，避免保存在emacs的主目录导致主目录文件夹过多
+(setq auto-save-list-file-prefix (concat spk-local-tmp-dir "auto-save-list/.saves-"))
+
 ;; 设置recentf 临时文件的位置
 (setq recentf-save-file (concat spk-local-tmp-dir "recentf"))
+
+;; 设置eshell的路径
+(setq-default eshell-directory-name (concat spk-local-tmp-dir "eshell/"))
+
 ;; 下面更改了路径之后读取不到package，暂时不知道是什么原因，先将原来的目录改回来，之后找到原因再做调整。
 (setq package-user-dir (concat spk-local-dir "elpa"))
-      
+
 (setq default-directory "~")
 
 ;; 下面的配置是设置是否开启缩写模式，在配置完成了之后配合tiny在一些场景下有用
