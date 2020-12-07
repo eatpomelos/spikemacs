@@ -47,6 +47,7 @@
 
 (use-package doom-modeline
   :ensure t
+  :defer t
   :init
   (doom-modeline-mode 1)
   )
@@ -77,5 +78,16 @@
     "wK" 'evil-window-move-very-top
     )
   )
+
+;; ;; 一个不错的modeline美化包
+;; (use-package mini-modeline
+;;   :defer nil
+;;   :config
+;;   (mini-modeline-mode t)
+;;   ;; 配置modeline下面显示的东西,暂时设置一个固定的值，让下面的信息放在中间
+;;   (setq mini-modeline-right-padding 25)
+;;   ;; mini-modeline-l-format
+;;   ;; mini-modeline-r-format
+;;   )
 
 (provide 'init-ui)
