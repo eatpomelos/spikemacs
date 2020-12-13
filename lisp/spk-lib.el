@@ -15,6 +15,41 @@
       (message (kill-new (abbreviate-file-name filename)))
     (error "Couldn't find filename in current buffer.")))
 
-;; (defun spk/org_get_one_item ())
+;; 把列表中的某一项删除，主要完成把前面和后面进行一个拼接
+;;;###autoload
+(defun spk/delete-list-element (n list)
+  "Delete a element"
+  (let* (;; 获取后面的部分
+	 (nlist (nthcdr n list))
+	 (head_len n))
+    (catch 'ret
+      (when (or (> n (length list)) (not (listp list)))
+	(print (format "error length %d" 6))
+	(throw 'ret list))
+      (pop nlist)
+      (while (>= (1- head_len) 0)
+	(push (nth (1- head_len) list) nlist)
+	(setq head_len (1- head_len))))
+    nlist)
+  )
+
+;;;###autoload
+(defun spk--point-in-overlay-p (overlay)
+  "Retuen t is point in overlay."
+  (let* ((pos 0))
+    (catch 'tag 
+      (while (nth pos overlay)
+	(when (and (<= (point) (overlay-end (nth pos overlay)))
+		   (>= (point) (overlay-start (nth pos overlay))))
+	  (throw 'tag pos))
+	(setq pos (1+ pos))
+	))
+    ))
+
+;;;###autoload
+(defun spk/highlight-clear (ovs)
+  "Cleatr highlight line."
+  (mapcar #'delete-overlay ovs)
+  nil)
 
 (provide 'spk-lib)

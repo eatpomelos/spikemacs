@@ -36,8 +36,6 @@
 
 (setq org-directory "~/org")
 
-(message "hello world test ssh")
-
 (require 'dired)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 

@@ -11,7 +11,14 @@
 
 (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
 
-;; 定义编程快捷键
+;; (use-package yasnippet
+;;   :defer t
+;;   :init
+;;   (setq yas-snippet-dirs (concat spk-dir "snippets/"))
+;;   (setq yas--loaddir (concat spk-dir "snippets"))
+;;   (add-hook 'prog-mode-hook #'yas-minor-mode)
+;;   )
+;; ;; 定义编程快捷键
 
 ;; (define-key c-mode-map (kbd "DEL") #'c-hungry-delete)
 

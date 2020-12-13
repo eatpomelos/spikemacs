@@ -153,4 +153,25 @@
     (setq alpha-list (cdr (append alpha-list (list h))))))
 (global-set-key (kbd "<f7>") 'loop-alpha)
 
+;; 有一个问题是：这种工具函数是否需要将快捷键放在快捷键的文件中？
+(setq spk-ovs nil)
+
+;;;###autoload
+(defun spk/highlight_or_unhighlight_line_at_point ()
+  "Highlight current line."
+  (interactive)
+  (require 'smartparens)
+  (cond ((spk--point-in-overlay-p spk-ovs)
+	 (let* ((pos (spk--point-in-overlay-p spk-ovs)))
+	   (delete-overlay (nth pos spk-ovs))
+	   (setq spk-ovs (spk/delete-list-element pos spk-ovs))))
+	(t (let* ((ov (make-overlay
+		       (line-beginning-position) (line-end-position))))
+	     (setq spk-ovs (push ov spk-ovs))
+	     (overlay-put ov 'face 'region)))
+	)
+  )
+
+(global-set-key (kbd "<f9>") 'spk/highlight_or_unhighlight_line_at_point)
+
 (provide 'init-tools)

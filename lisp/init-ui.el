@@ -80,6 +80,7 @@
   )
 
 ;; ;; 一个不错的modeline美化包
+;; 不使用的原因在于很多插件并没有相应的支持，美化并不完整
 ;; (use-package mini-modeline
 ;;   :defer nil
 ;;   :config
