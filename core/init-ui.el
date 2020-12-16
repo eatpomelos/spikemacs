@@ -11,11 +11,6 @@
 ;; (require 'dracula-theme)
 (load-theme spk-theme)
 
-;; 设置默认语言环境
-(set-language-environment 'utf-8)
-(prefer-coding-system 'utf-8)
-(setq default-file-name-coding-system 'utf-8)
-
 ;; 定义插入在scratch中的message上
 (defconst spk-scratch-messages
   '(
@@ -72,6 +67,7 @@
     "w/" 'split-window-right
     "wm" 'delete-other-windows
     "w-" 'split-window-below
+    "w=" 'balance-windows
     "wL" 'evil-window-move-far-right
     "wH" 'evil-window-move-far-left
     "wJ" 'evil-window-move-very-bottom
@@ -90,5 +86,12 @@
 ;;   ;; mini-modeline-l-format
 ;;   ;; mini-modeline-r-format
 ;;   )
+
+;; 用颜色来标识括号
+(use-package rainbow-delimiters
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'org-mode-hook #'rainbow-delimiters-mode)
+  )
 
 (provide 'init-ui)

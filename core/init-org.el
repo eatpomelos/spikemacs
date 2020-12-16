@@ -34,6 +34,7 @@
       spk-notes-tools-file (expand-file-name "tools.org" spk-local-notes-dir)
       spk-notes-language-file (expand-file-name "languages.org" spk-local-notes-dir)
       spk-notes-reading-file (expand-file-name "reading.org" spk-local-notes-dir)
+      spk-notes-tips-file (expand-file-name "tips.org" spk-local-notes-dir)
       )
 
 ;; 在ｄｏｏｍ原来的设置中有一个比较好的做法是，在项目的文件中会直接生成一个ｔｏｄｏ文件而不是直接和其他的放在一起
@@ -51,6 +52,8 @@
         ("l" "links" entry (file+headline spk-capture-notes-file "Quick notes")
          "* TODO [#C] %?\n %i\n %a \n %U"
          :empty-lines 1)
+	("s" "suggestions" entry (file+headline spk-notes-tips-file "Tips")
+         "* %?\n %i\n \n %U")
         ("j" "Journal Entry"
          entry (file+olp+datetree spk-capture-journal-file)
          "* %U %? \n%i\n%a"
@@ -68,12 +71,10 @@
          :empty-lines 1)
         ("nt" "Tools notes" entry (file+headline spk-notes-tools-file "Tools notes")
          "* %?\n %i\n %U"
-         :empty-lines 1)
+         :empty-lines
         ("nl" "Language notes" entry (file+headline spk-notes-language-file "Languages notes")
          "* %?\n %i\n %U"
-         :empty-lines 1)
-
-	))
+         :empty-lines 1))))
 
 ;; ;; 在进入org-capture之后进入day-view
 ;; (defadvice org-agenda (after spk-capture-hack activate)
@@ -274,4 +275,27 @@
                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
+;; 配置org-roam来管理自己的知识体系，让自己学到的东西能够结合起来
+(use-package org-roam
+  :defer 3
+  :init
+  (setq org-roam-directory (concat spk-local-notes-dir "roam/"))
+  :config
+  (add-hook 'after-init-hook 'org-roam-mode))
+
+(use-package org-roam-server
+  :defer 3
+  :init
+  (setq org-roam-server-host "127.0.0.1"
+	org-roam-server-port 9090
+	org-roam-server-export-inline-images t
+	org-roam-server-authenticate nil
+	org-roam-server-network-label-truncate t
+	org-roam-server-network-label-truncate-length 60
+	org-roam-server-network-label-wrap-length 20)
+  ;; 默认不启动org-roam-server-mode 在没有编辑org file的时候不需要后台开进程
+  ;; :config
+  ;; (org-roam-server-mode)
+  )
+  
 (provide 'init-org)

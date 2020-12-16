@@ -8,7 +8,7 @@
  '(doom-modeline-mode t)
  '(mini-modeline-mode t)
  '(package-selected-packages
-   '(expand-region esup highlight-indent-guides magit youdao-dictionary ivy-rich evil-smartparens almost-mono-themes soft-morning-theme modus-operandi-theme white-theme highlight-symbol highlight-indentation elisp-demos tiny evil-nerd-commenter lispy restart-emacs dashboard winum doom-modeline evil-surround company dracula-theme which-key evil-leader evil-ledger evil counsel swiper use-package 2048-game))
+   '(edit-server org-roam-server org-roam rainbow-delimiters expand-region esup highlight-indent-guides magit youdao-dictionary ivy-rich evil-smartparens almost-mono-themes soft-morning-theme modus-operandi-theme white-theme highlight-symbol highlight-indentation elisp-demos tiny evil-nerd-commenter lispy restart-emacs dashboard winum doom-modeline evil-surround company dracula-theme which-key evil-leader evil-ledger evil counsel swiper use-package 2048-game))
  '(recentf-max-saved-items 50)
  '(spk-theme 'dracula)
  '(tool-bar-mode nil)
@@ -18,4 +18,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Source Code Pro" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
+ '(default ((t (:family "Source Code Pro" :foundry "outline" :slant normal :weight normal :height 120 :width normal))))
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "LightYellow2")))))

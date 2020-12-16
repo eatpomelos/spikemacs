@@ -1,57 +1,9 @@
-;; 配置自己使用的一些小工具，和之前的misc文件类似，这里主要配置一些比较使用的小插件类似tiny这种
-(use-package tiny
-  :ensure nil
-  ;; :defer 2
-  :config
-  (bind-key* "M-." 'tiny-expand))
-
-;; 安装lisp demos当需要使用一些内置函数时，用作参考
-(use-package elisp-demos
-  :defer 2
-  :init
-  (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
-
-;; 设置延时启动，当调用相关函数的时候就会启动了，没有必要在加载的时候启动
-(use-package highlight-symbol
-  :defer t
-  :init
-  ;; 设置高亮symbol的快捷键，这里设置为source insight的f8
-  (global-set-key (kbd "<f8>") 'highlight-symbol)
-  (global-set-key (kbd "S-<f8>") 'highlight-symbol-prev)
-  (global-set-key (kbd "S-<f9>") 'highlight-symbol-next)
-  (global-set-key (kbd "<f7>") 'highlight-symbol-query-replace)
-  )
-
-;; 设置有道词典进行翻译
-(use-package youdao-dictionary
-  :defer t
-  :init
-  (evil-leader/set-key
-    "yo" 'youdao-dictionary-search-at-point+ 
-    )
-  )
-
-;; 用来分析emacs启动速度，从而优化启动速度 
-(use-package esup
-  :ensure t
-  :pin melpa
-  :commands (esup)
-  )
-
-;; 快速选中的一些接口
-(use-package expand-region
-  :defer t
-  :init
-  (define-key evil-insert-state-map (kbd "C-\-") 'er/contract-region)
-  (define-key evil-insert-state-map (kbd "C-=") 'er/expand-region)
-  )
-;; 用来存放自己的一些临时的测试函数
-
+;; 用来存放一些自定义的比较有用的函数，但是没必要作为库函数使用的函数
 ;; 在自己的配置文件路径中查找文件
 (defun spk-find-local-conf ()
   "Find local config in the local path."
   (interactive)
-  (counsel-find-file (concat spk-dir "lisp/")))
+  (counsel-find-file spk-core-dir))
 
 ;; 打开电脑上的其他emacs配置
 (defun spk-find-emacs-confs ()
@@ -142,6 +94,7 @@
     ))
 (global-set-key (kbd "<f3>") 'spk-theme-toggle)
 
+;; 设置emacs的透明度
 (setq alpha-list '((100 100) (75 45)))
 (defun loop-alpha ()
   (interactive)
@@ -174,4 +127,7 @@
 
 (global-set-key (kbd "<f9>") 'spk/highlight_or_unhighlight_line_at_point)
 
-(provide 'init-tools)
+;; 把自己测试内核机制编写的文件拷贝到模板目录下面，并自动创建文件夹保存
+
+
+(provide 'spk-widgets)

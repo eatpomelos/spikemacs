@@ -35,6 +35,12 @@
 
 (setq default-directory "~")
 
+;; 设置默认语言环境
+(set-language-environment 'utf-8)
+(prefer-coding-system 'utf-8)
+(setq default-file-name-coding-system 'utf-8)
+
+
 ;; 下面的配置是设置是否开启缩写模式，在配置完成了之后配合tiny在一些场景下有用
 ;; (abbrev-mode t) 
 
@@ -78,6 +84,31 @@
 ;; 开启括号的补全
 (electric-pair-mode 1)
 
-;; 设置文件编码模式，有时候会显示乱码需要处理
+;; recentf不保存以下后缀的文件
+
+(setq recentf-exclude
+      '("COMMIT_MSG"
+        "COMMIT_EDITMSG"
+        "github.*txt$"
+        ;; "/tmp/"
+        "/ssh:"
+        "/sudo:"
+        "/TAGS$"
+        "/GTAGS$"
+        "/GRAGS$"
+        "/GPATH$"
+        "\\.mkv$"
+        "\\.mp[34]$"
+        "\\.avi$"
+        "\\.pdf$"
+        "\\.sub$"
+        "\\.srt$"
+        "\\.ass$"
+        ".*png$"
+        ".*bmp$"
+        ".*db$"
+        "init\\.el$"
+        "/roam/"
+        "/.emacs.d/"))
 
 (provide 'init-default)

@@ -24,7 +24,7 @@
 	 (head_len n))
     (catch 'ret
       (when (or (> n (length list)) (not (listp list)))
-	(print (format "error length %d" 6))
+	(print (format "error length %d" n))
 	(throw 'ret list))
       (pop nlist)
       (while (>= (1- head_len) 0)

@@ -32,7 +32,17 @@
 (defconst spk-local-templet-dir
   (concat spk-local-dir "templet/"))
 
-(add-to-list 'load-path (concat spk-dir "lisp"))
+;; 把配置分为两部分，一部分是核心配置，一部分是模块配置，模块配置主要来配置某一个功能，这里可以参照doom，但是现在还是看不懂doom的配置，暂时先这样存放
+(defconst spk-core-dir
+  (concat spk-dir "core/"))
+
+(defconst spk-modules-dir
+  (concat spk-dir "modules"))
+
+;; 把存放elisp文件的路径存放到加载路径中
+(progn
+  (add-to-list 'load-path spk-core-dir)
+  (add-to-list 'load-path spk-modules-dir))
 
 (setq org-directory "~/org")
 
@@ -46,7 +56,5 @@
 (require 'init-core)
 (require 'init-binding)
 (require 'init-ui)
-
-(put 'narrow-to-region 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
+(require 'spk-widgets)
 (put 'dired-find-alternate-file 'disabled nil)
