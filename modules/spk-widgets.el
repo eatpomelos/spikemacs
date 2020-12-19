@@ -3,7 +3,7 @@
 (defun spk-find-local-conf ()
   "Find local config in the local path."
   (interactive)
-  (counsel-find-file spk-core-dir))
+  (counsel-find-file spk-modules-dir))
 
 ;; 打开电脑上的其他emacs配置
 (defun spk-find-emacs-confs ()
@@ -127,7 +127,12 @@
 
 (global-set-key (kbd "<f9>") 'spk/highlight_or_unhighlight_line_at_point)
 
-;; 把自己测试内核机制编写的文件拷贝到模板目录下面，并自动创建文件夹保存
-
+;;;###autoload
+(defun spk/yank-buffer-filename ()
+  "Copy the current buffer's path to the kill ring."
+  (interactive)
+  (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
+      (message (kill-new (abbreviate-file-name filename)))
+    (error "Couldn't find filename in current buffer.")))
 
 (provide 'spk-widgets)

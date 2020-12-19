@@ -7,14 +7,6 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
-;;;###autoload
-(defun spk/yank-buffer-filename ()
-  "Copy the current buffer's path to the kill ring."
-  (interactive)
-  (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
-      (message (kill-new (abbreviate-file-name filename)))
-    (error "Couldn't find filename in current buffer.")))
-
 ;; 把列表中的某一项删除，主要完成把前面和后面进行一个拼接
 ;;;###autoload
 (defun spk/delete-list-element (n list)
@@ -43,8 +35,7 @@
 		   (>= (point) (overlay-start (nth pos overlay))))
 	  (throw 'tag pos))
 	(setq pos (1+ pos))
-	))
-    ))
+	))))
 
 ;;;###autoload
 (defun spk/highlight-clear (ovs)

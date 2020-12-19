@@ -1,8 +1,21 @@
-;; 设置各种编程相关的设置
-
+;; 用来管理和编程相关的配置
 ;; C编程设置
 (setq c-default-style "linux"
       c-basic-offset 4)
+
+;; 设置lispy作为扩展emacs的编辑环境
+(use-package lispy
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook 'lispy-mode))
+
+;; 当在编程语言的mode下开启此模式，显示前面的
+(use-package highlight-indent-guides
+  ;; :url https://github.com/DarthFennec/highlight-indent-guides
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
+
 
 ;; 暂时用这种比较笨的做法
 (defun spk-disable-electric-pair-mode ()
@@ -22,4 +35,4 @@
 
 ;; (define-key c-mode-map (kbd "DEL") #'c-hungry-delete)
 
-(provide 'init-prog)
+(provide 'spk-prog)

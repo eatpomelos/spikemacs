@@ -1,4 +1,4 @@
-;; 定义group来管理自己的一些配置
+;; 用来存放本配置的一些全局设置
 (defgroup spikemacs nil
   "Spikemacs configuration."
   :prefix "spk-"
@@ -9,8 +9,7 @@
   :type 'symbol
   :group 'spikemacs)
 
-
-(require 'init-evil)
+(require 'spk-evil)
 ;; 配置ivy相关的一些快捷键等，这里考虑要不要继续使用use-package来进行管理。
 (use-package ivy
   :ensure t
@@ -36,6 +35,7 @@
   :ensure t
   :init
   (which-key-mode 1)
+  (setq which-key-popup-type 'minibuffer)
   :config
   (setq which-key-idle-delay 0)
   (setq which-key-side-window-location 'bottom)
@@ -64,9 +64,4 @@
     "gq" 'magit-blame-quit
     ))
 
-;; 在core中加载其余的模块，在init中只要加载部分
-(require 'init-org)
-(require 'init-tools)
-(require 'init-prog)
-
-(provide 'init-core)
+(provide 'spk-core)

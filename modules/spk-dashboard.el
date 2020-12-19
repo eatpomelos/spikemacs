@@ -52,7 +52,8 @@
 ;;(add-to-list 'dashboard-items '(custom) t)
 
 
-(add-to-list 'load-path (concat spk-local-packges-dir "spk-dashboard"))
+;; 自己修改过的dashboard，但是这里暂时没有用
+;; (add-to-list 'load-path (concat spk-local-packges-dir "spk-dashboard"))
 ;; (require 'spk-dashboard)
 ;; (spk-dashboard-setup-startup-hook)
 
@@ -113,4 +114,4 @@
   (dashboard-setup-startup-hook)
   )
 
-(provide 'init-dashboard)
+(provide 'spk-dashboard)

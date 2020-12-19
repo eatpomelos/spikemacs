@@ -37,7 +37,7 @@
   (concat spk-dir "core/"))
 
 (defconst spk-modules-dir
-  (concat spk-dir "modules"))
+  (concat spk-dir "modules/"))
 
 ;; 把存放elisp文件的路径存放到加载路径中
 (progn
@@ -51,10 +51,23 @@
 
 ;; 考虑优化一下下面的加载顺序和依赖关系
 (require 'spk-lib)
-(require 'init-default)
-(require 'init-packages)
-(require 'init-core)
-(require 'init-binding)
-(require 'init-ui)
-(require 'spk-widgets)
+(require 'spk-default)
+(require 'spk-packages)
+(require 'spk-core)
+(require 'spk)
+
+;; 加载顺序：
+;; lib
+;; default
+;; package
+;; core
+;; spk
+;; editor
+;; org
+;; prog
+;; ui
+;; binding
+
+;; 下面的是自动生成的，在执行某些命令的时候需要默认某一种模式
 (put 'dired-find-alternate-file 'disabled nil)
+(put 'narrow-to-region 'disabled nil)

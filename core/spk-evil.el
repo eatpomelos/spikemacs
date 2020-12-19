@@ -37,6 +37,7 @@
     (global-evil-surround-mode 1))
 
   ;; 设置更方便的注释方式，这里可以将自己以前的配置添加进来
+  ;; 但是这个插件有一个不好用的地方是，经常在elisp识别的时候出现问题，不是很准确
   (use-package evil-nerd-commenter
     :defer 2
     :config
@@ -70,4 +71,4 @@
     )
   )
 
-(provide 'init-evil)
+(provide 'spk-evil)

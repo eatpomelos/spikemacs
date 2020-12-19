@@ -1,4 +1,5 @@
-;; 配置自己使用的一些小工具，和之前的misc文件类似，这里主要配置一些比较使用的小插件类似tiny这种
+;; 用来管理和编辑相关的配置
+;; tiny定义了一种语法，可以批量生成格式化的文本，但是对于一些转义符的支持不是很友好
 (use-package tiny
   :ensure nil
   ;; :defer 2
@@ -28,7 +29,9 @@
   :init
   (evil-leader/set-key
     "yo" 'youdao-dictionary-search-at-point+ 
+    "ys" 'youdao-dictionary-search-from-input
     )
+  (add-hook 'youdao-dictionary-mode-hook #'evil-insert-state)
   )
 
 ;; 用来分析emacs启动速度，从而优化启动速度 
@@ -55,4 +58,5 @@
   :defer 5
   :config (edit-server-start))
 
-(provide 'init-tools)
+
+(provide 'spk-editor)

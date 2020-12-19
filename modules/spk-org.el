@@ -1,5 +1,4 @@
-;; 放自己的org配置
-
+;; 用来管理spikemacs 中关于org的配置
 ;; 设置.txt为后缀的文件用org-mode打开
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
@@ -71,10 +70,10 @@
          :empty-lines 1)
         ("nt" "Tools notes" entry (file+headline spk-notes-tools-file "Tools notes")
          "* %?\n %i\n %U"
-         :empty-lines
+         :empty-lines 1) 
         ("nl" "Language notes" entry (file+headline spk-notes-language-file "Languages notes")
          "* %?\n %i\n %U"
-         :empty-lines 1))))
+         :empty-lines 1)))
 
 ;; ;; 在进入org-capture之后进入day-view
 ;; (defadvice org-agenda (after spk-capture-hack activate)
@@ -280,6 +279,7 @@
   :defer 3
   :init
   (setq org-roam-directory (concat spk-local-notes-dir "roam/"))
+  (setq org-roam-db-location (concat spk-org-directory "org-roam.db"))
   :config
   (add-hook 'after-init-hook 'org-roam-mode))
 
@@ -297,5 +297,5 @@
   ;; :config
   ;; (org-roam-server-mode)
   )
-  
-(provide 'init-org)
+ 
+(provide 'spk-org)

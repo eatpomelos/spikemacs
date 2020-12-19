@@ -85,7 +85,6 @@
 (electric-pair-mode 1)
 
 ;; recentf不保存以下后缀的文件
-
 (setq recentf-exclude
       '("COMMIT_MSG"
         "COMMIT_EDITMSG"
@@ -111,4 +110,4 @@
         "/roam/"
         "/.emacs.d/"))
 
-(provide 'init-default)
+(provide 'spk-default)
