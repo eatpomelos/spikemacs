@@ -22,6 +22,8 @@
   ;;(setq search-default-mode #'char-fold-to-regexp)
   (global-set-key (kbd "C-s") 'swiper)
   (counsel-mode 1)
+  ;; 当执行一些搜索命令的时候不会自动加前缀，比如M-x "^"
+  (setq ivy-initial-inputs-alist nil)
   )
 ;; 安装完成ｉｖｙ去阅读文档，讲其中的一些东西进行配置，了解自己使用的插件
 
@@ -48,6 +50,7 @@
   :config
   (setq company-idle-delay 0.1)
   (setq company-minimum-prefix-length 1)
+  (setq company-show-numbers t)
   )
 
 ;; 安装magit用来提交git

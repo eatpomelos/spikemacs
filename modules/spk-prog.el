@@ -6,10 +6,13 @@
 ;; 设置lispy作为扩展emacs的编辑环境
 (use-package lispy
   :ensure t
+  :defer 3
   :config
-  (add-hook 'emacs-lisp-mode-hook 'lispy-mode))
+  (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
+  (define-key lispy-mode-map (kbd "M-;") 'lispy-comment)
+  )
 
-;; 当在编程语言的mode下开启此模式，显示前面的
+;; 当在编程语言的mode下开启此模式，显示前面的空格
 (use-package highlight-indent-guides
   ;; :url https://github.com/DarthFennec/highlight-indent-guides
   :defer t
@@ -25,11 +28,15 @@
 (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
 
 (use-package yasnippet
-  :defer t
+  :defer 3 
   :init
   (setq yas-snippets-dirs (concat spk-dir "snippets/"))
   (setq yas--loaddir (concat spk-dir "snippets"))
   (add-hook 'prog-mode-hook #'yas-minor-mode)
+  :config
+  (global-set-key (kbd "<f5>") #'company-yasnippet)
+  (yas-compile-directory yas-snippets-dirs)
+  (yas-reload-all)
   )
 ;; 定义编程快捷键
 

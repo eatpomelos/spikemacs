@@ -2,7 +2,7 @@
 ;; tiny定义了一种语法，可以批量生成格式化的文本，但是对于一些转义符的支持不是很友好
 (use-package tiny
   :ensure nil
-  ;; :defer 2
+  :defer 2
   :config
   (bind-key* "M-." 'tiny-expand))
 
@@ -35,18 +35,24 @@
   )
 
 ;; 用来分析emacs启动速度，从而优化启动速度 
-(use-package esup
-  :ensure t
-  :pin melpa
-  :commands (esup)
-  )
+;; (use-package esup
+;;   :ensure t
+;;   :pin melpa
+;;   :commands (esup)
+;;   )
+
+;; 这个插件的作用是：当你打开一个其他窗口是，光标会跳转到对应的窗口上去
+(use-package popwin
+  :defer 3
+  :init
+  (popwin-mode t))
 
 ;; 快速选中的一些接口
 (use-package expand-region
-  :defer t
+  :defer 5
   :init
-  (define-key evil-insert-state-map (kbd "C-\-") 'er/contract-region)
-  (define-key evil-insert-state-map (kbd "C-=") 'er/expand-region)
+(bind-key* "C-=" 'er/expand-region)
+(bind-key* "C-\-" 'er/contract-region)
   ;; org-binding
   (evil-leader/set-key
     "mop" 'er/mark-org-parent
@@ -57,6 +63,5 @@
   :ensure t
   :defer 5
   :config (edit-server-start))
-
 
 (provide 'spk-editor)

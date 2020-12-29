@@ -90,9 +90,19 @@
 
 ;; 用颜色来标识括号
 (use-package rainbow-delimiters
+  :defer 1
   :init
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'org-mode-hook #'rainbow-delimiters-mode)
   )
+
+;; 使用neotree 来管理文件
+(use-package neotree
+  :defer t
+  :init
+  (evil-leader/set-key
+    "ft" 'neotree-toggle)
+  )
+
 (require 'spk-dashboard)
 (provide 'spk-ui)

@@ -7,13 +7,16 @@
 (define-key evil-emacs-state-map (kbd "C-z") 'evil-normal-state)
 
 ;; bind key用于覆盖一些快捷键
-(bind-key* "C-\-" 'text-scale-decrease)
-(bind-key* "C-=" 'text-scale-increase)
+(bind-key* "C-<down>" 'text-scale-decrease)
+(bind-key* "C-<up>" 'text-scale-increase)
 (bind-key* "C-c C-l" 'goto-line)
-(bind-key* "M-;" 'evilnc-comment-or-uncomment-lines)
+;; (bind-key* "M-;" 'evilnc-comment-or-uncomment-lines)
 
 ;; global set key
 (global-set-key (kbd "<f2>") 'counsel-describe-face)
+(global-set-key (kbd "<f7>") 'loop-alpha)
+(global-set-key (kbd "<f9>") 'spk/highlight_or_unhighlight_line_at_point)
+(global-set-key (kbd "<f12>") 'eshell)
 
 ;; 定义org-capture的快捷键
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -21,10 +24,13 @@
 
 ;; evil leader key set
 (evil-leader/set-key
+  "t" #'spk-find-local-templet
   "fp" 'spk-find-local-conf
   "fc" 'spk-find-emacs-confs
+  "fe" 'spk-find-local-elap-packages
   ;; "ss" 'snails
   "bm" 'bookmark-set
+  "bj" 'counsel-bookmark
   "nr" 'narrow-to-region
   "nw" 'widen
 

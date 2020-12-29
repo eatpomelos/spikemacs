@@ -97,9 +97,14 @@
   ;;          ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
 
   ;; 默认的注脚美观程度更好
-  (setq dashboard-set-footer nil)
   (setq dashboard-set-footer t)
-  (setq dashboard-footer-messages '("Dashboard is pretty cool!"))
+  (setq dashboard-footer-messages
+	'("We are the souls!"
+	  "Do one thing at a time, and do well"
+	  "Richard Stallman is proud of you"
+	  "While any text editor can save your files,\
+ only Emacs can save your soul"
+	  ))
   (setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
                                                      :height 1.1
                                                      :v-adjust -0.05
@@ -110,7 +115,7 @@
   (setq dashboard-org-agenda-categories '("Tasks" "Appointments"))
 
   :config
-  (add-to-list 'dashboard-items '(agenda) t)
+  ;; (add-to-list 'dashboard-items '(agenda) t)
   (dashboard-setup-startup-hook)
   )
 
