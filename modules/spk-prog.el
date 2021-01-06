@@ -42,4 +42,17 @@
 
 ;; (define-key c-mode-map (kbd "DEL") #'c-hungry-delete)
 
+;; 显示空白字符，在检查代码的时候可能有用，暂时不开启
+(use-package whitespace
+  :defer t
+  ;; :hook (c-mode . whitespace-mode)
+  )
+
+;; 设置vc-msg 来显示git的提交信息
+(use-package vc-msg
+  :defer t
+  :init
+  (evil-leader/set-key
+    "gm" 'vc-msg-show))
+
 (provide 'spk-prog)

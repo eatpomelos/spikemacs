@@ -32,7 +32,7 @@
 (defconst spk-local-templet-dir
   (concat spk-local-dir "templet/"))
 
-;; 把配置分为两部分，一部分是核心配置，一部分是模块配置，模块配置主要来配置某一个功能，这里可以参照doom，但是现在还是看不懂doom的配置，暂时先这样存放
+;; 把配置分为两部分，一部分是核心配置，一部分是模块配置，模块配置主要来配置某一个功能，这里可以参照doom
 (defconst spk-core-dir
   (concat spk-dir "core/"))
 

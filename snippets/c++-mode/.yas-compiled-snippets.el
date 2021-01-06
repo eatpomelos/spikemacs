@@ -66,4 +66,4 @@
 		       ("req" "BOOST_REQUIRE( ${1:condition} );\n$0" "boost_require" nil nil nil "d:/HOME/.emacs.d/snippets/c++-mode/boost_require" nil nil)))
 
 
-;;; Do not edit! File generated at Tue Dec 29 13:43:03 2020
+;;; Do not edit! File generated at Wed Jan  6 14:05:15 2021

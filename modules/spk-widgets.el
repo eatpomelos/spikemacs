@@ -11,7 +11,7 @@
   (interactive)
   (let* ((emacs-conf-dir nil))
     (setq emacs-conf-dir
-	  (cond (IS-WINDOWS "d:/HOME/configs")
+	  (cond (IS-WINDOWS "d:/HOME/spike/configs")
 		(IS-LINUX "~/emacs-config")))
     (counsel-find-file emacs-conf-dir)))
 
@@ -34,7 +34,9 @@
 #+LATEX_COMPILER:xelatex
 #+LATEX_CLASS:org-article
 #+OPTIONS: toc:t\n")
-    (insert latex-templet)
+    (save-excursion
+      (goto-char (point-min))
+      (insert latex-templet))
     ))
 
 ;; 切换黑白主题
@@ -52,30 +54,6 @@
     ))
 
 (global-set-key (kbd "<f3>") 'spk-theme-toggle)
-
-;; 快速打开自己的配置文件，当打开了buffer之后，点击打开出现问题，不知道什么原因
-(defun spk-create-quick-config-link (label link)
-  (insert label ": ")
-  (insert-button link
-		 'action (lambda (_) (find-file link))
-		 'follow-link t)
-  (insert "\n"))
-
-(defun spk-quick-config-links ()
-  "Quick open config files."
-  (interactive)
-  (let ((buf (get-buffer-create "*Config Links*"))
-	(configs '(("Emacs" . "d:/HOME/.emacs.d")
-		   ("Doom" . "d:/HOME/configs/doom.d"))))
-    (with-current-buffer buf
-      (erase-buffer)
-      (mapcar (lambda (item)
-		(spk-create-quick-config-link (car item) (cdr item)))
-	      configs))
-    (pop-to-buffer buf t)))
-
-;; #' 是一个语法糖，表示取对应符号的function，因为emacs lisp的函数和变量是分在两个命名空间的。
-(define-key global-map (kbd "<f9>") #'spk-quick-config-links)
 
 ;; 设置一些命令的别名 
 (defalias 'elisp-mode 'emacs-lisp-mode)
@@ -160,5 +138,7 @@
    '((my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend))) 'add-to-end))
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook-if0)
+
+;; 定义一个小函数，
 
 (provide 'spk-widgets)

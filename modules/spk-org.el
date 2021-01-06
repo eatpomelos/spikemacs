@@ -280,8 +280,20 @@
   :init
   (setq org-roam-directory (concat spk-local-notes-dir "roam/"))
   (setq org-roam-db-location (concat spk-org-directory "org-roam.db"))
+  ;; 设置当org-roam的标题被修改的时候不同步修改文件名
+  (setq org-roam-rename-file-on-title-change nil)
+  ;; 设置tag源，roam_tags以及 buffer org tags
+  (setq org-roam-tag-sources '(prop vanilla))
   :config
-  (add-hook 'after-init-hook 'org-roam-mode))
+  (add-hook 'after-init-hook 'org-roam-mode)
+  (evil-leader/set-key
+    "of" 'org-roam-find-file
+    "or" 'org-roam-find-ref
+    "od" 'org-roam-find-directory
+    "og" 'org-roam-graph
+    "oi" 'org-roam-insert
+    "oI" 'org-roam-insert-immediate
+    ))
 
 (use-package org-roam-server
   :defer 3
@@ -297,5 +309,7 @@
   ;; :config
   ;; (org-roam-server-mode)
   )
- 
+
+;; 使用相应的包对齐org-mode中的表格
+
 (provide 'spk-org)

@@ -33,12 +33,14 @@
 ;; 下面更改了路径之后读取不到package，暂时不知道是什么原因，先将原来的目录改回来，之后找到原因再做调整。
 (setq package-user-dir (concat spk-local-dir "elpa"))
 
+;; (setq package-user-dir (concat spk-local-dir "elpa"))
+
 (setq default-directory "~")
 
 ;; 设置默认语言环境
-(set-language-environment 'utf-8)
-(prefer-coding-system 'utf-8)
-(setq default-file-name-coding-system 'utf-8)
+;; (set-language-environment 'utf-8)
+;; (prefer-coding-system 'utf-8)
+;; (setq default-file-name-coding-system 'utf-8)
 
 
 ;; 下面的配置是设置是否开启缩写模式，在配置完成了之后配合tiny在一些场景下有用

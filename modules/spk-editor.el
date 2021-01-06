@@ -30,6 +30,7 @@
   (evil-leader/set-key
     "yo" 'youdao-dictionary-search-at-point+ 
     "ys" 'youdao-dictionary-search-from-input
+    "yp" 'youdao-dictionary-play-voice-at-point
     )
   (add-hook 'youdao-dictionary-mode-hook #'evil-insert-state)
   )
@@ -63,5 +64,33 @@
   :ensure t
   :defer 5
   :config (edit-server-start))
+
+;; 下载json-mode来编写json文件，暂时不需要额外的配置，后面可能会需要优化快捷键
+(use-package json-mode
+  :defer 3)
+
+;; 使用拼音缩写来进行跳转
+(use-package ace-pinyin
+  :defer 5
+  :init (global-set-key (kbd "C-c C-/") 'ace-pinyin-jump-char-2)
+  (ace-pinyin-global-mode t))
+
+;; aspell 拼写检查，后续分类
+(setq ispell-program-name "aspell")
+
+(setq company-ispell-dictionary
+      (expand-file-name (concat spk-local-dir "english-words.txt"))
+      ispell-complete-word-dict
+      (expand-file-name (concat spk-local-dir "english-words.txt")))
+
+;; 设置单词补全，放到后面
+(setq company-backends
+      '(company-bbdb company-semantic company-cmake company-capf company-clang company-files company-ispell
+		      (company-dabbrev-code company-gtags company-etags company-keywords)
+		      company-oddmuse company-dabbrev))
+;; company-backends
+
+;; (setq demo (list 1 2 3 4 5))
+;; (push 6 demo)
 
 (provide 'spk-editor)
