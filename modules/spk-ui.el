@@ -1,7 +1,5 @@
 ;; 用来存放和ui相关的配置
 ;; 这个文件用来配置和界面相关的一些东西,主要是主题这些东西，还有配置modeline等一些东西
-(setq-default cursor-type 'bar)
-
 ;; 把自己定义的主题添加进来
 (add-to-list 'load-path
 	     (concat spk-local-packges-dir "spk-mint-theme"))

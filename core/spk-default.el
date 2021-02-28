@@ -86,7 +86,7 @@
 ;; 开启括号的补全
 (electric-pair-mode 1)
 
-;; recentf不保存以下后缀的文件
+;; recentf不保存以下文件，以下规则匹配emacs中的正则表达式
 (setq recentf-exclude
       '("COMMIT_MSG"
         "COMMIT_EDITMSG"

@@ -32,4 +32,4 @@
 		       ("hook" "(defun ${1:major-mode}-hook-setup ()\n  $0\n  (local-set-key (kbd \"M-;\") 'comment-dwim))\n(add-hook '${1:$(yas/substr yas-text \"[^ ]*\")}-hook '${1:$(yas/substr yas-text \"[^ ]*\")}-hook-setup)" "(add-hook 'major-mode-hook ...)" nil nil nil "d:/HOME/.emacs.d/snippets/emacs-lisp-mode/add-hook.yasnippet" nil nil)))
 
 
-;;; Do not edit! File generated at Sun Feb 28 09:41:15 2021
+;;; Do not edit! File generated at Sun Feb 28 20:40:53 2021

@@ -8,4 +8,4 @@
 			"d:/HOME/.emacs.d/snippets/makefile-gmake-mode/main.yansippet" nil nil)))
 
 
-;;; Do not edit! File generated at Sun Feb 28 09:41:15 2021
+;;; Do not edit! File generated at Sun Feb 28 20:40:53 2021

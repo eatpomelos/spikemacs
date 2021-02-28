@@ -27,4 +27,4 @@
 		       ("after" "after\n    $1 -> $0" "after ... ->" nil nil nil "d:/HOME/.emacs.d/snippets/erlang-mode/after" nil nil)))
 
 
-;;; Do not edit! File generated at Sun Feb 28 09:41:15 2021
+;;; Do not edit! File generated at Sun Feb 28 20:40:53 2021

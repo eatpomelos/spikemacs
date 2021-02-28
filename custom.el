@@ -11,7 +11,7 @@
  '(mini-modeline-mode t)
  '(org-roam-tag-sources '(prop vanilla))
  '(package-selected-packages
-   '(tao-theme ztree company-english-helper vc-msg ace-pinyin company-box gnu-elpa-keyring-update org-plus-contrib json-mode hydandata-light-theme ggtags neotree nanowrimo evil-nerd-commenter popwin edit-server org-roam-server org-roam rainbow-delimiters expand-region highlight-indent-guides magit youdao-dictionary ivy-rich evil-smartparens almost-mono-themes soft-morning-theme modus-operandi-theme highlight-symbol highlight-indentation elisp-demos tiny lispy restart-emacs dashboard winum doom-modeline evil-surround company dracula-theme which-key evil-leader evil-ledger evil counsel swiper use-package))
+   '(yasnippet tao-theme ztree company-english-helper vc-msg ace-pinyin company-box gnu-elpa-keyring-update org-plus-contrib json-mode hydandata-light-theme ggtags neotree nanowrimo evil-nerd-commenter popwin edit-server org-roam-server org-roam rainbow-delimiters expand-region highlight-indent-guides magit youdao-dictionary ivy-rich evil-smartparens almost-mono-themes soft-morning-theme modus-operandi-theme highlight-symbol highlight-indentation elisp-demos tiny lispy restart-emacs dashboard winum doom-modeline evil-surround company dracula-theme which-key evil-leader evil-ledger evil counsel swiper use-package))
  '(recentf-max-saved-items 50)
  '(spk-theme 'dracula)
  '(tool-bar-mode nil)

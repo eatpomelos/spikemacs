@@ -23,7 +23,7 @@
   (global-set-key (kbd "C-s") 'swiper)
   (counsel-mode 1)
   ;; 当执行一些搜索命令的时候不会自动加前缀，比如M-x "^"
-  ;; (setq ivy-initial-inputs-alist nil)
+  (setq ivy-initial-inputs-alist nil)
 
   ;; 在windows上 使用 everything 命令行版本 来替换locate
   (when IS-WINDOWS
@@ -31,7 +31,6 @@
   (evil-leader/set-key
     "fl" 'counsel-locate)
   )
-;; 安装完成ｉｖｙ去阅读文档，讲其中的一些东西进行配置，了解自己使用的插件
 
 ;; 当M-x的时候显示文档
 (use-package ivy-rich

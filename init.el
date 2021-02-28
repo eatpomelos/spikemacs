@@ -7,8 +7,10 @@
     (setq gc-cons-threshold 16777216 ; 16mb
           gc-cons-percentage 0.1)))
 
-;; 可以将自己需要的功能先配起来， 后面再将自己的配置进行一个结构的更新。
-;; 首先设置自己的读取目录，这里使用了两个函数来动态确定自己的emacs的.emacs.d的路径
+(require 'dired)
+(global-set-key (kbd "C-x C-j") 'dired-jump)
+
+;; 设置自己配置中的一些关于环境的配置
 (defconst spk-dir
   (eval-when-compile (file-truename user-emacs-directory)))
 
@@ -34,6 +36,8 @@
 (defconst spk-modules-dir
   (concat spk-dir "modules/"))
 
+;; 可以将自己需要的功能先配起来， 后面再将自己的配置进行一个结构的更新。
+;; 首先设置自己的读取目录，这里使用了两个函数来动态确定自己的emacs的.emacs.d的路径
 ;; 把存放elisp文件的路径存放到加载路径中
 (progn
   (add-to-list 'load-path spk-core-dir)
@@ -41,20 +45,18 @@
 
 (setq org-directory "~/org")
 
-(require 'dired)
-(global-set-key (kbd "C-x C-j") 'dired-jump)
-
+;;(require 'spk-env)
+(require 'spk-lib)
 ;; 精简配置，将配置中能够在不同系统之间通用的 
+
 (when IS-WINDOWS
   ;; 考虑优化一下下面的加载顺序和依赖关系
-  (require 'spk-lib)
   (require 'spk-default)
   (require 'spk-packages)
   (require 'spk-core)
   (require 'spk))
 
 (when IS-LINUX
-  (require 'spk-lib)
   (require 'spk-simple-init))
 
 ;; 加载顺序：
