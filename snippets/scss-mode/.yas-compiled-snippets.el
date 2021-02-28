@@ -5,4 +5,4 @@
 		     '(("var" "\\$${1:var-name}: ${2:`(car kill-ring)`};" "$var-name: var-value-from-kill-ring;" nil nil nil "d:/HOME/.emacs.d/snippets/scss-mode/defvar.yasnippet" nil nil)))
 
 
-;;; Do not edit! File generated at Wed Jan  6 14:05:15 2021
+;;; Do not edit! File generated at Sun Feb 28 09:41:16 2021

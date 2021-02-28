@@ -18,5 +18,6 @@
 (require 'spk-widgets)
 ;; 可以考虑是否需要binding这个文件夹
 (require 'spk-keybinding)
+(require 'spk-eaf)
 
 (provide 'spk)

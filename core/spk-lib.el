@@ -7,6 +7,13 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
+;; 切换到scratch 缓冲区
+;;;###autoload
+(defun spk-switch-to-scratch ()
+  (interactive)
+  (save-excursion
+    (switch-to-buffer "*scratch*")))
+
 ;; 把列表中的某一项删除，主要完成把前面和后面进行一个拼接
 ;;;###autoload
 (defun spk/delete-list-element (n list)

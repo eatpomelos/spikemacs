@@ -47,4 +47,4 @@
 		       ("author" "#+AUTHOR: ${1:`user-full-name`}\n" "Author" nil nil nil "d:/HOME/.emacs.d/snippets/org-mode/author" nil nil)))
 
 
-;;; Do not edit! File generated at Wed Jan  6 14:05:15 2021
+;;; Do not edit! File generated at Sun Feb 28 09:41:15 2021

@@ -1,2 +1,2 @@
 ;;; Compiled snippets and support files for `js3-mode'
-;;; Do not edit! File generated at Wed Jan  6 14:05:15 2021
+;;; Do not edit! File generated at Sun Feb 28 09:41:15 2021

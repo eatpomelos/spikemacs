@@ -20,7 +20,7 @@
   (global-set-key (kbd "<f8>") 'highlight-symbol)
   (global-set-key (kbd "S-<f8>") 'highlight-symbol-prev)
   (global-set-key (kbd "S-<f9>") 'highlight-symbol-next)
-  (global-set-key (kbd "<f1>") 'highlight-regexp)
+  ;; (global-set-key (kbd "<f1>") 'highlight-regexp)
   )
 
 ;; 设置有道词典进行翻译
@@ -92,5 +92,15 @@
 
 ;; (setq demo (list 1 2 3 4 5))
 ;; (push 6 demo)
+
+(add-to-list 'load-path
+	     (concat spk-local-packges-dir "company-english-helper"))
+
+(use-package company-english-helper
+  :defer 2
+  :init
+  (setq company-english-helper-fuzz-search-p t)
+  (global-set-key (kbd "<f1>") #'toggle-company-english-helper)
+  )
 
 (provide 'spk-editor)

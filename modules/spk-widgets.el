@@ -15,6 +15,14 @@
 		(IS-LINUX "~/emacs-config")))
     (counsel-find-file emacs-conf-dir)))
 
+;; 当打开的文件较大时，
+(defun spk-view-large-file ()
+  (when (> (buffer-size) 10000000)
+    (fundamental-mode)
+    ))
+
+(add-hook 'find-file-hook 'spk-view-large-file)
+
 ;; 打开自己的readme，时刻提醒自己关注自己需要关注的东西
 (defun spk-open-readme ()
   "Open my plan file."
@@ -33,7 +41,8 @@
 	  "# -*- coding: utf-8 -*-
 #+LATEX_COMPILER:xelatex
 #+LATEX_CLASS:org-article
-#+OPTIONS: toc:t\n")
+#+OPTIONS: toc:t
+#+OPTIONS: ^:{}\n")
     (save-excursion
       (goto-char (point-min))
       (insert latex-templet))
@@ -41,19 +50,19 @@
 
 ;; 切换黑白主题
 ;;;###autoload
-(defun spk-theme-toggle ()
-  "Toggle theme in spk-mint-theme and dracula."
-  (interactive)
-  (let* ((next-theme nil))
-    (setq next-theme (cond ((eq spk-theme 'spk-mint) 'dracula)
-			   ((eq spk-theme 'dracula) 'dark-mint)
-			   ((eq spk-theme 'dark-mint) 'spk-mint)
-			   (t 'dark-mint)))
-    (load-theme next-theme)
-    (setq spk-theme next-theme)
-    ))
+;; (defun spk-theme-toggle ()
+;;   "Toggle theme in spk-mint-theme and dracula."
+;;   (interactive)
+;;   (let* ((next-theme nil))
+;;     (setq next-theme (cond ((eq spk-theme 'spk-mint) 'dracula)
+;; 			   ((eq spk-theme 'dracula) 'dark-mint)
+;; 			   ((eq spk-theme 'dark-mint) 'spk-mint)
+;; 			   (t 'dark-mint)))
+;;     (load-theme next-theme)
+;;     (setq spk-theme next-theme)
+;;     ))
 
-(global-set-key (kbd "<f3>") 'spk-theme-toggle)
+;; (global-set-key (kbd "<f3>") 'spk-theme-toggle)
 
 ;; 设置一些命令的别名 
 (defalias 'elisp-mode 'emacs-lisp-mode)
@@ -71,6 +80,9 @@
 
 ;; 有一个问题是：这种工具函数是否需要将快捷键放在快捷键的文件中？
 (setq spk-ovs nil)
+
+;; 编写用来获取行内容的接口，将获取到的内容放到变量里
+;; (setq spk-highlight-contents nil)
 
 ;;;###autoload
 (defun spk/highlight_or_unhighlight_line_at_point ()
@@ -141,4 +153,5 @@
 
 ;; 定义一个小函数，
 
+;; 当遇到不认识的单词的时候，虽然可以通过有道翻译插件来进行翻译，但是下一次遇到还是需要再次查询
 (provide 'spk-widgets)

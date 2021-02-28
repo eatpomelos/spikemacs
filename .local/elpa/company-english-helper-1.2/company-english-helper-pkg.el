@@ -1,0 +1,2 @@
+;;; Generated package description from d:/HOME/.emacs.d/.local/elpa/company-english-helper-1.2/company-english-helper.el  -*- no-byte-compile: t -*-
+(define-package "company-english-helper" "1.2" "English helper with company interface" 'nil :authors '(("Andy Stewart" . "lazycat.manatee@gmail.com")) :maintainer '("Andy Stewart" . "lazycat.manatee@gmail.com") :url "http://www.emacswiki.org/emacs/download/company-english-helper.el")
