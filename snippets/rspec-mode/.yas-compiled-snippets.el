@@ -80,4 +80,4 @@
 		       ("aft" "after(${1::each}) do\n  $0\nend" "after" nil nil nil "d:/HOME/.emacs.d/snippets/rspec-mode/aft" nil nil)))
 
 
-;;; Do not edit! File generated at Sun Feb 28 23:02:44 2021
+;;; Do not edit! File generated at Sun Mar  7 16:29:09 2021

@@ -19,4 +19,8 @@ smex-items
 
 bookmarks
 server/
+
+# ignore straight repos
+straight/
 transient/
+custom.el

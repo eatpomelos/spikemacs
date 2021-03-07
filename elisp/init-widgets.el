@@ -1,9 +1,9 @@
-;; 用来存放一些自定义的比较有用的函数，但是没必要作为库函数使用的函数
+;; 用来存放自己日常使用的一些小函数
 ;; 在自己的配置文件路径中查找文件
 (defun spk-find-local-conf ()
   "Find local config in the local path."
   (interactive)
-  (counsel-find-file spk-modules-dir))
+  (counsel-find-file spk-elisp-dir))
 
 ;; 打开电脑上的其他emacs配置
 (defun spk-find-emacs-confs ()
@@ -22,15 +22,6 @@
     ))
 
 (add-hook 'find-file-hook 'spk-view-large-file)
-
-;; 打开自己的readme，时刻提醒自己关注自己需要关注的东西
-(defun spk-open-readme ()
-  "Open my plan file."
-  (interactive)
-  (let* ((readme-path nil))
-    (setq readme-path (concat spk-org-directory "spk-readme.org"))
-    (counsel-find-file readme-path)
-    ))
 
 ;; 定义插入的latex模板
 (defun spk-insert-latex-templet ()
@@ -151,7 +142,4 @@
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook-if0)
 
-;; 定义一个小函数，
-
-;; 当遇到不认识的单词的时候，虽然可以通过有道翻译插件来进行翻译，但是下一次遇到还是需要再次查询
-(provide 'spk-widgets)
+(provide 'init-widgets)

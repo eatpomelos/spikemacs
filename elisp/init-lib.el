@@ -50,4 +50,4 @@
   (mapcar #'delete-overlay ovs)
   nil)
 
-(provide 'spk-lib)
+(provide 'init-lib)
