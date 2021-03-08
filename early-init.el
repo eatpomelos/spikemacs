@@ -41,8 +41,8 @@
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
 ;; 便于调试配置时候使用
-;; (require 'dired)
-;; (global-set-key (kbd "C-x C-j") 'dired-jump)
+(require 'dired)
+(global-set-key (kbd "C-x C-j") 'dired-jump)
 
 (require 'init-lib)
 (require 'init-default)

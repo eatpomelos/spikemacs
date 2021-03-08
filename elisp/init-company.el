@@ -49,7 +49,12 @@
    )
   (require 'company-box)
   (setq company-box-doc-delay 0.5)
-  (add-hook 'company-mode #'company-box-mode)
+  (add-hook 'company-mode-hook #'company-box-mode)
   )
+
+;; 当打开evil-leader-mode 之后打开 which-key-mode
+(add-hook 'evil-leader-mode-hook #'which-key-mode)
+(with-eval-after-load 'which-key
+  (setq which-key-idle-delay 0.1))
 
 (provide 'init-company)

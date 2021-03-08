@@ -20,4 +20,7 @@
   (ivy-rich-mode t)
   )
 
+(evil-leader/set-key
+  "fl" 'counsel-locate)
+
 (provide 'init-ivy)

@@ -1,10 +1,15 @@
 ;; 用来存放自己日常使用的一些小函数
 ;; 在自己的配置文件路径中查找文件
+
+(straight-use-package 'youdao-dictionary)
+
+;;;###autoload
 (defun spk-find-local-conf ()
   "Find local config in the local path."
   (interactive)
   (counsel-find-file spk-elisp-dir))
 
+;;;###autoload
 ;; 打开电脑上的其他emacs配置
 (defun spk-find-emacs-confs ()
   "Find another emacs config file."
@@ -15,6 +20,7 @@
 		(IS-LINUX "~/emacs-config")))
     (counsel-find-file emacs-conf-dir)))
 
+;;;###autoload
 ;; 当打开的文件较大时，
 (defun spk-view-large-file ()
   (when (> (buffer-size) 10000000)
@@ -55,11 +61,9 @@
 
 ;; (global-set-key (kbd "<f3>") 'spk-theme-toggle)
 
-;; 设置一些命令的别名 
-(defalias 'elisp-mode 'emacs-lisp-mode)
-
 ;; 设置emacs的透明度
 (setq alpha-list '((100 100) (75 45)))
+;;;###autoload
 (defun loop-alpha ()
   (interactive)
   (let ((h (car alpha-list))) ;; head value will set to
@@ -68,6 +72,8 @@
        (add-to-list 'default-frame-alist (cons 'alpha (list a ab)))
        ) (car h) (car (cdr h)))
     (setq alpha-list (cdr (append alpha-list (list h))))))
+
+(global-set-key (kbd "<f7>") #'loop-alpha)
 
 ;; 有一个问题是：这种工具函数是否需要将快捷键放在快捷键的文件中？
 (setq spk-ovs nil)
@@ -90,6 +96,8 @@
 	     (overlay-put ov 'face 'region)))
 	)
   )
+(global-set-key (kbd "<f9>") #'spk/highlight_or_unhighlight_line_at_point)
+(global-set-key (kbd "<f8>") #'highlight-symbol-at-point)
 
 ;;;###autoload
 (defun spk/yank-buffer-filename ()
@@ -99,6 +107,7 @@
       (message (kill-new (abbreviate-file-name filename)))
     (error "Couldn't find filename in current buffer.")))
 
+;; 不再使用package.el 相关的函数都可以去掉了
 ;;;###autoload
 (defun spk-find-local-elap-packages ()
   "Find elpa packages."
@@ -111,35 +120,14 @@
   (interactive)
   (counsel-find-file (concat spk-local-dir "Templet/elisp/")))
 
-;; highlight c
-(defun my-c-mode-font-lock-if0 (limit)
-  (save-restriction
-    (widen)
-    (save-excursion
-      (goto-char (point-min))
-      (let ((depth 0) str start start-depth)
-        (while (re-search-forward "^\\s-*#\\s-*\\(if\\|else\\|endif\\)" limit 'move)
-          (setq str (match-string 1))
-          (if (string= str "if")
-              (progn
-                (setq depth (1+ depth))
-                (when (and (null start) (looking-at "\\s-+0"))
-                  (setq start (match-end 0)
-                        start-depth depth)))
-            (when (and start (= depth start-depth))
-              (c-put-font-lock-face start (match-beginning 0) 'font-lock-comment-face)
-              (setq start nil))
-            (when (string= str "endif")
-              (setq depth (1- depth)))))
-        (when (and start (> depth 0))
-          (c-put-font-lock-face start (point) 'font-lock-comment-face)))))
-  nil)
-
-(defun my-c-mode-common-hook-if0 ()
-  (font-lock-add-keywords
-   nil
-   '((my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend))) 'add-to-end))
-
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook-if0)
+;; keybindings
+(evil-leader/set-key
+  "fc" 'spk-find-emacs-confs
+  "fp" 'spk-find-local-conf
+  "t" 'spk-find-local-templet
+  "yo" 'youdao-dictionary-search-at-point+
+  "ys" 'youdao-dictionary-play-voice-at-point
+  "yi" 'youdao-dictionary-search-from-input
+  )
 
 (provide 'init-widgets)

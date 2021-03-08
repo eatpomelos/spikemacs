@@ -225,4 +225,4 @@
 		       ("this" "`(mapconcat (lambda (s) (replace-regexp-in-string \"^ *this\\.\\\\([^( ]*\\\\) *(\" \"\\\\1\" s)) (delete-dups (string-all-matches \"this\\.[a-zA-Z][a-zA-Z0-9]* *(\" (buffer-substring-no-properties (point-min) (point-max)))) \"\\n\")`" "list all methods in ES6 class" nil nil nil "d:/HOME/.emacs.d/snippets/js-mode/react/all-class-methods.yasnippet" nil nil)))
 
 
-;;; Do not edit! File generated at Sun Mar  7 16:29:09 2021
+;;; Do not edit! File generated at Mon Mar  8 08:42:33 2021

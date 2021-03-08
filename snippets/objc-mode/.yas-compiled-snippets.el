@@ -5,4 +5,4 @@
 		     '(("prop" "- (${1:id})${2:foo}\n{\n    return $2;\n}\n\n- (void)set${2:$(capitalize yas-text)}:($1)aValue\n{\n    [$2 autorelease];\n    $2 = [aValue retain];\n}\n$0" "foo { ... } ; setFoo { ... }" nil nil nil "d:/HOME/.emacs.d/snippets/objc-mode/prop" nil nil)))
 
 
-;;; Do not edit! File generated at Sun Mar  7 16:29:09 2021
+;;; Do not edit! File generated at Mon Mar  8 08:42:33 2021
