@@ -1,6 +1,10 @@
 (straight-use-package 'ivy)
 (straight-use-package 'counsel)
 (straight-use-package 'ivy-rich)
+(straight-use-package 'wgrep)
+;; 增加bind-key 包来扩展快捷键绑定
+(straight-use-package 'bind-key)
+(require 'bind-key)
 
 (require 'ivy)
 

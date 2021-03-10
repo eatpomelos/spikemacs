@@ -2,6 +2,7 @@
 ;; 在自己的配置文件路径中查找文件
 
 (straight-use-package 'youdao-dictionary)
+(straight-use-package 'tiny)
 
 ;;;###autoload
 (defun spk-find-local-conf ()
@@ -136,6 +137,8 @@
       (find-file selecttd-line))
     )
   )
+
+(bind-key* (kbd "M-.") #'tiny-expand)
 
 ;; keybindings
 (evil-leader/set-key

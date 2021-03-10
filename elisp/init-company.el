@@ -4,7 +4,6 @@
 (straight-use-package 'company-box)
 (straight-use-package 'which-key)
 (straight-use-package 'yasnippet)
-(straight-use-package 'deadgrep)
 
 ;; yasnippet
 (autoload #'yas-minor-mode "yasnippet")

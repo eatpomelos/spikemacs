@@ -3,9 +3,6 @@
 (straight-use-package 'restart-emacs)
 (straight-use-package 'highlight-symbol)
 
-;; 和deadgrep的功能类似，可以批量替换，暂时考虑使用deadgrep，修改后需要自己手动保存
-;; (straight-use-package 'wgrep)
-
 (define-key global-map (kbd "C-=") 'er/expand-region)
 (define-key global-map (kbd "C-\-") 'er/contract-region)
 

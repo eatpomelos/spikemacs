@@ -2,6 +2,7 @@
 (setq c-default-style "linux"
       c-basic-offset 4)
 
+;; 检测if 0 并用注释的face来显示这段内容
 ;; highlight c
 (defun my-c-mode-font-lock-if0 (limit)
   (save-restriction
