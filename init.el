@@ -14,7 +14,7 @@
 ;; 和编程相关的配置统一由init-prog.el 文件一起加载，在文件中分别加载各语言的配置文件
 (require 'init-prog)
 (require 'init-window)
-;;(require 'init-magit)
+(require 'init-magit)
 
 ;; company 的配置包括 which-key
 (require 'init-company)

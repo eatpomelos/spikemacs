@@ -1,5 +1,8 @@
 ;; 和org 相关的配置
-;; 设置.txt为后缀的文件用org-mode打开
+
+;; 由于使用strainght.el 升级package 中org 有一个变量的名字发生了改变，此处使用本地org 包防止出现使用错误
+(straight-use-package '(org :type built-in))
+
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
 ;; 设置一下自己的任务管理的一些简单的配置,要是想放弃一个任务的时候，要进行说明，以后可能会再次启用这个任务

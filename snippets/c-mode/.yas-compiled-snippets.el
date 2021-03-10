@@ -17,4 +17,4 @@
 		       ("alloc" "(${1:newsize} + 32767) & ~32767\n" "find minimum n*32768 greater than newsize" nil nil nil "d:/HOME/.emacs.d/snippets/c-mode/alloc-size.yasnippet" nil nil)))
 
 
-;;; Do not edit! File generated at Mon Mar  8 08:42:33 2021
+;;; Do not edit! File generated at Wed Mar 10 08:30:20 2021

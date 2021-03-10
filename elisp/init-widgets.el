@@ -120,10 +120,28 @@
   (interactive)
   (counsel-find-file (concat spk-local-dir "Templet/elisp/")))
 
+;;;###autoload
+(defun spk-find-file-in-project ()
+  "Find file in DIRECTIRY."
+  (interactive)
+  (let* ((cmd "find . -path \"*/.git\" -prune -o -print -type f -name \"*.*\"")
+         (default-directory (locate-dominating-file default-directory ".\git"))
+         (tcmd "fd \".*\\.png\" ~/tmp")
+         (output (shell-command-to-string cmd))
+         (lines (cdr (split-string output "[\n\r]+")))
+         selecttd-line)
+    (setq selecttd-line (ivy-read (format "Find file in %s:" default-directory)
+                                  lines))
+    (when (and selecttd-line (file-exists-p selecttd-line))
+      (find-file selecttd-line))
+    )
+  )
+
 ;; keybindings
 (evil-leader/set-key
   "fc" 'spk-find-emacs-confs
   "fp" 'spk-find-local-conf
+  "f'" 'spk-find-file-in-project
   "t" 'spk-find-local-templet
   "yo" 'youdao-dictionary-search-at-point+
   "ys" 'youdao-dictionary-play-voice-at-point

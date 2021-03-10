@@ -1,3 +1,4 @@
+;; magit相关配置
 
 (straight-use-package 'magit)
 (straight-use-package 'vc-msg)
@@ -9,6 +10,15 @@
   "gs" 'magit-status
   "gb" 'magit-blame-addition
   "gq" 'magit-blame-quit
-  "gm" 'vc-msg-show)
+  "gm" 'vc-msg-show
+  "gl" 'magit-log-all)
+
+(with-eval-after-load 'magit
+  ;; 设置magit 快捷间，适配evil的操作方式来进行设置
+  (define-key magit-log-mode-map "h" #'backward-char)
+  (define-key magit-log-mode-map "j" #'magit-section-forward)
+  (define-key magit-log-mode-map "k" #'magit-section-backward)
+  (define-key magit-log-mode-map "l" #'forward-char)
+  )
 
 (provide 'init-magit)
