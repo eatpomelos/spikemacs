@@ -46,21 +46,12 @@
       (insert latex-templet))
     ))
 
-;; 切换黑白主题
-;;;###autoload
-;; (defun spk-theme-toggle ()
-;;   "Toggle theme in spk-mint-theme and dracula."
-;;   (interactive)
-;;   (let* ((next-theme nil))
-;;     (setq next-theme (cond ((eq spk-theme 'spk-mint) 'dracula)
-;; 			   ((eq spk-theme 'dracula) 'dark-mint)
-;; 			   ((eq spk-theme 'dark-mint) 'spk-mint)
-;; 			   (t 'dark-mint)))
-;;     (load-theme next-theme)
-;;     (setq spk-theme next-theme)
-;;     ))
-
-;; (global-set-key (kbd "<f3>") 'spk-theme-toggle)
+;; 工具函数，快速打开公司的代码
+(defvar spk-push-code-dir)
+(setq spk-push-code-dir "d:/work/CODE/PushCode/UGW_Repo")
+(defun spk-quick-open-push-code ()
+  (interactive)
+  (counsel-find-file spk-push-code-dir))
 
 ;; 设置emacs的透明度
 (setq alpha-list '((100 100) (75 45)))
@@ -122,11 +113,10 @@
   (counsel-find-file (concat spk-local-dir "Templet/elisp/")))
 
 ;;;###autoload
-(defun spk-find-file-in-project ()
-  "Find file in DIRECTIRY."
-  (interactive)
+(defun spk-find-file-internal (directory)
+  "Find file in DIRECTORY."
   (let* ((cmd "find . -path \"*/.git\" -prune -o -print -type f -name \"*.*\"")
-         (default-directory (locate-dominating-file default-directory ".\git"))
+         (default-directory directory)
          (tcmd "fd \".*\\.png\" ~/tmp")
          (output (shell-command-to-string cmd))
          (lines (cdr (split-string output "[\n\r]+")))
@@ -138,12 +128,47 @@
     )
   )
 
-(bind-key* (kbd "M-.") #'tiny-expand)
+;;;###autoload
+(defun spk-find-file-in-project ()
+  "Find file in project root directory."
+  (interactive)
+  (spk-find-file-internal (locate-dominating-file default-directory ".\git"))
+  )
+
+;;;###autoload
+;; 在上级多少层目录查找文件
+(defun spk-find-file (&optional level)
+  "Find file in current directory or LEVEL parent directory."
+  (interactive "p")
+  (unless level (setq level 0))
+  (let* ((parent-directory default-directory)
+	 (i 0))
+    (when (< i level)
+      (setq parent-directory
+	    ;; find-name-directory 获取当前文件的路径, 如果是路径则返回本身
+	    ;; directory-file-name 获取路径名，去掉/
+	    (directory-file-name default-directory)
+	    (file-name-directory  (directory-file-name parent-directory)))
+      (setq i (1+ i)))
+    (spk-find-file-internal parent-directory)
+    ))
+
+;; 在系统文件管理器中打开当前路径
+;;;###autoload
+(defun spk-open-file-with-system-application ()
+  "Open directory with system application"
+  (interactive)
+  (let* ((current-dir (shell-command-to-string (format "cygpath -w %s" default-directory)))
+	 (exploer-command nil))
+    (when IS-WINDOWS
+      (setq explore-command "explorer")
+      (shell-command-to-string (format "%s %s" explore-command current-dir)))))
 
 ;; keybindings
 (evil-leader/set-key
   "fc" 'spk-find-emacs-confs
   "fp" 'spk-find-local-conf
+  "fo" 'spk-open-file-with-system-application
   "f'" 'spk-find-file-in-project
   "t" 'spk-find-local-templet
   "yo" 'youdao-dictionary-search-at-point+

@@ -24,3 +24,6 @@ server/
 straight/
 transient/
 custom.el
+
+# ignore yas compile file
+.yas-compiled-snippets.el

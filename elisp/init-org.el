@@ -2,6 +2,8 @@
 
 ;; 由于使用strainght.el 升级package 中org 有一个变量的名字发生了改变，此处使用本地org 包防止出现使用错误
 (straight-use-package '(org :type built-in))
+(straight-use-package 'org-roam-server)
+(straight-use-package 'org-roam)
 
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
@@ -13,6 +15,8 @@
                                ("ABORT" . "blue")
                                ("PAUSE" . "cyan1")))
 
+(setq initial-scratch-message
+      (format ";;Happy hacking emacs start in %.3fs" (string-to-number (emacs-init-time))))
 
 ;; 设置几个常用的capture 的文件的路径
 (defvar spk-org-directory "~/org/"
@@ -120,6 +124,7 @@
 
 (setq org-latex-compiler "xelatex")
 
+;; 看这个给require 怎么优化
 (require 'ox-latex)
 (add-to-list 'org-latex-classes
 	       '("org-dissertation"
@@ -272,8 +277,6 @@
                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 
-(straight-use-package 'org-roam)
-
 (setq
  org-roam-directory (concat spk-local-notes-dir "roam/")
  org-roam-db-location (concat spk-org-directory "org-roam.db")
@@ -291,8 +294,6 @@
 
 ;; 可以考虑一下这个hook点是不是可以优化
 (add-hook 'after-init-hook 'org-roam-mode)
-
-(straight-use-package 'org-roam-server)
 
 (setq org-roam-server-host "127.0.0.1"
       org-roam-server-port 9090

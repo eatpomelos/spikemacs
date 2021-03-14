@@ -1,4 +1,3 @@
-;; 用来配置一些默认的东西，这里主要设置一些默认的行为和默认的路径，可以将一些需要使用的宏也新建一个路径来进行管理
 ;; 关闭提示音和自动备份
 (setq ring-bell-function 'ignore)
 (setq make-backup-files nil)
@@ -37,10 +36,6 @@
 ;; (prefer-coding-system 'utf-8)
 ;; (setq default-file-name-coding-system 'utf-8)
 
-
-;; 下面的配置是设置是否开启缩写模式，在配置完成了之后配合tiny在一些场景下有用
-;; (abbrev-mode t) 
-
 (global-auto-revert-mode t)
 (global-linum-mode t)
 
@@ -49,7 +44,8 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq custom-file (expand-file-name "custom.el" spk-dir))
-(load custom-file 'no-error 'no-message)
+(when (file-exists-p custom-file)
+  (load custom-file 'no-error 'no-message))
 
 ;; (setq inhibit-splash-screen t)
 (setq-default cursor-type 'bar)
@@ -82,6 +78,7 @@
 (electric-pair-mode 1)
 
 ;; recentf不保存以下文件，以下规则匹配emacs中的正则表达式
+
 (setq recentf-exclude
       '("COMMIT_MSG"
         "COMMIT_EDITMSG"

@@ -39,6 +39,8 @@
 (add-hook 'prog-mode-hook 'company-mode)
 (add-hook 'conf-mode-hook 'company-mode)
 (add-hook 'eshll-mode-hook 'company-mode)
+(add-hook 'org-roam-mode-hook 'company-mode)
+(add-hook 'org-mode-hook 'company-mode)
 
 (with-eval-after-load 'company
   (setq
@@ -49,12 +51,12 @@
   (require 'company-box)
   (setq company-box-doc-delay 0.5)
   (add-hook 'company-mode-hook #'company-box-mode)
-
+  
   ;; 设置暂时存在一定问题，暂不使用
-  ;; (setq company-backends
-  ;;     '(company-bbdb company-semantic company-cmake company-capf company-clang company-files company-ispell
-  ;; 		      (company-dabbrev-code company-gtags company-etags company-keywords)
-  ;; 		      company-oddmuse company-dabbrev))
+  (setq company-backends
+	'(company-bbdb company-semantic company-cmake company-capf company-clang company-files company-ispell
+		       (company-dabbrev-code company-gtags company-etags company-keywords)
+		       company-oddmuse company-dabbrev))
   )
 
 ;; 当打开evil-leader-mode 之后打开 which-key-mode

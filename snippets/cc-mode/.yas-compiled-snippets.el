@@ -9,4 +9,4 @@
 		       ("indent" "$0\n// Local Variables:\n// c-basic-offset: ${1:2}\n// indent-tabs-mode: nil\n// End:\n//\n// vim: et sts=${1:$(yas/substr yas-text \"[0-9]*\")} sw=${1:$(yas/substr yas-text \"[0-9]*\")}\n" "indent (c++ style)" nil nil nil "d:/HOME/.emacs.d/snippets/cc-mode/indent.yasnippet" nil nil)))
 
 
-;;; Do not edit! File generated at Wed Mar 10 15:36:12 2021
+;;; Do not edit! File generated at Mon Mar 15 07:53:03 2021

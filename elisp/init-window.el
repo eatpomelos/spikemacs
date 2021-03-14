@@ -1,10 +1,10 @@
 ;; 窗口操作相关配置
 (straight-use-package 'winum)
 
-(require 'winum)
+(autoload #'winum-mode "winum")
+(add-hook 'after-init-hook 'winum-mode)
 
 (with-eval-after-load 'winum
-  (winum-mode 1)
   (evil-leader/set-key
     "0" 'winum-select-window-0-or-10
     "1" 'winum-select-window-1

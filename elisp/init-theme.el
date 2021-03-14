@@ -2,6 +2,7 @@
 (add-to-list 'load-path
 	     (concat spk-local-packges-dir "spk-mint-theme"))
 
+;; 加载自己定义的亮色主题，需要时加载
 (require 'spk-mint-theme)
 
 (straight-use-package 'dracula-theme)
