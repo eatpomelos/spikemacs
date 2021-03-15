@@ -6,4 +6,4 @@
 		       ("main" "project(main)\ncmake_minimum_required(VERSION 3.0)\n\nset(TARGET_NAME main)\nset(TYPE \"\")\n\nset( CPP_SOURCES\n  main.cpp\n  )\n\nset( H_SOURCES\n  main.hpp\n  )\n\nset(SOURCES\n  \\${CPP_SOURCES}\n  \\${H_SOURCES}\n  )\n\nset(INC\n  \\${CMAKE_CURRENT_SOURCE_DIR}\n  )\n\ninclude_directories(\\${INC})\n\nif(UNIX)\n  add_definitions(-Wno-write-strings)\nendif()\n\nadd_executable(\\${TARGET_NAME} \\${TYPE} \\${SOURCES})\n\nset(LIBS\n  )\n\ntarget_link_libraries(\\${TARGET_NAME} \\${LIBS})\n" "main (...)" nil nil nil "d:/HOME/.emacs.d/snippets/cmake-mode/main" nil nil)))
 
 
-;;; Do not edit! File generated at Mon Mar 15 07:53:03 2021
+;;; Do not edit! File generated at Mon Mar 15 08:10:18 2021

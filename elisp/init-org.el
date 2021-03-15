@@ -16,7 +16,7 @@
                                ("PAUSE" . "cyan1")))
 
 (setq initial-scratch-message
-      (format ";;Happy hacking emacs start in %.3fs" (string-to-number (emacs-init-time))))
+      (format ";;Happy hacking!! emacs startup with %.3fs" (string-to-number (emacs-init-time))))
 
 ;; 设置几个常用的capture 的文件的路径
 (defvar spk-org-directory "~/org/"

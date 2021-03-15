@@ -6,7 +6,12 @@
 (evil-leader/set-key
   "ft" 'neotree-toggle)
 
+(with-eval-after-load "neotree"
+  (define-key neotree-mode-map "o" #'spk-open-file-with-system-application)
+  )
+
 (with-eval-after-load "dired"
-  (define-key dired-mode-map "w" #'wdired-change-to-wdired-mode))
+  (define-key dired-mode-map "w" #'wdired-change-to-wdired-mode)
+  )
 
 (provide 'init-dired)

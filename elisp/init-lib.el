@@ -7,6 +7,10 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
+;; 把斜线转换成反斜线
+(defmacro slash-2-backslash (str)
+  (list 'replace-regexp-in-string "/" "\\\\" 'str nil nil 0))
+
 ;; 切换到scratch 缓冲区
 ;;;###autoload
 (defun spk-switch-to-scratch ()

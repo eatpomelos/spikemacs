@@ -153,12 +153,13 @@
     (spk-find-file-internal parent-directory)
     ))
 
-;; 在系统文件管理器中打开当前路径
+;; 在系统文件管理器中打开当前路径，以下函数方法可以考虑是否能写成通用函数 
+;; (replace-regexp-in-string) 替换字符串中的某个字符，但是有问题
 ;;;###autoload
 (defun spk-open-file-with-system-application ()
   "Open directory with system application"
   (interactive)
-  (let* ((current-dir (shell-command-to-string (format "cygpath -w %s" default-directory)))
+  (let* ((current-dir (slash-2-backslash default-directory))
 	 (exploer-command nil))
     (when IS-WINDOWS
       (setq explore-command "explorer")
@@ -168,6 +169,7 @@
 (evil-leader/set-key
   "fc" 'spk-find-emacs-confs
   "fp" 'spk-find-local-conf
+  "fqp" 'spk-quick-open-push-code
   "fo" 'spk-open-file-with-system-application
   "f'" 'spk-find-file-in-project
   "t" 'spk-find-local-templet

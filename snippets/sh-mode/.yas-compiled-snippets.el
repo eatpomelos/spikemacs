@@ -10,4 +10,4 @@
 		       ("for" "for i in {1..${1:100}}\ndo\n    $0\ndone" "for i in {1..100}" nil nil nil "d:/HOME/.emacs.d/snippets/sh-mode/for.yasnippet" nil nil)))
 
 
-;;; Do not edit! File generated at Mon Mar 15 07:53:04 2021
+;;; Do not edit! File generated at Mon Mar 15 08:10:19 2021
