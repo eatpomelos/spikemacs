@@ -8,6 +8,10 @@
 
 (with-eval-after-load "neotree"
   (define-key neotree-mode-map "o" #'spk-open-file-with-system-application)
+  (define-key neotree-mode-map "h" #'left-char)
+  (define-key neotree-mode-map "j" #'neotree-next-line)
+  (define-key neotree-mode-map "k" #'neotree-previous-line)
+  (define-key neotree-mode-map "l" #'right-char)
   )
 
 (with-eval-after-load "dired"

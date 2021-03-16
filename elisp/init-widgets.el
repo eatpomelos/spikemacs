@@ -67,17 +67,14 @@
 
 (global-set-key (kbd "<f7>") #'loop-alpha)
 
-;; 有一个问题是：这种工具函数是否需要将快捷键放在快捷键的文件中？
-(setq spk-ovs nil)
-
 ;; 编写用来获取行内容的接口，将获取到的内容放到变量里
-;; (setq spk-highlight-contents nil)
+(setq spk-ovs nil)
 
 ;;;###autoload
 (defun spk/highlight_or_unhighlight_line_at_point ()
   "Highlight current line."
   (interactive)
-  (require 'smartparens)
+  ;; (require 'smartparens)
   (cond ((spk--point-in-overlay-p spk-ovs)
 	 (let* ((pos (spk--point-in-overlay-p spk-ovs)))
 	   (delete-overlay (nth pos spk-ovs))
@@ -89,7 +86,6 @@
 	)
   )
 (global-set-key (kbd "<f9>") #'spk/highlight_or_unhighlight_line_at_point)
-(global-set-key (kbd "<f8>") #'highlight-symbol-at-point)
 
 ;;;###autoload
 (defun spk/yank-buffer-filename ()

@@ -9,7 +9,7 @@
 
 ;; 把斜线转换成反斜线
 (defmacro slash-2-backslash (str)
-  (list 'replace-regexp-in-string "/" "\\\\" 'str nil nil 0))
+  (list 'replace-regexp-in-string "/" "\\\\" str nil nil 0))
 
 ;; 切换到scratch 缓冲区
 ;;;###autoload

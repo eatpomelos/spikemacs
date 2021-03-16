@@ -1,9 +1,8 @@
 ;; 和编辑相关的一些插件的配置
 (straight-use-package 'expand-region)
 (straight-use-package 'restart-emacs)
-(straight-use-package 'highlight-symbol)
 (straight-use-package 'json-mode)
-
+(straight-use-package 'symbol-overlay)
 ;; 指定github上的包，并下载
 (straight-use-package
  '(company-english-helper :type git
@@ -27,17 +26,13 @@
     "mop" 'er/mark-org-parent
     "moe" 'er/mark-org-element
     "ms" 'er/mark-symbol
-    "rs" 'restart-emacs
-    "rn" 'restart-emacs-start-new-emacs
-    "nr" 'narrow-to-region
-    "nw" 'widen
     "m\]" 'er/mark-sentence))
 
-(with-eval-after-load 'highlight-symbol
-  (global-set-key (kbd "<f8>") 'highlight-symbol)
-  (global-set-key (kbd "S-<f8>") 'highlight-symbol-prev)
-  (global-set-key (kbd "S-<f9>") 'highlight-symbol-next)
-)
+(autoload #'symbol-overlay-put "symbol-overlay")
+(global-set-key (kbd "<f8>") 'symbol-overlay-put)
+(global-set-key (kbd "S-<f8>") 'symbol-overlay-jump-prev)
+(global-set-key (kbd "S-<f9>") 'symbol-overlay-jump-next)
+
 
 ;; 设置英语检错，设置有问题，暂时未解决
 (when IS-WINDOWS
@@ -55,7 +50,12 @@
 ;; bookmarks
 (evil-leader/set-key
   "bm" 'bookmark-set
-  "b \RET" 'counsel-bookmark)
+  "rs" 'restart-emacs
+  "rn" 'restart-emacs-start-new-emacs
+  "nr" 'narrow-to-region
+  "nw" 'widen
+  "b \RET" 'counsel-bookmark
+  )
 
 ;; ediff 配置
 

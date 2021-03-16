@@ -33,4 +33,4 @@
 		       ("b" "background: ${1:#fff};" "background: #fff ;" nil nil nil "d:/HOME/.emacs.d/snippets/css-mode/background-simple.yasnippet" nil nil)))
 
 
-;;; Do not edit! File generated at Mon Mar 15 08:10:18 2021
+;;; Do not edit! File generated at Tue Mar 16 08:56:57 2021
