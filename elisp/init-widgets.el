@@ -109,26 +109,13 @@
   (counsel-find-file (concat spk-local-dir "Templet/elisp/")))
 
 ;;;###autoload
-(defun spk-find-file-internal (directory)
-  "Find file in DIRECTORY."
-  (let* ((cmd "find . -path \"*/.git\" -prune -o -print -type f -name \"*.*\"")
-         (default-directory directory)
-         (tcmd "fd \".*\\.png\" ~/tmp")
-         (output (shell-command-to-string cmd))
-         (lines (cdr (split-string output "[\n\r]+")))
-         selecttd-line)
-    (setq selecttd-line (ivy-read (format "Find file in %s:" default-directory)
-                                  lines))
-    (when (and selecttd-line (file-exists-p selecttd-line))
-      (find-file selecttd-line))
-    )
-  )
-
-;;;###autoload
 (defun spk-find-file-in-project ()
   "Find file in project root directory."
   (interactive)
-  (spk-find-file-internal (locate-dominating-file default-directory ".\git"))
+  (let* ((dir (locate-dominating-file default-directory ".\git")))
+    (if dir
+	(spk-find-file-internal dir)
+      (message "Not in a project directory.")))
   )
 
 ;;;###autoload
@@ -143,11 +130,10 @@
       (setq parent-directory
 	    ;; find-name-directory 获取当前文件的路径, 如果是路径则返回本身
 	    ;; directory-file-name 获取路径名，去掉/
-	    (directory-file-name default-directory)
-	    (file-name-directory  (directory-file-name parent-directory)))
+	    (directory-file-name default-directory))
+      (file-name-directory  (directory-file-name parent-directory))
       (setq i (1+ i)))
-    (spk-find-file-internal parent-directory)
-    ))
+    (spk-find-file-internal parent-directory)))
 
 ;; 在系统文件管理器中打开当前路径，以下函数方法可以考虑是否能写成通用函数 
 ;; (replace-regexp-in-string) 替换字符串中的某个字符，但是有问题
@@ -165,6 +151,7 @@
 (evil-leader/set-key
   "fc" 'spk-find-emacs-confs
   "fp" 'spk-find-local-conf
+  "ff" 'spk-find-file
   "fqp" 'spk-quick-open-push-code
   "fo" 'spk-open-file-with-system-application
   "f'" 'spk-find-file-in-project

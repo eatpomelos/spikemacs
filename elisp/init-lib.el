@@ -11,6 +11,25 @@
 (defmacro slash-2-backslash (str)
   (list 'replace-regexp-in-string "/" "\\\\" str nil nil 0))
 
+;; 根据find命令的方式查找文件，当不输入关键字的时候，直接用 . 代替 
+;;;###autoload
+(defun spk-find-file-internal (directory)
+  "Find file in DIRECTORY."
+  (let* ((keyword (read-string "Please input keyword: ")))
+    (when (string= keyword "")
+      (setq keyword "."))
+    (let* ((cmd (format "find . -path \"*/.git\" -prune -o -type f -regex \"^.*%s\" -print" keyword))
+           (default-directory directory)
+           (tcmd "fd \".*\\.png\" ~/tmp")
+           (output (shell-command-to-string cmd))
+           (lines (cdr (split-string output "[\n\r]+")))
+           selecttd-line)
+      (setq selecttd-line (ivy-read (format "Find file in %s:" default-directory)
+                                    lines))
+      (when (and selecttd-line (file-exists-p selecttd-line))
+	(find-file selecttd-line))
+      )))
+
 ;; 切换到scratch 缓冲区
 ;;;###autoload
 (defun spk-switch-to-scratch ()

@@ -30,7 +30,6 @@
     "hf" 'describe-function
     "hp" 'describe-package
     "hb" 'describe-bindings
-    "ff" 'counsel-find-file
     "sp" 'counsel-rg
     )
   
