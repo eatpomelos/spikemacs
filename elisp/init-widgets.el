@@ -95,13 +95,6 @@
       (message (kill-new (abbreviate-file-name filename)))
     (error "Couldn't find filename in current buffer.")))
 
-;; 不再使用package.el 相关的函数都可以去掉了
-;;;###autoload
-(defun spk-find-local-elap-packages ()
-  "Find elpa packages."
-  (interactive)
-  (counsel-find-file (concat spk-local-dir "elpa/")))
-
 ;;;###autoload
 (defun spk-find-local-templet ()
   "Find elpa packages."

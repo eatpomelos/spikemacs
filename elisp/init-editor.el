@@ -31,6 +31,7 @@
 (autoload #'symbol-overlay-put "symbol-overlay")
 (autoload #'symbol-overlay-save-symbol "symbol-overlay")
 
+(global-set-key (kbd "<f1>") 'toggle-company-english-helper)
 (global-set-key (kbd "<f8>") 'symbol-overlay-put)
 (global-set-key (kbd "S-<f8>") 'symbol-overlay-jump-prev)
 (global-set-key (kbd "S-<f9>") 'symbol-overlay-jump-next)
