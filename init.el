@@ -6,6 +6,7 @@
 
 (setq default-directory "~")
 
+(require 'init-default)
 (require 'init-evil)
 (require 'init-ivy)
 (require 'init-org)

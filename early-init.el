@@ -45,7 +45,6 @@
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 
 (require 'init-lib)
-(require 'init-default)
 (require 'init-straight)
 
 ;; 运行在不支持 early-init 的 emacs 版本上时在 init.el 文件中手动加载此文件
