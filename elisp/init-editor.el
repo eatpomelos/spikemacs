@@ -3,17 +3,19 @@
 (straight-use-package 'restart-emacs)
 (straight-use-package 'json-mode)
 (straight-use-package 'symbol-overlay)
-;; 指定github上的包，并下载
-(straight-use-package
- '(company-english-helper :type git
-			  :host github
-			  :repo "manateelazycat/company-english-helper"))
+;; 指定github上的包，并下载，由于当前的环境配置中 linux下的环境没有界面因此使用此package会导致emacs卡死
+(when IS-WINDOWS
+  (straight-use-package
+   '(company-english-helper :type git
+			    :host github
+			    :repo "manateelazycat/company-english-helper"))
+
+  ;; 指定一个函数从文件中自动加载，暂时理解成指定一个函数为autoload，当使用这个函数时自动加载那个文件
+  (autoload #'toggle-company-english-helper "company-english-helper")
+  (global-set-key (kbd "<f1>") 'toggle-company-english-helper))
 
 (define-key global-map (kbd "C-=") 'er/expand-region)
 (define-key global-map (kbd "C-\-") 'er/contract-region)
-
-;; 指定一个函数从文件中自动加载，暂时理解成指定一个函数为autoload，当使用这个函数时自动加载那个文件
-(autoload #'toggle-company-english-helper "company-english-helper")
 
 (global-set-key (kbd "C-c v") 'set-mark-command)
 (global-set-key (kbd "C-c l") 'avy-goto-line)
@@ -31,7 +33,6 @@
 (autoload #'symbol-overlay-put "symbol-overlay")
 (autoload #'symbol-overlay-save-symbol "symbol-overlay")
 
-(global-set-key (kbd "<f1>") 'toggle-company-english-helper)
 (global-set-key (kbd "<f8>") 'symbol-overlay-put)
 (global-set-key (kbd "S-<f8>") 'symbol-overlay-jump-prev)
 (global-set-key (kbd "S-<f9>") 'symbol-overlay-jump-next)

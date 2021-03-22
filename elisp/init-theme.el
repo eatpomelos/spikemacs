@@ -1,7 +1,10 @@
 ;; 初始化主体配置，这里可以使用dracula 或者使用自己定义的主题
-(add-to-list 'load-path
-	     (concat spk-local-packges-dir "spk-mint-theme"))
+(defvar spk-theme-dir nil
+  "Local themes directory.")
+(setq spk-theme-dir (concat user-emacs-directory "themes/"))
 
+(add-to-list 'load-path
+	     (concat spk-theme-dir "spk-mint-theme"))
 ;; 加载自己定义的亮色主题，需要时加载
 (require 'spk-mint-theme)
 
