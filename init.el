@@ -19,7 +19,7 @@
 
 ;; company 的配置包括 which-key
 (require 'init-company)
-(require 'init-theme)
+(require 'init-themes)
 (require 'init-widgets)
 
 (put 'narrow-to-region 'disabled nil)

@@ -4,7 +4,7 @@
 (setq spk-theme-dir (concat user-emacs-directory "themes/"))
 
 (add-to-list 'load-path
-	     (concat spk-theme-dir "spk-mint-theme"))
+	     (concat spk-theme-dir "spk-mint-theme/"))
 ;; 加载自己定义的亮色主题，需要时加载
 (require 'spk-mint-theme)
 
@@ -23,4 +23,4 @@
 ;;   ;; mini-modeline-r-format
 ;;   )
 
-(provide 'init-theme)
+(provide 'init-themes)
