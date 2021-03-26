@@ -154,6 +154,12 @@
   "yi" 'youdao-dictionary-search-from-input
   )
 
+;; 在windows上找不到 manual 节点，手动将emacs doc的位置添加到info-directory-list里面去
+(when IS-WINDOWS
+  (add-to-list 'Info-directory-list
+	       "d:/HOME/spike/code/emacs-27.1/emacs-27.1/info")
+  )
+
 ;; 用来解释当前光标所在位置的face等信息，在编写主题的时候比较有用 
 ;; C-u C-x = 编写主题时候解释当前光标的信息，用于自定义face
 (provide 'init-widgets)
