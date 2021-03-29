@@ -14,6 +14,8 @@
   (autoload #'toggle-company-english-helper "company-english-helper")
   (global-set-key (kbd "<f1>") 'toggle-company-english-helper))
 
+;; 快速打开emacs手册
+(global-set-key (kbd "<f3>") 'info)
 (define-key global-map (kbd "C-=") 'er/expand-region)
 (define-key global-map (kbd "C-\-") 'er/contract-region)
 

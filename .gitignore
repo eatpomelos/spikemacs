@@ -29,3 +29,8 @@ custom.el
 # ignore yas compile file
 .yas-compiled-snippets.el
 .yas-parents
+
+# ignore projectile cache
+ede-projects.el
+projectile.cache
+projectile-bookmarks.eld

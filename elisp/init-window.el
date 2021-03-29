@@ -1,8 +1,12 @@
 ;; 窗口操作相关配置
 (straight-use-package 'winum)
+(straight-use-package 'popwin)
 
 (autoload #'winum-mode "winum")
+(autoload #'popwin-mode "popwin")
+
 (add-hook 'after-init-hook 'winum-mode)
+(add-hook 'winum-mode-hook 'popwin-mode)
 
 (with-eval-after-load 'winum
   (evil-leader/set-key

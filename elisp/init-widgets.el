@@ -136,9 +136,11 @@
   (interactive)
   (let* ((current-dir (slash-2-backslash default-directory))
 	 (exploer-command nil))
-    (when IS-WINDOWS
-      (setq explore-command "explorer")
-      (shell-command-to-string (format "%s %s" explore-command current-dir)))))
+    (if IS-WINDOWS
+	(progn (setq explore-command "explorer")
+	       (shell-command-to-string (format "%s %s" explore-command current-dir)))
+      (message "Is not in windows system. This command is not set."))
+    ))
 
 ;; keybindings
 (evil-leader/set-key
