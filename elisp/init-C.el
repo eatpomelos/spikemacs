@@ -38,6 +38,7 @@
   "Disable `electric-pair-mode'."
   (electric-pair-mode -1))
 
-(add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
+;; (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
+(add-hook 'c-mode-hook 'ctags-auto-update-mode)
 
 (provide 'init-C)

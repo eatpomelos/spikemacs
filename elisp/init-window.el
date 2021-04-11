@@ -19,6 +19,7 @@
     "6" 'winum-select-window-6
     "w/" 'split-window-right
     "wm" 'delete-other-windows
+    "wd" 'delete-window
     "w-" 'split-window-below
     "w=" 'balance-windows
     "wL" 'evil-window-move-far-right

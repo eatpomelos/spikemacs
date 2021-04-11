@@ -13,22 +13,59 @@
 
 ;; 根据find命令的方式查找文件，当不输入关键字的时候，直接用 . 代替 
 ;;;###autoload
-(defun spk-find-file-internal (directory)
-  "Find file in DIRECTORY."
+(defun spk-search-file-internal (directory &optional grep-p)
+  "Find/Search file in DIRECTORY.
+If GREP-P is t, grep files .
+If GREP-P is nil, find files"
   (let* ((keyword (read-string "Please input keyword: ")))
-    (when (string= keyword "")
-      (setq keyword "."))
-    (let* ((cmd (format "find . -path \"*/.git\" -prune -o -type f -regex \"^.*%s\" -print" keyword))
-           (default-directory directory)
-           (tcmd "fd \".*\\.png\" ~/tmp")
-           (output (shell-command-to-string cmd))
-           (lines (cdr (split-string output "[\n\r]+")))
-           selecttd-line)
-      (setq selecttd-line (ivy-read (format "Find file in %s:" default-directory)
-                                    lines))
-      (when (and selecttd-line (file-exists-p selecttd-line))
-	(find-file selecttd-line))
+    (if (string= keyword "")
+	(if (functionp 'counsel-find-file) 
+	    (counsel-find-file directory)
+	  (find-file directory))
+      (let* ((find-cmd (format "find . -path \"*/.git\" -prune -o -type f -regex \"^.*%s.*\" -print" keyword))
+	     (grep-cmd (format "grep --exclude-dir=\"*/.git\" -rsn \"%s\" *" keyword))
+             (default-directory directory)
+             (output (shell-command-to-string (if grep-p grep-cmd find-cmd)))
+             (lines (split-string output "[\n\r]+"))
+	     (hint (if grep-p "Grep file in %s" "Find file in %s"))
+             selected-line
+	     selected-file
+	     linenum)
+	(setq selected-line (ivy-read (format hint default-directory)
+                                      lines))
+	(cond
+	 (grep-p
+	  (when (string-match "^\\([^:]*\\):\\([0-9]*\\):" selected-line)
+	    (setq selected-file (match-string 1 selected-line))
+	    (setq linenum (match-string 2 selected-line))
+	    ))
+	 (t
+	  (setq selected-file selected-line))
+	 )
+	(when (and selected-line (file-exists-p selected-file))
+	  (find-file selected-file)
+	  (when linenum
+	    (goto-line (string-to-number linenum))))
+	)
       )))
+
+;; (defun spk-search-file-internal (directory)
+;;   "Find file in DIRECTORY."
+;;   (let* ((keyword (read-string "Please input keyword: ")))
+;;     (if (string= keyword "")
+;; 	(if (functionp 'counsel-find-file) 
+;; 	    (counsel-find-file directory)
+;; 	  (find-file directory))
+;;       (let* ((cmd (format "find . -path \"*/.git\" -prune -o -type f -regex \"^.*%s.*\" -print" keyword))
+;;              (default-directory directory)
+;;              (output (shell-command-to-string cmd))
+;;              (lines (cdr (split-string output "[\n\r]+")))
+;;              selecttd-line)
+;; 	(setq selecttd-line (ivy-read (format "Find file in %s:" default-directory)
+;;                                       lines))
+;; 	(when (and selecttd-line (file-exists-p selecttd-line))
+;; 	  (find-file selecttd-line))
+;; 	))))
 
 ;; 切换到scratch 缓冲区
 ;;;###autoload

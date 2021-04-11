@@ -47,11 +47,12 @@
     ))
 
 ;; 工具函数，快速打开公司的代码
-(defvar spk-push-code-dir)
-(setq spk-push-code-dir "d:/work/CODE/PushCode/UGW_Repo")
-(defun spk-quick-open-push-code ()
-  (interactive)
-  (counsel-find-file spk-push-code-dir))
+(when IS-WINDOWS
+  (defvar spk-push-code-dir)
+  (setq spk-push-code-dir "d:/work/CODE/PushCode/UGW_Repo")
+  (defun spk-quick-open-push-code ()
+    (interactive)
+    (counsel-find-file spk-push-code-dir)))
 
 ;; 设置emacs的透明度
 (setq alpha-list '((100 100) (75 45)))
@@ -107,7 +108,7 @@
   (interactive)
   (let* ((dir (locate-dominating-file default-directory ".\git")))
     (if dir
-	(spk-find-file-internal dir)
+	(spk-search-file-internal dir)
       (message "Not in a project directory.")))
   )
 
@@ -126,7 +127,7 @@
 	    (directory-file-name default-directory))
       (file-name-directory  (directory-file-name parent-directory))
       (setq i (1+ i)))
-    (spk-find-file-internal parent-directory)))
+    (spk-search-file-internal parent-directory)))
 
 ;; 在系统文件管理器中打开当前路径，以下函数方法可以考虑是否能写成通用函数 
 ;; (replace-regexp-in-string) 替换字符串中的某个字符，但是有问题
@@ -147,6 +148,7 @@
   "fc" 'spk-find-emacs-confs
   "fp" 'spk-find-local-conf
   "ff" 'spk-find-file
+  "fd" 'spk-find-linux-doc
   "fqp" 'spk-quick-open-push-code
   "fo" 'spk-open-file-with-system-application
   "f'" 'spk-find-file-in-project
@@ -161,6 +163,20 @@
   (add-to-list 'Info-directory-list
 	       "d:/HOME/spike/code/emacs-27.1/emacs-27.1/info")
   )
+
+(defvar spk-linux-doc-dir nil
+  "LINUX kernel documents directory.")
+
+(when IS-WINDOWS
+  (setq spk-linux-doc-dir "d:/work/linux-5.9-rc3/linux-5.9-rc3/Documentation"))
+
+;; 暂时只用来管理linux标准内核的文档，后续可以扩展成一个列表用选择需要查看的文档
+;;;###autoload
+(defun spk-find-linux-doc ()
+  "Open linux default documentation directory."
+  (interactive)
+  (when spk-linux-doc-dir
+    (counsel-find-file spk-linux-doc-dir)))
 
 ;; 用来解释当前光标所在位置的face等信息，在编写主题的时候比较有用 
 ;; C-u C-x = 编写主题时候解释当前光标的信息，用于自定义face

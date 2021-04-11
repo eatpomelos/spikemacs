@@ -3,6 +3,10 @@
 (straight-use-package 'restart-emacs)
 (straight-use-package 'json-mode)
 (straight-use-package 'symbol-overlay)
+(straight-use-package 'deadgrep)
+
+(require 'deadgrep)
+
 ;; 指定github上的包，并下载，由于当前的环境配置中 linux下的环境没有界面因此使用此package会导致emacs卡死
 (when IS-WINDOWS
   (straight-use-package
