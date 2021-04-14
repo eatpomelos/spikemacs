@@ -45,11 +45,49 @@
 	xref-find-definitions-other-frame)
       )
 
+;; functions
+
+;;;###autoload
+(defun spk/project-find-file ()
+  "Find file in project root directory."
+  (interactive)
+  (let* ((dir (locate-dominating-file default-directory ".\git")))
+    (if dir
+	(spk-search-file-internal dir)
+      (message "Not in a project directory.")))
+  )
+
+;; 在下项目中找某个符号
+;;;###autoload
+(defun spk/project-search-symbol (&optional symbol)
+  (let* ((dir (locate-dominating-file default-directory ".\git")))
+    (unless dir
+      (setq dir (locate-dominating-file default-directory "TAGS")))
+    (unless dir
+      (setq dir default-directory))
+    (spk-search-file-internal dir t symbol (+spk-current-buffer-file-postfix))
+    ))
+
+;;;###autoload
+(defun spk/project-search-symbol-at-point ()
+  (interactive)
+  (spk/project-search-symbol (symbol-at-point))
+  )
+
+;;;###autoload
+(defun spk/project-search-symbol-input ()
+  (interactive)
+  (spk/project-search-symbol nil)
+  )
+
+;; 快捷键的设置不合理
 (evil-leader/set-key
   "pd" 'xref-find-definitions
   "pt" 'counsel-etags-find-tag-at-point
   "ps" 'spk/project-search-symbol-at-point
-  "pf" 'counsel-etags-find-tag
+  "pi" 'spk/project-search-symbol-input
+  "pff" 'spk/project-find-file
+  "pfe" 'counsel-etags-find-tag
   )
 
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置

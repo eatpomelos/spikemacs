@@ -103,38 +103,6 @@
   (interactive)
   (counsel-find-file (concat spk-local-dir "Templet/elisp/")))
 
-;;;###autoload
-(defun spk-find-file-in-project ()
-  "Find file in project root directory."
-  (interactive)
-  (let* ((dir (locate-dominating-file default-directory ".\git")))
-    (if dir
-	(spk-search-file-internal dir)
-      (message "Not in a project directory.")))
-  )
-
-;; 在下项目中找某个符号
-;;;###autoload
-(defun spk/search-symbol (&optional symbol postfix)
-  (let* ((dir (locate-dominating-file default-directory ".\git")))
-    (unless dir
-      (setq dir (locate-dominating-file default-directory "TAGS")))
-    (unless dir
-      (setq dir default-directory))
-    (spk-search-file-internal dir t symbol postfix)
-    ))
-
-;;;###autoload
-(defun spk/project-search-symbol-at-point ()
-  (interactive)
-  (spk/search-symbol (symbol-at-point) (+spk-current-buffer-file-postfix))
-  )
-
-;;;###autoload
-(defun spk/project-search-symbol ()
-  (interactive)
-  (spk/search-symbol nil (+spk-current-buffer-file-postfix)))
-
 ;; 在上级多少层目录查找文件
 ;;;###autoload
 (defun spk-find-file (&optional level)
@@ -174,7 +142,6 @@
   "fd" 'spk-find-linux-doc
   "fqp" 'spk-quick-open-push-code
   "fo" 'spk-open-file-with-system-application
-  "f'" 'spk-find-file-in-project
   "t" 'spk-find-local-templet
   "yo" 'youdao-dictionary-search-at-point+
   "ys" 'youdao-dictionary-play-voice-at-point

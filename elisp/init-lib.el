@@ -35,7 +35,6 @@
   "Find/Search file in DIRECTORY.
 If GREP-P is t, grep files .
 If GREP-P is nil, find files"
-  (message "dir=%s" directory)
   (let* ((keyword (if symbol symbol
 		    (read-string "Please input keyword: "))))
     (if (string= keyword "")
@@ -44,9 +43,10 @@ If GREP-P is nil, find files"
 	  (find-file directory))
       ;; 当没有给后缀的时候默认为任意字符
       (let* ((postfix (if pfix pfix ""))
-	     (find-cmd (format "find %s -path \"*/.git\" -prune -o -type f -regex \"^.*%s%s\" -print"
-			       directory (if grep-p "" keyword) postfix))
-	     (grep-cmd (format "grep -rsn \"%s\" *" keyword))
+	     (find-cmd (format "find %s -path \"*/.git\" -prune -o -type f -regex \"^.*%s.*%s\" -print"
+			       directory (if grep-p ".*" keyword) postfix))
+	     (grep-cmd (format "grep -rsn \"%s\"" keyword))
+	     ;; (grep-cmd (format "rg \"%s\"" keyword))
 	     (exec-cmd (if grep-p
 			   (concat find-cmd (format " | xargs %s" grep-cmd))
 			 find-cmd))
@@ -55,8 +55,7 @@ If GREP-P is nil, find files"
 	     (hint (if grep-p "Grep file in %s" "Find file in %s"))
 	     selected-line
 	     selected-file
-	     linenum
-	     )
+	     linenum)
 	(setq selected-line (ivy-read (format hint directory)
 				      lines))
 	(cond
@@ -71,8 +70,8 @@ If GREP-P is nil, find files"
 	(when (and selected-line (file-exists-p selected-file))
 	  (find-file selected-file)
 	  (when linenum
-	    (goto-line (string-to-number linenum))))
-	))))
+	    (goto-line (string-to-number linenum)))
+	  )))))
 
 ;; 切换到scratch 缓冲区
 ;;;###autoload
