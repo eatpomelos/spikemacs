@@ -7,32 +7,58 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
-;; 把斜线转换成反斜线
-(defmacro slash-2-backslash (str)
-  (list 'replace-regexp-in-string "/" "\\\\" str nil nil 0))
+(defvar spk-debug-line nil
+  "Line number for debug.")
+(defmacro +spk-debug ()
+  `(setq spk-debug-line (line-number-at-pos)))
 
-;; 根据find命令的方式查找文件，当不输入关键字的时候，直接用 . 代替 
+;; 把斜线转换成反斜线
+(defmacro +slash-2-backslash (str)
+  `(replace-regexp-in-string "/" "\\\\" ,str nil nil 0))
+
+;; 建立alist 来智能检索文件已经在检索到的文件中查找特定字符串
+
+;; 设置不同语言的特定文件类型，由于需求比较简单，暂时不考虑使用auto-mode-alist 
+(setq spk/lang-file-type-postfix-alist
+      '( (c-mode . "\\.[ch]")
+	 (cc-mode . "\\.[ch]")
+	 (emacs-lisp-mode . "\\.el")
+	 ))
+
+(defmacro +spk-current-buffer-file-postfix ()
+  `(cdr (assoc major-mode spk/lang-file-type-postfix-alist)))
+
+
+;; 查找文件的功能还有一点问题
 ;;;###autoload
-(defun spk-search-file-internal (directory &optional grep-p)
+(defun spk-search-file-internal (directory &optional grep-p symbol pfix)
   "Find/Search file in DIRECTORY.
 If GREP-P is t, grep files .
 If GREP-P is nil, find files"
-  (let* ((keyword (read-string "Please input keyword: ")))
+  (message "dir=%s" directory)
+  (let* ((keyword (if symbol symbol
+		    (read-string "Please input keyword: "))))
     (if (string= keyword "")
 	(if (functionp 'counsel-find-file) 
 	    (counsel-find-file directory)
 	  (find-file directory))
-      (let* ((find-cmd (format "find . -path \"*/.git\" -prune -o -type f -regex \"^.*%s.*\" -print" keyword))
-	     (grep-cmd (format "grep --exclude-dir=\"*/.git\" -rsn \"%s\" *" keyword))
-             (default-directory directory)
-             (output (shell-command-to-string (if grep-p grep-cmd find-cmd)))
-             (lines (split-string output "[\n\r]+"))
+      ;; 当没有给后缀的时候默认为任意字符
+      (let* ((postfix (if pfix pfix ""))
+	     (find-cmd (format "find %s -path \"*/.git\" -prune -o -type f -regex \"^.*%s%s\" -print"
+			       directory (if grep-p "" keyword) postfix))
+	     (grep-cmd (format "grep -rsn \"%s\" *" keyword))
+	     (exec-cmd (if grep-p
+			   (concat find-cmd (format " | xargs %s" grep-cmd))
+			 find-cmd))
+	     (output (shell-command-to-string exec-cmd))
+	     (lines (split-string output "[\n\r]+"))
 	     (hint (if grep-p "Grep file in %s" "Find file in %s"))
-             selected-line
+	     selected-line
 	     selected-file
-	     linenum)
-	(setq selected-line (ivy-read (format hint default-directory)
-                                      lines))
+	     linenum
+	     )
+	(setq selected-line (ivy-read (format hint directory)
+				      lines))
 	(cond
 	 (grep-p
 	  (when (string-match "^\\([^:]*\\):\\([0-9]*\\):" selected-line)
@@ -46,26 +72,7 @@ If GREP-P is nil, find files"
 	  (find-file selected-file)
 	  (when linenum
 	    (goto-line (string-to-number linenum))))
-	)
-      )))
-
-;; (defun spk-search-file-internal (directory)
-;;   "Find file in DIRECTORY."
-;;   (let* ((keyword (read-string "Please input keyword: ")))
-;;     (if (string= keyword "")
-;; 	(if (functionp 'counsel-find-file) 
-;; 	    (counsel-find-file directory)
-;; 	  (find-file directory))
-;;       (let* ((cmd (format "find . -path \"*/.git\" -prune -o -type f -regex \"^.*%s.*\" -print" keyword))
-;;              (default-directory directory)
-;;              (output (shell-command-to-string cmd))
-;;              (lines (cdr (split-string output "[\n\r]+")))
-;;              selecttd-line)
-;; 	(setq selecttd-line (ivy-read (format "Find file in %s:" default-directory)
-;;                                       lines))
-;; 	(when (and selecttd-line (file-exists-p selecttd-line))
-;; 	  (find-file selecttd-line))
-;; 	))))
+	))))
 
 ;; 切换到scratch 缓冲区
 ;;;###autoload
@@ -111,3 +118,4 @@ If GREP-P is nil, find files"
   nil)
 
 (provide 'init-lib)
+

@@ -23,4 +23,10 @@
 (require 'init-widgets)
 
 (put 'narrow-to-region 'disabled nil)
+
+;; 编程规范：
+;; macro 格式为 +spk-xx-xx
+;; function 格式为 spk/xx-xx
+;; variables 格式为 spk-xx-xx
+(put 'erase-buffer 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)

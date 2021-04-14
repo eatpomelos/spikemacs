@@ -10,8 +10,8 @@
   (interactive)
   (counsel-find-file spk-elisp-dir))
 
-;;;###autoload
 ;; 打开电脑上的其他emacs配置
+;;;###autoload
 (defun spk-find-emacs-confs ()
   "Find another emacs config file."
   (interactive)
@@ -21,8 +21,8 @@
 		(IS-LINUX "~/emacs-config")))
     (counsel-find-file emacs-conf-dir)))
 
-;;;###autoload
 ;; 当打开的文件较大时，
+;;;###autoload
 (defun spk-view-large-file ()
   (when (> (buffer-size) 10000000)
     (fundamental-mode)
@@ -86,6 +86,7 @@
 	     (overlay-put ov 'face 'region)))
 	)
   )
+
 (global-set-key (kbd "<f9>") #'spk/highlight_or_unhighlight_line_at_point)
 
 ;;;###autoload
@@ -112,8 +113,30 @@
       (message "Not in a project directory.")))
   )
 
+;; 在下项目中找某个符号
 ;;;###autoload
+(defun spk/search-symbol (&optional symbol postfix)
+  (let* ((dir (locate-dominating-file default-directory ".\git")))
+    (unless dir
+      (setq dir (locate-dominating-file default-directory "TAGS")))
+    (unless dir
+      (setq dir default-directory))
+    (spk-search-file-internal dir t symbol postfix)
+    ))
+
+;;;###autoload
+(defun spk/project-search-symbol-at-point ()
+  (interactive)
+  (spk/search-symbol (symbol-at-point) (+spk-current-buffer-file-postfix))
+  )
+
+;;;###autoload
+(defun spk/project-search-symbol ()
+  (interactive)
+  (spk/search-symbol nil (+spk-current-buffer-file-postfix)))
+
 ;; 在上级多少层目录查找文件
+;;;###autoload
 (defun spk-find-file (&optional level)
   "Find file in current directory or LEVEL parent directory."
   (interactive "p")
@@ -135,7 +158,7 @@
 (defun spk-open-file-with-system-application ()
   "Open directory with system application"
   (interactive)
-  (let* ((current-dir (slash-2-backslash default-directory))
+  (let* ((current-dir (+slash-2-backslash default-directory))
 	 (exploer-command nil))
     (if IS-WINDOWS
 	(progn (setq explore-command "explorer")
@@ -176,7 +199,7 @@
   "Open linux default documentation directory."
   (interactive)
   (when spk-linux-doc-dir
-    (counsel-find-file spk-linux-doc-dir)))
+    (spk-search-file-internal spk-linux-doc-dir t)))
 
 ;; 用来解释当前光标所在位置的face等信息，在编写主题的时候比较有用 
 ;; C-u C-x = 编写主题时候解释当前光标的信息，用于自定义face

@@ -34,3 +34,6 @@ custom.el
 ede-projects.el
 projectile.cache
 projectile-bookmarks.eld
+
+# ignore lsp temporary files
+.lsp-session*

@@ -1,7 +1,3 @@
-(require 'init-elisp)
-(require 'init-C)
-
-;; 配置ctags来生成标签和补全，在emacs上配置C语言相关的编程环境
 (straight-use-package 'ctags)
 (straight-use-package 'ctags-update)
 (straight-use-package 'company-ctags)
@@ -33,7 +29,7 @@
    ))
 
 (defvar spk-prog-jump-list nil
-  "When called xref find definition to record position")
+  "To record position when called xref-goto-xref")
 
 ;; xref config
 ;; (advice-add 'xref--xref-buffer-mode :after #'evil-insert-state)
@@ -50,7 +46,14 @@
       )
 
 (evil-leader/set-key
-  "\'d" 'xref-find-definitions
-  "\'f" 'counsel-etags-find-tag-at-point
-)
+  "pd" 'xref-find-definitions
+  "pt" 'counsel-etags-find-tag-at-point
+  "ps" 'spk/project-search-symbol-at-point
+  "pf" 'counsel-etags-find-tag
+  )
+
+;; 在通用的编程设置完成之后，读取针对相应编程语言的设置
+(require 'init-elisp)
+(require 'init-C)
+
 (provide 'init-prog)

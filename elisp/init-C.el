@@ -34,11 +34,17 @@
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook-if0)
 
+;;;###autoload
 (defun spk-disable-electric-pair-mode ()
   "Disable `electric-pair-mode'."
   (electric-pair-mode -1))
 
 ;; (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
 (add-hook 'c-mode-hook 'ctags-auto-update-mode)
+;; (add-hook 'c-mode-hook (lambda ()
+;; 			 (setq company-backends
+;; 			       '(company-etags company-keywords company-files))))
+
+;; 在阅读代码时候，有时候指向在本文件中查找,实现一个功能类似变窄
 
 (provide 'init-C)
