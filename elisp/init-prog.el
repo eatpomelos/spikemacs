@@ -2,6 +2,7 @@
 (straight-use-package 'ctags-update)
 (straight-use-package 'company-ctags)
 (straight-use-package 'counsel-etags)
+(straight-use-package 'better-jumper)
 
 (autoload #'ctags-auto-update-mode "ctags-update")
 
@@ -12,6 +13,10 @@
 
 (straight-use-package 'imenu-list)
 ;; (straight-use-package 'projectile)
+
+;; 配置better-jumper来满足阅读源代码时候的跳转需求
+(autoload #'better-jumper-mode "better-jumper")
+(add-hook 'prog-mode-hook #'better-jumper-mode)
 
 (autoload #'imenu-list-smart-toggle "imenu-list")
 (add-hook 'prog-mode-hook 'electric-pair-mode)
@@ -88,6 +93,12 @@
   "pi" 'spk/project-search-symbol-input
   "pff" 'spk/project-find-file
   "pfe" 'counsel-etags-find-tag
+  )
+
+;; 配置better-jumper快捷键来满足跳转需求
+(with-eval-after-load 'better-jumper
+  (define-key prog-mode-map (kbd "C-<f8>") 'better-jumper-jump-backward)
+  (define-key prog-mode-map (kbd "C-<f9>") 'better-jumper-jump-forward)
   )
 
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置

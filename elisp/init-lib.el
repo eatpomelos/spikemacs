@@ -28,8 +28,6 @@
 (defmacro +spk-current-buffer-file-postfix ()
   `(cdr (assoc major-mode spk/lang-file-type-postfix-alist)))
 
-
-;; 查找文件的功能还有一点问题
 ;;;###autoload
 (defun spk-search-file-internal (directory &optional grep-p symbol pfix)
   "Find/Search file in DIRECTORY.
@@ -44,7 +42,7 @@ If GREP-P is nil, find files"
       ;; 当没有给后缀的时候默认为任意字符
       (let* ((postfix (if pfix pfix ""))
 	     (find-cmd (format "find %s -path \"*/.git\" -prune -o -type f -regex \"^.*%s.*%s\" -print"
-			       directory (if grep-p ".*" keyword) postfix))
+			       (expand-file-name directory) (if grep-p ".*" keyword) postfix))
 	     (grep-cmd (format "grep -rsn \"%s\"" keyword))
 	     ;; (grep-cmd (format "rg \"%s\"" keyword))
 	     (exec-cmd (if grep-p
@@ -60,7 +58,10 @@ If GREP-P is nil, find files"
 				      lines))
 	(cond
 	 (grep-p
-	  (when (string-match "^\\([^:]*\\):\\([0-9]*\\):" selected-line)
+	  (when (string-match
+		 (if IS-WINDOWS
+		     "^[^:]*:\\([^:]*\\):\\([0-9]*\\):"
+		   "^\\([^:]*\\):\\([0-9]*\\):") selected-line)
 	    (setq selected-file (match-string 1 selected-line))
 	    (setq linenum (match-string 2 selected-line))
 	    ))
@@ -72,6 +73,7 @@ If GREP-P is nil, find files"
 	  (when linenum
 	    (goto-line (string-to-number linenum)))
 	  )))))
+
 
 ;; 切换到scratch 缓冲区
 ;;;###autoload
@@ -109,6 +111,11 @@ If GREP-P is nil, find files"
 	  (throw 'tag pos))
 	(setq pos (1+ pos))
 	))))
+
+;; 测试用函数，暂时用来清除自定义的overlay
+(defun spk-clear-spk-ovs ()
+  (interactive)
+  (spk/highlight-clear spk-ovs))
 
 ;;;###autoload
 (defun spk/highlight-clear (ovs)
