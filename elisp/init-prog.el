@@ -33,9 +33,6 @@
    imenu-list-size 0.25
    ))
 
-(defvar spk-prog-jump-list nil
-  "To record position when called xref-goto-xref")
-
 ;; xref config
 ;; (advice-add 'xref--xref-buffer-mode :after #'evil-insert-state)
 ;; (define-key xref--xref-buffer-mode-map (kbd "j") 'xref-next-line)
@@ -62,7 +59,6 @@
       (message "Not in a project directory.")))
   )
 
-;; 在下项目中找某个符号
 ;;;###autoload
 (defun spk/project-search-symbol (&optional symbol)
   (let* ((dir (locate-dominating-file default-directory ".\git")))

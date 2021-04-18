@@ -1,6 +1,8 @@
 ;; 当版本低于27.1的时候手动加载一遍early-init.el
 (when (version< emacs-version "27.1")
   (message "emacs's version less than 27.1,manual loading early-init file ...")
+  (add-to-list 'load-path
+	       user-emacs-directory)
   (require 'spk-early-init)
   )
 

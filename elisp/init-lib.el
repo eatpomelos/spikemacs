@@ -32,7 +32,9 @@
 (defun spk-search-file-internal (directory &optional grep-p symbol pfix)
   "Find/Search file in DIRECTORY.
 If GREP-P is t, grep files .
-If GREP-P is nil, find files"
+If GREP-P is nil, find files.
+If symbols is nil, input a string to replace symbol.
+pfix is the postfix of file"
   (let* ((keyword (if symbol symbol
 		    (read-string "Please input keyword: "))))
     (if (string= keyword "")
@@ -41,7 +43,7 @@ If GREP-P is nil, find files"
 	  (find-file directory))
       ;; 当没有给后缀的时候默认为任意字符
       (let* ((postfix (if pfix pfix ""))
-	     (find-cmd (format "find %s -path \"*/.git\" -prune -o -type f -regex \"^.*%s.*%s\" -print"
+	     (find-cmd (format "find %s -path \"*/.*\" -prune -o -type f -regex \"^.*%s.*%s$\" -print"
 			       (expand-file-name directory) (if grep-p ".*" keyword) postfix))
 	     (grep-cmd (format "grep -rsn \"%s\"" keyword))
 	     ;; (grep-cmd (format "rg \"%s\"" keyword))
