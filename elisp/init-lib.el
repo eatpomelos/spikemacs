@@ -60,10 +60,8 @@ pfix is the postfix of file"
 				      lines))
 	(cond
 	 (grep-p
-	  (when (string-match
-		 (if IS-WINDOWS
-		     "^[^:]*:\\([^:]*\\):\\([0-9]*\\):"
-		   "^\\([^:]*\\):\\([0-9]*\\):") selected-line)
+	  (when (string-match "^\\([^:]*:?[^:]*\\):\\([0-9]*\\):"
+		 selected-line)
 	    (setq selected-file (match-string 1 selected-line))
 	    (setq linenum (match-string 2 selected-line))
 	    ))
@@ -76,7 +74,6 @@ pfix is the postfix of file"
 	    (goto-line (string-to-number linenum)))
 	  )))))
 
-
 ;; 切换到scratch 缓冲区
 ;;;###autoload
 (defun spk-switch-to-scratch ()
@@ -84,7 +81,7 @@ pfix is the postfix of file"
   (save-excursion
     (switch-to-buffer "*scratch*")))
 
-;; 把列表中的某一项删除，主要完成把前面和后面进行一个拼接
+;; 把列表中的某一项删除，catch-throw 类似return的用法
 ;;;###autoload
 (defun spk/delete-list-element (n list)
   "Delete a element"
