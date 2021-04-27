@@ -11,6 +11,9 @@
   (straight-use-package 'highlight-indent-guides)
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
 
+;; (setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
 (straight-use-package 'imenu-list)
 ;; (straight-use-package 'projectile)
 

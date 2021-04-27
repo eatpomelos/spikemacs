@@ -134,6 +134,11 @@
       (message "Is not in windows system. This command is not set."))
     ))
 
+;;;###autoload
+(defun spk/find-repo-code ()
+  (interactive)
+  (counsel-find-file "~/.emacs.d/straight/repos/"))
+
 ;; keybindings
 (evil-leader/set-key
   "fc" 'spk-find-emacs-confs

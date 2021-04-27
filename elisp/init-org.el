@@ -5,6 +5,9 @@
 (straight-use-package 'org-roam-server)
 (straight-use-package 'org-roam)
 
+(autoload #'org-roam-find-file "org-roam")
+(autoload #'org-roam-server-mode "org-roam-server")
+
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
 ;; 设置一下自己的任务管理的一些简单的配置,要是想放弃一个任务的时候，要进行说明，以后可能会再次启用这个任务
@@ -43,7 +46,7 @@
       spk-notes-tips-file (expand-file-name "tips.org" spk-local-notes-dir)
       )
 
-;; 在ｄｏｏｍ原来的设置中有一个比较好的做法是，在项目的文件中会直接生成一个ｔｏｄｏ文件而不是直接和其他的放在一起
+;; 在Doom原来的设置中有一个比较好的做法是，在项目的文件中会直接生成一个Todo文件而不是直接和其他的放在一起
 
 ;; 后续提高速度可以用eval-after-load来控制
 (setq org-capture-templates
@@ -291,9 +294,6 @@
   "og" 'org-roam-graph
   "oi" 'org-roam-insert
   "oI" 'org-roam-insert-immediate)
-
-;; 可以考虑一下这个hook点是不是可以优化
-(add-hook 'after-init-hook 'org-roam-mode)
 
 (setq org-roam-server-host "127.0.0.1"
       org-roam-server-port 9090

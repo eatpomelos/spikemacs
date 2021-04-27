@@ -13,13 +13,17 @@
    '(company-english-helper :type git
 			    :host github
 			    :repo "manateelazycat/company-english-helper"))
-
   ;; 指定一个函数从文件中自动加载，暂时理解成指定一个函数为autoload，当使用这个函数时自动加载那个文件
   (autoload #'toggle-company-english-helper "company-english-helper")
   (global-set-key (kbd "<f1>") 'toggle-company-english-helper))
 
-;; 快速打开emacs手册
-(global-set-key (kbd "<f3>") 'info)
+;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
+;; (straight-use-package
+;;  '(color-rg :type git
+;; 	    :host github
+;; 	    :repo "manateelazycat/color-rg"))
+;; (require 'color-rg)
+
 (define-key global-map (kbd "C-=") 'er/expand-region)
 (define-key global-map (kbd "C-\-") 'er/contract-region)
 
@@ -54,7 +58,9 @@
   ;;  )
   )
 
-
+;; 由于高亮显示占用了evil的快捷键，且暂时不使用其自定义的快捷键，禁用symbol-overlay-mode
+(with-eval-after-load 'symbol-overlay
+  (setq symbol-overlay-inhibit-map t))
 
 ;; bookmarks
 (evil-leader/set-key

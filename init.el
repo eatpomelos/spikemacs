@@ -1,3 +1,8 @@
+;; 编程规范：
+;; macro 格式为 +spk-xx-xx
+;; function 格式为 spk/xx-xx
+;; variables 格式为 spk-xx-xx
+
 ;; 当版本低于27.1的时候手动加载一遍early-init.el
 (when (version< emacs-version "27.1")
   (message "emacs's version less than 27.1,manual loading early-init file ...")
@@ -25,10 +30,5 @@
 (require 'init-widgets)
 
 (put 'narrow-to-region 'disabled nil)
-
-;; 编程规范：
-;; macro 格式为 +spk-xx-xx
-;; function 格式为 spk/xx-xx
-;; variables 格式为 spk-xx-xx
 (put 'erase-buffer 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)

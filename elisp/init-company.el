@@ -35,6 +35,7 @@
 ;;  company-tooltip-margin 0)
 
 (autoload #'company-mode "company")
+(autoload #'company-box-mode "company-box")
 
 (add-hook 'prog-mode-hook 'company-mode)
 (add-hook 'conf-mode-hook 'company-mode)
@@ -48,15 +49,17 @@
    company-minimum-prefix-length 1
    company-show-numbers t
    )
-  (require 'company-box)
-  (setq company-box-doc-delay 0.5)
-  (add-hook 'company-mode-hook #'company-box-mode)
-
   (setq company-backends
 	'(company-bbdb company-semantic company-cmake company-capf company-clang company-files company-ispell
 		       (company-dabbrev-code company-gtags company-etags company-keywords)
-		       company-oddmuse company-dabbrev))
-  )
+		       company-oddmuse company-dabbrev)))
+
+(with-eval-after-load 'company-box
+  (require 'company-box)
+  (setq company-box-doc-delay 0.5)
+  (add-hook 'emacs-lisp-mode-hook #'company-box-mode))
+
+
 
 ;; 当打开evil-leader-mode 之后打开 which-key-mode
 (add-hook 'evil-leader-mode-hook #'which-key-mode)

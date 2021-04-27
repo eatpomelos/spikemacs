@@ -28,8 +28,10 @@
     "hk" 'describe-key
     "hv" 'describe-variable
     "hf" 'describe-function
-    "hp" 'describe-package
+    ;; "hp" 'describe-package
+    "hp" 'spk/find-repo-code
     "hb" 'describe-bindings
+    "hi" 'info
     "sp" 'counsel-rg
     )
   

@@ -19,14 +19,14 @@
 ;; 建立alist 来智能检索文件已经在检索到的文件中查找特定字符串
 
 ;; 设置不同语言的特定文件类型，由于需求比较简单，暂时不考虑使用auto-mode-alist 
-(setq spk/lang-file-type-postfix-alist
+(setq spk-lang-file-type-postfix-alist
       '( (c-mode . "\\.[ch]")
 	 (cc-mode . "\\.[ch]")
 	 (emacs-lisp-mode . "\\.el")
 	 ))
 
 (defmacro +spk-current-buffer-file-postfix ()
-  `(cdr (assoc major-mode spk/lang-file-type-postfix-alist)))
+  `(cdr (assoc major-mode spk-lang-file-type-postfix-alist)))
 
 ;;;###autoload
 (defun spk-search-file-internal (directory &optional grep-p symbol pfix)
@@ -36,43 +36,43 @@ If GREP-P is nil, find files.
 If symbols is nil, input a string to replace symbol.
 pfix is the postfix of file"
   (let* ((keyword (if symbol symbol
-		    (read-string "Please input keyword: "))))
+					(read-string "Please input keyword: "))))
     (if (string= keyword "")
-	(if (functionp 'counsel-find-file) 
-	    (counsel-find-file directory)
-	  (find-file directory))
+		(if (functionp 'counsel-find-file) 
+			(counsel-find-file directory)
+		  (find-file directory))
       ;; 当没有给后缀的时候默认为任意字符
       (let* ((postfix (if pfix pfix ""))
-	     (find-cmd (format "find %s -path \"*/.*\" -prune -o -type f -regex \"^.*%s.*%s$\" -print"
-			       (expand-file-name directory) (if grep-p ".*" keyword) postfix))
-	     (grep-cmd (format "grep -rsn \"%s\"" keyword))
-	     ;; (grep-cmd (format "rg \"%s\"" keyword))
-	     (exec-cmd (if grep-p
-			   (concat find-cmd (format " | xargs %s" grep-cmd))
-			 find-cmd))
-	     (output (shell-command-to-string exec-cmd))
-	     (lines (split-string output "[\n\r]+"))
-	     (hint (if grep-p "Grep file in %s" "Find file in %s"))
-	     selected-line
-	     selected-file
-	     linenum)
-	(setq selected-line (ivy-read (format hint directory)
-				      lines))
-	(cond
-	 (grep-p
-	  (when (string-match "^\\([^:]*:?[^:]*\\):\\([0-9]*\\):"
-		 selected-line)
-	    (setq selected-file (match-string 1 selected-line))
-	    (setq linenum (match-string 2 selected-line))
-	    ))
-	 (t
-	  (setq selected-file selected-line))
-	 )
-	(when (and selected-line (file-exists-p selected-file))
-	  (find-file selected-file)
-	  (when linenum
-	    (goto-line (string-to-number linenum)))
-	  )))))
+			 (find-cmd (format "find %s -path \"*/.*\" -prune -o -type f -regex \"^.*%s.*%s$\" -print"
+							   (expand-file-name directory) (if grep-p ".*" keyword) postfix))
+			 (grep-cmd (format "grep -rsn \"%s\"" keyword))
+			 ;; (grep-cmd (format "rg \"%s\"" keyword))
+			 (exec-cmd (if grep-p
+						   (concat find-cmd (format " | xargs %s" grep-cmd))
+						 find-cmd))
+			 (output (shell-command-to-string exec-cmd))
+			 (lines (split-string output "[\n\r]+"))
+			 (hint (if grep-p "Grep file in %s" "Find file in %s"))
+			 selected-line
+			 selected-file
+			 linenum)
+		(setq selected-line (ivy-read (format hint directory)
+									  lines))
+		(cond
+		 (grep-p
+		  (when (string-match "^\\([^:]*:?[^:]*\\):\\([0-9]*\\):"
+							  selected-line)
+			(setq selected-file (match-string 1 selected-line))
+			(setq linenum (match-string 2 selected-line))
+			))
+		 (t
+		  (setq selected-file selected-line))
+		 )
+		(when (and selected-line (file-exists-p selected-file))
+		  (find-file selected-file)
+		  (when linenum
+			(goto-line (string-to-number linenum)))
+		  )))))
 
 ;; 切换到scratch 缓冲区
 ;;;###autoload
@@ -123,4 +123,3 @@ pfix is the postfix of file"
   nil)
 
 (provide 'init-lib)
-
