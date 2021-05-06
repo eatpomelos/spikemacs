@@ -153,6 +153,8 @@
   "yi" 'youdao-dictionary-search-from-input
   )
 
+(global-set-key (kbd "<f3>") #'youdao-dictionary-search-at-point+)
+
 ;; 在windows上找不到 manual 节点，手动将emacs doc的位置添加到info-directory-list里面去
 (when IS-WINDOWS
   (add-to-list 'Info-directory-list

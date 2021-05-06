@@ -19,4 +19,7 @@
   (define-key dired-mode-map "w" #'wdired-change-to-wdired-mode)
   )
 
+;; 在进入neotree显示的时候进入evil的insert-state
+(advice-add 'neotree-show :after #'evil-insert-state)
+
 (provide 'init-dired)

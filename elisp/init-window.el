@@ -8,6 +8,11 @@
 (add-hook 'after-init-hook 'winum-mode)
 (add-hook 'winum-mode-hook 'popwin-mode)
 
+;; 设置modeline显示的内容
+;; (setq-default mode-line-format
+;; 			  '((:eval
+;; 				 )))
+
 (with-eval-after-load 'winum
   (evil-leader/set-key
     "0" 'winum-select-window-0-or-10
