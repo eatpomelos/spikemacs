@@ -54,10 +54,10 @@
 		       (company-dabbrev-code company-gtags company-etags company-keywords)
 		       company-oddmuse company-dabbrev)))
 
+(add-hook 'emacs-lisp-mode-hook #'company-box-mode)
+
 (with-eval-after-load 'company-box
-  (require 'company-box)
-  (setq company-box-doc-delay 0.5)
-  (add-hook 'emacs-lisp-mode-hook #'company-box-mode))
+  (setq company-box-doc-delay 0.5))
 
 
 

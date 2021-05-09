@@ -7,6 +7,8 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
+(defconst GOOGLE-SEARCH "https://www.google.com.hk/search?q=")
+
 (defvar spk-debug-line nil
   "Line number for debug.")
 (defmacro +spk-debug ()
@@ -27,6 +29,13 @@
 
 (defmacro +spk-current-buffer-file-postfix ()
   `(cdr (assoc major-mode spk-lang-file-type-postfix-alist)))
+
+;; 在google浏览其中搜索当前光标位置的符号，后续改进
+;;;###autoload
+(defun spk/search-symbol-at-point-with-browser ()
+  "Search symbol in browser."
+  (interactive)
+  (browse-url (format "%s%s" GOOGLE-SEARCH (symbol-at-point))))
 
 ;;;###autoload
 (defun spk-search-file-internal (directory &optional grep-p symbol pfix)

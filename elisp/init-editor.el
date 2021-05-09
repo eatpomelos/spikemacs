@@ -5,6 +5,17 @@
 (straight-use-package 'symbol-overlay)
 (straight-use-package 'deadgrep)
 
+;; 考虑要不要加这个配置
+(straight-use-package 'undo-tree)
+(add-hook 'emacs-startup-hook #'global-undo-tree-mode)
+
+;; 怎么在不添加新的package的情况下覆盖绑定?
+(with-eval-after-load  'undo-tree
+  (global-set-key (kbd "C-r") #'undo-tree-redo)
+  (define-key evil-normal-state-map (kbd "C-r") #'undo-tree-redo)
+  (global-set-key (kbd "C-/") #'undo-tree-undo)
+  )
+
 (require 'deadgrep)
 
 ;; 指定github上的包，并下载，由于当前的环境配置中 linux下的环境没有界面因此使用此package会导致emacs卡死
@@ -71,6 +82,7 @@
   "nw" 'widen
   "b \RET" 'counsel-bookmark
   "sy" 'symbol-overlay-save-symbol
+  "si" 'spk/search-symbol-at-point-with-browser
   )
 
 ;; ediff 配置
