@@ -4,6 +4,7 @@
 (straight-use-package 'json-mode)
 (straight-use-package 'symbol-overlay)
 (straight-use-package 'deadgrep)
+;; (straight-use-package 'doom-modeline)
 
 ;; 考虑要不要加这个配置
 (straight-use-package 'undo-tree)

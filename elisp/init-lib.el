@@ -52,7 +52,7 @@ pfix is the postfix of file"
 		  (find-file directory))
       ;; 当没有给后缀的时候默认为任意字符
       (let* ((postfix (if pfix pfix ""))
-			 (find-cmd (format "find %s -path \"*/.*\" -prune -o -type f -regex \"^.*%s.*%s$\" -print"
+			 (find-cmd (format "find %s -path \"*/.git\" -prune -o -type f -regex \"^.*%s.*%s\" -print"
 							   (expand-file-name directory) (if grep-p ".*" keyword) postfix))
 			 (grep-cmd (format "grep -rsn \"%s\"" keyword))
 			 ;; (grep-cmd (format "rg \"%s\"" keyword))
@@ -80,8 +80,8 @@ pfix is the postfix of file"
 		(when (and selected-line (file-exists-p selected-file))
 		  (find-file selected-file)
 		  (when linenum
-			(goto-line (string-to-number linenum)))
-		  )))))
+			(goto-line (string-to-number linenum))))
+		))))
 
 ;; 切换到scratch 缓冲区
 ;;;###autoload

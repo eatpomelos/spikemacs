@@ -57,10 +57,14 @@
   "Find file in project root directory."
   (interactive)
   (let* ((dir (locate-dominating-file default-directory ".\git")))
+	(unless dir
+	  (setq dir (locate-dominating-file default-directory ".\svn")))
     (if dir
-	(spk-search-file-internal dir)
-      (message "Not in a project directory.")))
-  )
+		(spk-search-file-internal dir)
+      (message "Not in a project directory."))
+	))
+
+(spk/project-find-file)
 
 ;;;###autoload
 (defun spk/project-search-symbol (&optional symbol)

@@ -2,6 +2,10 @@
 (setq c-default-style "linux"
       c-basic-offset 4)
 
+;; 用于生成产品端的ctags命令
+(defconst spk-ctags-base-command-for-c "ctags -e -R --exclude=targes --exclude=vendor --exclude=bsp/kernel/kpatch"
+  "Ctags command for C.")
+
 ;; 检测if 0 并用注释的face来显示这段内容
 ;; highlight c
 (defun my-c-mode-font-lock-if0 (limit)
@@ -45,6 +49,6 @@
 ;; 			 (setq company-backends
 ;; 			       '(company-etags company-keywords company-files))))
 
-;; 在阅读代码时候，有时候指向在本文件中查找,实现一个功能类似变窄
+;; 在阅读代码时候，有时候想在在本文件中查找,实现一个功能类似变窄
 
 (provide 'init-C)

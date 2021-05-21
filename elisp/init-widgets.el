@@ -55,7 +55,8 @@
     (counsel-find-file spk-push-code-dir)))
 
 ;; 设置emacs的透明度
-(setq alpha-list '((100 100) (75 45)))
+;; (setq alpha-list '((100 100) (75 45)))
+(setq alpha-list '((100 100) (45 45)))
 ;;;###autoload
 (defun loop-alpha ()
   (interactive)
