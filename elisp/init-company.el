@@ -50,9 +50,10 @@
    company-show-numbers t
    )
   (setq company-backends
-	'(company-bbdb company-semantic company-cmake company-capf company-clang company-files company-ispell
-		       (company-dabbrev-code company-gtags company-etags company-keywords)
-		       company-oddmuse company-dabbrev)))
+		'(company-bbdb company-semantic company-cmake company-capf company-files company-ispell
+					   (company-dabbrev-code company-ctags company-gtags company-etags company-keywords) company-clang
+					   company-oddmuse company-dabbrev))
+  )
 
 (add-hook 'emacs-lisp-mode-hook #'company-box-mode)
 

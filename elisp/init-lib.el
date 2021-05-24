@@ -38,6 +38,15 @@
   (browse-url (format "%s%s" GOOGLE-SEARCH (symbol-at-point))))
 
 ;;;###autoload
+(defun spk/time-cost (start-time)
+  "Just like `counsel-etags--time-cost'."
+  (let* ((time-passed (float-time (time-since start-time))))
+	(format "%.01f second%s"
+			time-passed
+			(if (<= time-passed 2) "" "s"))
+	))
+
+;;;###autoload
 (defun spk-search-file-internal (directory &optional grep-p symbol pfix)
   "Find/Search file in DIRECTORY.
 If GREP-P is t, grep files .
@@ -56,16 +65,18 @@ pfix is the postfix of file"
 							   (expand-file-name directory) (if grep-p ".*" keyword) postfix))
 			 (grep-cmd (format "grep -rsn \"%s\"" keyword))
 			 ;; (grep-cmd (format "rg \"%s\"" keyword))
+			 ;; 用来记录执行命令使用的时间
+			 (time (current-time))
 			 (exec-cmd (if grep-p
 						   (concat find-cmd (format " | xargs %s" grep-cmd))
 						 find-cmd))
 			 (output (shell-command-to-string exec-cmd))
 			 (lines (split-string output "[\n\r]+"))
-			 (hint (if grep-p "Grep file in %s" "Find file in %s"))
+			 (hint (if grep-p "Grep file in %s (%s)" "Find file in %s (%s)"))
 			 selected-line
 			 selected-file
 			 linenum)
-		(setq selected-line (ivy-read (format hint directory)
+		(setq selected-line (ivy-read (format hint directory (spk/time-cost time))
 									  lines))
 		(cond
 		 (grep-p

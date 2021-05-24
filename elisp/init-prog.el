@@ -3,8 +3,15 @@
 (straight-use-package 'company-ctags)
 (straight-use-package 'counsel-etags)
 (straight-use-package 'better-jumper)
+(straight-use-package 'smart-hungry-delete)
+
+;; 使用这包来快速删除多余的空格
+(autoload #'smart-hungry-delete-char "smart-hungry-delete")
 
 (autoload #'ctags-auto-update-mode "ctags-update")
+
+(add-hook 'c-mode-hook (lambda ()
+						 (define-key c-mode-map (kbd "DEL") 'smart-hungry-delete-backward-char)))
 
 ;; 由于这个包暂时在没有界面的arch linux上运行存在问题，只在windows上启用
 (when IS-WINDOWS
