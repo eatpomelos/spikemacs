@@ -46,12 +46,12 @@
 (with-eval-after-load 'company
   (setq
    company-idle-delay 0.1
-   company-minimum-prefix-length 1
+   company-minimum-prefix-length 2
    company-show-numbers t
    )
   (setq company-backends
 		'(company-bbdb company-semantic company-cmake company-capf company-files company-ispell
-					   (company-dabbrev-code company-ctags company-gtags company-etags company-keywords) company-clang
+					   (company-dabbrev-code company-ctags company-gtags company-etags company-keywords)  company-clang
 					   company-oddmuse company-dabbrev))
   )
 

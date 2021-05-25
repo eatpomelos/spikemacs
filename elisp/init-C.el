@@ -36,7 +36,13 @@
    nil
    '((my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend))) 'add-to-end))
 
+;; 在进入c-mode 的时候将indent-tabs-mode 关掉，并打开whitespace-mode 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook-if0)
+(add-hook 'c-mode-common-hook #'whitespace-mode)
+
+;; 在进入whitespace-mode 的时候设置tabs为空格
+(with-eval-after-load 'whitespace
+  (setq indent-tabs-mode nil))
 
 ;;;###autoload
 (defun spk-disable-electric-pair-mode ()

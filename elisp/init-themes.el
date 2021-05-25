@@ -10,7 +10,8 @@
 
 (straight-use-package 'dracula-theme)
 (straight-use-package 'dark-mint-theme)
-(load-theme 'dark-mint)
+;; (load-theme 'dark-mint)
+(load-theme 'dracula)
 
 ;; 一个不错的modeline美化包
 ;; 不使用的原因在于很多插件并没有相应的支持，美化并不完整

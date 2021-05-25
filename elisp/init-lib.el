@@ -72,11 +72,11 @@ pfix is the postfix of file"
 						 find-cmd))
 			 (output (shell-command-to-string exec-cmd))
 			 (lines (split-string output "[\n\r]+"))
-			 (hint (if grep-p "Grep file in %s (%s)" "Find file in %s (%s)"))
+			 (hint (if grep-p "Grep (%s) in %s (%s)" "Find (%s) in %s (%s)"))
 			 selected-line
 			 selected-file
 			 linenum)
-		(setq selected-line (ivy-read (format hint directory (spk/time-cost time))
+		(setq selected-line (ivy-read (format hint keyword directory (spk/time-cost time))
 									  lines))
 		(cond
 		 (grep-p
