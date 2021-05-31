@@ -10,11 +10,20 @@
 
 (straight-use-package 'dracula-theme)
 (straight-use-package 'dark-mint-theme)
-;; (load-theme 'dark-mint)
-(load-theme 'dracula)
 
-;; 一个不错的modeline美化包
-;; 不使用的原因在于很多插件并没有相应的支持，美化并不完整
+(load-theme 'dark-mint)
+;; 设置显示不好的一些face,company-mode 的一些显示在C-mode下没有对齐,原因可能是因为中文
+(custom-set-faces
+ '(whitespace-indentation ((t (:inherit whitespace-space))))
+ '(company-tooltip ((t (:foreground "#F0FCFF" :background "#28223e"))))
+ '(company-scrollbar-bg ((t (:background "#28223e"))))
+ '(company-scrollbar-fg ((t (:foreground "#F0FCFF"))))
+ '(company-tooltip-selection ((t (:background "#333469"))))
+ )
+
+;; (load-theme 'dracula)
+
+;; 一个不错的modeline美化包，基本思想是将modeline调整为一条线，然后使用minibuffer来显示modeline需要显示的东西
 ;; (use-package mini-modeline
 ;;   :defer nil
 ;;   :config

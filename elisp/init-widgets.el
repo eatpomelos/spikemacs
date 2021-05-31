@@ -48,11 +48,9 @@
 
 ;; 工具函数，快速打开公司的代码
 (when IS-WINDOWS
-  (defvar spk-push-code-dir)
-  (setq spk-push-code-dir "d:/work/CODE/PushCode/UGW_Repo")
-  (defun spk-quick-open-push-code ()
+  (defun spk/find-linux-coded-dir ()
     (interactive)
-    (counsel-find-file spk-push-code-dir)))
+    (counsel-find-file spk-linux-code-dir)))
 
 ;; 设置emacs的透明度
 ;; (setq alpha-list '((100 100) (75 45)))
@@ -138,7 +136,7 @@
 ;;;###autoload
 (defun spk/find-repo-code ()
   (interactive)
-  (counsel-find-file "~/.emacs.d/straight/repos/"))
+  (counsel-find-file "~/.emacs.d/straight/build"))
 
 ;; keybindings
 (evil-leader/set-key
@@ -146,7 +144,7 @@
   "fp" 'spk-find-local-conf
   "ff" 'spk-find-file
   "fd" 'spk-find-linux-doc
-  "fqp" 'spk-quick-open-push-code
+  "fqp" 'spk/find-linux-coded-dir
   "fo" 'spk-open-file-with-system-application
   "t" 'spk-find-local-templet
   "yo" 'youdao-dictionary-search-at-point+

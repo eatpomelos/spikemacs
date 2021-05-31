@@ -6,6 +6,8 @@
 (defconst spk-ctags-base-command-for-c "ctags -e -R --exclude=targes --exclude=vendor --exclude=bsp/kernel/kpatch"
   "Ctags command for C.")
 
+(setq spk-linux-code-dir "d:/work/linux_code")
+
 ;; 检测if 0 并用注释的face来显示这段内容
 ;; highlight c
 (defun my-c-mode-font-lock-if0 (limit)
@@ -38,11 +40,8 @@
 
 ;; 在进入c-mode 的时候将indent-tabs-mode 关掉，并打开whitespace-mode 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook-if0)
-(add-hook 'c-mode-common-hook #'whitespace-mode)
-
-;; 在进入whitespace-mode 的时候设置tabs为空格
-(with-eval-after-load 'whitespace
-  (setq indent-tabs-mode nil))
+;; (add-hook 'c-mode-common-hook #'whitespace-mode)
+(setq indent-tabs-mode nil)
 
 ;;;###autoload
 (defun spk-disable-electric-pair-mode ()
