@@ -5,6 +5,13 @@
 (straight-use-package 'tiny)
 
 ;;;###autoload
+(defun spk/find-file-entry ()
+  (interactive)
+  (if (+spk-get-complete-file "TAGS")
+	  (spk/project-ctags-find-file)
+	(spk/project-find-file)))
+
+;;;###autoload
 (defun spk-find-local-conf ()
   "Find local config in the local path."
   (interactive)

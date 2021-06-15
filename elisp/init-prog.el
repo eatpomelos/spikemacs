@@ -98,8 +98,9 @@
   "pt" 'counsel-etags-find-tag-at-point
   "ps" 'spk/project-search-symbol-at-point
   "pi" 'spk/project-search-symbol-input
-  "pff" 'spk/project-find-file
-  "pcf" 'spk/project-ctags-find-file
+  "pff" 'spk/find-file-entry
+  ;; "pff" 'spk/project-find-file
+  ;; "pcf" 'spk/project-ctags-find-file
   "pfe" 'counsel-etags-find-tag
   "pgd" 'spk/project-tags-code-navigation
   "eb" 'eval-buffer

@@ -3,6 +3,7 @@
 
 ;; 初步设想：基于ctags生成的TAGS文件来进行项目的管理，主要以下两点：
 ;; 由于大型项目中的文件比较多，搜索的速度比较慢，基于tags来生成缓存的比较快
+;; TODO 下面用来进行代码导航和查找文件的函数，有时间优化一下效率，增强兼容性
 
 (straight-use-package 'ctags)
 (straight-use-package 'ctags-update)
@@ -86,12 +87,12 @@
 
 ;; 在项目文件中通过TAGS 文件来查找到文件的定义，这个接口还有问题，在处理虚拟机的文件时，判定文件不存在因此无法打开
 ;;;###autoload
-(defun spk/project-tags-code-navigation ()
+(defun spk/project-tags-code-navigation (&optional sym)
   "Code navigation. search result from TAGS file ."
   (interactive)
   (let* ((root-dir (+spk-get-file-dir "TAGS"))
 		 (tags-file (+spk-get-complete-file "TAGS"))
-		 (symbol (thing-at-point 'symbol))
+		 (symbol (if (not sym) (thing-at-point 'symbol) sym))
 		 candidates
 		 all-content
 		 cur-line
@@ -136,6 +137,7 @@
 		)))
   )
 ;; select form cands
+
 ;; 通过tags文件来获取tags的所有文件,需要提高效率，基于tags的查找
 ;;;###autoload
 (defun spk/project-ctags-find-file (&optional file-name)
@@ -145,6 +147,7 @@
 	(setq file-name
 		  (read-string "Please input file name: ")))
   (let* (candidates
+		 (root-dir (+spk-get-file-dir "TAGS"))
 		 selected
 		 (regex "^\\(.*\\),.*$")
 		 (cache-file (+spk-get-complete-file spk-ctags-file-cache-file)) 
@@ -152,7 +155,8 @@
 	(when cache-file
 	  (with-temp-buffer
 		(let* (cur-line
-			   one-file)
+			   one-file
+			   true-file)
 		  (insert-file cache-file)
 		  (goto-char (point-min))
 		  (while (search-forward-regexp file-name (point-max) t)
@@ -163,7 +167,12 @@
 			  (push one-file candidates))
 			(forward-line))
 		  (when (and candidates (setq selected (ivy-read (format "Find file: ") candidates)))
-			(find-file selected)
+			(when (string-match "^\\(\\([^:]*:?\\)[^:]+\\)" selected)
+			  (setq true-file (if (match-string 2 selected)
+								  (expand-file-name selected root-dir)
+								selected))
+			  (message "true-file:%s" true-file)
+			  (find-file true-file))
 			))
 		))))
 
