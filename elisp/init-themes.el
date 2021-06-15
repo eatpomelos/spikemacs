@@ -7,21 +7,14 @@
 	     (concat spk-theme-dir "spk-mint-theme/"))
 ;; 加载自己定义的亮色主题，需要时加载
 (require 'spk-mint-theme)
+(require 'spk-dark-mint-theme)
 
 (straight-use-package 'dracula-theme)
-(straight-use-package 'dark-mint-theme)
+;; 这个包自己hack一下，用spk-dark-ming-theme来替代
+;; (straight-use-package 'dark-mint-theme)
 
-(load-theme 'dark-mint)
-;; 设置显示不好的一些face,company-mode 的一些显示在C-mode下没有对齐,原因可能是因为中文
-(custom-set-faces
- '(whitespace-indentation ((t (:inherit whitespace-space))))
- '(company-tooltip ((t (:foreground "#F0FCFF" :background "#28223e"))))
- '(company-scrollbar-bg ((t (:background "#28223e"))))
- '(company-scrollbar-fg ((t (:foreground "#F0FCFF"))))
- '(company-tooltip-selection ((t (:background "#333469"))))
- )
-
-;; (load-theme 'dracula)
+;; (load-theme 'spk-dark-mint)
+(load-theme 'dracula)
 
 ;; 一个不错的modeline美化包，基本思想是将modeline调整为一条线，然后使用minibuffer来显示modeline需要显示的东西
 ;; (use-package mini-modeline

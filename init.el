@@ -3,11 +3,16 @@
 ;; function 格式为 spk/xx-xx
 ;; variables 格式为 spk-xx-xx
 
+;; 因为使用了一些高于26版本的api，暂时不支持低于此版本的emacs
+(when (version< emacs-version "26.0")
+  (error "emacs's version less than 26.0, can not load init files.")
+  )
+
 ;; 当版本低于27.1的时候手动加载一遍early-init.el
 (when (version< emacs-version "27.1")
   (message "emacs's version less than 27.1,manual loading early-init file ...")
   (add-to-list 'load-path
-	       user-emacs-directory)
+			   user-emacs-directory)
   (require 'spk-early-init)
   )
 

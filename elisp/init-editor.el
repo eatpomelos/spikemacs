@@ -6,6 +6,9 @@
 (straight-use-package 'deadgrep)
 ;; (straight-use-package 'doom-modeline)
 
+;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
+(set-language-environment 'utf-8)
+
 ;; 考虑要不要加这个配置
 (straight-use-package 'undo-tree)
 (add-hook 'emacs-startup-hook #'global-undo-tree-mode)
@@ -30,11 +33,11 @@
   (global-set-key (kbd "<f1>") 'toggle-company-english-helper))
 
 ;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
-;; (straight-use-package
-;;  '(color-rg :type git
-;; 	    :host github
-;; 	    :repo "manateelazycat/color-rg"))
-;; (require 'color-rg)
+(straight-use-package
+ '(color-rg :type git
+	    :host github
+	    :repo "manateelazycat/color-rg"))
+(require 'color-rg)
 
 (define-key global-map (kbd "C-=") 'er/expand-region)
 (define-key global-map (kbd "C-\-") 'er/contract-region)

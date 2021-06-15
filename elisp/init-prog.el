@@ -1,15 +1,12 @@
-(straight-use-package 'ctags)
-(straight-use-package 'ctags-update)
-(straight-use-package 'company-ctags)
-(straight-use-package 'counsel-etags)
 (straight-use-package 'better-jumper)
 (straight-use-package 'smart-hungry-delete)
+
+(require 'init-tags)
 
 ;; 使用这包来快速删除多余的空格
 (autoload #'smart-hungry-delete-char "smart-hungry-delete")
 (autoload #'smart-hungry-delete-backward-char "smart-hungry-delete")
 
-(autoload #'ctags-auto-update-mode "ctags-update")
 
 (add-hook 'c-mode-hook (lambda ()
 						 (define-key c-mode-map (kbd "DEL") 'smart-hungry-delete-backward-char)
@@ -73,8 +70,6 @@
       (message "Not in a project directory."))
 	))
 
-(spk/project-find-file)
-
 ;;;###autoload
 (defun spk/project-search-symbol (&optional symbol)
   (let* ((dir (locate-dominating-file default-directory ".\git")))
@@ -97,14 +92,17 @@
   (spk/project-search-symbol nil)
   )
 
-;; 快捷键的设置不合理
+;; key bindings
 (evil-leader/set-key
   "pd" 'xref-find-definitions
   "pt" 'counsel-etags-find-tag-at-point
   "ps" 'spk/project-search-symbol-at-point
   "pi" 'spk/project-search-symbol-input
   "pff" 'spk/project-find-file
+  "pcf" 'spk/project-ctags-find-file
   "pfe" 'counsel-etags-find-tag
+  "pgd" 'spk/project-tags-code-navigation
+  "eb" 'eval-buffer
   )
 
 ;; 配置better-jumper快捷键来满足跳转需求

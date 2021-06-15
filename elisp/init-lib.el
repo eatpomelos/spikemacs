@@ -11,12 +11,24 @@
 
 (defvar spk-debug-line nil
   "Line number for debug.")
+
+;; MACROS
 (defmacro +spk-debug ()
   `(setq spk-debug-line (line-number-at-pos)))
 
 ;; 把斜线转换成反斜线
 (defmacro +slash-2-backslash (str)
   `(replace-regexp-in-string "/" "\\\\" ,str nil nil 0))
+
+(defmacro +spk-get-file-dir (file)
+  `(locate-dominating-file default-directory ,file))
+
+;; 输入一个文件名，并在当前的路径搜索这个文件，返回这个文件的完整路径
+(defmacro +spk-get-complete-file (file-name)
+  `(let* ((files-dir (+spk-get-file-dir ,file-name)))
+	 (when files-dir
+	   (concat files-dir ,file-name)
+	   )))
 
 ;; 建立alist 来智能检索文件已经在检索到的文件中查找特定字符串
 
@@ -46,6 +58,7 @@
 			(if (<= time-passed 2) "" "s"))
 	))
 
+;; 能不能改成异步执行，避免阻塞emacs？
 ;;;###autoload
 (defun spk-search-file-internal (directory &optional grep-p symbol pfix)
   "Find/Search file in DIRECTORY.
@@ -61,9 +74,9 @@ pfix is the postfix of file"
 		  (find-file directory))
       ;; 当没有给后缀的时候默认为任意字符
       (let* ((postfix (if pfix pfix ""))
-			 (find-cmd (format "find %s -path \"*/.git\" -prune -o -type f -regex \"^.*%s.*%s\" -print"
+			 (find-cmd (format "find %s -path \"*/.git\" -prune -o -follow -type f -regex \"^.*%s.*%s\" -print"
 							   (expand-file-name directory) (if grep-p ".*" keyword) postfix))
-			 (grep-cmd (format "grep -rsn \"%s\"" keyword))
+			 (grep-cmd (format "grep -rsn -e \"%s\"" keyword))
 			 ;; (grep-cmd (format "rg \"%s\"" keyword))
 			 ;; 用来记录执行命令使用的时间
 			 (time (current-time))

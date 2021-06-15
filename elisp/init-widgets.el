@@ -24,7 +24,7 @@
 ;; 当打开的文件较大时，
 ;;;###autoload
 (defun spk-view-large-file ()
-  (when (> (buffer-size) 10000000)
+  (when (> (buffer-size) 200000000)
     (fundamental-mode)
     ))
 
@@ -174,6 +174,15 @@
   (when spk-linux-doc-dir
     (spk-search-file-internal spk-linux-doc-dir t)))
 
+;; 强制清除缓冲区内容，如果当前缓冲区设置的是只读模式则先取消只读
+(defun spk/erase-current-buffer-force ()
+  "Force to erase buffer's content"
+  (interactive)
+  (let* ((read-only-status (if buffer-read-only 1 -1)))
+	(when buffer-read-only
+	  (read-only-mode -1))
+	(erase-buffer)
+	(read-only-mode read-only-status)))
 ;; 用来解释当前光标所在位置的face等信息，在编写主题的时候比较有用 
 ;; C-u C-x = 编写主题时候解释当前光标的信息，用于自定义face
 (provide 'init-widgets)

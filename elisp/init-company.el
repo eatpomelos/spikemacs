@@ -60,8 +60,6 @@
 (with-eval-after-load 'company-box
   (setq company-box-doc-delay 0.5))
 
-
-
 ;; 当打开evil-leader-mode 之后打开 which-key-mode
 (add-hook 'evil-leader-mode-hook #'which-key-mode)
 (with-eval-after-load 'which-key

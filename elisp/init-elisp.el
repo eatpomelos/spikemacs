@@ -5,7 +5,6 @@
 (straight-use-package 'lispy)
 (straight-use-package 'elisp-demos)
 
-
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'org-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'emacs-lisp-mode-hook #'lispy-mode)

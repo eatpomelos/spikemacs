@@ -2,10 +2,6 @@
 (setq c-default-style "linux"
       c-basic-offset 4)
 
-;; 用于生成产品端的ctags命令
-(defconst spk-ctags-base-command-for-c "ctags -e -R --exclude=targes --exclude=vendor --exclude=bsp/kernel/kpatch"
-  "Ctags command for C.")
-
 (setq spk-linux-code-dir "d:/work/linux_code")
 
 ;; 检测if 0 并用注释的face来显示这段内容
@@ -50,5 +46,7 @@
 
 ;; (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
 ;; (add-hook 'c-mode-hook 'ctags-auto-update-mode)
+
+;;; bindings
 
 (provide 'init-C)
