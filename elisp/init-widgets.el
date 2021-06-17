@@ -4,6 +4,19 @@
 (straight-use-package 'youdao-dictionary)
 (straight-use-package 'tiny)
 
+;; 在google中搜索
+;;;###autoload
+(defun spk/search-symbol-from-input ()
+  (interactive)
+  (spk/search-symbol-with-browser (read-string "Plaese input keyword: "))
+  )
+
+;;;###autoload
+(defun spk/search-symbol-at-point ()
+  (interactive)
+  (spk/search-symbol-with-browser (symbol-at-point)))
+
+
 ;;;###autoload
 (defun spk/find-file-entry ()
   (interactive)
@@ -31,7 +44,7 @@
 ;; 当打开的文件较大时，
 ;;;###autoload
 (defun spk-view-large-file ()
-  (when (> (buffer-size) 200000000)
+  (when (> (buffer-size) 30000000)
     (fundamental-mode)
     ))
 
@@ -171,7 +184,19 @@
   "LINUX kernel documents directory.")
 
 (when IS-WINDOWS
-  (setq spk-linux-doc-dir "d:/work/linux-5.9-rc3/linux-5.9-rc3/Documentation"))
+  (setq spk-linux-doc-dir "d:/work/linux-5.9-rc3/linux-5.9-rc3/Documentation")
+  (setq spk-company-push-code-dir "d:/work/CODE/PushCode/Push/UGW_Repo")
+  )
+
+;; 快速打开公司的提交代码，临时保存，后续考虑要不要删除，文件补全时会收到ctags补全影响导致卡顿
+;;;###autoload
+(defun spk/quick-open-push-code ()
+  (interactive)
+  (find-file spk-company-push-code-dir)) 
+
+(evil-leader/set-key
+  "fqq" 'spk/quick-open-push-code)
+
 
 ;; 暂时只用来管理linux标准内核的文档，后续可以扩展成一个列表用选择需要查看的文档
 ;;;###autoload

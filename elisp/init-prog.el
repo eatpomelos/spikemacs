@@ -102,7 +102,7 @@
   ;; "pff" 'spk/project-find-file
   ;; "pcf" 'spk/project-ctags-find-file
   "pfe" 'counsel-etags-find-tag
-  "pgd" 'spk/project-tags-code-navigation
+  ;; "pgd" 'spk/project-tags-code-navigation
   "eb" 'eval-buffer
   )
 

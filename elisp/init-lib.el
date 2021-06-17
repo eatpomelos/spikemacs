@@ -7,15 +7,10 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
+;; 使用浏览器在google中进行检索
 (defconst GOOGLE-SEARCH "https://www.google.com.hk/search?q=")
-
-(defvar spk-debug-line nil
-  "Line number for debug.")
-
+(defconst BING-SEARCH "https://cn.bing.com/search?q=")
 ;; MACROS
-(defmacro +spk-debug ()
-  `(setq spk-debug-line (line-number-at-pos)))
-
 ;; 把斜线转换成反斜线
 (defmacro +slash-2-backslash (str)
   `(replace-regexp-in-string "/" "\\\\" ,str nil nil 0))
@@ -27,38 +22,33 @@
 (defmacro +spk-get-complete-file (file-name)
   `(let* ((files-dir (+spk-get-file-dir ,file-name)))
 	 (when files-dir
-	   (concat files-dir ,file-name)
-	   )))
-
-;; 建立alist 来智能检索文件已经在检索到的文件中查找特定字符串
+	   (concat files-dir ,file-name))))
 
 ;; 设置不同语言的特定文件类型，由于需求比较简单，暂时不考虑使用auto-mode-alist 
 (setq spk-lang-file-type-postfix-alist
       '( (c-mode . "\\.[ch]")
-	 (cc-mode . "\\.[ch]")
-	 (emacs-lisp-mode . "\\.el")
-	 ))
+		 (cc-mode . "\\.[ch]")
+		 (emacs-lisp-mode . "\\.el")
+		 ))
 
 (defmacro +spk-current-buffer-file-postfix ()
   `(cdr (assoc major-mode spk-lang-file-type-postfix-alist)))
 
 ;; 在google浏览其中搜索当前光标位置的符号，后续改进
 ;;;###autoload
-(defun spk/search-symbol-at-point-with-browser ()
+(defun spk/search-symbol-with-browser (symbol)
   "Search symbol in browser."
-  (interactive)
-  (browse-url (format "%s%s" GOOGLE-SEARCH (symbol-at-point))))
+  (unless (string= symbol "")
+	(browse-url (format "%s%s" BING-SEARCH symbol))))
 
 ;;;###autoload
 (defun spk/time-cost (start-time)
   "Just like `counsel-etags--time-cost'."
   (let* ((time-passed (float-time (time-since start-time))))
-	(format "%.01f second%s"
-			time-passed
-			(if (<= time-passed 2) "" "s"))
-	))
+	(format "%.02f seconds"
+			time-passed)))
 
-;; 能不能改成异步执行，避免阻塞emacs？
+;; 能不能改成异步执行，避免阻塞emacs？执行这个命令的时候，会导致emacs卡死，可能由于后台执行的命令引起的，实际上在后台运行此命令也会导致卡死，在大型项目中谨慎使用 
 ;;;###autoload
 (defun spk-search-file-internal (directory &optional grep-p symbol pfix)
   "Find/Search file in DIRECTORY.
@@ -74,7 +64,7 @@ pfix is the postfix of file"
 		  (find-file directory))
       ;; 当没有给后缀的时候默认为任意字符
       (let* ((postfix (if pfix pfix ""))
-			 (find-cmd (format "find %s -path \"*/.git\" -prune -o -follow -type f -regex \"^.*%s.*%s\" -print"
+			 (find-cmd (format "find %s -path \"*/.git\" -prune -o -type f -regex \"^.*%s.*%s\" -print"
 							   (expand-file-name directory) (if grep-p ".*" keyword) postfix))
 			 (grep-cmd (format "grep -rsn -e \"%s\"" keyword))
 			 ;; (grep-cmd (format "rg \"%s\"" keyword))
@@ -110,6 +100,7 @@ pfix is the postfix of file"
 ;; 切换到scratch 缓冲区
 ;;;###autoload
 (defun spk-switch-to-scratch ()
+  "Switch to scratch buffer."
   (interactive)
   (save-excursion
     (switch-to-buffer "*scratch*")))
