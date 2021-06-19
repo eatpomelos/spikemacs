@@ -50,7 +50,10 @@
    company-show-numbers t
    )
   (setq company-backends
-		'(company-bbdb company-semantic company-cmake company-capf company-files company-ispell
+		'(company-bbdb company-semantic company-cmake
+					   ;; 注释这个补全后端，防止打开过多文件导致卡顿
+					   ;; company-capf
+					   company-files company-ispell
 					   (company-dabbrev-code company-ctags company-gtags company-etags company-keywords)  company-clang
 					   company-oddmuse company-dabbrev))
   )

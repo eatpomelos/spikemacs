@@ -10,9 +10,10 @@
 ;; 使用浏览器在google中进行检索
 (defconst GOOGLE-SEARCH "https://www.google.com.hk/search?q=")
 (defconst BING-SEARCH "https://cn.bing.com/search?q=")
+
 ;; MACROS
 ;; 把斜线转换成反斜线
-(defmacro +slash-2-backslash (str)
+(defmacro +spk-slash-2-backslash (str)
   `(replace-regexp-in-string "/" "\\\\" ,str nil nil 0))
 
 (defmacro +spk-get-file-dir (file)

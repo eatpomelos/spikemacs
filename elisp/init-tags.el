@@ -38,6 +38,7 @@
 ;;    (lambda ()
 ;; 	 (spk/project-create-file-cache))))
 
+;; 这个创建的文件能够提供给grep来达到查找引用的效果，在创建缓存文件的时候需要考虑换行符以及其余命令需要的格式
 ;;;###autoload
 (defun spk/project-create-file-cache (&optional ignore-exist)
   "Create project file cache."
@@ -49,12 +50,14 @@
 	(unless (+spk-get-complete-file spk-ctags-file-cache-file)
 	  (make-empty-file (concat (+spk-get-file-dir "TAGS") spk-ctags-file-cache-file))
 	  )
-	(let* ((tags-file (+spk-get-complete-file "TAGS"))
+	(let* ((tags-dir (+spk-get-file-dir "TAGS"))
+		   (tags-file (+spk-get-complete-file "TAGS"))
 		   (time (current-time))
 		   (cache-file (+spk-get-complete-file spk-ctags-file-cache-file))
 		   (prev-line-regex "^\014$") ;;通过阅读TAGS文件得知，在文件行之前会有一个特殊符号 
 		   (large-string "")
 		   all-content
+		   file-line
 		   )
 	  (unless tags-file
 		(throw 'done nil))
@@ -67,11 +70,10 @@
 		(goto-char (point-min))
 		(while (search-forward-regexp prev-line-regex (point-max) t)
 		  (forward-line)
-		  (setq large-string (concat large-string
-									 (format "%s\n"
-											 (buffer-substring
-											  (line-beginning-position)
-											  (line-end-position)))))
+		  (setq file-line (buffer-substring (line-beginning-position) (line-end-position)))
+		  (when (string-match "^\\(.*\\),.*$" file-line)
+			(setq large-string (concat large-string (format "%s\n" (expand-file-name (match-string 1 file-line) tags-dir))))
+			)
 		  (forward-line)))
 	  (with-temp-buffer
 		(insert large-string)
@@ -90,7 +92,7 @@
 		 (time (current-time))
 		 (root-dir (+spk-get-file-dir "TAGS"))
 		 selected
-		 (regex "^\\(.*\\),.*$")
+		 ;; (regex "^\\(.*\\),.*$")
 		 (cache-file (+spk-get-complete-file spk-ctags-file-cache-file)) 
 		 )
 	(when cache-file
@@ -102,17 +104,46 @@
 		  (goto-char (point-min))
 		  (while (search-forward-regexp file-name (point-max) t)
 			(setq cur-line (buffer-substring (line-beginning-position) (line-end-position)))
-			(when (string-match regex cur-line)
-			  (setq one-file (match-string 1 cur-line))
-			  (push one-file candidates))
+			(push cur-line candidates)
 			(forward-line))
 		  (when (and candidates (setq selected (ivy-read (format "Find file (%s): " (spk/time-cost time)) candidates)))
-			(when (string-match "^\\(\\([^:]*:?\\)[^:]+\\)" selected)
-			  (setq true-file (if (match-string 2 selected)
-								  (expand-file-name selected root-dir)
-								selected))
-			  (find-file true-file))
+			(find-file selected)
 			))
 		))))
+
+;; 通过记录的文件查找某个定义，函数中运行的命令在linux下有一定问题，暂时没有找到原因，但是在windows下相同的命令是可用的
+;; 这个函数暂时有问题，调用后台命令的时候还是会有问题，命令拼接是没有问题的，但是这个命令在eshee中运行是可以的，在cmd以及linux下运行都有问题，出现问题的原因是换行符
+;; 改成unix支持的换行符就可以了，这个函数的效率还是有问题
+;;;###autoload
+(defun spk/project-ctags-serach-symbol (&optional sym)
+  (interactive)
+  (unless sym
+	(setq sym (read-string "Please input symbol: ")))
+  (when (and sym (not (string= sym "")))
+	(let* (cur-line
+		   (exec-string (concat (format "cat %s" (+spk-get-complete-file spk-ctags-file-cache-file)) (format " | xargs grep -ns \"%s\"" sym)))
+		   (time (current-time))
+		   (output (shell-command-to-string exec-string))
+		   (lines (split-string output "\n\r?"))
+		   selected-line
+		   selected-file
+		   linenum
+		   )
+	  ;; (message "exec string : %s" exec-string)
+	  ;; (message "output:%s" output)
+	  (setq selected-line (ivy-read (format "Search (%s) result (%s) :" sym (spk/time-cost time)) lines))
+	  (unless (string= selected-line "")
+		(when (string-match "^\\([^:]*:?[^:]*\\):\\([0-9]*\\):"
+							selected-line)
+		  (setq selected-file (match-string 1 selected-line))
+		  (setq linenum (match-string 2 selected-line))
+		  (when (and selected-line (file-exists-p selected-file))
+			(find-file selected-file)
+			(when linenum
+			  (goto-line (string-to-number linenum)))))
+		)
+	  )
+	)
+  )
 
 (provide 'init-tags)

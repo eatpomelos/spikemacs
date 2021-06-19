@@ -4,7 +4,7 @@
 (straight-use-package 'youdao-dictionary)
 (straight-use-package 'tiny)
 
-;; 在google中搜索
+;; 在浏览器中搜索
 ;;;###autoload
 (defun spk/search-symbol-from-input ()
   (interactive)
@@ -15,7 +15,6 @@
 (defun spk/search-symbol-at-point ()
   (interactive)
   (spk/search-symbol-with-browser (symbol-at-point)))
-
 
 ;;;###autoload
 (defun spk/find-file-entry ()
@@ -50,7 +49,7 @@
 
 (add-hook 'find-file-hook 'spk-view-large-file)
 
-;; 定义插入的latex模板
+;; 定义插入的latex模板，可以通过设置模板来实现相应功能，后续删除这个接口
 (defun spk-insert-latex-templet ()
   "Insert a latex templet."
   (interactive)
@@ -87,7 +86,7 @@
 
 (global-set-key (kbd "<f7>") #'loop-alpha)
 
-;; 编写用来获取行内容的接口，将获取到的内容放到变量里
+;; 高亮当前行的函数，偶尔会出问题，暂时未解决 
 (setq spk-ovs nil)
 
 ;;;###autoload
@@ -145,7 +144,7 @@
 (defun spk-open-file-with-system-application ()
   "Open directory with system application"
   (interactive)
-  (let* ((current-dir (+slash-2-backslash default-directory))
+  (let* ((current-dir (+spk-slash-2-backslash default-directory))
 	 (exploer-command nil))
     (if IS-WINDOWS
 	(progn (setq explore-command "explorer")
