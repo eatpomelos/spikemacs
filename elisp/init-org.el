@@ -279,6 +279,9 @@
                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
+;; org-roam config
+;; 配置org-roam 的模板，自动插入到文件中
+;; (setq org-roam-capture-templates)
 
 (setq
  org-roam-directory (concat spk-local-notes-dir "roam/")

@@ -1,13 +1,14 @@
 ;; 用来放置与ctags相关的配置
 ;; 需要注意的是，在下面的函数中需要依赖一些packges中的一些api，但是这些api在之前的配置文件中已经加载了
 
-(straight-use-package 'ctags)
-(straight-use-package 'ctags-update)
-(straight-use-package 'company-ctags)
+;; (straight-use-package 'ctags)
+;; (straight-use-package 'ctags-update)
+;; (straight-use-package 'company-ctags)
 (straight-use-package 'counsel-etags)
 
 ;; autoloads configure
-(autoload #'ctags-auto-update-mode "ctags-update")
+;; (autoload #'ctags-auto-update-mode "ctags-update")
+
 
 (defvar spk-ctags-file-cache-file ".spk-project-files"
   "The cache of file.")
@@ -29,14 +30,6 @@
   (interactive)
   (message "project setup finished.")
   )
-
-;; ;;; 通过子线程来创建缓存文件
-;; ;;;###autoload
-;; (defun spk/project-create-file-cache-with-process ()
-;;   (interactive)
-;;   (make-thread
-;;    (lambda ()
-;; 	 (spk/project-create-file-cache))))
 
 ;; 这个创建的文件能够提供给grep来达到查找引用的效果，在创建缓存文件的时候需要考虑换行符以及其余命令需要的格式
 ;;;###autoload
@@ -61,7 +54,6 @@
 		   )
 	  (unless tags-file
 		(throw 'done nil))
-	  ;; 建立一个临时buffer，在临时buffer中插入之前获取到的内容，并将这些内容使用write-file api写入到文件中去
 	  (setq all-content (with-temp-buffer
 						  (insert-file-contents tags-file)
 						  (buffer-string)))
@@ -92,8 +84,7 @@
 		 (time (current-time))
 		 (root-dir (+spk-get-file-dir "TAGS"))
 		 selected
-		 ;; (regex "^\\(.*\\),.*$")
-		 (cache-file (+spk-get-complete-file spk-ctags-file-cache-file)) 
+		 (cache-file (+spk-get-complete-file spk-ctags-file-cache-file))
 		 )
 	(when cache-file
 	  (with-temp-buffer
@@ -110,40 +101,5 @@
 			(find-file selected)
 			))
 		))))
-
-;; 通过记录的文件查找某个定义，函数中运行的命令在linux下有一定问题，暂时没有找到原因，但是在windows下相同的命令是可用的
-;; 这个函数暂时有问题，调用后台命令的时候还是会有问题，命令拼接是没有问题的，但是这个命令在eshee中运行是可以的，在cmd以及linux下运行都有问题，出现问题的原因是换行符
-;; 改成unix支持的换行符就可以了，这个函数的效率还是有问题
-;;;###autoload
-(defun spk/project-ctags-serach-symbol (&optional sym)
-  (interactive)
-  (unless sym
-	(setq sym (read-string "Please input symbol: ")))
-  (when (and sym (not (string= sym "")))
-	(let* (cur-line
-		   (exec-string (concat (format "cat %s" (+spk-get-complete-file spk-ctags-file-cache-file)) (format " | xargs grep -ns \"%s\"" sym)))
-		   (time (current-time))
-		   (output (shell-command-to-string exec-string))
-		   (lines (split-string output "\n\r?"))
-		   selected-line
-		   selected-file
-		   linenum
-		   )
-	  ;; (message "exec string : %s" exec-string)
-	  ;; (message "output:%s" output)
-	  (setq selected-line (ivy-read (format "Search (%s) result (%s) :" sym (spk/time-cost time)) lines))
-	  (unless (string= selected-line "")
-		(when (string-match "^\\([^:]*:?[^:]*\\):\\([0-9]*\\):"
-							selected-line)
-		  (setq selected-file (match-string 1 selected-line))
-		  (setq linenum (match-string 2 selected-line))
-		  (when (and selected-line (file-exists-p selected-file))
-			(find-file selected-file)
-			(when linenum
-			  (goto-line (string-to-number linenum)))))
-		)
-	  )
-	)
-  )
 
 (provide 'init-tags)

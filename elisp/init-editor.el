@@ -32,13 +32,6 @@
   (autoload #'toggle-company-english-helper "company-english-helper")
   (global-set-key (kbd "<f1>") 'toggle-company-english-helper))
 
-;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
-(straight-use-package
- '(color-rg :type git
-	    :host github
-	    :repo "manateelazycat/color-rg"))
-(require 'color-rg)
-
 (define-key global-map (kbd "C-=") 'er/expand-region)
 (define-key global-map (kbd "C-\-") 'er/contract-region)
 

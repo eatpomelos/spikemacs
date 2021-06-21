@@ -1,5 +1,11 @@
 (straight-use-package 'better-jumper)
 (straight-use-package 'smart-hungry-delete)
+;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
+(straight-use-package
+ '(color-rg :type git
+	    :host github
+	    :repo "manateelazycat/color-rg"))
+(require 'color-rg)
 
 (require 'init-tags)
 
@@ -57,6 +63,19 @@
       )
 
 ;; functions
+;; 使用color-rg中的api在项目中搜索字符串
+;;;###autoload
+(defun spk/project-search-symbol-base-color-rg (&optional sym)
+  (let* ((prog-dir (+spk-get-file-dir "TAGS"))
+		 )
+	(unless prog-dir
+	  (setq prog-dir (+spk-get-file-dir ".git")))
+	(unless sym
+	  (setq sym (read-string "Please input symbol: ")))
+	(message (format "sym=%s dir=%s" sym prog-dir))
+	(if (and prog-dir (not (string= sym "")))
+		(color-rg-search-input sym prog-dir)
+	  (message "Not in a project."))))
 
 ;;;###autoload
 (defun spk/project-find-file ()
@@ -80,24 +99,26 @@
     (spk-search-file-internal dir t symbol (+spk-current-buffer-file-postfix))
     ))
 
+;; 在大型项目中搜索字符串,使用基于color-rg的api来搜索
 ;;;###autoload
 (defun spk/project-search-symbol-at-point ()
   (interactive)
-  (spk/project-search-symbol (symbol-at-point))
+  (spk/project-search-symbol-base-color-rg (thing-at-point 'symbol))
   )
 
 ;;;###autoload
-(defun spk/project-search-symbol-input ()
+(defun spk/project-search-symbol-from-input ()
   (interactive)
-  (spk/project-search-symbol nil)
+  (spk/project-search-symbol-base-color-rg nil)
   )
+
 
 ;; key bindings
 (evil-leader/set-key
   "pd" 'xref-find-definitions
   "pt" 'counsel-etags-find-tag-at-point
   "ps" 'spk/project-search-symbol-at-point
-  "pi" 'spk/project-search-symbol-input
+  "pi" 'spk/project-search-symbol-from-input
   "pff" 'spk/find-file-entry
   ;; "pff" 'spk/project-find-file
   ;; "pcf" 'spk/project-ctags-find-file
