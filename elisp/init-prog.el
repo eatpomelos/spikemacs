@@ -74,7 +74,7 @@
 	  (setq sym (read-string "Please input symbol: ")))
 	(message (format "sym=%s dir=%s" sym prog-dir))
 	(if (and prog-dir (not (string= sym "")))
-		(color-rg-search-input sym prog-dir)
+		(color-rg-search-input sym prog-dir "*.[ch]")
 	  (message "Not in a project."))))
 
 ;;;###autoload
@@ -125,7 +125,13 @@
   "pfe" 'counsel-etags-find-tag
   ;; "pgd" 'spk/project-tags-code-navigation
   "eb" 'eval-buffer
+  "mf" 'er/mark-defun
   )
+
+;; 充分利用avy的api来进行跳转等操作,可以考虑用bind-key的api来定义快捷键
+(define-key evil-normal-state-map (kbd ",w") #'avy-goto-char-2)
+(define-key evil-normal-state-map (kbd ",c") #'avy-goto-char-in-line)
+(define-key evil-normal-state-map (kbd ",l") #'avy-goto-line-below)
 
 ;; 配置better-jumper快捷键来满足跳转需求
 (with-eval-after-load 'better-jumper

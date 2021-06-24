@@ -6,6 +6,8 @@
 (straight-use-package 'deadgrep)
 ;; (straight-use-package 'doom-modeline)
 
+;; 添加autoload函数  
+(autoload #'er/mark-defun "expand-region")
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
 (set-language-environment 'utf-8)
 

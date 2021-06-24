@@ -9,7 +9,6 @@
 ;; autoloads configure
 ;; (autoload #'ctags-auto-update-mode "ctags-update")
 
-
 (defvar spk-ctags-file-cache-file ".spk-project-files"
   "The cache of file.")
 
@@ -32,6 +31,7 @@
   )
 
 ;; 这个创建的文件能够提供给grep来达到查找引用的效果，在创建缓存文件的时候需要考虑换行符以及其余命令需要的格式
+;; 将创建的文件缓存
 ;;;###autoload
 (defun spk/project-create-file-cache (&optional ignore-exist)
   "Create project file cache."
@@ -58,13 +58,14 @@
 						  (insert-file-contents tags-file)
 						  (buffer-string)))
 	  (with-temp-buffer
+		;; (set-buffer-file-coding-system 'utf-8-unix 't)
 		(insert all-content)
 		(goto-char (point-min))
 		(while (search-forward-regexp prev-line-regex (point-max) t)
 		  (forward-line)
 		  (setq file-line (buffer-substring (line-beginning-position) (line-end-position)))
 		  (when (string-match "^\\(.*\\),.*$" file-line)
-			(setq large-string (concat large-string (format "%s\n" (expand-file-name (match-string 1 file-line) tags-dir))))
+			(setq large-string (concat large-string (format "%s\012" (expand-file-name (match-string 1 file-line) tags-dir))))
 			)
 		  (forward-line)))
 	  (with-temp-buffer
