@@ -3,7 +3,14 @@
 ;; 由于使用strainght.el 升级package 中org 有一个变量的名字发生了改变，此处使用本地org 包防止出现使用错误
 (straight-use-package '(org :type built-in))
 (straight-use-package 'org-roam-server)
-(straight-use-package 'org-roam)
+
+;; v2版本的org-roam 支持headline的引用
+(straight-use-package
+ '(org-roam :type git
+			:host github
+			:repo "org-roam/org-roam"
+			;; :branch "v2"
+			))
 
 (autoload #'org-roam-find-file "org-roam")
 (autoload #'org-roam-server-mode "org-roam-server")

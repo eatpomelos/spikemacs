@@ -3,11 +3,19 @@
 ;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
 (straight-use-package
  '(color-rg :type git
-	    :host github
-	    :repo "manateelazycat/color-rg"))
+			:host github
+			:repo "manateelazycat/color-rg"
+			))
 (require 'color-rg)
 
 (require 'init-tags)
+
+;; citre暂时有以下缺点：
+;; 生成的tags由于信息比较全导致tags文件很大，原TAGS文件400M，生成tags12G左右
+;; 对于ctags版本有要求，但是在windows环境下，ctags的版本太低
+;; 自己之前写的文件缓存的函数不能使用
+;; 但是看效果要比etags好很多
+;; (require 'init-citre)
 
 ;; 使用这包来快速删除多余的空格
 (autoload #'smart-hungry-delete-char "smart-hungry-delete")
@@ -63,6 +71,20 @@
       )
 
 ;; functions
+
+;; 跳转到函数开头，两秒内如果有操作则回到当前位置，否则两秒后自动跳转回来
+;;;###autoload
+(defun spk/project-peek-functions-head ()
+  (interactive)
+  (save-excursion
+	(beginning-of-defun)
+	(xref-pulse-momentarily)
+	(sit-for 2)
+	)
+  )
+
+;; C-M a 跳转到函数开头
+
 ;; 使用color-rg中的api在项目中搜索字符串
 ;;;###autoload
 (defun spk/project-search-symbol-base-color-rg (&optional sym)
@@ -131,7 +153,9 @@
 ;; 充分利用avy的api来进行跳转等操作,可以考虑用bind-key的api来定义快捷键
 (define-key evil-normal-state-map (kbd ",w") #'avy-goto-char-2)
 (define-key evil-normal-state-map (kbd ",c") #'avy-goto-char-in-line)
-(define-key evil-normal-state-map (kbd ",l") #'avy-goto-line-below)
+(define-key evil-normal-state-map (kbd ",l") #'avy-goto-line)
+(define-key evil-normal-state-map (kbd ",p") #'spk/project-peek-functions-head)
+(define-key evil-normal-state-map (kbd ",a") #'beginning-of-defun)
 
 ;; 配置better-jumper快捷键来满足跳转需求
 (with-eval-after-load 'better-jumper

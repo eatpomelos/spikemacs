@@ -44,7 +44,7 @@
  '(font-lock-string-face ((t (:foreground "deep pink"))))
  '(font-lock-variable-name-face ((t (:foreground "MediumPurple1"))))
 
- '(region ((t (:background "MidnightBlue"))))
+ '(region ((t (:background "MediumOrchid4"))))
  '(secondary-selection ((t (:background "dodger blue"))))
 
  ;; whitespace

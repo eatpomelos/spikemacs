@@ -1,3 +1,8 @@
+;; 在使用 elisp 写配置的时候，会导致卡顿，是不是由于文件编码的原因？ 
+
+;; 定义emacs C源码的路径
+(setq source-directory "d:/HOME/spike/code/emacs-27.1/emacs-27.1/src")
+
 ;; 设置一些命令的别名 
 (defalias 'elisp-mode 'emacs-lisp-mode)
 

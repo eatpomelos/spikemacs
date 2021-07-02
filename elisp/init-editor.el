@@ -6,11 +6,17 @@
 (straight-use-package 'deadgrep)
 ;; (straight-use-package 'doom-modeline)
 
+;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
+(set-language-environment 'UTF-8)
+(set-locale-environment "UTF-8")
+
+;; 设置编码终端解决乱码问题，待测试
+(set-terminal-coding-system 'utf-8)
+(modify-coding-system-alist 'process "*" 'utf-8)
+(setq default-process-coding-system '(utf-8 . utf-8))
+
 ;; 添加autoload函数  
 (autoload #'er/mark-defun "expand-region")
-;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
-(set-language-environment 'utf-8)
-
 ;; 考虑要不要加这个配置
 (straight-use-package 'undo-tree)
 (add-hook 'emacs-startup-hook #'global-undo-tree-mode)

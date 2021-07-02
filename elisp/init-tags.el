@@ -1,6 +1,5 @@
 ;; 用来放置与ctags相关的配置
 ;; 需要注意的是，在下面的函数中需要依赖一些packges中的一些api，但是这些api在之前的配置文件中已经加载了
-
 ;; (straight-use-package 'ctags)
 ;; (straight-use-package 'ctags-update)
 ;; (straight-use-package 'company-ctags)
