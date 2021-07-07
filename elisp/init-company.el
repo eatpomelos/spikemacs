@@ -53,14 +53,6 @@
   (setq company-dabbrev-downcase nil)
   (setq company-dabbrev-ignore-case t)
 
-  (setq company-backends
-		'(
-		  ;; 暂时不清楚这个后端的具体使用场景，暂时先注释掉
-		  ;; company-bbdb
-		  company-semantic company-files
-		  (company-keywords company-dabbrev-code company-etags company-yasnippet company-capf company-cmake)
-		  company-dabbrev company-clang company-oddmuse))
-
   ;; Remove duplicate candidate.
   (add-to-list 'company-transformers #'delete-dups)
 
@@ -70,7 +62,7 @@
 	(when (boundp 'company-backends)
 	  (make-local-variable 'company-backends)
 	  (setq company-backends
-			'((company-elisp company-files company-yasnippet company-dabbrev company-keywords)))
+			'((company-elisp company-files company-yasnippet company-keywords)))
 	  ))
 
 

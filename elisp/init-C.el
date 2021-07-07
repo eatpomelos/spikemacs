@@ -44,6 +44,14 @@
   "Disable `electric-pair-mode'."
   (electric-pair-mode -1))
 
+;;;###autoload
+(defun spk/cc-mode-setup ()
+  (when (boundp 'company-backends)
+	(make-local-variable 'company-backends)
+	(setq company-backends '((company-keywords company-etags company-yasnippet company-capf company-cmake)))))
+
+(add-hook 'c-mode-hook #'spk/cc-mode-setup)
+
 ;; (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
 ;; (add-hook 'c-mode-hook 'ctags-auto-update-mode)
 

@@ -52,6 +52,23 @@
 (global-set-key (kbd "C-<up>") 'text-scale-increase)
 
 (with-eval-after-load 'expand-region
+
+  ;; 标记整个函数的时候，打印这个函数的行数
+  ;; (save-restriction) 函数是在执行之后恢复原来的buffer状态，包括变窄的状态等
+  (advice-add
+   'er/mark-defun
+   :before #'(lambda ()
+			   (save-excursion
+				 (let* ((ed-line 0)
+						(st-line 0))
+				   (beginning-of-defun)
+				   (setq st-line (line-number-at-pos))
+				   (end-of-defun)
+				   (setq ed-line (line-number-at-pos))
+				   (message "function lines:%d" (- ed-line st-line))
+				   )
+				 )))
+
   (evil-leader/set-key
     "mop" 'er/mark-org-parent
     "moe" 'er/mark-org-element

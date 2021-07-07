@@ -184,7 +184,7 @@
 
 (when IS-WINDOWS
   (setq spk-linux-doc-dir "d:/work/linux-5.9-rc3/linux-5.9-rc3/Documentation")
-  (setq spk-company-push-code-dir "d:/work/CODE/PushCode/Push/UGW_Repo")
+  (setq spk-company-push-code-dir "d:/work/CODE/PushCode/UGW_Repo")
   )
 
 ;; 快速打开公司的提交代码，临时保存，后续考虑要不要删除，文件补全时会收到ctags补全影响导致卡顿
@@ -217,5 +217,12 @@
 ;; 用来解释当前光标所在位置的face等信息，在编写主题的时候比较有用 
 ;; C-u C-x = 编写主题时候解释当前光标的信息，用于自定义face
 
+;;;###autoload
+(defun spk/revert-buffer ()
+  (interactive)
+  (revert-buffer-with-coding-system 'chinese-gbk))
+
+;; 将buffer通过chinese-gbk的编码重新读入
+(global-set-key (kbd "<f6>") #'spk/revert-buffer)
 
 (provide 'init-widgets)

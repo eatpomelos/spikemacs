@@ -17,7 +17,7 @@
 
 ;; 用于生成产品端的ctags命令，不扫描符号链接，原因是这里的符号链接链接到的文件大部分都已经被扫描过了
 (defconst spk-ctags-company-product-command-for-c
-  "ctags -e -R --languages=c --langmap=c:+.h --links=no --exclude=targets --exclude=vendor --exclude=bsp/kernel/kpatch --exclude=.svn --exclude=.git --exclude=Makefile ."
+  "ctags -e -R --languages=c --langmap=c:+.h --links=no --exclude=targets --exclude=vendor --exclude=kmpatch --exclude=*/kpatch --exclude=.svn --exclude=.git --exclude=Makefile ."
   "Ctags command for C.")
 
 ;; tool functions

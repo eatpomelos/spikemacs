@@ -156,6 +156,7 @@
 (define-key evil-normal-state-map (kbd ",l") #'avy-goto-line)
 (define-key evil-normal-state-map (kbd ",p") #'spk/project-peek-functions-head)
 (define-key evil-normal-state-map (kbd ",a") #'beginning-of-defun)
+(define-key evil-normal-state-map (kbd ",e") #'end-of-defun)
 
 ;; 配置better-jumper快捷键来满足跳转需求
 (with-eval-after-load 'better-jumper
