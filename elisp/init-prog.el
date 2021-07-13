@@ -23,7 +23,7 @@
 
 
 (add-hook 'c-mode-hook (lambda ()
-						 (define-key c-mode-map (kbd "DEL") 'smart-hungry-delete-backward-char)
+                         (define-key c-mode-map (kbd "DEL") 'smart-hungry-delete-backward-char)
                          (define-key c-mode-map (kbd "C-d") 'smart-hungry-delete-forward-char)))
 
 ;; 由于这个包暂时在没有界面的arch linux上运行存在问题，只在windows上启用
@@ -31,7 +31,8 @@
   (straight-use-package 'highlight-indent-guides)
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
 
-;; (setq-default indent-tabs-mode nil)
+;; 设置tab的空格数，并不使用tab缩进而是使用空格来替代tab
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
 (straight-use-package 'imenu-list)
@@ -160,6 +161,10 @@
 
 ;; 配置better-jumper快捷键来满足跳转需求
 (with-eval-after-load 'better-jumper
+  ;; 在进行跳转之后，闪一下当前行，便于在大段代码中定位行
+  (advice-add 'better-jumper-jump-backward :after #'xref-pulse-momentarily)
+  (advice-add 'better-jumper-jump-forward :after #'xref-pulse-momentarily)
+  
   (define-key prog-mode-map (kbd "C-<f8>") 'better-jumper-jump-backward)
   (define-key prog-mode-map (kbd "C-<f9>") 'better-jumper-jump-forward)
   )

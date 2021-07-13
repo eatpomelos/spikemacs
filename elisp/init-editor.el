@@ -65,7 +65,7 @@
 				   (setq st-line (line-number-at-pos))
 				   (end-of-defun)
 				   (setq ed-line (line-number-at-pos))
-				   (message "function lines:%d" (- ed-line st-line))
+				   (message "function lines:%d" (1+ (- ed-line st-line)))
 				   )
 				 )))
 

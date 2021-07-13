@@ -14,6 +14,9 @@
 ;; 				 )))
 
 (with-eval-after-load 'winum
+  ;; (advice-add 'winum--switch-to-window :after 'maximize-window)
+  ;; 移除设置了的advice
+  ;; (advice-remove 'winum--switch-to-window 'maximize-window)
   (evil-leader/set-key
     "0" 'winum-select-window-0-or-10
     "1" 'winum-select-window-1
@@ -26,7 +29,8 @@
     "8" 'winum-select-window-8
     "9" 'winum-select-window-9
     "w/" 'split-window-right
-    "wm" 'delete-other-windows
+    ;; "wm" 'delete-other-windows
+    "wm" 'maximize-window
     "wd" 'delete-window
     "w-" 'split-window-below
     "w=" 'balance-windows
