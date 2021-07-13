@@ -7,11 +7,11 @@
 (advice-add 'magit-status :after #'evil-insert-state)
 
 (evil-leader/set-key
-  "ms" 'magit-status
-  "mb" 'magit-blame-addition
-  "mq" 'magit-blame-quit
-  "mm" 'vc-msg-show
-  "ml" 'magit-log-all)
+  "gs" 'magit-status
+  "gb" 'magit-blame-addition
+  "gq" 'magit-blame-quit
+  "gm" 'vc-msg-show
+  "gl" 'magit-log-all)
 
 (with-eval-after-load 'magit
   ;; 设置magit 快捷间，适配evil的操作方式来进行设置
