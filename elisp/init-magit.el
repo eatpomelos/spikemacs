@@ -14,7 +14,7 @@
   "gl" 'magit-log-all)
 
 (with-eval-after-load 'magit
-  ;; 设置magit 快捷间，适配evil的操作方式来进行设置
+  ;; 设置magit 快捷键，适配evil的操作方式来进行设置
   (define-key magit-log-mode-map "h" #'backward-char)
   (define-key magit-log-mode-map "j" #'magit-section-forward)
   (define-key magit-log-mode-map "k" #'magit-section-backward)
