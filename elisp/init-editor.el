@@ -111,5 +111,6 @@
   )
 
 ;; ediff 配置
+(setq-default ediff-split-window-function 'split-window-horizontally)
 
 (provide 'init-editor)

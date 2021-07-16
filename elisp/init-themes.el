@@ -9,12 +9,12 @@
 (require 'spk-mint-theme)
 (require 'spk-dark-mint-theme)
 
-(straight-use-package 'dracula-theme)
+(straight-use-package 'doom-themes)
+;; (straight-use-package 'dracula-theme)
 ;; 这个包自己hack一下，用spk-dark-ming-theme来替代
 ;; (straight-use-package 'dark-mint-theme)
 
 (load-theme 'spk-dark-mint)
-;; (load-theme 'dracula)
 
 ;; 一个不错的modeline美化包，基本思想是将modeline调整为一条线，然后使用minibuffer来显示modeline需要显示的东西
 ;; (use-package mini-modeline

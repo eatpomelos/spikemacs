@@ -153,7 +153,8 @@
 
 ;; 充分利用avy的api来进行跳转等操作,可以考虑用bind-key的api来定义快捷键
 (define-key evil-normal-state-map (kbd ",w") #'avy-goto-char-2)
-(define-key evil-normal-state-map (kbd ",c") #'avy-goto-char-in-line)
+;; (define-key evil-normal-state-map (kbd ",c") #'avy-goto-char-in-line)
+(define-key evil-normal-state-map (kbd ",c") #'isearch-forward)
 (define-key evil-normal-state-map (kbd ",l") #'avy-goto-line)
 (define-key evil-normal-state-map (kbd ",p") #'spk/project-peek-functions-head)
 (define-key evil-normal-state-map (kbd ",a") #'beginning-of-defun)
@@ -164,7 +165,7 @@
   ;; 在进行跳转之后，闪一下当前行，便于在大段代码中定位行
   (advice-add 'better-jumper-jump-backward :after #'xref-pulse-momentarily)
   (advice-add 'better-jumper-jump-forward :after #'xref-pulse-momentarily)
-  
+
   (define-key prog-mode-map (kbd "C-<f8>") 'better-jumper-jump-backward)
   (define-key prog-mode-map (kbd "C-<f9>") 'better-jumper-jump-forward)
   )

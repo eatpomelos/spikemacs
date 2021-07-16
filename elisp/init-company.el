@@ -53,6 +53,12 @@
   (setq company-dabbrev-downcase nil)
   (setq company-dabbrev-ignore-case t)
 
+  ;; 没有设置的情况先。使用默认配置，为了防止TAGS文件补全引起的卡顿，去掉tag后端，编程模式再定制
+  (setq company-backends '(company-bbdb company-semantic company-cmake company-clang company-files
+                                        (company-dabbrev-code company-keywords)
+                                        company-oddmuse company-dabbrev))
+
+
   ;; Remove duplicate candidate.
   (add-to-list 'company-transformers #'delete-dups)
 

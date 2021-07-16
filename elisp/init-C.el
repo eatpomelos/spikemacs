@@ -44,13 +44,23 @@
   "Disable `electric-pair-mode'."
   (electric-pair-mode -1))
 
+;; 经过测试company-ctags比company-etags使用体验要好不少，这里使用ctags来尽心补全，避免在大型项目中造成严重卡顿
 ;;;###autoload
 (defun spk/cc-mode-setup ()
   (when (boundp 'company-backends)
 	(make-local-variable 'company-backends)
-	(setq company-backends '((company-keywords company-etags company-yasnippet company-capf company-cmake)))))
+	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake)))))
 
 (add-hook 'c-mode-hook #'spk/cc-mode-setup)
+
+;; 当跳转到一个函数里面的时候，显示当前函数名，暂时使用message显示，此处实现应该有冲突，后续改进
+;; (when (boundp 'symbol-overlay-mode)
+;;   (add-hook 'c-mode-hook '(lambda ()
+;;                             (advice-add 'symbol-overlay-jump-call '(lambda ()
+;;                                                                      (message (format "function:%s"
+;;                                                                                       (c-defun-name)))))
+;;                             ))
+;;   )
 
 ;; (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
 ;; (add-hook 'c-mode-hook 'ctags-auto-update-mode)
