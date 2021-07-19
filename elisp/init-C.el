@@ -49,7 +49,7 @@
 (defun spk/cc-mode-setup ()
   (when (boundp 'company-backends)
 	(make-local-variable 'company-backends)
-	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake)))))
+	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake company-dabbrev)))))
 
 (add-hook 'c-mode-hook #'spk/cc-mode-setup)
 

@@ -68,9 +68,8 @@
 	(when (boundp 'company-backends)
 	  (make-local-variable 'company-backends)
 	  (setq company-backends
-			'((company-elisp company-files company-yasnippet company-keywords)))
+			'((company-elisp company-files company-yasnippet company-keywords company-dabbrev)))
 	  ))
-
 
   ;; Add `company-elisp' backend for elisp.
   (add-hook 'emacs-lisp-mode-hook #'spk/elisp-setup)

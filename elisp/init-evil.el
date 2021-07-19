@@ -63,6 +63,7 @@
   ;; (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
   ;; (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
 
-  (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode))
+  (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+  )
 
 (provide 'init-evil)
