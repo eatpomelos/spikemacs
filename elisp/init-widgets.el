@@ -232,4 +232,12 @@
 ;; 将buffer通过chinese-gbk的编码重新读入
 (global-set-key (kbd "<f6>") #'spk/revert-buffer)
 
+;;;###autoload
+(defun spk-find-test-file ()
+  "Find test file."
+  (interactive)
+  (find-file (expand-file-name "spk-test.el" spk-dir)))
+
+(global-set-key (kbd "<f4>") 'spk-find-test-file)
+
 (provide 'init-widgets)

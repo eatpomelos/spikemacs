@@ -49,18 +49,41 @@
 (defun spk/cc-mode-setup ()
   (when (boundp 'company-backends)
 	(make-local-variable 'company-backends)
-	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake company-dabbrev)))))
+	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake))))
+  )
 
 (add-hook 'c-mode-hook #'spk/cc-mode-setup)
 
-;; 当跳转到一个函数里面的时候，显示当前函数名，暂时使用message显示，此处实现应该有冲突，后续改进
-;; (when (boundp 'symbol-overlay-mode)
-;;   (add-hook 'c-mode-hook '(lambda ()
-;;                             (advice-add 'symbol-overlay-jump-call '(lambda ()
-;;                                                                      (message (format "function:%s"
-;;                                                                                       (c-defun-name)))))
-;;                             ))
-;;   )
+;;;###autoload
+(defun spk-get-c-defun-name ()
+  (when (eq major-mode 'c-mode)
+    (save-excursion
+      (let* ((def-s nil))
+        (beginning-of-defun)
+        (while (not (setq def-s (looking-at-p "{")))
+          (unless (forward-char)
+            (forward-line))
+          )
+        (when def-s
+          (re-search-backward "[a-zA-Z_]?[a-zA-Z0-9_]+\s*(.*")
+          (thing-at-point 'symbol)
+          )
+        ))))
+
+
+;; 在C项目中获取当前所在的函数名，并将函数名push到kill-ring中
+;;;###autoload
+(defun spk-display-func-name ()
+  "Display current C function name,
+and push it to `kill-ring'."
+  (interactive)
+  ;; (spk/display-string-base-overlay (spk-get-c-defun-name))
+  (let* ((def-name nil))
+    (setq def-name (spk-get-c-defun-name))
+    (when def-name
+      (message (kill-new (spk-get-c-defun-name))))))
+
+(define-key evil-normal-state-map (kbd ",n") #'spk-display-func-name)
 
 ;; (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
 ;; (add-hook 'c-mode-hook 'ctags-auto-update-mode)

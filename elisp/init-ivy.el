@@ -2,6 +2,7 @@
 (straight-use-package 'counsel)
 (straight-use-package 'ivy-rich)
 (straight-use-package 'wgrep)
+(straight-use-package 'smex)
 
 (autoload #'counsel-M-x "ivy")
 
@@ -24,6 +25,7 @@
   ;; 在M-x 运行时显示相应的文档
   (require 'ivy-rich)
   (ivy-rich-mode t)
+  (require 'smex)
   )
 
 (evil-leader/set-key

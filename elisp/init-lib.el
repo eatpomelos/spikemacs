@@ -124,6 +124,19 @@ pfix is the postfix of file"
     nlist)
   )
 
+;; 基于overlay显示一个字符串，由于frame比较复杂，首先曲线救国
+;;;###autoload
+(defun spk/display-string-base-overlay (string)
+  (when (stringp string)
+    (save-mark-and-excursion
+      (let ((ov (make-overlay (point) (1+ (point)))))
+        (overlay-put ov 'display
+                     (format "%s" string))
+        (overlay-put ov 'face 'region)
+        (sit-for 3)
+        (delete-overlay ov)))))
+
+
 ;;;###autoload
 (defun spk--point-in-overlay-p (overlay)
   "Retuen t is point in overlay."

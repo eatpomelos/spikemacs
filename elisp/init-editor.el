@@ -6,14 +6,15 @@
 (straight-use-package 'deadgrep)
 ;; (straight-use-package 'doom-modeline)
 
+;; TODO 需要注意的是下面的相关配置会导致org-mode使用latex导出pdf时失败，暂时屏蔽以下配置，后续优化
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
-(set-language-environment 'UTF-8)
-(set-locale-environment "UTF-8")
+;; (set-language-environment 'utf-8)
+;; (set-locale-environment "utf-8")
 
 ;; 设置编码终端解决乱码问题，待测试
-(set-terminal-coding-system 'utf-8)
-(modify-coding-system-alist 'process "*" 'utf-8)
-(setq default-process-coding-system '(utf-8 . utf-8))
+;; (set-terminal-coding-system 'utf-8)
+;; (modify-coding-system-alist 'process "*" 'utf-8)
+;; (setq default-process-coding-system '(utf-8 . utf-8))
 
 ;; 添加autoload函数  
 (autoload #'er/mark-defun "expand-region")
@@ -47,7 +48,7 @@
 (global-set-key (kbd "C-c l") 'avy-goto-line)
 (global-set-key (kbd "C-c C-l") 'goto-line)
 ;; 在minibuff中输入的时候由于焦点的变化导致光标无法回到minibuffer的输入框，且无法用C-g来解决
-(global-set-key (kbd "C-c C-g") 'minibuffer-keyboard-quit)
+(global-set-key (kbd "C-c C-g") 'exit-minibuffer)
 (global-set-key (kbd "C-<down>") 'text-scale-decrease)
 (global-set-key (kbd "C-<up>") 'text-scale-increase)
 
