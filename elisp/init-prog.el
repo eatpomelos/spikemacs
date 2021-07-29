@@ -135,6 +135,21 @@
   (spk/project-search-symbol-base-color-rg nil)
   )
 
+;; 在跳转到C函数时，将光标移动到函数名上 
+;;;###autoload
+(defun spk/jump-to-beginning-of-defname ()
+  (interactive)
+  (let* ((def-name nil))
+    (if (not (eq major-mode 'c-mode))
+        (beginning-of-defun)
+      (setq def-name (spk-get-c-defun-name))
+      (beginning-of-defun)
+      (when def-name
+        (re-search-forward def-name)
+        (kill-new def-name)
+        (when (looking-at "(")
+          (backward-char))
+        ))))
 
 ;; key bindings
 (evil-leader/set-key
@@ -157,7 +172,7 @@
 (define-key evil-normal-state-map (kbd ",f") #'isearch-forward)
 (define-key evil-normal-state-map (kbd ",l") #'avy-goto-line)
 (define-key evil-normal-state-map (kbd ",p") #'spk/project-peek-functions-head)
-(define-key evil-normal-state-map (kbd ",a") #'beginning-of-defun)
+(define-key evil-normal-state-map (kbd ",a") #'spk/jump-to-beginning-of-defname)
 (define-key evil-normal-state-map (kbd ",e") #'end-of-defun)
 
 ;; 配置better-jumper快捷键来满足跳转需求

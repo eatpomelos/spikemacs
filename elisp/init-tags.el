@@ -64,7 +64,7 @@
 		  (forward-line)
 		  (setq file-line (buffer-substring (line-beginning-position) (line-end-position)))
 		  (when (string-match "^\\(.*\\),.*$" file-line)
-			(setq large-string (concat large-string (format "%s\012" (expand-file-name (match-string 1 file-line) tags-dir))))
+			(setq large-string (concat large-string (format "%s\012" (match-string 1 file-line))))
 			)
 		  (forward-line)))
 	  (with-temp-buffer
@@ -98,7 +98,7 @@
 			(push cur-line candidates)
 			(forward-line))
 		  (when (and candidates (setq selected (ivy-read (format "Find file (%s): " (spk/time-cost time)) candidates)))
-			(find-file selected)
+			(find-file (expand-file-name selected root-dir))
 			))
 		))))
 

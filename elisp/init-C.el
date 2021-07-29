@@ -77,6 +77,7 @@
   "Display current C function name,
 and push it to `kill-ring'."
   (interactive)
+  ;; 使用overlay的方式显示函数名不太美观
   ;; (spk/display-string-base-overlay (spk-get-c-defun-name))
   (let* ((def-name nil))
     (setq def-name (spk-get-c-defun-name))
