@@ -136,18 +136,17 @@ pfix is the postfix of file"
         (sit-for 3)
         (delete-overlay ov)))))
 
-
 ;;;###autoload
 (defun spk--point-in-overlay-p (overlay)
   "Retuen t is point in overlay."
   (let* ((pos 0))
     (catch 'tag 
       (while (nth pos overlay)
-	(when (and (<= (point) (overlay-end (nth pos overlay)))
-		   (>= (point) (overlay-start (nth pos overlay))))
-	  (throw 'tag pos))
-	(setq pos (1+ pos))
-	))))
+	    (when (and (<= (point) (overlay-end (nth pos overlay)))
+		           (>= (point) (overlay-start (nth pos overlay))))
+	      (throw 'tag pos))
+	    (setq pos (1+ pos))
+	    ))))
 
 ;; 测试用函数，暂时用来清除自定义的overlay
 (defun spk-clear-spk-ovs ()
