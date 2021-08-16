@@ -4,7 +4,8 @@
 (straight-use-package 'json-mode)
 (straight-use-package 'symbol-overlay)
 (straight-use-package 'deadgrep)
-(straight-use-package 'doom-modeline)
+
+;; (straight-use-package 'doom-modeline)
 
 ;; TODO 需要注意的是下面的相关配置会导致org-mode使用latex导出pdf时失败，暂时屏蔽以下配置，后续优化
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
@@ -16,7 +17,7 @@
 ;; (modify-coding-system-alist 'process "*" 'utf-8)
 ;; (setq default-process-coding-system '(utf-8 . utf-8))
 
-(doom-modeline-mode 1)
+;; (doom-modeline-mode 1)
 
 ;; 添加autoload函数  
 (autoload #'er/mark-defun "expand-region")
@@ -33,12 +34,20 @@
 
 (require 'deadgrep)
 
+;; (when IS-WINDOWS
+;;   (straight-use-package
+;;    '(insert-translated-name :type git
+;;                             :host github
+;;                             :repo "manateelazycat/insert-translated-name"))
+;;   (require 'insert-translated-name)
+;;   )
+
 ;; 指定github上的包，并下载，由于当前的环境配置中 linux下的环境没有界面因此使用此package会导致emacs卡死
 (when IS-WINDOWS
   (straight-use-package
    '(company-english-helper :type git
-			    :host github
-			    :repo "manateelazycat/company-english-helper"))
+			                :host github
+			                :repo "manateelazycat/company-english-helper"))
   ;; 指定一个函数从文件中自动加载，暂时理解成指定一个函数为autoload，当使用这个函数时自动加载那个文件
   (autoload #'toggle-company-english-helper "company-english-helper")
   (global-set-key (kbd "<f1>") 'toggle-company-english-helper))
@@ -115,5 +124,13 @@
 
 ;; ediff 配置
 (setq-default ediff-split-window-function 'split-window-horizontally)
+
+;; abbrev-mode 配置
+(define-abbrev-table 'global-abbrev-table
+  '(
+    ("ltx" "LaTeX")
+    )
+  )
+(global-set-key (kbd "<f5>") 'abbrev-mode)
 
 (provide 'init-editor)

@@ -16,6 +16,8 @@
 
 (with-eval-after-load "dired"
   (define-key dired-mode-map "w" #'wdired-change-to-wdired-mode)
+  ;; 在dired中需要拷贝或者移动文件是，此时打开另一个dired页面，默认路径为另一个页面的路径
+  (setq dired-dwim-target t)
   )
 
 ;; 在进入neotree显示的时候进入evil的insert-state

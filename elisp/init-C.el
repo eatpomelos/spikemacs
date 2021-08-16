@@ -44,7 +44,7 @@
   "Disable `electric-pair-mode'."
   (electric-pair-mode -1))
 
-;; 经过测试company-ctags比company-etags使用体验要好不少，这里使用ctags来尽心补全，避免在大型项目中造成严重卡顿
+;; 经过测试company-ctags比company-etags使用体验要好不少，这里使用ctags来进行补全，避免在大型项目中造成严重卡顿
 ;;;###autoload
 (defun spk/cc-mode-setup ()
   (when (boundp 'company-backends)
@@ -53,6 +53,7 @@
   )
 
 (add-hook 'c-mode-hook #'spk/cc-mode-setup)
+(add-hook 'c-mode-hook #'hs-minor-mode)
 
 ;;;###autoload
 (defun spk-get-c-defun-name ()
@@ -84,7 +85,12 @@ and push it to `kill-ring'."
     (when def-name
       (message (kill-new (spk-get-c-defun-name))))))
 
+;; 可能hs-minor-mode的功能比较鸡肋，这里待商榷
 (define-key evil-normal-state-map (kbd ",n") #'spk-display-func-name)
+(define-key evil-normal-state-map (kbd ",hb") #'hs-hide-block)
+(define-key evil-normal-state-map (kbd ",ha") #'hs-hide-all)
+(define-key evil-normal-state-map (kbd ",sb") #'hs-show-block)
+(define-key evil-normal-state-map (kbd ",sa") #'hs-show-all)
 
 ;; (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
 ;; (add-hook 'c-mode-hook 'ctags-auto-update-mode)

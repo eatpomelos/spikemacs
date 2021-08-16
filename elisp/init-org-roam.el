@@ -12,6 +12,12 @@
 (straight-use-package 'company-org-roam)
 (straight-use-package 'org-roam-bibtex)
 
+(straight-use-package
+ '(org-roam-ui :type git
+               :host github
+               :repo "org-roam/org-roam-ui"))
+
+;; 先直接打开
 ;; (autoload #'org-roam-find-file "org-roam")
 ;; (autoload #'org-roam-server-mode "org-roam-server")
 
@@ -68,6 +74,14 @@
 ;; 使用org-roam-bibtex扩展
 (with-eval-after-load 'org-roam
   (require 'org-ref)
+  (require 'org-roam-ui)
+
+  (require 'websocket)
+  
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t)
   )
 
 (provide 'init-org-roam)

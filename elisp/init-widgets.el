@@ -238,6 +238,16 @@
   (interactive)
   (find-file (expand-file-name "spk-test.el" spk-dir)))
 
+(defun spk/set-title-format ()
+  "Set `frame-title-format'."
+  (interactive)
+  (let* ((str nil))
+    (setq str (read-string "input your format string:"))
+    (setq frame-title-format (concat spk-title-format str))))
+
 (global-set-key (kbd "<f4>") 'spk-find-test-file)
+
+;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
+(advice-add 'youdao-dictionary-mode :after 'evil-insert-state)
 
 (provide 'init-widgets)

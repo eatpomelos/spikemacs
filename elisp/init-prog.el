@@ -55,7 +55,8 @@
   (setq
    imenu-list-position 'left
    imenu-list-size 0.25
-   ))
+   )
+  )
 
 ;; xref config
 ;; (advice-add 'xref--xref-buffer-mode :after #'evil-insert-state)
@@ -83,8 +84,6 @@
 	(sit-for 2)
 	)
   )
-
-;; C-M a 跳转到函数开头
 
 ;; 使用color-rg中的api在项目中搜索字符串
 ;;;###autoload

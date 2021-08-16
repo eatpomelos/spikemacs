@@ -13,7 +13,6 @@
   (let ((inhibit-message nil))
     (setq yas-snippets-dirs (concat spk-dir "snippets/"))
     (setq yas--loaddir (concat spk-dir "snippets"))
-    (global-set-key (kbd "<f5>") #'company-yasnippet)
     (yas-compile-directory yas-snippets-dirs)
     (yas-reload-all)))
 
@@ -51,8 +50,9 @@
 
   ;; Don't downcase the returned candidates.
   (setq company-dabbrev-downcase nil)
-  (setq company-dabbrev-ignore-case t)
-
+  (setq company-dabbrev-ignore-case nil)
+  ;; 设置忽略的buffer
+  ;; (setq company-dabbrev-ignore-buffers ".*TAGS.*")
   ;; 没有设置的情况先。使用默认配置，为了防止TAGS文件补全引起的卡顿，去掉tag后端，编程模式再定制
   (setq company-backends '(company-bbdb company-semantic company-cmake company-clang company-files
                                         (company-dabbrev-code company-keywords)
