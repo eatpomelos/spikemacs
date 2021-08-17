@@ -59,7 +59,6 @@ The theme is emulate spk-mint to learn elisp."
    ;; `(lazy-highlight (:background ,spk-mint-oriange :foreground ,foreground))
    `(link ((t (:underline t))))
 
-   
    ;; font
    `(font-lock-builtin-face ((t (:foreground ,spk-mint-oriange))))
    `(font-lock-doc-face ((t (:foreground ,spk-mint-blue))))

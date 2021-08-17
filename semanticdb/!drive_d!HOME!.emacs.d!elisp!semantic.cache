@@ -1,0 +1,217 @@
+;; Object semanticdb-project-database-file-29718a4
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file-29718a4"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table-29718c8"
+      :major-mode emacs-lisp-mode
+      :tags nil
+      :file "init-window.el"
+      :pointmax 1170
+      :fsize 1254
+      :lastmodtime '(24812 20717 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table-19b4890"
+      :major-mode emacs-lisp-mode
+      :tags 
+        '( ("straight-use-package" code nil nil [18 55])
+            ("straight-use-package" code nil nil [56 93])
+            ("straight-use-package" code nil nil [94 127])
+            ("straight-use-package" code nil nil [128 166])
+            ("straight-use-package" code nil nil [167 199])
+            ("er/mark-defun" function (:prototype-flag t) nil [632 674])
+            ("straight-use-package" code nil nil [689 722])
+            ("add-hook" code nil nil [723 777])
+            ("with-eval-after-load" code nil nil [807 1006])
+            ("deadgrep" include nil nil [1008 1027])
+            ("when" code nil nil [1353 1722])
+            ("define-key" code nil nil [1724 1777])
+            ("define-key" code nil nil [1778 1834])
+            ("global-set-key" code nil nil [1836 1884])
+            ("global-set-key" code nil nil [1885 1930])
+            ("global-set-key" code nil nil [1931 1974])
+            ("global-set-key" code nil nil [2034 2083])
+            ("global-set-key" code nil nil [2084 2138])
+            ("global-set-key" code nil nil [2139 2191])
+            ("with-eval-after-load" code nil nil [2193 2787])
+            ("symbol-overlay-put" function (:prototype-flag t) nil [2789 2837])
+            ("symbol-overlay-save-symbol" function (:prototype-flag t) nil [2838 2894])
+            ("global-set-key" code nil nil [2896 2945])
+            ("global-set-key" code nil nil [2946 3003])
+            ("global-set-key" code nil nil [3004 3061])
+            ("when" code nil nil [3085 3427])
+            ("with-eval-after-load" code nil nil [3487 3563])
+            ("evil-leader/set-key" code nil nil [3578 3858])
+            ("setq-default" code nil nil [3872 3941])
+            ("abbrev-mode" code nil nil [3961 3976])
+            ("define-abbrev-table" code nil nil [3977 4053])
+            ("init-editor" package nil nil [4055 4077]))          
+      :file "init-editor.el"
+      :pointmax 4078
+      :fsize 4945
+      :lastmodtime '(24847 14805 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table-1ae5970"
+      :major-mode emacs-lisp-mode
+      :tags 
+        '( ("straight-use-package" code nil nil [41 82])
+            ("straight-use-package" code nil nil [83 111])
+            ("spk/search-symbol-from-input" function nil nil [139 271])
+            ("spk/search-symbol-at-point" function nil nil [288 394])
+            ("spk/find-file-entry" function nil nil [411 554])
+            ("spk-find-local-conf" function (:user-visible-flag t) nil [571 694])
+            ("spk-find-emacs-confs" function (:user-visible-flag t) nil [730 987])
+            ("spk-view-large-file" function nil nil [1018 1112])
+            ("'find-file-hook 'spk-view-large-file" add-hook nil nil [1114 1161])
+            ("spk-insert-latex-templet" function (:user-visible-flag t) nil [1204 1539])
+            ("IS-WINDOWS" when nil nil [1559 1675])
+            ("alpha-list '((100 100) (45 45))" setq nil nil [1734 1772])
+            ("loop-alpha" function nil nil [1788 2124])
+            ("(kbd \"<f7>\") #'loop-alpha" global-set-key nil nil [2126 2168])
+            ("spk-ovs nil" setq nil nil [2196 2214])
+            ("spk/highlight_or_unhighlight_line_at_point" function (:user-visible-flag t) nil [2231 2718])
+            ("spk/clear_all_highlight_lines" function (:user-visible-flag t) nil [2734 2852])
+            ("(kbd \"<f9>\") #'spk/highlight_or_unhighlight_line_at_point" global-set-key nil nil [2854 2928])
+            ("spk/yank-buffer-filename" function (:user-visible-flag t) nil [2945 3250])
+            ("spk-find-local-templet" function (:user-visible-flag t) nil [3267 3402])
+            ("spk-find-file" function
+               (:user-visible-flag t
+                :arguments ("level"))
+                nil [3435 3968])
+            ("spk-open-file-with-system-application" function (:user-visible-flag t) nil [4073 4488])
+            ("spk/find-repo-code" function nil nil [4505 4600])
+            ("evil-leader/set-key" code nil nil [4617 4990])
+            ("(kbd \"<f3>\") #'youdao-dictionary-search-at-point+" global-set-key nil nil [4992 5058])
+            ("IS-WINDOWS" when nil nil [5127 5240])
+            ("spk-linux-doc-dir" variable nil nil [5242 5310])
+            ("IS-WINDOWS" when nil nil [5312 5476])
+            ("spk/quick-open-push-code" function nil nil [5545 5636])
+            ("evil-leader/set-key" code nil nil [5639 5694])
+            ("spk-find-linux-doc" function (:user-visible-flag t) nil [5757 5928])
+            ("spk/erase-current-buffer-force" function (:user-visible-flag t) nil [5965 6214])
+            ("spk/revert-buffer" function nil nil [6308 6402])
+            ("(kbd \"<f6>\") #'spk/revert-buffer" global-set-key nil nil [6435 6484])
+            ("spk-find-test-file" function (:user-visible-flag t) nil [6501 6621])
+            ("(kbd \"<f4>\") 'spk-find-test-file" global-set-key nil nil [6623 6672])
+            ("init-widgets" package nil nil [6674 6697]))          
+      :file "init-widgets.el"
+      :pointmax 6698
+      :fsize 7784
+      :lastmodtime '(24830 51458 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table-1b41708"
+      :major-mode emacs-lisp-mode
+      :tags 
+        '( ("spk-theme-dir" variable nil nil [38 92])
+            ("spk-theme-dir (concat user-emacs-directory \"themes/\")" setq nil nil [93 153])
+            ("'load-path 	     (concat spk-theme-dir \"spk-mint-theme/\")" add-to-list nil nil [155 226])
+            ("spk-mint-theme" include nil nil [248 273])
+            ("spk-dark-mint-theme" include nil nil [274 304])
+            ("straight-use-package" code nil nil [306 341])
+            ("straight-use-package" code nil nil [342 381])
+            ("load-theme" code nil nil [642 665])
+            ("init-themes" package nil nil [990 1012]))          
+      :file "init-themes.el"
+      :pointmax 1013
+      :fsize 1288
+      :lastmodtime '(24842 20763 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table-1c4bc48"
+      :major-mode emacs-lisp-mode
+      :tags 
+        '( ("straight-use-package" code nil nil [80 109])
+            ("straight-use-package" code nil nil [110 146])
+            ("straight-use-package" code nil nil [147 184])
+            ("straight-use-package" code nil nil [185 222])
+            ("ctags-auto-update-mode" function (:prototype-flag t) nil [247 297])
+            ("spk-ctags-file-cache-file" variable (:default-value ".spk-project-files") nil [299 377])
+            ("spk-ctags-base-command-for-c" variable
+               (:constant-flag t
+                :default-value "ctags -e -R --languages=c --langmap=c:+.h .")
+                nil [411 521])
+            ("spk-ctags-company-product-command-for-c" variable
+               (:constant-flag t
+                :default-value "ctags -e -R --languages=c --langmap=c:+.h --links=no --exclude=targets --exclude=vendor --exclude=kmpatch --exclude=*/kpatch --exclude=.svn --exclude=.git --exclude=Makefile .")
+                nil [578 833])
+            ("spk/project-setup" function (:user-visible-flag t) nil [869 973])
+            ("spk/project-create-file-cache" function
+               (:user-visible-flag t
+                :arguments ("ignore-exist"))
+                nil [1061 2511])
+            ("spk/project-ctags-find-file" function (:user-visible-flag t) nil [2569 3391])
+            ("init-tags" package nil nil [3393 3413]))          
+      :file "init-tags.el"
+      :pointmax 3414
+      :fsize 3865
+      :lastmodtime '(24833 63556 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table-1c9fc74"
+      :major-mode emacs-lisp-mode
+      :tags 
+        '( ("straight-vc-git-default-clone-depth 1" setq nil nil [32 76])
+            ("bootstrap-version" variable nil nil [144 170])
+            ("let" code nil nil [171 634])
+            ("init-straight" package nil nil [1082 1106]))          
+      :file "init-straight.el"
+      :pointmax 1107
+      :fsize 1141
+      :lastmodtime '(24643 3427 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table-25ce30c"
+      :major-mode emacs-lisp-mode
+      :tags 
+        '( ("straight-use-package" code nil nil [1 38])
+            ("straight-use-package" code nil nil [39 82])
+            ("straight-use-package" code nil nil [115 215])
+            ("color-rg" include nil nil [216 235])
+            ("init-tags" include nil nil [237 257])
+            ("smart-hungry-delete-char" function (:prototype-flag t) nil [453 512])
+            ("smart-hungry-delete-backward-char" function (:prototype-flag t) nil [513 581])
+            ("add-hook" code nil nil [584 810])
+            ("when" code nil nil [859 985])
+            ("setq-default" code nil nil [1022 1057])
+            ("setq-default" code nil nil [1058 1084])
+            ("straight-use-package" code nil nil [1086 1120])
+            ("better-jumper-mode" function (:prototype-flag t) nil [1194 1241])
+            ("add-hook" code nil nil [1242 1289])
+            ("imenu-list-smart-toggle" function (:prototype-flag t) nil [1291 1340])
+            ("add-hook" code nil nil [1341 1387])
+            ("global-set-key" code nil nil [1497 1535])
+            ("global-set-key" code nil nil [1536 1590])
+            ("with-eval-after-load" code nil nil [1592 1692])
+            ("setq" code nil nil [1970 2139])
+            ("spk/project-peek-functions-head" function nil nil [2209 2352])
+            ("spk/project-search-symbol-base-color-rg" function (:arguments ("sym")) nil [2415 2836])
+            ("spk/project-find-file" function (:user-visible-flag t) nil [2853 3183])
+            ("spk/project-search-symbol" function (:arguments ("symbol")) nil [3200 3540])
+            ("spk/project-search-symbol-at-point" function nil nil [3592 3725])
+            ("spk/project-search-symbol-from-input" function nil nil [3742 3856])
+            ("spk/jump-to-beginning-of-defname" function nil nil [3897 4276])
+            ("evil-leader/set-key" code nil nil [4294 4698])
+            ("define-key" code nil nil [4747 4810])
+            ("define-key" code nil nil [4811 4875])
+            ("define-key" code nil nil [4876 4939])
+            ("define-key" code nil nil [4940 5001])
+            ("define-key" code nil nil [5002 5081])
+            ("define-key" code nil nil [5082 5162])
+            ("define-key" code nil nil [5163 5223])
+            ("with-eval-after-load" code nil nil [5254 5623])
+            ("init-elisp" include nil nil [5655 5676])
+            ("init-C" include nil nil [5677 5694])
+            ("init-prog" package nil nil [5696 5716]))          
+      :file "init-prog.el"
+      :pointmax 5717
+      :fsize 6636
+      :lastmodtime '(24845 63 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table-139b7bc"
+      :file "init-elisp.el"
+      :fsize 937
+      :lastmodtime '(24814 12989 0 0))
+    (semanticdb-table "semanticdb-table-13c9b5c"
+      :file "init-C.el"
+      :fsize 3134
+      :lastmodtime '(24846 22548 0 0)))
+  :file "!drive_d!HOME!.emacs.d!elisp!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

@@ -1,4 +1,7 @@
 ;; 和C语言相关的配置
+(defconst spk-c-identifier-regex "[a-zA-Z_]?[a-zA-Z0-9_]+"
+  "C identifier regular expression.")
+
 (setq c-default-style "linux"
       c-basic-offset 4)
 
