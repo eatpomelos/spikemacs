@@ -3,6 +3,7 @@
 
 (straight-use-package 'youdao-dictionary)
 (straight-use-package 'tiny)
+(straight-use-package 'esup)
 
 ;; 在浏览器中搜索
 ;;;###autoload
@@ -19,9 +20,11 @@
 ;;;###autoload
 (defun spk/find-file-entry ()
   (interactive)
-  (if (+spk-get-complete-file "TAGS")
-	  (spk/project-ctags-find-file)
-	(spk/project-find-file)))
+  (cond ((+spk-get-complete-file "TAGS") (spk/project-ctags-find-file))
+        ((+spk-get-complete-file ".git") (spk/project-find-file))
+        (t (counsel-find-file))
+        )
+  )
 
 ;;;###autoload
 (defun spk-find-local-conf ()

@@ -32,7 +32,7 @@
  org-roam-v2-ack t
  )
 
-(org-roam-setup)
+;; (org-roam-setup)
 
 ;; org-roam也可以用来处理日记，有时间可以了解一下
 (evil-leader/set-key

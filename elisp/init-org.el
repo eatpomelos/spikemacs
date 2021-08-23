@@ -2,7 +2,7 @@
 
 ;; 由于使用strainght.el 升级package 中org 有一个变量的名字发生了改变，此处使用本地org 包防止出现使用错误
 (straight-use-package '(org :type built-in))
-(straight-use-package 'org-pomodoro)
+;; (straight-use-package 'org-pomodoro)
 ;; (straight-use-package 'org)
 ;; (require 'org)
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
@@ -14,9 +14,6 @@
                                ("DONE" . "green")
                                ("ABORT" . "blue")
                                ("PAUSE" . "cyan1")))
-
-(setq initial-scratch-message
-      (format ";; Happy hacking!! emacs startup with %.3fs!!\n" (string-to-number (emacs-init-time))))
 
 ;; 设置几个常用的capture 的文件的路径
 (defvar spk-org-directory "~/org/"

@@ -44,4 +44,5 @@
 (defvar spk-title-format (concat "Emacs@Spikemacs" "== " "Σ(｀д′*ノ)ノ "))
 (setq-default frame-title-format spk-title-format)
 
+
 (provide 'init-window)
