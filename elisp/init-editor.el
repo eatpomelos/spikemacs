@@ -133,7 +133,7 @@
   )
 (global-set-key (kbd "<f5>") 'abbrev-mode)
 
-;; 配置鼠标相关的配置
+;; 添加鼠标相关的配置
 (setq mouse-scroll-delay 0.02)
 (defun up-slightly () (interactive) (scroll-up 1))
 (defun down-slightly () (interactive) (scroll-down 1))

@@ -151,6 +151,18 @@
           (backward-char))
         ))))
 
+;;;###autoload
+(defun spk/project-find-docs-dir ()
+  (interactive)
+  (let* ((pjt-doc-dir nil))
+    (setq pjt-doc-dir (+spk-get-complete-file "docs"))
+    (unless pjt-doc-dir
+      (setq pjt-doc-dir (+spk-get-complete-file "doc")))
+    (if pjt-doc-dir
+        (find-file pjt-doc-dir)
+      (message "documents dir not found"))
+    ))
+
 ;; key bindings
 (evil-leader/set-key
   "pd" 'xref-find-definitions
@@ -161,6 +173,7 @@
   ;; "pff" 'spk/project-find-file
   ;; "pcf" 'spk/project-ctags-find-file
   "pfe" 'counsel-etags-find-tag
+  "pfd" 'spk/project-find-docs-dir
   ;; "pgd" 'spk/project-tags-code-navigation
   "eb" 'eval-buffer
   "mf" 'er/mark-defun

@@ -21,7 +21,7 @@
 ;; (setq org-roam-capture-templates)
 
 (setq
- org-roam-directory (concat spk-local-notes-dir "roam/")
+ org-roam-directory (concat user-emacs-directory "docs/")
  org-roam-db-location (concat spk-org-directory "org-roam.db")
  org-roam-tag-sources '(prop vanilla)
  org-roam-v2-ack t
