@@ -39,7 +39,6 @@
 (add-hook 'prog-mode-hook 'company-mode)
 (add-hook 'conf-mode-hook 'company-mode)
 (add-hook 'eshll-mode-hook 'company-mode)
-(add-hook 'org-roam-mode-hook 'company-mode)
 (add-hook 'org-mode-hook 'company-mode)
 
 (with-eval-after-load 'company
@@ -73,9 +72,6 @@
 
   ;; Add `company-elisp' backend for elisp.
   (add-hook 'emacs-lisp-mode-hook #'spk/elisp-setup)
-  
-(with-eval-after-load 'company-org-roam
-  (push 'company-org-roam company-backends))
   )
 
 (add-hook 'emacs-lisp-mode-hook #'company-box-mode)

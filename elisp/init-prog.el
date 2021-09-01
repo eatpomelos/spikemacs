@@ -6,7 +6,8 @@
 			:host github
 			:repo "manateelazycat/color-rg"
 			))
-(require 'color-rg)
+(autoload #'color-rg-search-input "color-rg")
+;; (require 'color-rg)
 
 (require 'init-tags)
 

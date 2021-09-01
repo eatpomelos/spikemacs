@@ -1,21 +1,16 @@
-;; v2版本的org-roam 支持headline的引用
-;; (straight-use-package
-;;  '(org-roam :type git
-;; 			:host github
-;; 			:repo "org-roam/org-roam"
-;; 			))
-
 ;; v2版本已经更新到主线，这里直接使用发布版本
 (straight-use-package 'org-roam)
 ;; (straight-use-package 'org-roam-server)
 ;; 设置org-roam的补全
 (straight-use-package 'company-org-roam)
 (straight-use-package 'org-roam-bibtex)
-
+ 
 (straight-use-package
- '(org-roam-ui :type git
-               :host github
-               :repo "org-roam/org-roam-ui"))
+ '(org-roam-ui
+   :type git
+   :host github
+   :repo "org-roam/org-roam-ui"
+   ))
 
 ;; 先直接打开
 ;; (autoload #'org-roam-find-file "org-roam")
@@ -32,20 +27,44 @@
  org-roam-v2-ack t
  )
 
-;; (org-roam-setup)
+;; 后面使用org-roam-caputure的方式来进行记录，使用agenda来记录和安排重要工作
+(global-set-key (kbd "C-c r") 'org-roam-capture)
+(global-set-key (kbd "C-c d") 'org-roam-dailies-capture-date)
+(global-set-key (kbd "C-c t") 'org-roam-dailies-capture-today)
+(global-set-key (kbd "C-c n") 'org-roam-dailies-capture-tomorrow)
+(global-set-key (kbd "C-c y") 'org-roam-dailies-capture-yesterday)
+
 
 ;; org-roam也可以用来处理日记，有时间可以了解一下
 (evil-leader/set-key
   "of" 'org-roam-node-find
+  ;; 暂不清楚ref在新版的org-roam中是怎么使用的
   "or" 'org-roam-ref-find
   )
 
+;; https://www.zmonster.me/2020/06/27/org-roam-introduction.html
+;; 设置笔记的模板，之后可以使用capture来新增笔记，将自己日常会写的笔记进行分类，设置不同模板
 (setq org-roam-capture-templates
-      '(("d" "default" plain "%？" :if-new
-         (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}")
-         :unnarrowed t)))
+      '(("d" "default" plain "%?" 
+         :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %T\n#+filetags: ")
+         :unnarrowed t
+         :empty-lines 1)
+        ("t" "Term" plain
+         "- 领域: %^{术语所属领域}\n- 名词\n%?\n- 释义:"
+         :if-new (file+head "spk-Term.org" "#+title: ${title}\n#+filetags: Term English\n")
+         :unnarrowed nil
+         :empty-lines 1
+         )
+        
+        ("n" "notes")
+        ("nr" "Reading notes" plain
+         "- 普通笔记模板\n\n%?"
+         :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %T\n#+filetags: general\n")
+         )
+        ))
 
-;; 用来测试的模板，后续根据此模板定制org-roam模板，用emacs管理所有东西！！！
+;; 日记的模板暂时没有好的想法，先不设置,
+
 ;; (setq org-roam-capture-templates
 ;;       '(
 ;;         ("d" "default" plain (function org-roam-capture--get-point)
@@ -62,26 +81,19 @@
 ;;          :file-name "%<%Y%m%d%H%M%S>-${slug}"
 ;;          :head "#+title: ${title}\n#+roam_alias:\n\n")))
 
-;; org-roam v2 暂不支持这个，可以先不用以下配置
-;; (setq org-roam-server-host "127.0.0.1"
-;;       org-roam-server-port 9090
-;;       org-roam-server-export-inline-images t
-;;       org-roam-server-authenticate nil
-;;       org-roam-server-network-label-truncate t
-;;       org-roam-server-network-label-truncate-length 60
-;;       org-roam-server-network-label-wrap-length 20)
-
 ;; 使用org-roam-bibtex扩展
 (with-eval-after-load 'org-roam
   (require 'org-ref)
   (require 'org-roam-ui)
 
   (require 'websocket)
+  (require 'simple-httpd)
   
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t)
+  (org-roam-setup)
   )
 
 (provide 'init-org-roam)

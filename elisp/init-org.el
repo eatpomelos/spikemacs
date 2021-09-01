@@ -1,9 +1,9 @@
 ;; 和org 相关的配置
 
 ;; 由于使用strainght.el 升级package 中org 有一个变量的名字发生了改变，此处使用本地org 包防止出现使用错误
-(straight-use-package '(org :type built-in))
+;; (straight-use-package '(org :type built-in))
 ;; (straight-use-package 'org-pomodoro)
-;; (straight-use-package 'org)
+(straight-use-package 'org)
 ;; (require 'org)
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
@@ -39,8 +39,6 @@
       spk-notes-reading-file (expand-file-name "reading.org" spk-local-notes-dir)
       spk-notes-tips-file (expand-file-name "tips.org" spk-local-notes-dir)
       )
-
-;; 在Doom原来的设置中有一个比较好的做法是，在项目的文件中会直接生成一个Todo文件而不是直接和其他的放在一起
 
 ;; 后续提高速度可以用eval-after-load来控制
 (setq org-capture-templates
@@ -78,20 +76,6 @@
         ("nl" "Language notes" entry (file+headline spk-notes-language-file "Languages notes")
          "* %?\n %i\n %U"
          :empty-lines 1)))
-
-;; ;; 在进入org-capture之后进入day-view
-;; (defadvice org-agenda (after spk-capture-hack activate)
-;;   (progn
-;;     (org-agenda-day-view)
-;;     (evil-insert-state)))
-
-;; ;; 配置pandoc用于导出pdf等文件，windows上安装了latex和pandoc但是这两个软件集成windows都不正常，需要花时间去进行配置
-;; (with-eval-after-load 'ox
-;;   (use-package ox-pandoc
-;;     :defer t
-;;     :init
-;;     (modify-coding-system-alist 'process "pandoc" 'cp936)
-;;     ))
 
 ;; 下面使用的是别人提供的模板，主要是latex中使用的一些东西
 ;;org-export latex

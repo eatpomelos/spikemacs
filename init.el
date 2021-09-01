@@ -21,22 +21,21 @@
 (require 'init-default)                 ;;0.47s
 (require 'init-evil)                    ;;0.875
 (require 'init-ivy)                     ;; 0.875
-(require 'init-org)                     ;; 1.794
+(require 'init-org)                     ;; 1.794 配置导致时间长
 (require 'init-editor)                  ;; 1.84
-;; ;; 和编程相关的配置统一由init-prog.el 文件一起加载，在文件中分别加载各语言的配置文件
+;; ;; ;; 和编程相关的配置统一由init-prog.el 文件一起加载，在文件中分别加载各语言的配置文件
 (require 'init-prog)                    ;;2.75s
 (require 'init-window)                  ;;3.18s
 (require 'init-magit)                   ;; 3.79s
 (require 'init-dired)                   ;; 3.14s
 
-;; ;; company 的配置包括 which-key
+;; ;; ;; company 的配置包括 which-key
 (require 'init-company)                 ;;5.159s
 (require 'init-themes)                  ;;5.159
 (require 'init-widgets)                 ;;5.159
 
 (put 'narrow-to-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
 
 ;; 在scratch中插入启动时间
 (add-hook 'window-setup-hook
@@ -46,3 +45,4 @@
             (insert (format ";; Happy hacking!! emacs startup with %.3fs!!\n" (float-time (time-subtract (current-time) before-init-time)))))
           'append)
 
+(put 'dired-find-alternate-file 'disabled nil)

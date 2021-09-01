@@ -5,7 +5,7 @@
 (straight-use-package 'symbol-overlay)
 (straight-use-package 'deadgrep)
 
-;; (straight-use-package 'doom-modeline)
+(straight-use-package 'doom-modeline)
 
 ;; TODO 需要注意的是下面的相关配置会导致org-mode使用latex导出pdf时失败，暂时屏蔽以下配置，后续优化
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
@@ -17,7 +17,7 @@
 ;; (modify-coding-system-alist 'process "*" 'utf-8)
 ;; (setq default-process-coding-system '(utf-8 . utf-8))
 
-;; (doom-modeline-mode 1)
+(doom-modeline-mode 1)
 
 ;; 添加autoload函数  
 (autoload #'er/mark-defun "expand-region")
@@ -132,5 +132,12 @@
     )
   )
 (global-set-key (kbd "<f5>") 'abbrev-mode)
+
+;; 配置鼠标相关的配置
+(setq mouse-scroll-delay 0.02)
+(defun up-slightly () (interactive) (scroll-up 1))
+(defun down-slightly () (interactive) (scroll-down 1))
+(global-set-key [wheel-up] 'down-slightly)
+(global-set-key [wheel-down] 'up-slightly)
 
 (provide 'init-editor)
