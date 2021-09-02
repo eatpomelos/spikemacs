@@ -25,6 +25,10 @@
 (straight-use-package 'undo-tree)
 (add-hook 'emacs-startup-hook #'global-undo-tree-mode)
 
+;; 在org-mode中打开自动折行功能，避免一行过长
+(add-hook 'org-mode-hook #'auto-fill-mode)
+(setq-default fill-column 90)
+
 ;; 怎么在不添加新的package的情况下覆盖绑定?
 (with-eval-after-load  'undo-tree
   (global-set-key (kbd "C-r") #'undo-tree-redo)

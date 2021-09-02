@@ -50,20 +50,33 @@
          :unnarrowed t
          :empty-lines 1)
         ("t" "Term" plain
-         "- 领域: %^{术语所属领域}\n- 名词\n%?\n- 释义:"
-         :if-new (file+head "spk-Term.org" "#+title: ${title}\n#+filetags: Term English\n")
+         "- 领域: %^{术语所属领域}\n- 名词:%?\n- 释义:n- 参考链接:"
+         :if-new (file+head "spk-Wiki.org" "#+title: ${title}\n#+filetags: Term English\n")
          :unnarrowed nil
          :empty-lines 1
          )
-        
+
+        ("s" "Solve" plain
+         "- 问题描述: %?\n- 解决方案:%?\n- 定位过程:\n- 参考链接:"
+         :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags: issue \n")
+         :unnarrowed nil
+         :empty-lines 1
+         )
+
+        ;; 需要注意的是，这里的笔记可能会作为一个文件来进行整理。而阅读相关的笔记则是可以整理成多个文件，也可以整理成一个文件
+        ;; 这里的plain实际支持5种类型，但是在org-roam中都是一样的，这里一律设置为plain，另外测试发现这里设置entry会有问题
         ("n" "notes")
         ("nr" "Reading notes" plain
-         "- 普通笔记模板\n\n%?"
-         :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %T\n#+filetags: general\n")
+         "%?"
+         :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %T\n#+filetags: Reading\n")
+         )
+        ("no" "Output documents" plain
+         "%?"
+         :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %T\n#+filetags: documents\n")
          )
         ))
 
-;; 日记的模板暂时没有好的想法，先不设置,
+;; 日常模板暂时没有好的想法，先不设置,使用默认模板
 
 ;; (setq org-roam-capture-templates
 ;;       '(

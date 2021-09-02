@@ -193,7 +193,7 @@
   "LINUX kernel documents directory.")
 
 (when IS-WINDOWS
-  (setq spk-linux-doc-dir "d:/work/linux_code/linux-5.9-rc3/Documentation")
+  (setq spk-linux-doc-dir "d:/HOME/.emacs.d/docs/other_docs/linux_5.9_docs/")
   (setq spk-company-push-code-dir "d:/work/CODE/PushCode/UGW_Repo")
   )
 
