@@ -12,10 +12,7 @@
    :repo "org-roam/org-roam-ui"
    ))
 
-;; 先直接打开
-;; (autoload #'org-roam-find-file "org-roam")
 ;; (autoload #'org-roam-server-mode "org-roam-server")
-
 (setq
  org-roam-directory (concat user-emacs-directory "docs/")
  org-roam-db-location (concat spk-org-directory "org-roam.db")
@@ -36,6 +33,10 @@
   "of" 'org-roam-node-find
   ;; 暂不清楚ref在新版的org-roam中是怎么使用的
   "or" 'org-roam-ref-find
+  "odt" 'org-roam-dailies-find-today
+  "odd" 'org-roam-dailies-find-date
+  "odn" 'org-roam-dailies-find-tomorrow
+  "odp" 'org-roam-dailies-find-yesterday
   )
 
 ;; https://www.zmonster.me/2020/06/27/org-roam-introduction.html
@@ -46,14 +47,14 @@
          :unnarrowed t
          :empty-lines 1)
         ("t" "Term" plain
-         "- 领域: %^{术语所属领域}\n- 名词:%?\n- 释义:n- 参考链接:"
+         "- 领域: %^{术语所属领域}\n- 名词:%?\n- 释义:\n- 参考链接:"
          :if-new (file+head "spk-Wiki.org" "#+title: ${title}\n#+filetags: Term English\n")
          :unnarrowed nil
          :empty-lines 1
          )
 
         ("s" "Solve" plain
-         "- 问题描述: %?\n- 解决方案:%?\n- 定位过程:\n- 参考链接:"
+         "* 问题标题: %?\n- 解决方案:\n- 定位过程:\n- 参考链接:"
          :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags: issue \n")
          :unnarrowed nil
          :empty-lines 1

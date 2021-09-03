@@ -4,8 +4,6 @@
 (straight-use-package 'wgrep)
 (straight-use-package 'smex)
 
-(autoload #'counsel-M-x "ivy")
-
 ;; 使用这种方式来管理配置之后，怎么管理快捷键？
 (with-eval-after-load 'ivy
   (setq ivy-use-virtual-buffers t)

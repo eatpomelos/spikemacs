@@ -2,9 +2,6 @@
 (straight-use-package 'winum)
 (straight-use-package 'popwin)
 
-(autoload #'winum-mode "winum")
-(autoload #'popwin-mode "popwin")
-
 (add-hook 'after-init-hook 'winum-mode)
 (add-hook 'winum-mode-hook 'popwin-mode)
 

@@ -5,8 +5,6 @@
 (straight-use-package 'company-ctags)
 (straight-use-package 'counsel-etags)
 
-;; autoloads configure
-(autoload #'ctags-auto-update-mode "ctags-update")
 
 (defvar spk-ctags-file-cache-file ".spk-project-files"
   "The cache of file.")

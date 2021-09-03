@@ -3,6 +3,18 @@
 ;; function 格式为 spk/xx-xx
 ;; variables 格式为 spk-xx-xx
 
+;; 试用懒猫大神的启动速度优化思路
+(straight-use-package 'benchmark-init)
+(let (
+      ;; 清空避免加载远程文件的时候分析文件。
+      (file-name-handler-alist nil))
+  (require 'benchmark-init-modes)
+  (require 'benchmark-init)
+  (benchmark-init/activate)
+
+  ;; 下面才写你的其它配置
+  )
+
 ;; 因为使用了一些高于26版本的api，暂时不支持低于此版本的emacs
 (when (version< emacs-version "26.0")
   (error "emacs's version less than 26.0, can not load init files.")
@@ -19,6 +31,7 @@
 (setq default-directory "~")
 
 (require 'init-default)                 ;;0.47s
+(require 'init-autoload)                 ;;0.47s
 (require 'init-evil)                    ;;0.875
 (require 'init-ivy)                     ;; 0.875
 (require 'init-org)                     ;; 1.794 配置导致时间长

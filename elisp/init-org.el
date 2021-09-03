@@ -16,18 +16,22 @@
                                ("PAUSE" . "cyan1")))
 
 ;; 设置几个常用的capture 的文件的路径
-(defvar spk-org-directory "~/org/"
-  "Default directory of org files"
+(defvar spk-private-doc-dir "~/.emacs.d/docs/"
+  "My private document directory.")
+
+(defvar spk-org-directory "~/.emacs.d/docs/org"
+  "Default directory of org files."
   )
 
 ;; 设置自己的个人笔记目录
 (defvar spk-local-notes-dir
-  (concat org-directory "/notes/")
+  (concat spk-org-directory "notes/")
   "Local notes path.")
 
 ;; 设置agenda文件,注意以下这种写法，不加括号直接用字符串是不行的
-(setq org-agenda-files '("~/org"
-			 "~/org/notes"))
+(setq org-agenda-files '("~/.emacs.d/docs/org"
+			             "~/.emacs.d/docs/org/notes"
+                         "~/.emacs.d/docs/daily"))
 
 ;; 设置笔记中用到的一些路径，包括日志路径、笔记路径，以及待办项目路径
 (setq spk-capture-todo-file (expand-file-name "todo.org" spk-org-directory)

@@ -5,7 +5,7 @@
 (straight-use-package 'symbol-overlay)
 (straight-use-package 'deadgrep)
 
-(straight-use-package 'doom-modeline)
+;; (straight-use-package 'doom-modeline)
 
 ;; TODO 需要注意的是下面的相关配置会导致org-mode使用latex导出pdf时失败，暂时屏蔽以下配置，后续优化
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
@@ -17,10 +17,8 @@
 ;; (modify-coding-system-alist 'process "*" 'utf-8)
 ;; (setq default-process-coding-system '(utf-8 . utf-8))
 
-(doom-modeline-mode 1)
+;; (doom-modeline-mode 1)
 
-;; 添加autoload函数  
-(autoload #'er/mark-defun "expand-region")
 ;; 考虑要不要加这个配置
 (straight-use-package 'undo-tree)
 (add-hook 'emacs-startup-hook #'global-undo-tree-mode)
@@ -53,7 +51,6 @@
 			                :host github
 			                :repo "manateelazycat/company-english-helper"))
   ;; 指定一个函数从文件中自动加载，暂时理解成指定一个函数为autoload，当使用这个函数时自动加载那个文件
-  (autoload #'toggle-company-english-helper "company-english-helper")
   (global-set-key (kbd "<f1>") 'toggle-company-english-helper))
 
 (define-key global-map (kbd "C-=") 'er/expand-region)
@@ -91,8 +88,6 @@
     "ms" 'er/mark-symbol
     "m\]" 'er/mark-sentence))
 
-(autoload #'symbol-overlay-put "symbol-overlay")
-(autoload #'symbol-overlay-save-symbol "symbol-overlay")
 
 (global-set-key (kbd "<f8>") 'symbol-overlay-put)
 (global-set-key (kbd "S-<f8>") 'symbol-overlay-jump-prev)
@@ -137,7 +132,7 @@
   )
 (global-set-key (kbd "<f5>") 'abbrev-mode)
 
-;; 添加鼠标相关的配置
+;; 添加鼠标相关的配置，解决滚轮滑动屏幕过快的问题 
 (setq mouse-scroll-delay 0.02)
 (defun up-slightly () (interactive) (scroll-up 1))
 (defun down-slightly () (interactive) (scroll-down 1))

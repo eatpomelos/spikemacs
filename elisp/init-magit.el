@@ -3,10 +3,6 @@
 (straight-use-package 'magit)
 (straight-use-package 'vc-msg)
 
-(autoload #'vc-msg-show "vc-msg")
-(autoload #'magit-status "magit")
-(autoload #'magit-log-all "magit")
-(autoload #'magit-blame "magit")
 ;; 下面的advice定义表示的是执行完magit-status 函数之后，切换evil模式到insert模式
 (advice-add 'magit-status :after #'evil-insert-state)
 

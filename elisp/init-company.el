@@ -6,7 +6,6 @@
 (straight-use-package 'yasnippet)
 
 ;; yasnippet
-(autoload #'yas-minor-mode "yasnippet")
 (add-hook 'prog-mode-hook 'yas-minor-mode)
 
 (with-eval-after-load "yasnippet"
@@ -33,8 +32,6 @@
 ;;  company-global-modes '(not dired-mode dired-sidebar-mode)
 ;;  company-tooltip-margin 0)
 
-(autoload #'company-mode "company")
-(autoload #'company-box-mode "company-box")
 
 (add-hook 'prog-mode-hook 'company-mode)
 (add-hook 'conf-mode-hook 'company-mode)

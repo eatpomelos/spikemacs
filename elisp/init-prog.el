@@ -6,7 +6,6 @@
 			:host github
 			:repo "manateelazycat/color-rg"
 			))
-(autoload #'color-rg-search-input "color-rg")
 ;; (require 'color-rg)
 
 (require 'init-tags)
@@ -18,9 +17,6 @@
 ;; 但是看效果要比etags好很多
 ;; (require 'init-citre)
 
-;; 使用这包来快速删除多余的空格
-(autoload #'smart-hungry-delete-char "smart-hungry-delete")
-(autoload #'smart-hungry-delete-backward-char "smart-hungry-delete")
 
 
 (add-hook 'c-mode-hook (lambda ()
@@ -39,11 +35,8 @@
 (straight-use-package 'imenu-list)
 ;; (straight-use-package 'projectile)
 
-;; 配置better-jumper来满足阅读源代码时候的跳转需求
-(autoload #'better-jumper-mode "better-jumper")
 (add-hook 'prog-mode-hook #'better-jumper-mode)
 
-(autoload #'imenu-list-smart-toggle "imenu-list")
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 
 ;; (autoload #'projectile-mode "projectile")
