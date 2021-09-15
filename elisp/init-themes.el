@@ -4,13 +4,19 @@
 (setq spk-theme-dir (concat user-emacs-directory "themes/"))
 
 (add-to-list 'load-path
-	     (concat spk-theme-dir "spk-mint-theme/"))
+	         (concat spk-theme-dir "spk-mint-theme/"))
 ;; 加载自己定义的亮色主题，需要时加载
-(require 'spk-mint-theme)
-(require 'spk-dark-mint-theme)
+;; (require 'spk-mint-theme)
+;; (require 'spk-dark-mint-theme)
 
 (straight-use-package 'doom-themes)
 (straight-use-package 'cyberpunk-theme)
+
+;; 用straight-use-package来管理本地包
+(straight-use-package
+ '(spk-mint-theme
+   :local-repo "~/.emacs.d/themes/spk-mint-theme" 
+   ))
 ;; (straight-use-package 'dracula-theme)
 ;; 这个包自己hack一下，用spk-dark-ming-theme来替代
 ;; (straight-use-package 'dark-mint-theme)

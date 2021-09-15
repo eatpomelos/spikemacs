@@ -61,19 +61,6 @@
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
-;; ;; 高亮更改文本,但是这个配置不好用的地方在于你保存了之后，不会自动取消你之前改变的文本
-;; (global-highlight-changes-mode 1)
-;; ;; 当保存了buffer之后，移除之前的高亮,另外，当移除更改的时候也需要移除高亮
-;; (defadvice save-buffer (after spike-remove-highlight activate)
-;;   (when (highlight-changes-mode)
-;;     (highlight-changes-remove-highlight (point-min) (point-max))))
-
-;; ;; 当撤销到最后一步的时候也需要取消高亮
-;; (defadvice undo-tree-undo (after spik-remove-highlight activate)
-;;   (when (highlight-changes-mode)
-;;     (unless (buffer-modified-p)
-;;       (highlight-changes-remove-highlight (point-min) (point-max)))))
-
 ;; 开启括号的补全
 (electric-pair-mode 1)
 

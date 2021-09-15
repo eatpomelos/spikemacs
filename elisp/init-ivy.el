@@ -21,14 +21,14 @@
     (setq locate-command "es"))
 
   ;; 在M-x 运行时显示相应的文档
-  (require 'ivy-rich)
+  ;; (require 'ivy-rich)
   (ivy-rich-mode t)
-  (require 'smex)
+  ;; (require 'smex)
 
+  (advice-add 'ivy-occur :after #'evil-window-move-far-right)
   (add-hook 'ivy-occur-grep-mode-hook
             '(lambda ()
                (evil-emacs-state)))
-  (advice-add 'ivy-occur :after #'evil-window-move-far-right)
   )
 
 (evil-leader/set-key

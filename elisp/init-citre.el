@@ -13,6 +13,5 @@
 
 ;; 直接读取citre相关的配置，后续优化
 (require 'citre)
-(require 'citre-config)
 
 (provide 'init-citre)

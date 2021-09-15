@@ -3,7 +3,7 @@
 ;; (straight-use-package 'org-roam-server)
 ;; 设置org-roam的补全
 (straight-use-package 'company-org-roam)
-(straight-use-package 'org-roam-bibtex)
+;; (straight-use-package 'org-roam-bibtex)
  
 (straight-use-package
  '(org-roam-ui
@@ -91,18 +91,18 @@
 ;;          :file-name "%<%Y%m%d%H%M%S>-${slug}"
 ;;          :head "#+title: ${title}\n#+roam_alias:\n\n")))
 
-;; 使用org-roam-bibtex扩展
+;; 这部分配置暂时用不到，页面的org-roam-ui暂时不能正常显示
 (with-eval-after-load 'org-roam
-  (require 'org-ref)
-  (require 'org-roam-ui)
+  ;; (require 'org-ref)
+  ;; (require 'org-roam-ui)
 
-  (require 'websocket)
-  (require 'simple-httpd)
+  ;; (require 'websocket)
+  ;; (require 'simple-httpd)
   
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t)
+  ;; (setq org-roam-ui-sync-theme t
+  ;;       org-roam-ui-follow t
+  ;;       org-roam-ui-update-on-save t
+  ;;       org-roam-ui-open-on-start t)
   (org-roam-setup)
   )
 

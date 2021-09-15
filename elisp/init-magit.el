@@ -1,5 +1,4 @@
 ;; magit相关配置
-
 (straight-use-package 'magit)
 (straight-use-package 'vc-msg)
 
