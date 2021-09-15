@@ -31,7 +31,7 @@
 ;; 设置agenda文件,注意以下这种写法，不加括号直接用字符串是不行的
 (setq org-agenda-files '("~/.emacs.d/docs/org"
 			             "~/.emacs.d/docs/org/notes"
-                         "~/.emacs.d/docs/daily"))
+                         "~/.emacs.d/docs/roam/daily"))
 
 ;; 设置笔记中用到的一些路径，包括日志路径、笔记路径，以及待办项目路径
 (setq spk-capture-todo-file (expand-file-name "todo.org" spk-org-directory)

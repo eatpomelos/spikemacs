@@ -2,7 +2,6 @@
 
 (straight-use-package 'neotree)
 ;; (straight-use-package 'dired-git-info)
-(autoload #'neotree-toggle "neotree")
 
 (evil-leader/set-key
   "ft" 'neotree-toggle)

@@ -20,6 +20,7 @@
 (autoload #'magit-log-all "magit")
 (autoload #'magit-blame "magit")
 
+(autoload #'neotree-toggle "neotree")
 (autoload #'symbol-overlay-put "symbol-overlay")
 (autoload #'symbol-overlay-save-symbol "symbol-overlay")
 (autoload #'toggle-company-english-helper "company-english-helper")

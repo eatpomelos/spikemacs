@@ -55,7 +55,8 @@
           (lambda ()
             (switch-to-buffer "*scratch*")
             (erase-buffer)
-            (insert (format ";; Happy hacking!! emacs startup with %.3fs!!\n" (float-time (time-subtract (current-time) before-init-time)))))
+            (insert (format ";; Happy hacking!! emacs startup with %.3fs!!\n"
+                            (float-time (time-subtract (current-time) before-init-time)))))
           'append)
 
 (put 'dired-find-alternate-file 'disabled nil)

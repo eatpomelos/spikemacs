@@ -21,7 +21,7 @@
 (defun spk/find-file-entry ()
   (interactive)
   (cond ((+spk-get-complete-file "TAGS") (spk/project-ctags-find-file))
-        ((+spk-get-complete-file ".git") (spk/project-find-file))
+        ((or (+spk-get-complete-file ".git") (+spk-get-complete-file ".svn")) (spk/project-find-file))
         (t (counsel-find-file))
         )
   )

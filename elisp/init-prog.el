@@ -1,5 +1,6 @@
 (straight-use-package 'better-jumper)
 (straight-use-package 'smart-hungry-delete)
+(straight-use-package 'aggressive-indent-mode)
 ;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
 (straight-use-package
  '(color-rg :type git
@@ -35,6 +36,7 @@
 (straight-use-package 'imenu-list)
 ;; (straight-use-package 'projectile)
 
+(add-hook 'prog-mode-hook #'aggressive-indent-mode)
 (add-hook 'prog-mode-hook #'better-jumper-mode)
 
 (add-hook 'prog-mode-hook 'electric-pair-mode)

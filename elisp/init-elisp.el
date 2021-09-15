@@ -1,5 +1,4 @@
 ;; elisp相关配置
-
 (defvar spk-emacs-source-directory "d:/HOME/spike/code/emacs-27.1/emacs-27.1/src"
   "Emacs source directory.")
 
