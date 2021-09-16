@@ -1,6 +1,7 @@
 (straight-use-package 'better-jumper)
 (straight-use-package 'smart-hungry-delete)
 (straight-use-package 'aggressive-indent-mode)
+(straight-use-package 'deadgrep)
 ;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
 (straight-use-package
  '(color-rg :type git
@@ -18,7 +19,8 @@
 ;; 但是看效果要比etags好很多
 ;; (require 'init-citre)
 
-
+;; 使用deadgrep进行搜索后续延迟加载
+(require 'deadgrep)
 
 (add-hook 'c-mode-hook (lambda ()
                          (define-key c-mode-map (kbd "DEL") 'smart-hungry-delete-backward-char)

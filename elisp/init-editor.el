@@ -3,7 +3,6 @@
 (straight-use-package 'restart-emacs)
 (straight-use-package 'json-mode)
 (straight-use-package 'symbol-overlay)
-;; (straight-use-package 'deadgrep)
 
 ;; (straight-use-package 'doom-modeline)
 
@@ -33,9 +32,6 @@
   (define-key evil-normal-state-map (kbd "C-r") #'undo-tree-redo)
   (global-set-key (kbd "C-/") #'undo-tree-undo)
   )
-
-;; 这个包是狗哥推荐的，但是没有日常使用，如果使用则进行配置
-;; (require 'deadgrep)
 
 ;; (when IS-WINDOWS
 ;;   (straight-use-package

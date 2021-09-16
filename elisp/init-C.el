@@ -53,6 +53,10 @@
   (when (boundp 'company-backends)
 	(make-local-variable 'company-backends)
 	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake))))
+  ;; 配置在C模式下的deadgrep的文件类型，以下方案暂不可行
+  ;; (when (boundp 'deadgrep--file-type)
+  ;;   (make-local-variable 'deadgrep--file-type)
+  ;;   (setq deadgrep--file-type "*.[ch]"))
   )
 
 (add-hook 'c-mode-hook #'spk/cc-mode-setup)
