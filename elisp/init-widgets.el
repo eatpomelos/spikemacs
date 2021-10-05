@@ -107,11 +107,12 @@
 	)
   )
 
-;; 清除已经高亮的所有行
+;; 清除已经高亮的所有行，需要注意的是 
 (defun spk/clear_all_highlight_lines ()
   "Clear all highlines."
   (interactive)
   (mapc #'delete-overlay spk-ovs)
+  (setq spk-ovs nil)
   )
 
 (global-set-key (kbd "<f9>") #'spk/highlight_or_unhighlight_line_at_point)

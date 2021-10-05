@@ -1,6 +1,6 @@
 (straight-use-package 'better-jumper)
 (straight-use-package 'smart-hungry-delete)
-(straight-use-package 'aggressive-indent-mode)
+;; (straight-use-package 'aggressive-indent-mode)
 (straight-use-package 'deadgrep)
 ;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
 (straight-use-package
@@ -19,9 +19,6 @@
 ;; 但是看效果要比etags好很多
 ;; (require 'init-citre)
 
-;; 使用deadgrep进行搜索后续延迟加载
-(require 'deadgrep)
-
 (add-hook 'c-mode-hook (lambda ()
                          (define-key c-mode-map (kbd "DEL") 'smart-hungry-delete-backward-char)
                          (define-key c-mode-map (kbd "C-d") 'smart-hungry-delete-forward-char)))
@@ -38,9 +35,13 @@
 (straight-use-package 'imenu-list)
 ;; (straight-use-package 'projectile)
 
-(add-hook 'prog-mode-hook #'aggressive-indent-mode)
-(add-hook 'prog-mode-hook #'better-jumper-mode)
+;; 编程时自动修改缩进，在某些时候很好用，在实际写代码时，会频繁缩进，导致体验下降 
+;; (add-hook 'prog-mode-hook #'aggressive-indent-mode)
+;; (advice-add 'makefile-gmake-mode :after
+;;             '(lambda ()
+;;                (aggressive-indent-mode 0)))
 
+(add-hook 'prog-mode-hook #'better-jumper-mode)
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 
 ;; (autoload #'projectile-mode "projectile")
@@ -193,6 +194,17 @@
 
   (define-key prog-mode-map (kbd "C-<f8>") 'better-jumper-jump-backward)
   (define-key prog-mode-map (kbd "C-<f9>") 'better-jumper-jump-forward)
+  )
+
+;; 是否有匹配多个map的按键配置方案?
+(with-eval-after-load 'deadgrep
+  
+  (defun spk/deadgrep-exit ()
+    (interactive)
+    (deadgrep-kill-process)
+    (deadgrep-kill-all-buffers)
+    )
+  (define-key deadgrep-mode-map  "q" 'spk/deadgrep-exit)
   )
 
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置

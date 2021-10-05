@@ -55,12 +55,11 @@
  ;; '(line-number ((t (:inherit linum))))
  ;; '(header-line ((t (:background "#B4CDCD"))))
 
-
  ;; company
  '(company-tooltip ((t (:foreground "#F0FCFF" :background "#28223e"))))
  '(company-scrollbar-bg ((t (:background "#28223e"))))
  '(company-scrollbar-fg ((t (:foreground "#F0FCFF"))))
- '(company-tooltip-selection ((t (:background "#333469"))))
+ ;; '(company-tooltip-selection ((t (:background "#333469"))))
  
  '(mouse ((t (:foregound "wheat"))))
  '(highlight ((t (:background "blue" :foreground "orange"))))

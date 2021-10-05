@@ -148,15 +148,4 @@ pfix is the postfix of file"
 	    (setq pos (1+ pos))
 	    ))))
 
-;; 测试用函数，暂时用来清除自定义的overlay
-(defun spk-clear-spk-ovs ()
-  (interactive)
-  (spk/highlight-clear spk-ovs))
-
-;;;###autoload
-(defun spk/highlight-clear (ovs)
-  "Cleatr highlight line."
-  (mapcar #'delete-overlay ovs)
-  nil)
-
 (provide 'init-lib)

@@ -38,8 +38,9 @@
 ;; 使用这包来快速删除多余的空格
 (autoload #'smart-hungry-delete-char "smart-hungry-delete")
 (autoload #'smart-hungry-delete-backward-char "smart-hungry-delete")
-(autoload #'aggressive-indent-mode "aggressive-indent-mode")
+;; (autoload #'aggressive-indent-mode "aggressive-indent-mode")
 (autoload #'imenu-list-smart-toggle "imenu-list")
+(autoload #'deadgrep "deadgrep")
 
 (autoload #'ctags-auto-update-mode "ctags-update")
 (autoload #'company-mode "company-ctags")

@@ -47,6 +47,9 @@
   ;; Don't downcase the returned candidates.
   (setq company-dabbrev-downcase nil)
   (setq company-dabbrev-ignore-case nil)
+  ;; 在补全的时候忽略TAGS等大文件，避免造成卡顿
+  (setq company-dabbrev-ignore-buffers "\\`[ *]\\|TAGS\\|tags")
+
   ;; 设置忽略的buffer
   ;; (setq company-dabbrev-ignore-buffers ".*TAGS.*")
   ;; 没有设置的情况先。使用默认配置，为了防止TAGS文件补全引起的卡顿，去掉tag后端，编程模式再定制
@@ -64,7 +67,7 @@
 	(when (boundp 'company-backends)
 	  (make-local-variable 'company-backends)
 	  (setq company-backends
-			'((company-elisp company-files company-yasnippet company-keywords) company-dabbrev))
+			'((company-elisp company-files company-yasnippet company-keywords company-dabbrev company-dabbrev-code)))
 	  ))
 
   ;; Add `company-elisp' backend for elisp.

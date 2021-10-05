@@ -52,7 +52,10 @@
 (defun spk/cc-mode-setup ()
   (when (boundp 'company-backends)
 	(make-local-variable 'company-backends)
-	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake))))
+    ;; (setq company-backends '((company-bbdb company-semantic company-cmake company-clang company-files
+    ;;                       company-dabbrev-code company-keywords
+    ;;                                    company-oddmuse company-dabbrev)))
+	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake company-dabbrev company-dabbrev-code))))
   ;; 配置在C模式下的deadgrep的文件类型，以下方案暂不可行
   ;; (when (boundp 'deadgrep--file-type)
   ;;   (make-local-variable 'deadgrep--file-type)

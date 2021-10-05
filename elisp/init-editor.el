@@ -55,7 +55,8 @@
 
 (global-set-key (kbd "C-c v") 'set-mark-command)
 (global-set-key (kbd "C-c l") 'avy-goto-line)
-(global-set-key (kbd "C-c C-l") 'goto-line)
+;; 使用evil 的跳转方式来替代
+;; (global-set-key (kbd "C-c C-l") 'goto-line)
 ;; 在minibuff中输入的时候由于焦点的变化导致光标无法回到minibuffer的输入框，且无法用C-g来解决
 (global-set-key (kbd "C-c C-g") 'exit-minibuffer)
 (global-set-key (kbd "C-<down>") 'text-scale-decrease)

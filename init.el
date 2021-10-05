@@ -30,7 +30,7 @@
 
 (setq default-directory "~")
 
-(require 'init-default)  
+(require 'init-default)
 (require 'init-autoload)
 (require 'init-evil)
 (require 'init-ivy)
