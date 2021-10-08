@@ -28,7 +28,7 @@
 
 ;; (load-theme 'cyberpunk)
 ;; 自己的亮色主题，比较喜欢背景色，但是其余颜色调的不好 
-(load-theme 'spk-mint)
+(load-theme 'cyberpunk)
 
 ;; 一个不错的modeline美化包，基本思想是将modeline调整为一条线，然后使用minibuffer来显示modeline需要显示的东西
 ;; (use-package mini-modeline
