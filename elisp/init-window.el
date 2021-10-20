@@ -6,9 +6,14 @@
 (add-hook 'winum-mode-hook 'popwin-mode)
 
 ;; 设置modeline显示的内容
-;; (setq-default mode-line-format
-;; 			  '((:eval
-;; 				 )))
+;; (setq mode-line-format
+;;       (list
+;;        '(:eval
+;;         (format winum-format
+;;                 (winum-get-number-string)))
+;;        mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position evil-mode-line-tag
+;;        (vc-mode vc-mode)
+;;        "  " mode-line-modes mode-line-misc-info mode-line-end-spaces))
 
 (with-eval-after-load 'winum
   ;; (advice-add 'winum--switch-to-window :after 'maximize-window)
@@ -40,6 +45,5 @@
 ;; 设置title-format
 (defvar spk-title-format (concat "Emacs@Spikemacs" "== " "Σ(｀д′*ノ)ノ "))
 (setq-default frame-title-format spk-title-format)
-
 
 (provide 'init-window)

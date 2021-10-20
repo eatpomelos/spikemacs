@@ -5,9 +5,6 @@
 
 (add-to-list 'load-path
 	         (concat spk-theme-dir "spk-mint-theme/"))
-;; 加载自己定义的亮色主题，需要时加载
-;; (require 'spk-mint-theme)
-;; (require 'spk-dark-mint-theme)
 
 (straight-use-package 'doom-themes)
 (straight-use-package 'cyberpunk-theme)
@@ -18,8 +15,7 @@
    :local-repo "~/.emacs.d/themes/spk-mint-theme" 
    ))
 ;; (straight-use-package 'dracula-theme)
-;; 这个包自己hack一下，用spk-dark-ming-theme来替代
-;; (straight-use-package 'dark-mint-theme)
+;; (straight-use-package 'modus-themes)
 
 ;; (straight-use-package
 ;;  '(xcode-theme :type git
@@ -28,17 +24,9 @@
 
 ;; (load-theme 'cyberpunk)
 ;; 自己的亮色主题，比较喜欢背景色，但是其余颜色调的不好 
-(load-theme 'cyberpunk)
-
-;; 一个不错的modeline美化包，基本思想是将modeline调整为一条线，然后使用minibuffer来显示modeline需要显示的东西
-;; (use-package mini-modeline
-;;   :defer nil
-;;   :config
-;;   (mini-modeline-mode t) 
-;;   ;; 配置modeline下面显示的东西,暂时设置一个固定的值，让下面的信息放在中间
-;;   (setq mini-modeline-right-padding 25)
-;;   ;; mini-modeline-l-format
-;;   ;; mini-modeline-r-format
-;;   )
+(load-theme 'spk-mint)
+;; (load-theme 'doom-city-lights)
+;; (load-theme 'modus-vivendi)
+;; (load-theme 'modus-operandi)
 
 (provide 'init-themes)

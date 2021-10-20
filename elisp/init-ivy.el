@@ -11,7 +11,7 @@
   ;; 开启一些命令的历史纪录
   ;; (setq counsel-M-x-history t)
   ;; (setq counsel-locate-history t)
-  
+
   (global-set-key (kbd "C-s") #'swiper)
   (counsel-mode 1)
   ;; 开启ivy-mode 对于类似org-roam都会提供补全选项，很方便
@@ -29,6 +29,7 @@
   (add-hook 'ivy-occur-grep-mode-hook
             '(lambda ()
                (evil-emacs-state)))
+  (require 'init-ui)
   )
 
 (evil-leader/set-key

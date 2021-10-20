@@ -5,20 +5,8 @@
 (straight-use-package 'company-ctags)
 (straight-use-package 'counsel-etags)
 
-
 (defvar spk-ctags-file-cache-file ".spk-project-files"
   "The cache of file.")
-
-;; 用来生成C语言项目的ctags命令，由于当前只有C的需求
-(defconst spk-ctags-base-command-for-c "ctags -e -R --languages=c --langmap=c:+.h ."
-  "Ctags command for c.")
-
-;; 用于生成产品端的ctags命令，不扫描符号链接，原因是这里的符号链接链接到的文件大部分都已经被扫描过了
-(defconst spk-ctags-company-product-command-for-c
-  "ctags -e -R --languages=c --langmap=c:+.h --links=no --exclude=targets --exclude=vendor --exclude=kmpatch --exclude=*/kpatch --exclude=.svn --exclude=.git --exclude=Makefile --exclude=bcm96756 --exclude=impl69 ."
-  "Ctags command for C.")
-
-;; tool functions
 
 ;;;###autoload
 (defun spk/project-setup ()

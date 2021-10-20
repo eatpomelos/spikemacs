@@ -60,18 +60,6 @@
 
   ;; Remove duplicate candidate.
   (add-to-list 'company-transformers #'delete-dups)
-
-  ;; 通过建立局部变量的方式来控制补全后端的启用，配置其他模式的时候可以参照这种方式，测试打开大型C项目的时候同时写elisp代码是否会卡顿
-  ;; 建立一个通用的company-backends来进行补全，另外，注释里面是否需要补全？
-  (defun spk/elisp-setup ()
-	(when (boundp 'company-backends)
-	  (make-local-variable 'company-backends)
-	  (setq company-backends
-			'((company-elisp company-files company-yasnippet company-keywords company-dabbrev company-dabbrev-code)))
-	  ))
-
-  ;; Add `company-elisp' backend for elisp.
-  (add-hook 'emacs-lisp-mode-hook #'spk/elisp-setup)
   )
 
 (add-hook 'emacs-lisp-mode-hook #'company-box-mode)

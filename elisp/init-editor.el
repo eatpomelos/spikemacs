@@ -4,8 +4,6 @@
 (straight-use-package 'json-mode)
 (straight-use-package 'symbol-overlay)
 
-;; (straight-use-package 'doom-modeline)
-
 ;; TODO 需要注意的是下面的相关配置会导致org-mode使用latex导出pdf时失败，暂时屏蔽以下配置，后续优化
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
 ;; (set-language-environment 'utf-8)
@@ -15,8 +13,6 @@
 ;; (set-terminal-coding-system 'utf-8)
 ;; (modify-coding-system-alist 'process "*" 'utf-8)
 ;; (setq default-process-coding-system '(utf-8 . utf-8))
-
-;; (doom-modeline-mode 1)
 
 ;; 考虑要不要加这个配置
 (straight-use-package 'undo-tree)
@@ -126,6 +122,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("ltx" "LaTeX")
+    ("spkd" "SPK_DEBUG")
     )
   )
 (global-set-key (kbd "<f5>") 'abbrev-mode)
