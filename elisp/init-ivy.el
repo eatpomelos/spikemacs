@@ -29,6 +29,7 @@
   (add-hook 'ivy-occur-grep-mode-hook
             '(lambda ()
                (evil-emacs-state)))
+  
   (require 'init-ui)
   )
 

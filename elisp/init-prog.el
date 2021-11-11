@@ -84,6 +84,16 @@
 	)
   )
 
+;; 跳转到项目根目录 
+;;;###autoload
+(defun spk/project-find-file-in-root ()
+  (interactive)
+  (let* ((root-dir (+spk-get-file-dir "TAGS")))
+    (if root-dir
+        (counsel-find-file root-dir)
+      (message "Not in a project")))
+  )
+
 ;; 使用color-rg中的api在项目中搜索字符串
 ;;;###autoload
 (defun spk/project-search-symbol-base-color-rg (&optional sym)
@@ -169,6 +179,7 @@
   "ps" 'spk/project-search-symbol-at-point
   "pi" 'spk/project-search-symbol-from-input
   "pff" 'spk/find-file-entry
+  "pfr" 'spk/project-find-file-in-root
   ;; "pff" 'spk/project-find-file
   ;; "pcf" 'spk/project-ctags-find-file
   "pfe" 'counsel-etags-find-tag

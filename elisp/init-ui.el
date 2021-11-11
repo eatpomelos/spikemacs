@@ -15,5 +15,8 @@
 ;; 打开dired的ui支持
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
+;; 设置title-format
+(defvar spk-title-format (concat "Emacs@Spikemacs" "== " "Σ(｀д′*ノ)ノ "))
+(setq-default frame-title-format spk-title-format)
 
 (provide 'init-ui)

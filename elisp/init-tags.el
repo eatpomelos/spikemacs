@@ -64,30 +64,25 @@
 	  (message (format "create file finished (%s)" (spk/time-cost time)))
 	  )))
 
-;; 通过tags文件来获取tags的所有文件,需要提高效率，基于tags的查找
-;;;###autoload
-(defun spk/project-ctags-find-file ()
+(defun spk/project-fast-find-file ()
   "Find file in project."
   (interactive)
-  (let* ((file-name (read-string "Please input file name: "))
-		 candidates
-		 (time (current-time))
+  (let* (candidates
 		 (root-dir (+spk-get-file-dir "TAGS"))
 		 selected
 		 (cache-file (+spk-get-complete-file spk-ctags-file-cache-file))
 		 )
 	(when cache-file
 	  (with-temp-buffer
-		(let* (cur-line
-			   one-file
-			   true-file)
+		(let* (one-file)
 		  (insert-file cache-file)
 		  (goto-char (point-min))
-		  (while (search-forward-regexp file-name (point-max) t)
+          ;; 通过buffer-size和point值来判断是否遍历到最后一行
+		  (while (< (point) (buffer-size))
 			(setq cur-line (buffer-substring (line-beginning-position) (line-end-position)))
 			(push cur-line candidates)
 			(forward-line))
-		  (when (and candidates (setq selected (ivy-read (format "Find file (%s): " (spk/time-cost time)) candidates)))
+		  (when (and candidates (setq selected (ivy-read (format "Find file : " ) candidates)))
 			(find-file (expand-file-name selected root-dir))
 			))
 		))))

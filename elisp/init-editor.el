@@ -122,7 +122,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("ltx" "LaTeX")
-    ("spkd" "SPK_DEBUG")
+    ("spkd" "SPK_DEBUG();")
     )
   )
 (global-set-key (kbd "<f5>") 'abbrev-mode)
