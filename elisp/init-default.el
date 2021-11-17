@@ -64,6 +64,9 @@
 ;; 开启括号的补全
 (electric-pair-mode 1)
 
+;; 修改打开大文件警告的阈值为30M，避免在一些大型项目的缓存文件打开时每次提示 
+(setq large-file-warning-threshold 30000000)
+
 ;; recentf不保存以下文件，以下规则匹配emacs中的正则表达式
 (setq recentf-exclude
       '("COMMIT_MSG"

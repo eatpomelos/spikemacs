@@ -5,7 +5,10 @@
 (straight-use-package 'company-ctags)
 (straight-use-package 'counsel-etags)
 
-(defvar spk-ctags-file-cache-file ".spk-project-files"
+(defconst spk-ctags-file-cache-file ".spk-project-files"
+  "The cache of file.")
+
+(defconst spk-prj-all-cache-file ".spk-project-all-files"
   "The cache of file.")
 
 ;;;###autoload
@@ -18,7 +21,7 @@
 ;; 这个创建的文件能够提供给grep来达到查找引用的效果，在创建缓存文件的时候需要考虑换行符以及其余命令需要的格式
 ;; 将创建的文件缓存
 ;;;###autoload
-(defun spk/project-create-file-cache (&optional ignore-exist)
+(defun spk/project-create-file-cache-by-tags (&optional ignore-exist)
   "Create project file cache."
   (interactive)
   (catch 'done
@@ -64,13 +67,35 @@
 	  (message (format "create file finished (%s)" (spk/time-cost time)))
 	  )))
 
-(defun spk/project-fast-find-file ()
-  "Find file in project."
+;; 使用shell命令来搜索指定路径下的所有文件，并生成缓存
+;;;###autoload
+(defun spk/create-cache-from-dir (&optional dir cache-file suffix)
+  "Create cache file by use shell cmd."
   (interactive)
+  (let* (cmd-str)
+    (unless dir
+      (setq dir "."))
+    (unless cache-file
+      (setq cache-file spk-prj-all-cache-file))
+    (unless suffix
+      (setq suffix ""))
+    (setq cmd-str (format "find %s -type f -regex \"^.*%s\" | xargs -n1 > %s" dir suffix (expand-file-name cache-file dir)))
+    (message "cmd-str:%s" cmd-str)
+    (stringp cmd-str)
+    ;; 注意compilation-start的用法
+    (compilation-start cmd-str)
+    )
+  )
+
+;; 指定后缀来生成文件缓存，如果不指定则默认搜索所有文件，暂时未添加过滤条件
+;; (spk/create-cache-from-dir (+spk-get-file-dir ".git") nil ".el")
+;;;###autoload
+(defun spk/find-file-from-cache (cache-file)
+  "Find file from cache file."
   (let* (candidates
+		 ;; (root-dir (+spk-get-file-dir cache-file))
 		 (root-dir (+spk-get-file-dir "TAGS"))
 		 selected
-		 (cache-file (+spk-get-complete-file spk-ctags-file-cache-file))
 		 )
 	(when cache-file
 	  (with-temp-buffer
@@ -83,8 +108,21 @@
 			(push cur-line candidates)
 			(forward-line))
 		  (when (and candidates (setq selected (ivy-read (format "Find file : " ) candidates)))
+            ;; (message "root1:%s" (+spk-get-file-dir "TAGS"))
+            ;; (message "root2:%s" (+spk-get-file-dir cache-file))
 			(find-file (expand-file-name selected root-dir))
 			))
-		))))
+		)))
+  )
+
+(defun spk/project-fast-find-file ()
+  "Find file in project."
+  (interactive)
+  (spk/find-file-from-cache (+spk-get-complete-file spk-ctags-file-cache-file)))
+
+(defun spk/project-fast-find-all-file ()
+  "Find all file in project."
+  (interactive)
+  (spk/find-file-from-cache (+spk-get-complete-file spk-prj-all-cache-file)))
 
 (provide 'init-tags)

@@ -21,6 +21,7 @@
 (autoload #'org-roam-dailies-find-today "org-roam")
 (autoload #'company-mode "company-org-roam")
 ;; (autoload #'org-mode "org-roam-bibtex")
+(autoload #'org-bullets-mode "org-bullets")
 
 ;; init-editor
 (autoload #'er/mark-defun "expand-region")
@@ -31,6 +32,7 @@
 (autoload #'symbol-overlay-save-symbol "symbol-overlay")
 (autoload #'color-rg-search-input "color-rg")
 (autoload #'toggle-company-english-helper "company-english-helper")
+(autoload #'awesome-tab-mode "awesome-tab")
 
 ;; init-prog
 ;; 配置better-jumper来满足阅读源代码时候的跳转需求

@@ -224,6 +224,7 @@
 	  (read-only-mode -1))
 	(erase-buffer)
 	(read-only-mode read-only-status)))
+
 ;; 用来解释当前光标所在位置的face等信息，在编写主题的时候比较有用 
 ;; C-u C-x = 编写主题时候解释当前光标的信息，用于自定义face
 

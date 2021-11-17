@@ -18,7 +18,6 @@
 ;; 自己之前写的文件缓存的函数不能使用
 ;; 但是看效果要比etags好很多
 ;; (require 'init-citre)
-
 (add-hook 'c-mode-hook (lambda ()
                          (define-key c-mode-map (kbd "DEL") 'smart-hungry-delete-backward-char)
                          (define-key c-mode-map (kbd "C-d") 'smart-hungry-delete-forward-char)))
@@ -180,7 +179,7 @@
   "pi" 'spk/project-search-symbol-from-input
   "pff" 'spk/find-file-entry
   "pfr" 'spk/project-find-file-in-root
-  ;; "pff" 'spk/project-find-file
+  "pfa" 'spk/project-fast-find-all-file
   ;; "pcf" 'spk/project-ctags-find-file
   "pfe" 'counsel-etags-find-tag
   "pfd" 'spk/project-find-docs-dir
