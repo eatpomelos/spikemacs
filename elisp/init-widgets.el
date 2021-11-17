@@ -192,21 +192,6 @@
 (defvar spk-linux-doc-dir nil
   "LINUX kernel documents directory.")
 
-(when IS-WINDOWS
-  (setq spk-linux-doc-dir "d:/HOME/.emacs.d/docs/other_docs/linux_5.9_docs/")
-  (setq spk-company-push-code-dir "d:/work/CODE/PushCode/UGW_Repo")
-  )
-
-;; 快速打开公司的提交代码，临时保存，后续考虑要不要删除，文件补全时会收到ctags补全影响导致卡顿
-;;;###autoload
-(defun spk/quick-open-push-code ()
-  (interactive)
-  (find-file spk-company-push-code-dir)) 
-
-(evil-leader/set-key
-  "fqq" 'spk/quick-open-push-code)
-
-
 ;; 暂时只用来管理linux标准内核的文档，后续可以扩展成一个列表用选择需要查看的文档
 ;;;###autoload
 (defun spk-find-linux-doc ()
@@ -266,6 +251,5 @@
 ;;   (when (highlight-changes-mode)
 ;;     (unless (buffer-modified-p)
 ;;       (highlight-changes-remove-highlight (point-min) (point-max)))))
-
 
 (provide 'init-widgets)

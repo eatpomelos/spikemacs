@@ -105,6 +105,4 @@ and push it to `kill-ring'."
 ;; (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
 ;; (add-hook 'c-mode-hook 'ctags-auto-update-mode)
 
-;;; bindings
-
 (provide 'init-C)
