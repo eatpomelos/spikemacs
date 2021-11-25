@@ -20,6 +20,7 @@
         (all-the-icons-ivy-rich-mode -1)
         (all-the-icons-ibuffer-mode -1)
         (all-the-icons-completion-mode -1)
+        (awesome-tab-mode -1)
         (remove-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
         (when (and (equal major-mode 'org-mode) org-bullets-mode)
           (org-bullets-mode -1))
@@ -31,6 +32,7 @@
       (all-the-icons-ibuffer-mode 1)
       ;; 打开dired的ui支持
       (all-the-icons-completion-mode 1)
+      (awesome-tab-mode 1)
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
       (when (and (equal major-mode 'org-mode) (not org-bullets-mode))
         (org-bullets-mode 1))

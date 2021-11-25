@@ -56,8 +56,7 @@
 		  (forward-line)
 		  (setq file-line (buffer-substring (line-beginning-position) (line-end-position)))
 		  (when (string-match "^\\(.*\\),.*$" file-line)
-			(setq large-string (concat large-string (format "%s\012" (match-string 1 file-line))))
-			)
+			(setq large-string (concat large-string (format "%s\012" (match-string 1 file-line)))))
 		  (forward-line)))
 	  (with-temp-buffer
 		(insert large-string)
@@ -79,8 +78,6 @@
     (unless suffix
       (setq suffix ""))
     (setq cmd-str (format "find %s -type f -regex \"^.*%s\" | xargs -n1 > %s" dir suffix (expand-file-name cache-file dir)))
-    (message "cmd-str:%s" cmd-str)
-    (stringp cmd-str)
     ;; 注意compilation-start的用法
     (compilation-start cmd-str)
     )

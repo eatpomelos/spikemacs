@@ -38,6 +38,15 @@
 ;;   (require 'insert-translated-name)
 ;;   )
 
+;; 配置awesome-tab，便于在几个常用的window之间切换
+(with-eval-after-load 'awesome-tab
+  (setq awesome-tab-display-icon t)
+  (setq awesome-tab-height 120)
+  (setq awesome-tab-show-tab-index nil)
+  (evil-leader/set-key
+    "jt" 'awesome-tab-ace-jump
+    "jg" 'awesome-tab-switch-group))
+
 ;; 指定github上的包，并下载，由于当前的环境配置中 linux下的环境没有界面因此使用此package会导致emacs卡死
 (when IS-WINDOWS
   (straight-use-package

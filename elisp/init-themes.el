@@ -25,6 +25,7 @@
 ;; (load-theme 'cyberpunk)
 ;; 自己的亮色主题，比较喜欢背景色，但是其余颜色调的不好 
 (load-theme 'spk-mint)
+;; (load-theme 'spk-dark-mint)
 ;; (load-theme 'doom-city-lights)
 ;; (load-theme 'modus-vivendi)
 ;; (load-theme 'modus-operandi)

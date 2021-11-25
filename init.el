@@ -48,7 +48,7 @@
 (require 'init-widgets)
 
 ;; 暂不需要加载这个文件
-;; (require 'init-private)
+(require 'init-private)
 
 (put 'narrow-to-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)
