@@ -90,7 +90,7 @@
   "Find file from cache file."
   (let* (candidates
 		 ;; (root-dir (+spk-get-file-dir cache-file))
-		 (root-dir (+spk-get-file-dir "TAGS"))
+		 (root-dir (+spk-get-file-dir (if IS-WINDOWS (file-name-nondirectory cache-file) "TAGS")))
 		 selected
 		 )
 	(when cache-file
@@ -104,8 +104,6 @@
 			(push cur-line candidates)
 			(forward-line))
 		  (when (and candidates (setq selected (ivy-read (format "Find file : " ) candidates)))
-            ;; (message "root1:%s" (+spk-get-file-dir "TAGS"))
-            ;; (message "root2:%s" (+spk-get-file-dir cache-file))
 			(find-file (expand-file-name selected root-dir))
 			))
 		)))

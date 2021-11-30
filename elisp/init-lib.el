@@ -16,6 +16,7 @@
 (defmacro +spk-slash-2-backslash (str)
   `(replace-regexp-in-string "/" "\\\\" ,str nil nil 0))
 
+;; 此函数在windows下不区分大小写，这会导致在一些时候拿取路径会出错 
 (defmacro +spk-get-file-dir (file)
   `(locate-dominating-file default-directory ,file))
 
