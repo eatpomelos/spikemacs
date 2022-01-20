@@ -2,6 +2,9 @@
 (straight-use-package 'smart-hungry-delete)
 ;; (straight-use-package 'aggressive-indent-mode)
 (straight-use-package 'deadgrep)
+(straight-use-package 'beacon)
+(straight-use-package 'minimap)
+
 ;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
 (straight-use-package
  '(color-rg :type git
@@ -217,6 +220,31 @@
     )
   (define-key deadgrep-mode-map  "q" 'spk/deadgrep-exit)
   )
+
+;; ;; 高亮更改文本,但是这个配置不好用的地方在于你保存了之后，不会自动取消你之前改变的文本
+;; 当保存了buffer之后，移除之前的高亮,另外，当移除更改的时候也需要移除高亮
+(defadvice save-buffer (after spike-remove-highlight activate)
+  (when (highlight-changes-mode)
+    (highlight-changes-remove-highlight (point-min) (point-max))))
+
+;; 当撤销到最后一步的时候也需要取消高亮
+(defadvice undo-tree-undo (after spik-remove-highlight activate)
+  (when (highlight-changes-mode)
+    (unless (buffer-modified-p)
+      (highlight-changes-remove-highlight (point-min) (point-max)))))
+
+(with-eval-after-load 'minimap
+  (advice-add 'symbol-overlay-put
+              :after
+              '(lambda ()
+                 (when minimap-mode
+                   (minimap-sync-overlays)
+                   )))
+  )
+
+(add-hook 'c-mode-hook 'highlight-changes-mode)
+(add-hook 'c-mode-hook 'beacon-mode)
+(global-set-key (kbd "<f10>") 'beacon-blink)
 
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置
 (require 'init-elisp)

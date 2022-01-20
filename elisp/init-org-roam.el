@@ -73,36 +73,17 @@
          )
         ))
 
-;; 日常模板暂时没有好的想法，先不设置,使用默认模板
-
-;; (setq org-roam-capture-templates
-;;       '(
-;;         ("d" "default" plain (function org-roam-capture--get-point)
-;;          "%?"
-;;          :file-name "%<%Y%m%d%H%M%S>-${slug}"
-;;          :head "#+title: ${title}\n#+roam_alias:\n\n")
-;;         ("g" "group")
-;;         ("ga" "Group A" plain (function org-roam-capture--get-point)
-;;          "%?"
-;;          :file-name "%<%Y%m%d%H%M%S>-${slug}"
-;;          :head "#+title: ${title}\n#+roam_alias:\n\n")
-;;         ("gb" "Group B" plain (function org-roam-capture--get-point)
-;;          "%?"
-;;          :file-name "%<%Y%m%d%H%M%S>-${slug}"
-;;          :head "#+title: ${title}\n#+roam_alias:\n\n")))
-
 ;; 这部分配置暂时用不到，页面的org-roam-ui暂时不能正常显示
 (with-eval-after-load 'org-roam
-  ;; (require 'org-ref)
-  ;; (require 'org-roam-ui)
+  (require 'org-roam-ui)
 
-  ;; (require 'websocket)
-  ;; (require 'simple-httpd)
+  (require 'websocket)
+  (require 'simple-httpd)
   
-  ;; (setq org-roam-ui-sync-theme t
-  ;;       org-roam-ui-follow t
-  ;;       org-roam-ui-update-on-save t
-  ;;       org-roam-ui-open-on-start t)
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t)
   (org-roam-setup)
   )
 

@@ -117,7 +117,8 @@ The theme is emulate spk-mint to learn elisp."
    `(org-date ((t (:foreground ,spk-mint-bamboo :underline t))))
    `(org-link ((t (:foreground ,spk-mint-bamboo :underline t))))
    `(org-special-keyword ((t (:foreground ,spk-mint-pink))))
-   `(org-todo ((t (:foreground ,spk-mint-lightblue :background ,spk-mint-cyan))))
+   ;; `(org-todo ((t (:foreground ,spk-mint-lightblue :background ,spk-mint-cyan))))
+   `(org-todo ((t (:foreground ,spk-mint-lightblue :background "grey"))))
    `(org-done ((t (:foreground ,spk-mint-green))))
    `(org-hide ((t (:foreground ,spk-mint-bg :background ,spk-mint-bg))))
 

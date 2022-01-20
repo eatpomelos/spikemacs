@@ -89,7 +89,7 @@
 (defun spk/find-file-from-cache (cache-file)
   "Find file from cache file."
   (let* (candidates
-		 ;; (root-dir (+spk-get-file-dir cache-file))
+         ;; 在多重目录下，如果存在大小写不一致的tags文件，就会导致获取到的根目录出错，在进行跳转时拼接完整路径出错.
 		 (root-dir (+spk-get-file-dir (if IS-WINDOWS (file-name-nondirectory cache-file) "TAGS")))
 		 selected
 		 )
@@ -104,6 +104,7 @@
 			(push cur-line candidates)
 			(forward-line))
 		  (when (and candidates (setq selected (ivy-read (format "Find file : " ) candidates)))
+            (message "root-dir %s" root-dir)
 			(find-file (expand-file-name selected root-dir))
 			))
 		)))

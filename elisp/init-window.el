@@ -6,14 +6,22 @@
 (add-hook 'winum-mode-hook 'popwin-mode)
 
 ;; 设置modeline显示的内容
-;; (setq mode-line-format
-;;       (list
-;;        '(:eval
-;;         (format winum-format
-;;                 (winum-get-number-string)))
-;;        mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position evil-mode-line-tag
-;;        (vc-mode vc-mode)
-;;        "  " mode-line-modes mode-line-misc-info mode-line-end-spaces))
+(setq mode-line-format
+      (list
+       '(:eval
+        (format winum-format
+                (winum-get-number-string)))
+       mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position evil-mode-line-tag
+       (vc-mode vc-mode)
+       "  " mode-line-modes mode-line-misc-info mode-line-end-spaces))
+
+;; 设置modeline显示的内容
+(setq mode-line-format
+      (list
+       '(:eval
+         (format winum-format (winum-get-number-string)))
+       mode-line-modified mode-line-frame-identification
+       ))
 
 (with-eval-after-load 'winum
   ;; (advice-add 'winum--switch-to-window :after 'maximize-window)

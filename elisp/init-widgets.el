@@ -67,7 +67,6 @@
       (insert latex-templet))
     ))
 
-;; 工具函数，快速打开公司的代码
 (when IS-WINDOWS
   (defun spk/find-linux-coded-dir ()
     (interactive)
@@ -116,6 +115,8 @@
   )
 
 (global-set-key (kbd "<f9>") #'spk/highlight_or_unhighlight_line_at_point)
+;; 解决当在一个buffer中设置了高亮行的overlay时kill-buffer导致spk-ovs内容出错问题
+;; (add-hook 'kill-buffer-hook #'spk/clear_all_highlight_lines)
 
 ;;;###autoload
 (defun spk/yank-buffer-filename ()
@@ -238,18 +239,5 @@
 
 ;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
 (advice-add 'youdao-dictionary-mode :after 'evil-insert-state)
-
-;; ;; 高亮更改文本,但是这个配置不好用的地方在于你保存了之后，不会自动取消你之前改变的文本
-;; (global-highlight-changes-mode 1)
-;; ;; 当保存了buffer之后，移除之前的高亮,另外，当移除更改的时候也需要移除高亮
-;; (defadvice save-buffer (after spike-remove-highlight activate)
-;;   (when (highlight-changes-mode)
-;;     (highlight-changes-remove-highlight (point-min) (point-max))))
-
-;; ;; 当撤销到最后一步的时候也需要取消高亮
-;; (defadvice undo-tree-undo (after spik-remove-highlight activate)
-;;   (when (highlight-changes-mode)
-;;     (unless (buffer-modified-p)
-;;       (highlight-changes-remove-highlight (point-min) (point-max)))))
 
 (provide 'init-widgets)

@@ -264,6 +264,10 @@
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 
+;; 添加相应hook
+(add-hook 'org-mode-hook 'org-num-mode)
+(add-hook 'org-mode-hook 'org-indent-mode)
+
 ;; org-mode其余相关插件的初始化
 (require 'init-org-roam)
 

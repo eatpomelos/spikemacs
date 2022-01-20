@@ -2,9 +2,16 @@
 (straight-use-package 'expand-region)
 (straight-use-package 'restart-emacs)
 (straight-use-package 'json-mode)
-(straight-use-package 'symbol-overlay)
 (straight-use-package 'awesome-tab)
 
+;; 将此库文件更新为fork版本
+(straight-use-package
+ '(symbol-overlay
+   :type git
+   :host github
+   :repo "eatpomelos/symbol-overlay"
+   )
+ )
 ;; TODO 需要注意的是下面的相关配置会导致org-mode使用latex导出pdf时失败，暂时屏蔽以下配置，后续优化
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
 ;; (set-language-environment 'utf-8)
@@ -125,13 +132,6 @@
 ;; ediff 配置
 (setq-default ediff-split-window-function 'split-window-horizontally)
 
-;; abbrev-mode 配置
-(define-abbrev-table 'global-abbrev-table
-  '(
-    ("ltx" "LaTeX")
-    ("spkd" "SPK_DEBUG();")
-    )
-  )
 (global-set-key (kbd "<f5>") 'abbrev-mode)
 
 ;; 添加鼠标相关的配置，解决滚轮滑动屏幕过快的问题 
@@ -140,5 +140,8 @@
 (defun down-slightly () (interactive) (scroll-down 1))
 (global-set-key [wheel-up] 'down-slightly)
 (global-set-key [wheel-down] 'up-slightly)
+
+;; 设置最近文件的最大条目数
+(setq recentf-max-saved-items 1000)
 
 (provide 'init-editor)

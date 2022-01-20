@@ -1,4 +1,4 @@
-;; 此文件在ivy加载完成之后才会加载
+;; 麓脣脦脛录镁脭脷ivy录脫脭脴脥锚鲁脡脰庐潞贸虏脜禄谩录脫脭脴
 (straight-use-package 'doom-modeline)
 (straight-use-package 'all-the-icons-ivy-rich)
 (straight-use-package 'all-the-icons-dired)
@@ -6,7 +6,7 @@
 (straight-use-package 'all-the-icons-completion)
 (straight-use-package 'org-bullets)
 
-;; 添加一个新的次模式来管理ui
+;; 脤铆录脫脪禄赂枚麓脣脛拢脢陆鹿脺脌铆陆莽脙忙脧脿鹿脴碌脛mode拢卢戮颅鹿媒虏芒脢脭脝盲脰脨碌脛脛鲁赂枚mode禄脴碌录脰脗驴篓露脵拢卢脭脻脢卤脦麓露篓脦禄脟氓鲁镁
 ;;;###autoload
 (define-minor-mode spk-pretty-mode
   "Minor mode for pretty ui."
@@ -30,7 +30,7 @@
       (doom-modeline-mode 1)
       (all-the-icons-ivy-rich-mode 1)
       (all-the-icons-ibuffer-mode 1)
-      ;; 打开dired的ui支持
+      ;; 麓貌驴陋dired碌脛ui脰搂鲁脰
       (all-the-icons-completion-mode 1)
       (awesome-tab-mode 1)
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -39,8 +39,8 @@
       )
     ))
 
-;; 设置title-format
-(defvar spk-title-format (concat "Emacs@Spikemacs" "== " "Σ(｀д′*ノ)ノ "))
+;; 脡猫脰脙title-format
+(defvar spk-title-format (concat "Emacs@Spikemacs"))
 (setq-default frame-title-format spk-title-format)
 
 (provide 'init-ui)
