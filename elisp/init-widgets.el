@@ -68,10 +68,9 @@
       (insert latex-templet))
     ))
 
-(when IS-WINDOWS
-  (defun spk/find-linux-coded-dir ()
-    (interactive)
-    (counsel-find-file spk-linux-code-dir)))
+(defun spk/find-linux-coded-dir ()
+  (interactive)
+  (counsel-find-file spk-linux-code-dir))
 
 ;; 设置emacs的透明度
 ;; (setq alpha-list '((100 100) (75 45)))
@@ -130,7 +129,10 @@
 (defun spk-find-local-templet ()
   "Find elpa packages."
   (interactive)
-  (counsel-find-file (concat spk-local-dir "Templet/elisp/")))
+  (let* ((dir spk-local-templet-dir))
+    (unless (file-exists-p spk-local-templet-dir)
+      (mkdir spk-local-templet-dir))
+    (counsel-find-file spk-local-templet-dir)))
 
 ;; 在上级多少层目录查找文件
 ;;;###autoload
@@ -159,16 +161,16 @@
           (if IS-WINDOWS
               (+spk-slash-2-backslash default-directory)
             default-directory))
-	 (exploer-command nil))
-    (if IS-WINDOWS
-	(progn (setq explore-command "explorer")
-           (message (format "%s %s" explore-command current-dir))
-	       (shell-command-to-string (format "%s %s" explore-command current-dir)))
-      (message "Is not in windows system. This command is not set."))
-    (when IS-LINUX
-      (progn (setq explore-command "xdg-open")
-             (message (format "%s %s" explore-command current-dir))
-	         (shell-command-to-string (format "%s %s" explore-command current-dir)))
+	     (elf-cmd nil))
+    (setq  elf-cmd
+           (cond (IS-WINDOWS "explorer")
+                 (IS-LINUX "xdg-open")
+                 (t nil)
+                 ))
+    (if (not elf-cmd)
+        (message "This command is not supported by your system.")
+      (message (format "%s %s" elf-cmd current-dir))
+      (shell-command-to-string (format "%s %s" elf-cmd current-dir))
       )
     ))
 

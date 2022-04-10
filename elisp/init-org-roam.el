@@ -31,10 +31,10 @@
   "of" 'org-roam-node-find
   ;; 暂不清楚ref在新版的org-roam中是怎么使用的
   "or" 'org-roam-ref-find
-  "odt" 'org-roam-dailies-find-today
-  "odd" 'org-roam-dailies-find-date
-  "odn" 'org-roam-dailies-find-tomorrow
-  "odp" 'org-roam-dailies-find-yesterday
+  "odt" 'org-roam-dailies-goto-today
+  "odd" 'org-roam-dailies-goto-date
+  "odn" 'org-roam-dailies-goto-tomorrow
+  "odp" 'org-roam-dailies-goto-yesterday
   )
 
 ;; https://www.zmonster.me/2020/06/27/org-roam-introduction.html

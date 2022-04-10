@@ -5,7 +5,9 @@
 (setq c-default-style "linux"
       c-basic-offset 4)
 
-(setq spk-linux-code-dir "d:/work/linux_code")
+(setq spk-linux-code-dir
+      (cond (IS-WINDOWS spk-source-code-dir)
+            (IS-LINUX (concat spk-source-code-dir "linux_code/"))))
 
 ;; 检测if 0 并用注释的face来显示这段内容
 ;; highlight c

@@ -56,13 +56,12 @@
     "jg" 'awesome-tab-switch-group))
 
 ;; 指定github上的包，并下载，由于当前的环境配置中 linux下的环境没有界面因此使用此package会导致emacs卡死
-(when IS-WINDOWS
-  (straight-use-package
-   '(company-english-helper :type git
-			                :host github
-			                :repo "manateelazycat/company-english-helper"))
-  ;; 指定一个函数从文件中自动加载，暂时理解成指定一个函数为autoload，当使用这个函数时自动加载那个文件
-  (global-set-key (kbd "<f1>") 'toggle-company-english-helper))
+(straight-use-package
+ '(company-english-helper :type git
+			              :host github
+			              :repo "manateelazycat/company-english-helper"))
+;; 指定一个函数从文件中自动加载，暂时理解成指定一个函数为autoload，当使用这个函数时自动加载那个文件
+(global-set-key (kbd "<f1>") 'toggle-company-english-helper)
 
 (define-key global-map (kbd "C-=") 'er/expand-region)
 (define-key global-map (kbd "C-\-") 'er/contract-region)

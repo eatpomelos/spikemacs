@@ -5,6 +5,13 @@
 (straight-use-package 'beacon)
 (straight-use-package 'minimap)
 
+(defvar spk-source-code-dir nil
+  "Path to store the source code.")
+
+(setq spk-source-code-dir
+      (cond (IS-WINDOWS "D:/work/linux_code/")
+            (IS-LINUX "~/spk/source_code/")))
+
 ;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
 (straight-use-package
  '(color-rg :type git
@@ -25,10 +32,8 @@
                          (define-key c-mode-map (kbd "DEL") 'smart-hungry-delete-backward-char)
                          (define-key c-mode-map (kbd "C-d") 'smart-hungry-delete-forward-char)))
 
-;; 由于这个包暂时在没有界面的arch linux上运行存在问题，只在windows上启用
-(when IS-WINDOWS
-  (straight-use-package 'highlight-indent-guides)
-  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
+(straight-use-package 'highlight-indent-guides)
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 
 ;; 设置tab的空格数，并不使用tab缩进而是使用空格来替代tab
 (setq-default indent-tabs-mode nil)
