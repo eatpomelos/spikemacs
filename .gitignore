@@ -55,4 +55,4 @@ init-private.el
 semanticdb/
 
 # ignore session temporaty files
-session-*
+session.*
