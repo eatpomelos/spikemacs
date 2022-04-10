@@ -9,6 +9,7 @@
 
 ;; init-ivy
 (autoload #'counsel-M-x "ivy")
+(autoload #'swiper "ivy")
 (autoload #'counsel-mode "counsel")
 (autoload #'ivy-rich-mode "ivy-rich")
 ;; 这一行配置可选，应该是自己自动加载的
@@ -53,6 +54,7 @@
 (autoload #'elisp-demos-advice-helpful-update "elisp-demos")
 (autoload #'beacon-mode "beacon")
 (autoload #'minimap-mode "minimap")
+;; (autoload #'focus-mode "focus")
 
 ;; init-window
 (autoload #'winum-mode "winum")

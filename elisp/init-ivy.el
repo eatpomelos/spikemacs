@@ -5,6 +5,9 @@
 (straight-use-package 'smex)
 
 ;; 使用这种方式来管理配置之后，怎么管理快捷键？
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-s") #'swiper)
+
 (with-eval-after-load 'ivy
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
@@ -12,7 +15,6 @@
   ;; (setq counsel-M-x-history t)
   ;; (setq counsel-locate-history t)
 
-  (global-set-key (kbd "C-s") #'swiper)
   (counsel-mode 1)
   ;; 开启ivy-mode 对于类似org-roam都会提供补全选项，很方便
   (ivy-mode t)

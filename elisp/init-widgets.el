@@ -59,6 +59,7 @@
     (setq latex-templet
 	  "# -*- coding: utf-8 -*-
 #+LATEX_COMPILER:xelatex
+#+LATEX: \newpage
 #+LATEX_CLASS:org-article
 #+OPTIONS: toc:t
 #+OPTIONS: ^:{}\n")
@@ -106,7 +107,6 @@
 	)
   )
 
-;; 清除已经高亮的所有行，需要注意的是 
 (defun spk/clear_all_highlight_lines ()
   "Clear all highlines."
   (interactive)
@@ -159,6 +159,7 @@
 	 (exploer-command nil))
     (if IS-WINDOWS
 	(progn (setq explore-command "explorer")
+           (message (format "%s %s" explore-command current-dir))
 	       (shell-command-to-string (format "%s %s" explore-command current-dir)))
       (message "Is not in windows system. This command is not set."))
     ))
@@ -239,5 +240,8 @@
 
 ;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
 (advice-add 'youdao-dictionary-mode :after 'evil-insert-state)
+
+(global-set-key (kbd "M-p") 'scroll-down-command)
+(global-set-key (kbd "M-n") 'scroll-up-command)
 
 (provide 'init-widgets)

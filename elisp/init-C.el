@@ -37,9 +37,7 @@
    nil
    '((my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend))) 'add-to-end))
 
-;; 在进入c-mode 的时候将indent-tabs-mode 关掉，并打开whitespace-mode 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook-if0)
-;; (add-hook 'c-mode-common-hook #'whitespace-mode)
 (setq indent-tabs-mode nil)
 
 ;;;###autoload
@@ -52,14 +50,11 @@
 (defun spk/cc-mode-setup ()
   (when (boundp 'company-backends)
 	(make-local-variable 'company-backends)
-    ;; (setq company-backends '((company-bbdb company-semantic company-cmake company-clang company-files
-    ;;                       company-dabbrev-code company-keywords
-    ;;                                    company-oddmuse company-dabbrev)))
 	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake company-dabbrev company-dabbrev-code))))
   ;; 配置在C模式下的deadgrep的文件类型，以下方案暂不可行
   ;; (when (boundp 'deadgrep--file-type)
   ;;   (make-local-variable 'deadgrep--file-type)
-  ;;   (setq deadgrep--file-type "*.[ch]"))
+  ;;   (setq deadgrep--file-type (cons 'type "cpp")))
   )
 
 (add-hook 'c-mode-hook #'spk/cc-mode-setup)

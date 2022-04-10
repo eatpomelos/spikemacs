@@ -27,6 +27,8 @@
   ;; (advice-add 'winum--switch-to-window :after 'maximize-window)
   ;; 移除设置了的advice
   ;; (advice-remove 'winum--switch-to-window 'maximize-window)
+  ;; 用来保存上一个window序号，当发生winum窗口切换时，保存当前的window号
+ 
   (evil-leader/set-key
     "0" 'winum-select-window-0-or-10
     "1" 'winum-select-window-1

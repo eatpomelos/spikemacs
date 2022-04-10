@@ -2,9 +2,11 @@
 
 ;; 由于使用strainght.el 升级package 中org 有一个变量的名字发生了改变，此处使用本地org 包防止出现使用错误
 ;; (straight-use-package '(org :type built-in))
-;; (straight-use-package 'org-pomodoro)
+(straight-use-package 'org-pomodoro)
 (straight-use-package 'org)
+(straight-use-package 'org-modern)
 ;; (require 'org)
+;; (straight-use-package 'focus)
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
 ;; 设置一下自己的任务管理的一些简单的配置,要是想放弃一个任务的时候，要进行说明，以后可能会再次启用这个任务
@@ -263,10 +265,26 @@
 
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
+;; 用来返回当前目录
+
+;;;###autoload
+(defun spk/deadgrep-search-default-dir ()
+  default-directory)
+
+;; org-mode启用的时候调用的函数，将需要在org-mode中添加的部分都放到这里来
+;;;###autoload
+(defun spk/org-mode-setup ()
+  (require 'deadgrep)
+  (when (boundp 'deadgrep-project-root-function)
+    (make-local-variable 'deadgrep-project-root-function)
+    (setq deadgrep-project-root-function 'spk/deadgrep-search-default-dir) ))
+
 
 ;; 添加相应hook
 (add-hook 'org-mode-hook 'org-num-mode)
+;; (add-hook 'org-mode-hook 'focus-mode)
 (add-hook 'org-mode-hook 'org-indent-mode)
+(add-hook 'org-mode-hook 'spk/org-mode-setup)
 
 ;; org-mode其余相关插件的初始化
 (require 'init-org-roam)

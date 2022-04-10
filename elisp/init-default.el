@@ -31,10 +31,12 @@
 ;; 设置eshell的路径
 (setq-default eshell-directory-name (concat spk-local-tmp-dir "eshell/"))
 
+;; 这里的配置可能导致latex编译出错，暂不确定原因
 ;; 设置默认语言环境
 ;; (set-language-environment 'utf-8)
-;; (prefer-coding-system 'utf-8)
 ;; (setq default-file-name-coding-system 'utf-8)
+;; (prefer-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8)
 
 (global-auto-revert-mode t)
 (global-linum-mode t)
@@ -65,7 +67,7 @@
 (electric-pair-mode 1)
 
 ;; 修改打开大文件警告的阈值为30M，避免在一些大型项目的缓存文件打开时每次提示 
-(setq large-file-warning-threshold 30000000)
+(setq large-file-warning-threshold 100000000)
 
 ;; recentf不保存以下文件，以下规则匹配emacs中的正则表达式
 (setq recentf-exclude

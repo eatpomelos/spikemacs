@@ -14,8 +14,9 @@
  '(spk-mint-theme
    :local-repo "~/.emacs.d/themes/spk-mint-theme" 
    ))
-;; (straight-use-package 'dracula-theme)
+(straight-use-package 'dracula-theme)
 ;; (straight-use-package 'modus-themes)
+(straight-use-package 'zen-and-art-theme)
 
 ;; (straight-use-package
 ;;  '(xcode-theme :type git
@@ -25,6 +26,7 @@
 ;; (load-theme 'cyberpunk)
 ;; 自己的亮色主题，比较喜欢背景色，但是其余颜色调的不好 
 (load-theme 'spk-mint)
+;; (load-theme 'zen-and-art)
 
 ;; (load-theme 'spk-dark-mint)
 ;; (load-theme 'doom-city-lights)

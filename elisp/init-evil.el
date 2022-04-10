@@ -31,9 +31,12 @@
     "hp" 'spk/find-repo-code
     "hb" 'describe-bindings
     "hi" 'info
-    "sp" 'counsel-rg
+    ;; "sp" 'counsel-rg
     )
   
+  (evil-leader/set-key-for-mode
+    'emacs-lisp-mode "sp" 'counsel-rg
+    )
   ;; (require 'evil-surround)
   (global-evil-surround-mode 1)
 

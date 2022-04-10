@@ -7,6 +7,8 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
+;; 添加自己的变量
+
 ;; 使用浏览器在google中进行检索
 (defconst GOOGLE-SEARCH "https://www.google.com.hk/search?q=")
 (defconst BING-SEARCH "https://cn.bing.com/search?q=")

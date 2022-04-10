@@ -166,9 +166,11 @@
 (defun spk/project-find-docs-dir ()
   (interactive)
   (let* ((pjt-doc-dir nil))
-    (setq pjt-doc-dir (+spk-get-complete-file "docs"))
-    (unless pjt-doc-dir
-      (setq pjt-doc-dir (+spk-get-complete-file "doc")))
+    (cond ((setq pjt-doc-dir (+spk-get-complete-file "docs")))
+          ((setq pjt-doc-dir (+spk-get-complete-file "doc")))
+          ((setq pjt-doc-dir (+spk-get-complete-file "Documentation")))
+          ((setq pjt-doc-dir (+spk-get-complete-file "documentation")))
+          )
     (if pjt-doc-dir
         (find-file pjt-doc-dir)
       (message "documents dir not found"))
@@ -189,6 +191,7 @@
   ;; "pgd" 'spk/project-tags-code-navigation
   "eb" 'eval-buffer
   "mf" 'er/mark-defun
+  "sp" 'dg                              ;;deadgrep
   )
 
 ;; 充分利用avy的api来进行跳转等操作,可以考虑用bind-key的api来定义快捷键
@@ -210,6 +213,8 @@
   (define-key prog-mode-map (kbd "C-<f9>") 'better-jumper-jump-forward)
   )
 
+(defalias 'dg 'deadgrep)
+
 ;; 是否有匹配多个map的按键配置方案?
 (with-eval-after-load 'deadgrep
   
@@ -219,6 +224,28 @@
     (deadgrep-kill-all-buffers)
     )
   (define-key deadgrep-mode-map  "q" 'spk/deadgrep-exit)
+
+  ;; 默认分割窗口时分在右边 
+  ;; (setq split-window-preferred-function 'split-window-right)
+  
+  (define-key deadgrep-mode-map (kbd "RET") 'deadgrep-visit-result-other-window)
+  
+  ;; 用下面的advice来是实现deadgrep匹配项的预览，此函数需要配合winum使用
+  (setq spk-last-window (winum-get-number))
+  (defadvice deadgrep-visit-result-other-window
+      (before spk-save-last-window activate)
+    (setq spk-last-window (winum-get-number)))
+ 
+  ;; 当跳转到下一个deadgrep匹配项时，自动跳转视图，并将光标移动回来
+  (advice-add 'deadgrep-forward-match :after
+              #'(lambda ()
+                  (deadgrep-visit-result-other-window)
+                  (winum-select-window-by-number spk-last-window)))
+  
+  (advice-add 'deadgrep-backward-match :after
+              #'(lambda ()
+                  (deadgrep-visit-result-other-window)
+                  (winum-select-window-by-number spk-last-window)))
   )
 
 ;; ;; 高亮更改文本,但是这个配置不好用的地方在于你保存了之后，不会自动取消你之前改变的文本

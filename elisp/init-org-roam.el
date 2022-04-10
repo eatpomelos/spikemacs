@@ -1,9 +1,7 @@
-;; v2版本已经更新到主线，这里直接使用发布版本
 (straight-use-package 'org-roam)
 ;; (straight-use-package 'org-roam-server)
 ;; 设置org-roam的补全
 (straight-use-package 'company-org-roam)
-;; (straight-use-package 'org-roam-bibtex)
  
 (straight-use-package
  '(org-roam-ui

@@ -11,7 +11,6 @@
   (require 'benchmark-init-modes)
   (require 'benchmark-init)
   (benchmark-init/activate)
-
   ;; 下面才写你的其它配置
   )
 

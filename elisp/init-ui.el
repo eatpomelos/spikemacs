@@ -1,4 +1,4 @@
-;; ´ËÎÄ¼þÔÚivy¼ÓÔØÍê³ÉÖ®ºó²Å»á¼ÓÔØ
+;; 用来存放和界面相关的配置
 (straight-use-package 'doom-modeline)
 (straight-use-package 'all-the-icons-ivy-rich)
 (straight-use-package 'all-the-icons-dired)
@@ -6,7 +6,7 @@
 (straight-use-package 'all-the-icons-completion)
 (straight-use-package 'org-bullets)
 
-;; Ìí¼ÓÒ»¸ö´ËÄ£Ê½¹ÜÀí½çÃæÏà¹ØµÄmode£¬¾­¹ý²âÊÔÆäÖÐµÄÄ³¸ömode»Øµ¼ÖÂ¿¨¶Ù£¬ÔÝÊ±Î´¶¨Î»Çå³þ
+;; 定义一个新的minor-mode用来管理ui相关的配置
 ;;;###autoload
 (define-minor-mode spk-pretty-mode
   "Minor mode for pretty ui."
@@ -30,7 +30,6 @@
       (doom-modeline-mode 1)
       (all-the-icons-ivy-rich-mode 1)
       (all-the-icons-ibuffer-mode 1)
-      ;; ´ò¿ªdiredµÄuiÖ§³Ö
       (all-the-icons-completion-mode 1)
       (awesome-tab-mode 1)
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -39,8 +38,8 @@
       )
     ))
 
-;; ÉèÖÃtitle-format
-(defvar spk-title-format (concat "Emacs@Spikemacs"))
+;; 设置title-format
+(defvar spk-title-format (concat "Emacs@Spikemacs" "===  "))
 (setq-default frame-title-format spk-title-format)
 
 (provide 'init-ui)

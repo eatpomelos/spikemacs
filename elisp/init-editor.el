@@ -35,6 +35,7 @@
   (global-set-key (kbd "C-r") #'undo-tree-redo)
   (define-key evil-normal-state-map (kbd "C-r") #'undo-tree-redo)
   (global-set-key (kbd "C-/") #'undo-tree-undo)
+  (setq undo-tree-auto-save-history nil)
   )
 
 ;; (when IS-WINDOWS
