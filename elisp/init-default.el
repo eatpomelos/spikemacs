@@ -32,10 +32,12 @@
 (setq-default eshell-directory-name (concat spk-local-tmp-dir "eshell/"))
 
 ;; 这里的配置可能导致latex编译出错，暂不确定原因
-;; 设置默认语言环境
-;; (set-language-environment 'utf-8)
-;; (setq default-file-name-coding-system 'utf-8)
-;; (prefer-coding-system 'utf-8)
+;; 设置默认语言环境，这部分配置只用在linux上，由于windows上还存在部分latex导出失败问题，这里做区分
+(when IS-LINUX
+  (set-language-environment 'utf-8)
+  (setq default-file-name-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8))
+
 (setq default-buffer-file-coding-system 'utf-8)
 
 (global-auto-revert-mode t)

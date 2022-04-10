@@ -1,9 +1,9 @@
 ;; 和org 相关的配置
 
 ;; 由于使用strainght.el 升级package 中org 有一个变量的名字发生了改变，此处使用本地org 包防止出现使用错误
-;; (straight-use-package '(org :type built-in))
+(straight-use-package '(org :type built-in))
 (straight-use-package 'org-pomodoro)
-(straight-use-package 'org)
+;; (straight-use-package 'org)
 (straight-use-package 'org-modern)
 ;; (require 'org)
 ;; (straight-use-package 'focus)

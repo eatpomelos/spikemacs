@@ -155,13 +155,21 @@
 (defun spk-open-file-with-system-application ()
   "Open directory with system application"
   (interactive)
-  (let* ((current-dir (+spk-slash-2-backslash default-directory))
+  (let* ((current-dir
+          (if IS-WINDOWS
+              (+spk-slash-2-backslash default-directory)
+            default-directory))
 	 (exploer-command nil))
     (if IS-WINDOWS
 	(progn (setq explore-command "explorer")
            (message (format "%s %s" explore-command current-dir))
 	       (shell-command-to-string (format "%s %s" explore-command current-dir)))
       (message "Is not in windows system. This command is not set."))
+    (when IS-LINUX
+      (progn (setq explore-command "xdg-open")
+             (message (format "%s %s" explore-command current-dir))
+	         (shell-command-to-string (format "%s %s" explore-command current-dir)))
+      )
     ))
 
 ;;;###autoload
