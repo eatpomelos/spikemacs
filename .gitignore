@@ -1,0 +1,58 @@
+docs
+.local/
+eshell/
+recentf
+abbrev_defs
+
+auto-save-list/
+smex-items
+
+# ignore dot files but .gitignore
+.*
+!.gitignore
+
+# compiled files
+*.elc
+*.lib
+*.fas
+*.dat
+*.eld
+
+# transient/os temp files
+*.cache-*
+*.log
+.directory
+
+bookmarks
+server/
+
+# ignore straight repos
+straight/
+transient/
+custom.el
+# snippets/
+
+# ignore yas compile file
+.yas-compiled-snippets.el
+.yas-parents
+
+# ignore projectile cache
+ede-projects.el
+projectile.cache
+projectile-bookmarks.eld
+
+# ignore lsp temporary files
+.lsp-session*
+
+
+# other files
+network-security.data
+
+# private file
+spk-test.el
+init-private.el
+
+semanticdb/
+
+# ignore session temporaty files
+session-*
