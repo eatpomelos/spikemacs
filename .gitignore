@@ -4,6 +4,9 @@ eshell/
 recentf
 abbrev_defs
 
+# ignore eaf temporary file
+eaf/*
+
 auto-save-list/
 smex-items
 
