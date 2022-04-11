@@ -12,8 +12,7 @@
   (define-key neotree-mode-map "k" #'neotree-previous-line)
   (define-key neotree-mode-map "l" #'right-char)
   ;; 由于neotree实现的这个接口是使用的linux下的文件管理程序，在windows下使用自己实现的接口
-  (when IS-WINDOWS
-    (define-key neotree-mode-map "o" #'spk-open-file-with-system-application))
+  (define-key neotree-mode-map "o" #'spk-open-file-with-system-application)
   )
 
 (with-eval-after-load "dired"

@@ -111,7 +111,6 @@
 
 (setq org-latex-compiler "xelatex")
 
-;; 看这个给require 怎么优化
 (require 'ox-latex)
 (add-to-list 'org-latex-classes
 	       '("org-dissertation"

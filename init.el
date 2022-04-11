@@ -48,11 +48,10 @@
 
 ;; 部分配置只需要在linux上加载，这里使用宏进行控制
 (when IS-LINUX
-  (require 'init-eaf)
-  )
+  (require 'init-eaf))
 
 ;; 暂不需要加载这个文件
-;; (require 'init-private)
+(spk-require 'init-private)
 
 (put 'narrow-to-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)

@@ -13,6 +13,11 @@
 (defconst GOOGLE-SEARCH "https://www.google.com.hk/search?q=")
 (defconst BING-SEARCH "https://cn.bing.com/search?q=")
 
+;; 定义一个简单的宏，当定义了相应feature的时候来require相应的feature
+(defmacro spk-require (feature)
+  `(when (featurep ,feature)
+     (require ,feature)))
+
 ;; MACROS
 ;; 把斜线转换成反斜线
 (defmacro +spk-slash-2-backslash (str)
