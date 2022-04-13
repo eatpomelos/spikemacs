@@ -13,9 +13,9 @@
 (defconst GOOGLE-SEARCH "https://www.google.com.hk/search?q=")
 (defconst BING-SEARCH "https://cn.bing.com/search?q=")
 
-;; 定义一个简单的宏，当定义了相应feature的时候来require相应的feature
+;; 基于当前文件比较简单的情况，features名和文件名一致才可以
 (defmacro spk-require (feature)
-  `(when (featurep ,feature)
+  `(when (file-exists-p (concat ,spk-elisp-dir (format "%s.el" ,feature)))
      (require ,feature)))
 
 ;; MACROS

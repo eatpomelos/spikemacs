@@ -50,7 +50,7 @@
 (when IS-LINUX
   (require 'init-eaf))
 
-;; 暂不需要加载这个文件
+;; 这个文件按需求创建，主要是存放不同系统下自己可能使用的一些特定工具函数
 (spk-require 'init-private)
 
 (put 'narrow-to-region 'disabled nil)
