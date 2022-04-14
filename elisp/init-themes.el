@@ -31,8 +31,9 @@
   (setq circadian-themes
         '(
           ("7:30" . spk-mint)
-          ("21:00" . spk-dark-mint)
-          ;; ("21:00" . cyberpunk)
+          ("8:40" . spk-mint)
+          ;; ("21:00" . spk-dark-mint)
+          ("21:00" . cyberpunk)
           ))
   (circadian-setup)
   )

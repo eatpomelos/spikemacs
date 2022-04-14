@@ -13,7 +13,7 @@
 ;; (autoload #'org-roam-server-mode "org-roam-server")
 (setq
  org-roam-directory (concat user-emacs-directory "docs/roam")
- org-roam-db-location (concat spk-org-directory "org-roam.db")
+ org-roam-db-location (concat spk-local-dir "org-roam.db")
  org-roam-tag-sources '(prop vanilla)
  org-roam-v2-ack t
  )
@@ -70,6 +70,14 @@
          :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %T\n#+filetags: documents\n")
          )
         ))
+
+;; 设置日常笔记的模板，添加默认使用utf-8格式
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry "* %?" :target
+        (file+head "%<%Y-%m-%d>.org" "# -*- coding: utf-8 -*-\n#+title: %<%Y-%m-%d>"))
+       )
+)
+
 
 ;; 这部分配置暂时用不到，页面的org-roam-ui暂时不能正常显示
 (with-eval-after-load 'org-roam

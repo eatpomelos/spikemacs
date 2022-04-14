@@ -59,7 +59,7 @@
     (setq latex-templet
 	  "# -*- coding: utf-8 -*-
 #+LATEX_COMPILER:xelatex
-#+LATEX: \newpage
+#+LATEX: \\newpage
 #+LATEX_CLASS:org-article
 #+OPTIONS: toc:t
 #+OPTIONS: ^:{}\n")

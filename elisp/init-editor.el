@@ -3,6 +3,7 @@
 (straight-use-package 'restart-emacs)
 (straight-use-package 'json-mode)
 (straight-use-package 'awesome-tab)
+;; (straight-use-package 'sis)
 
 ;; 将此库文件更新为fork版本
 (straight-use-package
