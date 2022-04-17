@@ -41,19 +41,19 @@
 ;; 设置笔记的模板，之后可以使用capture来新增笔记，将自己日常会写的笔记进行分类，设置不同模板
 (setq org-roam-capture-templates
       '(("d" "default" plain "%?" 
-         :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %T\n#+filetags: ")
+         :if-new (file+head "${slug}.org" "# -*- coding: utf-8 -*-\n#+title: ${title}\n#+date: %T\n#+filetags: ")
          :unnarrowed t
          :empty-lines 1)
         ("t" "Term" plain
          "- 领域: %^{术语所属领域}\n- 名词:%?\n- 释义:\n- 参考链接:"
-         :if-new (file+head "spk-Wiki.org" "#+title: ${title}\n#+filetags: Term English\n")
+         :if-new (file+head "spk-Wiki.org" "# -*- coding: utf-8 -*-\n#+title: ${title}\n#+filetags: Term English\n")
          :unnarrowed nil
          :empty-lines 1
          )
 
         ("s" "Solve" plain
          "* 问题标题: %?\n- 解决方案:\n- 定位过程:\n- 参考链接:"
-         :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags: issue \n")
+         :if-new (file+head "${slug}.org" "# -*- coding: utf-8 -*-\n#+title: ${title}\n#+filetags: issue \n")
          :unnarrowed nil
          :empty-lines 1
          )
@@ -63,11 +63,11 @@
         ("n" "notes")
         ("nr" "Reading notes" plain
          "%?"
-         :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %T\n#+filetags: Reading\n")
+         :if-new (file+head "${slug}.org" "# -*- coding: utf-8 -*-\n#+title: ${title}\n#+date: %T\n#+filetags: Reading\n")
          )
         ("no" "Output documents" plain
          "%?"
-         :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %T\n#+filetags: documents\n")
+         :if-new (file+head "${slug}.org" "# -*- coding: utf-8 -*-\n#+title: ${title}\n#+date: %T\n#+filetags: documents\n")
          )
         ))
 

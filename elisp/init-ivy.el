@@ -5,7 +5,7 @@
 (straight-use-package 'smex)
 
 ;; 使用这种方式来管理配置之后，怎么管理快捷键？
-(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "M-x") #'counsel-M-x)
 (global-set-key (kbd "C-s") #'swiper)
 
 (with-eval-after-load 'ivy
@@ -29,7 +29,7 @@
 
   (advice-add 'ivy-occur :after #'evil-window-move-far-right)
   (add-hook 'ivy-occur-grep-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (evil-emacs-state)))
   
   (require 'init-ui)

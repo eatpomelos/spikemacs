@@ -24,7 +24,7 @@
 (require 'eaf-system-monitor)
 (require 'eaf-org-previewer)
 (require 'eaf-git)
-;; (require 'eaf-browser)
+(require 'eaf-browser)
 (require 'eaf-file-manager)
 (require 'eaf-vue-demo)
 (require 'eaf-demo)

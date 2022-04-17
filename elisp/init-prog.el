@@ -268,7 +268,7 @@
 (with-eval-after-load 'minimap
   (advice-add 'symbol-overlay-put
               :after
-              '(lambda ()
+              #'(lambda ()
                  (when minimap-mode
                    (minimap-sync-overlays)
                    )))
