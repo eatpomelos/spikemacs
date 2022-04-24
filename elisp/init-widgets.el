@@ -251,6 +251,20 @@
 
 (global-set-key (kbd "<f4>") 'spk-find-test-file)
 
+;; 删除书签中的某个条目 
+;;;###autoload
+(defun spk/bookmark_delete-not-file-exist (item)
+  (unless (file-exists-p (bookmark-location item))
+    (bookmark-delete item)
+    ))
+
+;; 清除书签中已经不存在的条目
+(defun spk/bookmark_clear_not_file_exist ()
+  "Clear not exist bookmarks."
+  (interactive)
+  (mapcar #'spk/bookmark_delete-not-file-exist (bookmark-all-names))
+  )
+
 ;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
 (advice-add 'youdao-dictionary-mode :after 'evil-insert-state)
 
