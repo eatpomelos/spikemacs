@@ -1,6 +1,5 @@
 ;; 用来存放自己日常使用的一些小函数
 ;; 在自己的配置文件路径中查找文件
-
 (straight-use-package 'youdao-dictionary)
 (straight-use-package 'tiny)
 
@@ -207,9 +206,6 @@
   (defun spk/revert-buffer ()
     (interactive)
     (revert-buffer-with-coding-system 'chinese-gbk))
-
-  ;; 将buffer通过chinese-gbk的编码重新读入
-  (global-set-key (kbd "<f6>") #'spk/revert-buffer)
   )
 
 (defvar spk-linux-doc-dir nil
