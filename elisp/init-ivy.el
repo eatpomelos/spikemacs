@@ -8,6 +8,8 @@
 (global-set-key (kbd "M-x") #'counsel-M-x)
 (global-set-key (kbd "C-s") #'swiper)
 
+(ivy-rich-mode 1)
+
 (with-eval-after-load 'ivy
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
@@ -24,13 +26,12 @@
 
   ;; 在M-x 运行时显示相应的文档
   ;; (require 'ivy-rich)
-  (ivy-rich-mode t)
   ;; (require 'smex)
 
   (advice-add 'ivy-occur :after #'evil-window-move-far-right)
   (add-hook 'ivy-occur-grep-mode-hook
             #'(lambda ()
-               (evil-emacs-state)))
+                (evil-emacs-state)))
   
   (require 'init-ui)
   )

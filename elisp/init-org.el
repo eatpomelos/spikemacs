@@ -97,7 +97,7 @@
 	    "bibtex %b"
 	    "xelatex -interaction nonstopmode %f"
 	    "xelatex -interaction nonstopmode %f"
-	    ;; "rm -fr %b.out %b.log %b.tex %b.brf %b.bbl auto"
+	    "rm -fr %b.out %b.log %b.tex %b.brf %b.bbl auto"
 	    )))
 
 ;; 由于windows上的命令和linux不一致需要设置进行区分

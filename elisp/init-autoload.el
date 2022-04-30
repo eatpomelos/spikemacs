@@ -68,6 +68,7 @@
 
 ;; init-dired
 (autoload #'neotree-toggle "neotree")
+(autoload #'dirvish-side "dirvish")
 
 ;; init-company
 (autoload #'company-mode "company")

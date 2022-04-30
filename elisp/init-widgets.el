@@ -249,13 +249,13 @@
 
 ;; 删除书签中的某个条目 
 ;;;###autoload
-(defun spk/bookmark_delete-not-file-exist (item)
+(defun spk/bookmark_delete-no-file-exist (item)
   (unless (file-exists-p (bookmark-location item))
     (bookmark-delete item)
     ))
 
 ;; 清除书签中已经不存在的条目
-(defun spk/bookmark_clear_not_file_exist ()
+(defun spk/bookmark_clear_no_file_exist ()
   "Clear not exist bookmarks."
   (interactive)
   (mapcar #'spk/bookmark_delete-not-file-exist (bookmark-all-names))
