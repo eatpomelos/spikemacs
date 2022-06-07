@@ -4,6 +4,7 @@
 (straight-use-package 'deadgrep)
 (straight-use-package 'beacon)
 (straight-use-package 'minimap)
+(straight-use-package 'yasnippet)
 
 (defvar spk-source-code-dir nil
   "Path to store the source code.")
@@ -19,6 +20,13 @@
 			:repo "manateelazycat/color-rg"
 			))
 ;; (require 'color-rg)
+
+(with-eval-after-load "yasnippet"
+  (let ((inhibit-message nil))
+    (setq yas-snippets-dirs (concat spk-dir "snippets/"))
+    (setq yas--loaddir (concat spk-dir "snippets"))
+    (yas-compile-directory yas-snippets-dirs)
+    (yas-reload-all)))
 
 (require 'init-tags)
 
@@ -61,7 +69,23 @@
   (setq
    imenu-list-position 'left
    imenu-list-size 0.25
+   ;; 此值设为t时，运行imenu-list-show会将光标移动到imenu-list的window
+   imenu-list-focus-after-activation t
    )
+
+  ;; 在imenu中跳转到条目所在位置，但是光标保留在当前位置
+  (defun spk/imenu-list-peek-entry ()
+    "Imenu-list peek."
+    (interactive)
+    (let* ((line-num (line-number-at-pos)))
+      (imenu-list-goto-entry)
+      (require 'winum)
+      (winum-select-window-1)
+      (goto-line line-num)
+      )
+    )
+  (define-key imenu-list-major-mode-map (kbd "TAB") 'spk/imenu-list-peek-entry)
+  (advice-add 'imenu-list-show :after #'evil-emacs-state)
   )
 
 ;; xref config
@@ -96,6 +120,8 @@
 (defun spk/project-find-file-in-root ()
   (interactive)
   (let* ((root-dir (+spk-get-file-dir "TAGS")))
+    (unless root-dir
+      (setq root-dir (+spk-get-file-dir ".git")))
     (if root-dir
         (counsel-find-file root-dir)
       (message "Not in a project")))
@@ -281,5 +307,8 @@
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置
 (require 'init-elisp)
 (require 'init-C)
+
+(when IS-LINUX
+  (require 'init-lsp))
 
 (provide 'init-prog)

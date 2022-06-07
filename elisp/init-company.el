@@ -1,17 +1,9 @@
 (straight-use-package 'company)
 (straight-use-package 'company-box)
 (straight-use-package 'which-key)
-(straight-use-package 'yasnippet)
 
 ;; yasnippet
 (add-hook 'prog-mode-hook 'yas-minor-mode)
-
-(with-eval-after-load "yasnippet"
-  (let ((inhibit-message nil))
-    (setq yas-snippets-dirs (concat spk-dir "snippets/"))
-    (setq yas--loaddir (concat spk-dir "snippets"))
-    (yas-compile-directory yas-snippets-dirs)
-    (yas-reload-all)))
 
 ;; ;; company
 ;; (setq
@@ -56,7 +48,8 @@
   (add-to-list 'company-transformers #'delete-dups)
   )
 
-(add-hook 'emacs-lisp-mode-hook #'company-box-mode)
+;; (add-hook 'emacs-lisp-mode-hook #'company-box-mode)
+(add-hook 'company-mode-hook #'company-box-mode)
 
 (with-eval-after-load 'company-box
   (setq company-box-doc-delay 0.25))

@@ -3,6 +3,12 @@
 (straight-use-package 'youdao-dictionary)
 (straight-use-package 'tiny)
 
+;; (straight-use-package
+;;  '(color-rg :type git
+;; 			:host github
+;; 			:repo "manateelazycat/popweb"
+;; 			))
+
 ;; 在浏览器中搜索
 ;;;###autoload
 (defun spk/search-symbol-from-input ()
@@ -19,7 +25,8 @@
 (defun spk/find-file-entry ()
   (interactive)
   (cond ((+spk-get-complete-file ".spk-project-files") (spk/project-fast-find-file))
-        ((or (+spk-get-complete-file ".git") (+spk-get-complete-file ".svn")) (spk/project-find-file))
+        ((+spk-get-complete-file ".git") (project-find-file))
+        ((+sPk-get-complete-file ".svn") (spk/project-find-file))
         (t (counsel-find-file))
         )
   )

@@ -120,6 +120,7 @@
 ;; bookmarks
 (evil-leader/set-key
   "bm" 'bookmark-set
+  "bl" 'bookmark-bmenu-list
   "rs" 'restart-emacs
   "rn" 'restart-emacs-start-new-emacs
   "nr" 'narrow-to-region
