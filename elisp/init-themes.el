@@ -25,6 +25,8 @@
 ;;                :host github
 ;;                :repo "juniorxxue/xcode-theme"))
 
+;; (load-theme 'modus-vivendi)
+
 ;;根据时间加载主题
 (require 'circadian)
 (with-eval-after-load 'circadian
@@ -33,7 +35,7 @@
           ("7:30" . spk-mint)
           ("8:40" . spk-mint)
           ;; ("21:00" . spk-dark-mint)
-          ("21:00" . cyberpunk)
+          ("21:00" . modus-vivendi)
           ))
   (circadian-setup)
   )

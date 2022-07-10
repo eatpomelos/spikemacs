@@ -31,6 +31,7 @@
     "hp" 'spk/find-repo-code
     "hb" 'describe-bindings
     "hi" 'info
+    "hr" 'info-emacs-manual
     ;; "sp" 'counsel-rg
     )
   

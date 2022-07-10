@@ -1,25 +1,7 @@
-;;; dark-mint-theme.el --- dark & minty fresh theme
-
-;; Copyright (C) 2016 by Shaun Viguerie
-
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+;; 此代码原始来自dark-mint-theme,新增了一些face设置
 ;;; Code:
 (deftheme spk-dark-mint
   "spk-dark-mint-theme")
-
 
 (custom-theme-set-faces
  'spk-dark-mint
@@ -32,13 +14,15 @@
 
 
  '(mode-line ((t (:background "black" :foreground "green"))))
+ '(mode-line-inactive ((t (:background "black" :foreground "cyan"))))
  '(Man-overstrike-face ((t (:weight bold))))
  '(Man-underline-face ((t (:underline t))))
  '(apropos-keybinding-face ((t (:underline t))))
  '(apropos-label-face ((t (:italic t))))
 
  '(font-lock-type-face ((t (:foreground "light slate blue"))))
- '(font-lock-comment-face ((t (:foreground "MintCream"))))
+ ;; '(font-lock-comment-face ((t (:foreground "MintCream"))))
+ '(font-lock-comment-face ((t (:foreground "#A6B4B9"))))
  '(font-lock-function-name-face ((t (:foreground "VioletRed2"))))
  '(font-lock-keyword-face ((t (:weight bold :foreground "cyan"))))
  '(font-lock-string-face ((t (:foreground "deep pink"))))
@@ -51,7 +35,7 @@
  '(whitespace-indentation ((t (:inherit whitespace-space))))
 
  ;; ;; linum
- ;; '(linum ((t (:background "#8B8989"))))
+ '(linum ((t (:background "black" :foregound "blue"))))
  ;; '(line-number ((t (:inherit linum))))
  ;; '(header-line ((t (:background "#B4CDCD"))))
 

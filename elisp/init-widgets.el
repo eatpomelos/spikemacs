@@ -26,7 +26,7 @@
   (interactive)
   (cond ((+spk-get-complete-file ".spk-project-files") (spk/project-fast-find-file))
         ((+spk-get-complete-file ".git") (project-find-file))
-        ((+sPk-get-complete-file ".svn") (spk/project-find-file))
+        ((+spk-get-complete-file ".svn") (spk/project-find-file))
         (t (counsel-find-file))
         )
   )
@@ -200,6 +200,8 @@
   "yo" 'youdao-dictionary-search-at-point+
   "ys" 'youdao-dictionary-play-voice-at-point
   "yi" 'youdao-dictionary-search-from-input
+  "ee" 'base64-encode-region
+  "ed" 'base64-decode-region
   )
 
 (global-set-key (kbd "<f3>") #'youdao-dictionary-search-at-point+)
@@ -265,13 +267,19 @@
 (defun spk/bookmark_clear_no_file_exist ()
   "Clear not exist bookmarks."
   (interactive)
-  (mapcar #'spk/bookmark_delete-not-file-exist (bookmark-all-names))
+  (mapcar #'spk/bookmark_delete-no-file-exist (bookmark-all-names))
   )
 
 ;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
-(advice-add 'youdao-dictionary-mode :after 'evil-insert-state)
+(advice-add 'youdao-dictionary-mode :after 'evil-emacs-state)
 
 (global-set-key (kbd "M-p") 'scroll-down-command)
 (global-set-key (kbd "M-n") 'scroll-up-command)
+
+;; 向左删除本行内容，但是保留缩进
+(global-set-key (kbd "C-<backspace>") (lambda ()
+                                        (interactive)
+                                        (kill-line 0)
+                                        (indent-according-to-mode)))
 
 (provide 'init-widgets)

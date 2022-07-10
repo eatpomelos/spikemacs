@@ -115,7 +115,81 @@
 
 ;; 由于高亮显示占用了evil的快捷键，且暂时不使用其自定义的快捷键，禁用symbol-overlay-mode
 (with-eval-after-load 'symbol-overlay
-  (setq symbol-overlay-inhibit-map t))
+  (setq symbol-overlay-inhibit-map t)
+  ;; 默认的8个face不够用，这里增加到20个
+  (defface symbol-overlay-face-9
+    '((t (:background "SystemHilight" :foreground "black")))
+    "Symbol Overlay default candidate 9"
+    :group 'symbol-overlay)
+  (defface symbol-overlay-face-10
+    '((t (:background "dark red" :foreground "black")))
+    "Symbol Overlay default candidate 10"
+    :group 'symbol-overlay)
+  (defface symbol-overlay-face-11
+    '((t (:background "HotPink4" :foreground "black")))
+    "Symbol Overlay default candidate 11"
+    :group 'symbol-overlay)
+  (defface symbol-overlay-face-12
+    '((t (:background "medium aquamarine" :foreground "black")))
+    "Symbol Overlay default candidate 12"
+    :group 'symbol-overlay)
+  (defface symbol-overlay-face-13
+    '((t (:background "dim gray" :foreground "black")))
+    "Symbol Overlay default candidate 13"
+    :group 'symbol-overlay)
+  (defface symbol-overlay-face-14
+    '((t (:background "khaki4" :foreground "black")))
+    "Symbol Overlay default candidate 14"
+    :group 'symbol-overlay)
+  (defface symbol-overlay-face-15
+    '((t (:background "SkyBlue4" :foreground "black")))
+    "Symbol Overlay default candidate 15"
+    :group 'symbol-overlay)
+  (defface symbol-overlay-face-16
+    '((t (:background "deep pink" :foreground "black")))
+    "Symbol Overlay default candidate 16"
+    :group 'symbol-overlay)
+  (defface symbol-overlay-face-17
+    '((t (:background "cyan" :foreground "black")))
+    "Symbol Overlay default candidate 17"
+    :group 'symbol-overlay)
+  (defface symbol-overlay-face-18
+    '((t (:background "peru" :foreground "black")))
+    "Symbol Overlay default candidate 18"
+    :group 'symbol-overlay)
+  (defface symbol-overlay-face-19
+    '((t (:background "tomato" :foreground "black")))
+    "Symbol Overlay default candidate 19"
+    :group 'symbol-overlay)
+  (defface symbol-overlay-face-20
+    '((t (:background "RoyalBlue1" :foreground "black")))
+    "Symbol Overlay default candidate 20"
+    :group 'symbol-overlay)
+
+  ;; m1\n20|symbol-overlay-face-%d ，对于这种累加的变量，可以使用tiny-expand功能
+  (setq symbol-overlay-faces
+        '(symbol-overlay-face-1
+          symbol-overlay-face-2
+          symbol-overlay-face-3
+          symbol-overlay-face-4
+          symbol-overlay-face-5
+          symbol-overlay-face-6
+          symbol-overlay-face-7
+          symbol-overlay-face-8
+          symbol-overlay-face-9
+          symbol-overlay-face-10
+          symbol-overlay-face-11
+          symbol-overlay-face-12
+          symbol-overlay-face-13
+          symbol-overlay-face-14
+          symbol-overlay-face-15
+          symbol-overlay-face-16
+          symbol-overlay-face-17
+          symbol-overlay-face-18
+          symbol-overlay-face-19
+          symbol-overlay-face-20
+          ))
+  )
 
 ;; bookmarks
 (evil-leader/set-key

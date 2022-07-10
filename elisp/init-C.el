@@ -2,8 +2,10 @@
 (defconst spk-c-identifier-regex "[a-zA-Z_]?[a-zA-Z0-9_]+"
   "C identifier regular expression.")
 
-(setq c-default-style "linux"
-      c-basic-offset 4)
+(setq c-default-style '((java-mode . "java")
+                        (awk-mode . "awk")
+                        (other . "linux")))
+(setq c-basic-offset 4)
 
 (setq spk-linux-code-dir
       (cond (IS-WINDOWS spk-source-code-dir)
