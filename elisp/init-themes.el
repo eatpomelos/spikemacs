@@ -20,24 +20,20 @@
 ;; (straight-use-package 'modus-themes)
 (straight-use-package 'zen-and-art-theme)
 
-;; (straight-use-package
-;;  '(xcode-theme :type git
-;;                :host github
-;;                :repo "juniorxxue/xcode-theme"))
+;; 根据时间加载主题
+(when IS-LINUX
+  (require 'circadian)
+  (with-eval-after-load 'circadian
+    (setq circadian-themes
+          '(
+            ("7:30" . spk-mint)
+            ;; ("21:00" . spk-dark-mint)
+            ("21:00" . modus-vivendi)
+            ))
+    (circadian-setup)
+    ))
 
-;; (load-theme 'modus-vivendi)
-
-;;根据时间加载主题
-(require 'circadian)
-(with-eval-after-load 'circadian
-  (setq circadian-themes
-        '(
-          ("7:30" . spk-mint)
-          ("8:40" . spk-mint)
-          ;; ("21:00" . spk-dark-mint)
-          ("21:00" . modus-vivendi)
-          ))
-  (circadian-setup)
-  )
+(when IS-WINDOWS
+  (load-theme 'spk-mint))
 
 (provide 'init-themes)

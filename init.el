@@ -3,9 +3,9 @@
 ;; function 格式为 spk/xx-xx
 ;; variables 格式为 spk-xx-xx
 
-;; 试用懒猫大神的启动速度优化思路
-;;(straight-use-package 'benchmark-init)
-;;(let (
+;; ;; 试用懒猫大神的启动速度优化思路
+;; (straight-use-package 'benchmark-init)
+;; (let (
 ;;     ;; 清空避免加载远程文件的时候分析文件。
 ;;     (file-name-handler-alist nil))
 ;; (require 'benchmark-init-modes)
@@ -26,6 +26,16 @@
                user-emacs-directory)
   (require 'spk-early-init)
   )
+
+;; 参考懒猫大神的配置
+(setq
+ ;; 不要缩放frame.
+ frame-inhibit-implied-resize t
+ ;; 默认用最简单的模式
+ initial-major-mode 'fundamental-mode
+ ;; 不要自动启用package
+ package-enable-at-startup nil
+ package--init-file-ensured t)
 
 (setq default-directory "~")
 
@@ -52,9 +62,7 @@
 
 ;; 这个文件按需求创建，主要是存放不同系统下自己可能使用的一些特定工具函数
 (spk-require 'init-private)
-
-(put 'narrow-to-region 'disabled nil)
-(put 'erase-buffer 'disabled nil)
+(require 'init-ui)
 
 ;; 在scratch中插入启动时间
 (add-hook 'window-setup-hook
@@ -65,4 +73,6 @@
                             (float-time (time-subtract (current-time) before-init-time)))))
           'append)
 
+(put 'narrow-to-region 'disabled nil)
+(put 'erase-buffer 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)

@@ -1,12 +1,3 @@
-;; 这里安装emacs中相关的eaf依赖
-;;(straight-use-package 'epc)
-;;(straight-use-package 'deferred)
-;;(straight-use-package 'ctable)
-;;(straight-use-package 's)
-;; 如果eaf没有被安装，则将这个库clone到本地，由于eaf的结构比较复杂，直接使用straight的方式暂时有问题，手动拷贝
-
-;; (setq spk-local-eaf-dir (concat spk-local-packges-dir "emacs-application-framework/"))
-
 (setq spk-local-eaf-dir "~/.emacs.d/.local/packages/emacs-application-framework/")
 ;; (setq spk-local-eaf-app-dir (concat spk-local-eaf-dir "app/"))
 
@@ -20,18 +11,18 @@
 
 (require 'eaf)
 
-(require 'eaf-rss-reader)
+;; (require 'eaf-rss-reader)
 (require 'eaf-system-monitor)
 (require 'eaf-org-previewer)
 (require 'eaf-git)
 (require 'eaf-browser)
-(require 'eaf-file-manager)
+;; (require 'eaf-file-manager)
 (require 'eaf-vue-demo)
 (require 'eaf-demo)
 (require 'eaf-airshare)
-;; (require 'eaf-camera)
+(require 'eaf-camera)
 (require 'eaf-jupyter)
-;; (require 'eaf-music-player)
+(require 'eaf-music-player)
 (require 'eaf-mindmap)
 (require 'eaf-image-viewer)
 (require 'eaf-file-sender)
@@ -39,7 +30,7 @@
 (require 'eaf-pdf-viewer)
 (require 'eaf-terminal)
 (require 'eaf-file-browser)
-;; (require 'eaf-video-player)
+(require 'eaf-video-player)
 ;; (require 'eaf-mermaid)
 (require 'eaf-markdown-previewer)
 

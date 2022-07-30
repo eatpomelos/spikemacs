@@ -10,6 +10,34 @@
    :repo "org-roam/org-roam-ui"
    ))
 
+;; 在linux上使用popweb插件
+(when IS-LINUX
+  (straight-use-package
+   '(popweb :type git
+		    :host github
+		    :repo "manateelazycat/popweb"
+		    ))
+
+  (straight-use-package 'org-transclusion)
+
+  (require 'popweb)
+  (setq spk-popweb-dir "~/.emacs.d/straight/repos/popweb/extension/")
+
+  ;; Org-Roam ID link and footnote link previewer
+  (add-to-list 'load-path (concat spk-popweb-dir "org-roam"))
+  (require 'popweb-org-roam-link)
+
+  ;; LaTeX preview functionality
+  (add-to-list 'load-path (concat spk-popweb-dir "latex"))
+  (require 'popweb-latex)
+  (add-hook 'latex-mode-hook #'popweb-latex-mode)
+
+  ;; Chinese-English translation popup
+  (add-to-list 'load-path (concat spk-popweb-dir "dict")) ;
+  (require 'popweb-dict-bing)                             ; Translation using Bing
+  (require 'popweb-dict-youdao)                           ; Translation using Youdao
+  )
+
 ;; (autoload #'org-roam-server-mode "org-roam-server")
 (setq
  org-roam-directory (concat user-emacs-directory "docs/roam")

@@ -5,31 +5,8 @@
 (add-hook 'after-init-hook 'winum-mode)
 (add-hook 'winum-mode-hook 'popwin-mode)
 
-;; 设置modeline显示的内容
-;; (setq mode-line-format
-;;       (list
-;;        '(:eval
-;;         (format winum-format
-;;                 (winum-get-number-string)))
-;;        mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position evil-mode-line-tag
-;;        (vc-mode vc-mode)
-;;        "  " mode-line-modes mode-line-misc-info mode-line-end-spaces))
-
-;; 设置modeline显示的内容
-;; (setq mode-line-format
-;;       (list
-;;        '(:eval
-;;          (format winum-format (winum-get-number-string)))
-;;        mode-line-modified mode-line-frame-identification
-;;        ))
-
 (with-eval-after-load 'winum
-  ;; (advice-add 'winum--switch-to-window :after 'maximize-window)
-  ;; 移除设置了的advice
-  ;; (advice-remove 'winum--switch-to-window 'maximize-window)
-  ;; 用来保存上一个window序号，当发生winum窗口切换时，保存当前的window号
- 
-  (evil-leader/set-key
+   (evil-leader/set-key
     "0" 'winum-select-window-0-or-10
     "1" 'winum-select-window-1
     "2" 'winum-select-window-2

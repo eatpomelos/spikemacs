@@ -9,6 +9,11 @@
 (defvar spk-source-code-dir nil
   "Path to store the source code.")
 
+;; 替换xref的搜索程序，暂时没在windows上察觉到明显的速度变化
+(when (and EMACS28+ IS-LINUX)
+  (setq xref-search-program 'ripgrep)
+  )
+
 (setq spk-source-code-dir
       (cond (IS-WINDOWS "D:/work/linux_code/")
             (IS-LINUX "~/spk/source_code/")))
@@ -21,7 +26,7 @@
 			))
 ;; (require 'color-rg)
 
-(with-eval-after-load "yasnippet"
+(with-eval-after-load 'yasnippet
   (let ((inhibit-message nil))
     (setq yas-snippets-dirs (concat spk-dir "snippets/"))
     (setq yas--loaddir (concat spk-dir "snippets"))
@@ -58,6 +63,7 @@
 
 (add-hook 'prog-mode-hook #'better-jumper-mode)
 (add-hook 'prog-mode-hook 'electric-pair-mode)
+(add-hook 'prog-mode-hook 'hl-line-mode)
 
 ;; (autoload #'projectile-mode "projectile")
 ;; (add-hook 'prog-mode-hook #'projectile-mode)
@@ -304,11 +310,13 @@
 (add-hook 'c-mode-hook 'beacon-mode)
 (global-set-key (kbd "<f10>") 'beacon-blink)
 
+;; 在org配置中增加对 sdasfkj 
+
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置
 (require 'init-elisp)
 (require 'init-C)
 
-(when IS-LINUX
-  (require 'init-lsp))
+;; (when IS-LINUX
+;;   (require 'init-lsp))
 
 (provide 'init-prog)

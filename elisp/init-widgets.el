@@ -3,12 +3,6 @@
 (straight-use-package 'youdao-dictionary)
 (straight-use-package 'tiny)
 
-;; (straight-use-package
-;;  '(color-rg :type git
-;; 			:host github
-;; 			:repo "manateelazycat/popweb"
-;; 			))
-
 ;; 在浏览器中搜索
 ;;;###autoload
 (defun spk/search-symbol-from-input ()

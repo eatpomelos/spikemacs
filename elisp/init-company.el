@@ -2,8 +2,12 @@
 (straight-use-package 'company-box)
 (straight-use-package 'which-key)
 
+
+;; 读取yasnippet会导致启动慢，暂时只在c-mode下启用yas-minor-mode
 ;; yasnippet
-(add-hook 'prog-mode-hook 'yas-minor-mode)
+(add-hook 'c-mode-hook 'yas-minor-mode)
+;; (add-hook 'prog-mode-hook 'yas-minor-mode)
+;; (remove-hook 'emacs-lisp-mode-hook 'yas-minor-mode)
 
 ;; ;; company
 ;; (setq

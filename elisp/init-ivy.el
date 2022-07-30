@@ -33,7 +33,6 @@
             #'(lambda ()
                 (evil-emacs-state)))
   
-  (require 'init-ui)
   )
 
 (evil-leader/set-key

@@ -101,7 +101,4 @@ and push it to `kill-ring'."
 (define-key evil-normal-state-map (kbd ",sb") #'hs-show-block)
 (define-key evil-normal-state-map (kbd ",sa") #'hs-show-all)
 
-;; (add-hook 'c-mode-hook 'spk-disable-electric-pair-mode)
-;; (add-hook 'c-mode-hook 'ctags-auto-update-mode)
-
 (provide 'init-C)
