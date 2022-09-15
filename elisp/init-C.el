@@ -55,10 +55,15 @@
   (when (boundp 'company-backends)
 	(make-local-variable 'company-backends)
 	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake company-dabbrev company-dabbrev-code))))
-  ;; 配置在C模式下的deadgrep的文件类型，以下方案暂不可行
-  ;; (when (boundp 'deadgrep--file-type)
-  ;;   (make-local-variable 'deadgrep--file-type)
-  ;;   (setq deadgrep--file-type (cons 'type "cpp")))
+  ;; 默认 在linux 下 C-mode 使用 lsp-bridge 来进行补全
+  (when IS-LINUX
+    (company-box-mode -1))
+
+  ;; 在C-mode中deadgrep基于当前路径进行搜索
+  (require 'deadgrep)
+  (when (boundp 'deadgrep-project-root-function)
+    (make-local-variable 'deadgrep-project-root-function)
+    (setq deadgrep-project-root-function 'spk/deadgrep-search-default-dir))
   )
 
 (add-hook 'c-mode-hook #'spk/cc-mode-setup)

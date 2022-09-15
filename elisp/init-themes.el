@@ -21,7 +21,7 @@
 (straight-use-package 'zen-and-art-theme)
 
 ;; 根据时间加载主题
-(when IS-LINUX
+;; (when IS-LINUX
   (require 'circadian)
   (with-eval-after-load 'circadian
     (setq circadian-themes
@@ -31,9 +31,15 @@
             ("21:00" . modus-vivendi)
             ))
     (circadian-setup)
-    ))
+    )
+  ;; )
 
-(when IS-WINDOWS
-  (load-theme 'spk-mint))
+;; 在加载新的主题之前先取消其他主题的设置
+(defadvice load-theme
+    (before spk-disable-theme-hack activate)
+  (mapc 'disable-theme custom-enabled-themes))
+
+;; (when IS-WINDOWS
+;;   (load-theme 'spk-mint))
 
 (provide 'init-themes)

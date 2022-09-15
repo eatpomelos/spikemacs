@@ -21,8 +21,10 @@
 ;; 在设置延迟加载的时候，指定其余函数来进行加载和require的形式是否有区别？
 (autoload #'org-roam-dailies-find-today "org-roam")
 (autoload #'company-mode "company-org-roam")
+(autoload #'org-bars-mode "org-bars")
 ;; (autoload #'org-mode "org-roam-bibtex")
 (autoload #'org-bullets-mode "org-bullets")
+(autoload #'valign-mode "valign")
 
 ;; init-editor
 (autoload #'er/mark-defun "expand-region")

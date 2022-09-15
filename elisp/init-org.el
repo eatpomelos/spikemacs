@@ -5,6 +5,14 @@
 (straight-use-package 'org-pomodoro)
 ;; (straight-use-package 'org)
 ;; (straight-use-package 'org-modern)
+;; 实现org-mode中表格的对齐
+(straight-use-package 'valign)
+
+(straight-use-package
+ '(org-bars :type git
+			:host github
+			:repo "tonyaldon/org-bars"
+			))
 
 ;; (require 'org)
 ;; (straight-use-package 'focus)
@@ -279,14 +287,19 @@
   (require 'deadgrep)
   (when (boundp 'deadgrep-project-root-function)
     (make-local-variable 'deadgrep-project-root-function)
-    (setq deadgrep-project-root-function 'spk/deadgrep-search-default-dir) ))
+    (setq deadgrep-project-root-function 'spk/deadgrep-search-default-dir))
+  )
 
 
 ;; 添加相应hook
 (add-hook 'org-mode-hook 'org-num-mode)
+(add-hook 'org-mode-hook #'org-bars-mode)
 ;; (add-hook 'org-mode-hook 'focus-mode)
 (add-hook 'org-mode-hook 'org-indent-mode)
+(add-hook 'org-mode-hook 'valign-mode)
 (add-hook 'org-mode-hook 'spk/org-mode-setup)
+
+(setq valign-fancy-bar t)
 
 ;; org-mode其余相关插件的初始化
 (require 'init-org-roam)

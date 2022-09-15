@@ -24,29 +24,29 @@
 (yas-global-mode 1)
 
 ;; For corfu users:
-(setq lsp-bridge-completion-provider 'corfu)
-(require 'corfu)
-(require 'corfu-info)
-(require 'corfu-history)
-(require 'lsp-bridge-icon)        ;; show icons for completion items, optional
-(require 'lsp-bridge-orderless)   ;; make lsp-bridge support fuzzy match, optional
-(global-corfu-mode)
-(corfu-history-mode t)
-(global-lsp-bridge-mode)
-(when (> (frame-pixel-width) 3000) (custom-set-faces '(corfu-default ((t (:height 1.3))))))  ;; adjust default font height when running in HiDPI screen.
+;; (setq lsp-bridge-completion-provider 'corfu)
+;; (require 'corfu)
+;; (require 'corfu-info)
+;; (require 'corfu-history)
+;; (require 'lsp-bridge-icon)        ;; show icons for completion items, optional
+;; (require 'lsp-bridge-orderless)   ;; make lsp-bridge support fuzzy match, optional
+;; (global-corfu-mode)
+;; (corfu-history-mode t)
+;; (global-lsp-bridge-mode)
+;; (when (> (frame-pixel-width) 3000) (custom-set-faces '(corfu-default ((t (:height 1.3))))))  ;; adjust default font height when running in HiDPI screen.
 
 ;; For company-mode users:
 (setq lsp-bridge-completion-provider 'company)
 (require 'company)
 (require 'company-box)
-(require 'lsp-bridge-icon)        ;; show icons for completion items, optional
+;; (require 'lsp-bridge-icon)        ;; show icons for completion items, optional
+
 (company-box-mode 1)
 (global-lsp-bridge-mode)
 
 ;; For Xref support
 (add-hook 'lsp-bridge-mode-hook (lambda ()
   (add-hook 'xref-backend-functions #'lsp-bridge-xref-backend nil t)))
-
 
 ;; 需要注意的是，使用默认的project.el接口暂时只用.git目录作为根目录标识，可能需要手动创建
 (with-eval-after-load 'project

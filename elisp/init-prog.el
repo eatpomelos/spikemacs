@@ -248,6 +248,10 @@
 
   (define-key prog-mode-map (kbd "C-<f8>") 'better-jumper-jump-backward)
   (define-key prog-mode-map (kbd "C-<f9>") 'better-jumper-jump-forward)
+
+  ;; LINUX上的备用按键
+  (define-key prog-mode-map (kbd "C-\{") 'better-jumper-jump-backward)
+  (define-key prog-mode-map (kbd "C-\}") 'better-jumper-jump-forward)
   )
 
 (defalias 'dg 'deadgrep)
@@ -316,7 +320,9 @@
 (require 'init-elisp)
 (require 'init-C)
 
-;; (when IS-LINUX
-;;   (require 'init-lsp))
+(when IS-LINUX
+  (require 'init-lsp))
+
+;; (require 'init-lsp)
 
 (provide 'init-prog)

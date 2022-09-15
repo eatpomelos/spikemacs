@@ -106,16 +106,18 @@
 	)
   )
 
-(defun spk/clear_all_highlight_lines ()
-  "Clear all highlines."
-  (interactive)
-  (mapc #'delete-overlay spk-ovs)
-  (setq spk-ovs nil)
+;; 解决当在一个buffer中设置了高亮行的overlay时kill-buffer导致spk-ovs内容出错问题
+(defadvice kill-buffer
+    (before spk-hl-line-hack activate)
+  (mapc #'(lambda (e)
+            (when (equal (overlay-buffer e) (current-buffer))
+              (delete-overlay e)
+              (setq spk-ovs (delete e spk-ovs))
+              ))
+        spk-ovs)
   )
 
 (global-set-key (kbd "<f9>") #'spk/highlight_or_unhighlight_line_at_point)
-;; 解决当在一个buffer中设置了高亮行的overlay时kill-buffer导致spk-ovs内容出错问题
-;; (add-hook 'kill-buffer-hook #'spk/clear_all_highlight_lines)
 
 ;;;###autoload
 (defun spk/yank-buffer-filename ()
@@ -144,12 +146,12 @@
   (interactive "p")
   (unless level (setq level 0))
   (let* ((parent-directory default-directory)
-	 (i 0))
+	     (i 0))
     (when (< i level)
       (setq parent-directory
-	    ;; find-name-directory 获取当前文件的路径, 如果是路径则返回本身
-	    ;; directory-file-name 获取路径名，去掉/
-	    (directory-file-name default-directory))
+	        ;; find-name-directory 获取当前文件的路径, 如果是路径则返回本身
+	        ;; directory-file-name 获取路径名，去掉/
+	        (directory-file-name default-directory))
       (file-name-directory  (directory-file-name parent-directory))
       (setq i (1+ i)))
     (spk-search-file-internal parent-directory)))

@@ -2,7 +2,6 @@
 (straight-use-package 'expand-region)
 (straight-use-package 'restart-emacs)
 (straight-use-package 'json-mode)
-(straight-use-package 'awesome-tab)
 ;; (straight-use-package 'sis)
 
 ;; 将此库文件更新为fork版本
@@ -46,15 +45,6 @@
 ;;                             :repo "manateelazycat/insert-translated-name"))
 ;;   (require 'insert-translated-name)
 ;;   )
-
-;; 配置awesome-tab，便于在几个常用的window之间切换
-(with-eval-after-load 'awesome-tab
-  (setq awesome-tab-display-icon t)
-  (setq awesome-tab-height 120)
-  (setq awesome-tab-show-tab-index nil)
-  (evil-leader/set-key
-    "jt" 'awesome-tab-ace-jump
-    "jg" 'awesome-tab-switch-group))
 
 ;; 指定github上的包，并下载，由于当前的环境配置中 linux下的环境没有界面因此使用此package会导致emacs卡死
 (straight-use-package
@@ -101,6 +91,11 @@
 (global-set-key (kbd "<f8>") 'symbol-overlay-put)
 (global-set-key (kbd "S-<f8>") 'symbol-overlay-jump-prev)
 (global-set-key (kbd "S-<f9>") 'symbol-overlay-jump-next)
+
+(global-set-key (kbd "C-'") 'symbol-overlay-put)
+(global-set-key (kbd "C-<") 'symbol-overlay-jump-prev)
+(global-set-key (kbd "C->") 'symbol-overlay-jump-next)
+
 
 ;; 设置英语检错，设置有问题，暂时未解决
 (when IS-WINDOWS
@@ -219,5 +214,8 @@
 
 ;; 设置最近文件的最大条目数
 (setq recentf-max-saved-items 1000)
+
+;; 设置info-mode中的一些快捷键
+(define-key Info-mode-map "v" 'evil-visual-char)
 
 (provide 'init-editor)

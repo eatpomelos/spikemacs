@@ -6,7 +6,8 @@
 (add-hook 'winum-mode-hook 'popwin-mode)
 
 (with-eval-after-load 'winum
-   (evil-leader/set-key
+  (setq winum-format " [%s] ")
+  (evil-leader/set-key
     "0" 'winum-select-window-0-or-10
     "1" 'winum-select-window-1
     "2" 'winum-select-window-2
