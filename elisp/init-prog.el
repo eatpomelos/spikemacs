@@ -35,12 +35,6 @@
 
 (require 'init-tags)
 
-;; citre暂时有以下缺点：
-;; 生成的tags由于信息比较全导致tags文件很大，原TAGS文件400M，生成tags12G左右
-;; 对于ctags版本有要求，但是在windows环境下，ctags的版本太低
-;; 自己之前写的文件缓存的函数不能使用
-;; 但是看效果要比etags好很多
-;; (require 'init-citre)
 (add-hook 'c-mode-hook (lambda ()
                          (define-key c-mode-map (kbd "DEL") 'smart-hungry-delete-backward-char)
                          (define-key c-mode-map (kbd "C-d") 'smart-hungry-delete-forward-char)))
@@ -53,20 +47,11 @@
 (setq-default tab-width 4)
 
 (straight-use-package 'imenu-list)
-;; (straight-use-package 'projectile)
-
-;; 编程时自动修改缩进，在某些时候很好用，在实际写代码时，会频繁缩进，导致体验下降 
-;; (add-hook 'prog-mode-hook #'aggressive-indent-mode)
-;; (advice-add 'makefile-gmake-mode :after
-;;             '(lambda ()
-;;                (aggressive-indent-mode 0)))
 
 (add-hook 'prog-mode-hook #'better-jumper-mode)
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 (add-hook 'prog-mode-hook 'hl-line-mode)
 
-;; (autoload #'projectile-mode "projectile")
-;; (add-hook 'prog-mode-hook #'projectile-mode)
 ;; keybindings
 (global-set-key (kbd "<f12>") 'eshell)
 (global-set-key (kbd "<f2>") 'imenu-list-smart-toggle)
@@ -93,11 +78,6 @@
   (define-key imenu-list-major-mode-map (kbd "TAB") 'spk/imenu-list-peek-entry)
   (advice-add 'imenu-list-show :after #'evil-emacs-state)
   )
-
-;; xref config
-;; (advice-add 'xref--xref-buffer-mode :after #'evil-insert-state)
-;; (define-key xref--xref-buffer-mode-map (kbd "j") 'xref-next-line)
-;; (define-key xref--xref-buffer-mode-map (kbd "k") 'xref-prev-line)
 
 ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=29619
 (setq xref-prompt-for-identifier

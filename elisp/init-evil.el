@@ -58,15 +58,6 @@
 
   (straight-use-package 'which-key)
   
-  ;; (require 'smartparens)
-  ;; (require 'evil-smartparens)
-  
-  ;; (smartparens-global-mode t)
-  ;; (evil-smartparens-mode t)
-
-  ;; (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
-  ;; (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
-
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
   )
 

@@ -13,9 +13,6 @@
 (with-eval-after-load 'ivy
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
-  ;; 开启一些命令的历史纪录
-  ;; (setq counsel-M-x-history t)
-  ;; (setq counsel-locate-history t)
 
   (counsel-mode 1)
   ;; 开启ivy-mode 对于类似org-roam都会提供补全选项，很方便
@@ -23,10 +20,6 @@
   ;; 在windows上用everthing 来替代locate命令
   (when IS-WINDOWS
     (setq locate-command "es"))
-
-  ;; 在M-x 运行时显示相应的文档
-  ;; (require 'ivy-rich)
-  ;; (require 'smex)
 
   (advice-add 'ivy-occur :after #'evil-window-move-far-right)
   (add-hook 'ivy-occur-grep-mode-hook

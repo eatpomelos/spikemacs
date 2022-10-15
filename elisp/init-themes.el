@@ -17,7 +17,6 @@
    :local-repo "~/.emacs.d/themes/spk-mint-theme" 
    ))
 (straight-use-package 'dracula-theme)
-;; (straight-use-package 'modus-themes)
 (straight-use-package 'zen-and-art-theme)
 
 ;; 根据时间加载主题

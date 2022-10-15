@@ -38,14 +38,6 @@
   (setq undo-tree-auto-save-history nil)
   )
 
-;; (when IS-WINDOWS
-;;   (straight-use-package
-;;    '(insert-translated-name :type git
-;;                             :host github
-;;                             :repo "manateelazycat/insert-translated-name"))
-;;   (require 'insert-translated-name)
-;;   )
-
 ;; 指定github上的包，并下载，由于当前的环境配置中 linux下的环境没有界面因此使用此package会导致emacs卡死
 (straight-use-package
  '(company-english-helper :type git
@@ -101,11 +93,6 @@
 (when IS-WINDOWS
   (setq ispell-program-name "aspell")
   (setq ispell-process-directory "~/MSYS2/mingw64/bin/")
-  ;; 设置词典，但是在此配置上出现了问题，暂时未解决
-  ;; (setq
-  ;;  ispell-dictionary (expand-file-name (concat spk-local-dir "english-words.txt"))
-  ;;  ispell-complete-word-dict (expand-file-name (concat spk-local-dir "english-word.txt"))
-  ;;  )
   )
 
 ;; 由于高亮显示占用了evil的快捷键，且暂时不使用其自定义的快捷键，禁用symbol-overlay-mode

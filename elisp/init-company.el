@@ -2,30 +2,7 @@
 (straight-use-package 'company-box)
 (straight-use-package 'which-key)
 
-
-;; 读取yasnippet会导致启动慢，暂时只在c-mode下启用yas-minor-mode
-;; yasnippet
 (add-hook 'c-mode-hook 'yas-minor-mode)
-;; (add-hook 'prog-mode-hook 'yas-minor-mode)
-;; (remove-hook 'emacs-lisp-mode-hook 'yas-minor-mode)
-
-;; ;; company
-;; (setq
-;;  company-tng-auto-configure nil
-;;  company-frontends '(company-tng-frontend
-;; 		     company-pseudo-tooltip-frontend
-;; 		     company-echo-metadata-frontend)
-;;  company-begin-commands '(self-insert-command)
-;;  company-idle-delay 0.2
-;;  company-tooltip-limit 10
-;;  company-tooltip-align-annotations t
-;;  company-tooltip-width-grow-only t
-;;  company-tooltip-idle-delay 0.1
-;;  company-minimum-prefix-length 1
-;;  company-dabbrev-downcase nil
-;;  company-global-modes '(not dired-mode dired-sidebar-mode)
-;;  company-tooltip-margin 0)
-
 
 (add-hook 'prog-mode-hook 'company-mode)
 (add-hook 'conf-mode-hook 'company-mode)

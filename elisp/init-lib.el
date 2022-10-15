@@ -44,25 +44,6 @@
 (defmacro +spk-current-buffer-file-postfix ()
   `(cdr (assoc major-mode spk-lang-file-type-postfix-alist)))
 
-;; 最多再当前目录的上几层查找文件或目录
-;; (defun spk/get-file-dir-level (file &optional level)
-;;   "Find file in current directory or LEVEL parent directory."
-;;   (unless level (setq level 0))
-;;   (catch 'done
-;;     (let* ((parent-directory default-directory)
-;; 	       (i 0)
-;;            (dir nil))
-;;       (when (< i level)
-;;         (setq parent-directory
-;; 	          ;; find-name-directory 获取当前文件的路径, 如果是路径则返回本身
-;; 	          ;; directory-file-name 获取路径名，去掉/
-;; 	          (directory-file-name default-directory))
-;;         (file-name-directory  (directory-file-name default-directory))
-;;         (setq i (1+ i)))
-;;       (+spk-get-file-dir (file)))
-;;     )
-;;   )
-
 ;; 在google浏览其中搜索当前光标位置的符号，后续改进
 ;;;###autoload
 (defun spk/search-symbol-with-browser (symbol)
