@@ -69,7 +69,8 @@
           (lambda ()
             (switch-to-buffer "*scratch*")
             (erase-buffer)
-            (insert (format ";; Happy hacking!! emacs startup with %.3fs!!\n"
+            (insert (format "%s;; Happy hacking!! emacs startup with %.3fs!!\n"
+                            spk-scratch-log
                             (float-time (time-subtract (current-time) before-init-time)))))
           'append)
 

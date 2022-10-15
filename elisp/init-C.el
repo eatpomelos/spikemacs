@@ -75,12 +75,8 @@
     (save-excursion
       (let* ((def-s nil))
         (beginning-of-defun)
-        (while (not (setq def-s (looking-at-p "{")))
-          (unless (forward-char)
-            (forward-line))
-          )
-        (when def-s
-          (re-search-backward "[a-zA-Z_]?[a-zA-Z0-9_]+\s*(.*")
+        (when (ignore-errors (re-search-forward "[a-zA-Z_]?[a-zA-Z0-9_]+\s*("))
+          (backward-char 2)
           (thing-at-point 'symbol)
           )
         ))))

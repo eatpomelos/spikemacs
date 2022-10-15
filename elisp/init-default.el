@@ -41,7 +41,6 @@
 (setq default-buffer-file-coding-system 'utf-8)
 
 (global-auto-revert-mode t)
-(global-linum-mode t)
 
 (setq auto-save-default nil)
 
@@ -54,9 +53,9 @@
 ;; (setq inhibit-splash-screen t)
 (setq-default cursor-type 'bar)
 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
+;; (tool-bar-mode -1)
+;; (scroll-bar-mode -1)
+;; (menu-bar-mode -1)
 
 ;; 选中文字后可以直接替换，使用了evil的时候这个配置没用
 ;; (delete-selection-mode t)

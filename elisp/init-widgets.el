@@ -236,13 +236,6 @@
 
 ;; 用来解释当前光标所在位置的face等信息，在编写主题的时候比较有用 
 ;; C-u C-x = 编写主题时候解释当前光标的信息，用于自定义face
-
-;;;###autoload
-(defun spk-find-test-file ()
-  "Find test file."
-  (interactive)
-  (find-file (expand-file-name "spk-test.el" spk-dir)))
-
 (defun spk/set-title-format ()
   "Set `frame-title-format'."
   (interactive)
@@ -250,7 +243,6 @@
     (setq str (read-string "input your format string:"))
     (setq frame-title-format (concat spk-title-format str))))
 
-(global-set-key (kbd "<f4>") 'spk-find-test-file)
 
 ;; 删除书签中的某个条目 
 ;;;###autoload

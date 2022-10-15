@@ -193,8 +193,6 @@
       (beginning-of-defun)
       (when def-name
         (re-search-forward def-name)
-        ;; 在跳转到函数开头和结尾的时候不需要拷贝函数名到剪切板
-        ;; (kill-new def-name)
         (when (looking-at "(")
           (backward-char))
         ))))

@@ -36,6 +36,7 @@
   )
 
 (evil-leader/set-key
-  "fl" 'counsel-locate)
+  "fl" 'counsel-locate
+  "x" 'counsel-M-x)
 
 (provide 'init-ivy)

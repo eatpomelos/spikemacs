@@ -43,6 +43,10 @@
 (autoload #'dired-jump "dired-x")
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+
 (require 'init-lib)
 (require 'init-straight)
 

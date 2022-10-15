@@ -41,12 +41,12 @@
 (require 'company-box)
 ;; (require 'lsp-bridge-icon)        ;; show icons for completion items, optional
 
-(company-box-mode 1)
+;; (company-box-mode 1)
 (global-lsp-bridge-mode)
 
 ;; For Xref support
-(add-hook 'lsp-bridge-mode-hook (lambda ()
-  (add-hook 'xref-backend-functions #'lsp-bridge-xref-backend nil t)))
+;; (add-hook 'lsp-bridge-mode-hook (lambda ()
+;;   (add-hook 'xref-backend-functions #'lsp-bridge-xref-backend nil t)))
 
 ;; 需要注意的是，使用默认的project.el接口暂时只用.git目录作为根目录标识，可能需要手动创建
 (with-eval-after-load 'project
