@@ -57,8 +57,7 @@
 (require 'init-widgets)
 
 ;; 部分配置只需要在linux上加载，这里使用宏进行控制
-(when IS-LINUX
-  (require 'init-eaf))
+(require 'init-eaf)
 
 ;; 这个文件按需求创建，主要是存放不同系统下自己可能使用的一些特定工具函数
 (spk-require 'init-private)

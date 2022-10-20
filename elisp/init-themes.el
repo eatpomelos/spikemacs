@@ -26,11 +26,7 @@
     (setq circadian-themes
           '(
             ("7:30" . spk-mint)
-            ;; ("8:30" . modus-vivendi)
-            ;; ("8:31" . spk-mint)
-            ;; ("8:32" . modus-vivendi)
-            ;; ("8:33" . spk-mint)
-            ("21:00" . modus-vivendi)
+            ("18:00" . modus-vivendi)
             ))
     (circadian-setup)
     )

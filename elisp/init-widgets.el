@@ -134,10 +134,10 @@
 (defun spk-find-local-templet ()
   "Find elpa packages."
   (interactive)
-  (let* ((dir spk-local-templet-dir))
-    (unless (file-exists-p spk-local-templet-dir)
-      (mkdir spk-local-templet-dir))
-    (counsel-find-file spk-local-templet-dir)))
+  (let* ((dir spk-local-code-dir))
+    (unless (file-exists-p spk-local-code-dir)
+      (mkdir spk-local-code-dir))
+    (counsel-find-file spk-local-code-dir)))
 
 ;; 在上级多少层目录查找文件
 ;;;###autoload

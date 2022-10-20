@@ -22,6 +22,10 @@
 ;; (modify-coding-system-alist 'process "*" 'utf-8)
 ;; (setq default-process-coding-system '(utf-8 . utf-8))
 
+;; 配置selectrum 
+;; (straight-use-package 'selectrum)
+;; (selectrum-mode +1)
+
 ;; 考虑要不要加这个配置
 (straight-use-package 'undo-tree)
 (add-hook 'emacs-startup-hook #'global-undo-tree-mode)

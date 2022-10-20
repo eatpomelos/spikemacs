@@ -25,8 +25,8 @@
   (concat spk-local-dir "packages/"))
 
 ;; 放置一些模板的地址，主要是一些函数以及机制的使用实例，后续设计具体的一些实现和模板
-(defconst spk-local-templet-dir
-  (concat spk-local-dir "templet/"))
+(defconst spk-local-code-dir
+  (concat spk-private-doc-dir "Code/"))
 
 (defconst spk-elisp-dir
   (concat spk-dir "elisp/"))
