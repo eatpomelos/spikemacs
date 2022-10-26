@@ -28,9 +28,6 @@
                                ("ABORT" . "blue")
                                ("PAUSE" . "cyan1")))
 
-;; 设置几个常用的capture 的文件的路径
-(defvar spk-private-doc-dir "~/.emacs.d/docs/"
-  "My private document directory.")
 
 (defvar spk-org-directory "~/.emacs.d/docs/org"
   "Default directory of org files."

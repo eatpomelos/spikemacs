@@ -23,6 +23,10 @@
 ;; 私有包放置的位置，可能是没有加入elpa的包或者是自己为了学elisp而抄的或者写的demo
 (defconst spk-local-packges-dir
   (concat spk-local-dir "packages/"))
+  
+;; 设置几个常用的capture 的文件的路径
+(defconst spk-private-doc-dir "~/.emacs.d/docs/"
+  "My private document directory.")
 
 ;; 放置一些模板的地址，主要是一些函数以及机制的使用实例，后续设计具体的一些实现和模板
 (defconst spk-local-code-dir

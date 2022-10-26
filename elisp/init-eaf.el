@@ -35,7 +35,9 @@
 
 (with-eval-after-load 'eaf-browser
   (setq eaf-browser-default-search-engine "bing")
-  (setq eaf-browser-keybinding nil)
+  ;; (setq eaf-browser-keybinding nil)
+  (setq eaf-chrome-bookmark-file (concat spk-local-dir "eaf-bookmarks"))
+  ;; (setq eaf--get-titlebar-height nil)
   )
 
 ;; eaf和straight的结构有冲突，这里不使用straight的方式加载

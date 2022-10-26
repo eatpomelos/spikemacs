@@ -1,6 +1,5 @@
 ;; 用来存放自己日常使用的一些小函数
 ;; 在自己的配置文件路径中查找文件
-(straight-use-package 'youdao-dictionary)
 (straight-use-package 'tiny)
 
 ;; 在浏览器中搜索
@@ -193,14 +192,20 @@
   "fqp" 'spk/find-linux-coded-dir
   "fo" 'spk-open-file-with-system-application
   "t" 'spk-find-local-templet
-  "yo" 'youdao-dictionary-search-at-point+
-  "ys" 'youdao-dictionary-play-voice-at-point
-  "yi" 'youdao-dictionary-search-from-input
   "ee" 'base64-encode-region
   "ed" 'base64-decode-region
   )
 
+(straight-use-package 'youdao-dictionary)
+(evil-leader/set-key
+  "yo" 'youdao-dictionary-search-at-point+
+  "ys" 'youdao-dictionary-play-voice-at-point
+  "yi" 'youdao-dictionary-search-from-input
+  )
+;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
+(advice-add 'youdao-dictionary-mode :after 'evil-emacs-state)
 (global-set-key (kbd "<f3>") #'youdao-dictionary-search-at-point+)
+
 
 ;; 在windows上找不到 manual 节点，手动将emacs doc的位置添加到info-directory-list里面去
 (when IS-WINDOWS
@@ -257,9 +262,6 @@
   (interactive)
   (mapcar #'spk/bookmark_delete-no-file-exist (bookmark-all-names))
   )
-
-;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
-(advice-add 'youdao-dictionary-mode :after 'evil-emacs-state)
 
 (global-set-key (kbd "M-p") 'scroll-down-command)
 (global-set-key (kbd "M-n") 'scroll-up-command)

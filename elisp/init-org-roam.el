@@ -10,7 +10,8 @@
    :repo "org-roam/org-roam-ui"
    ))
 
-;; 在linux上使用popweb插件
+;; 需要注意的是，这个插件使用的结构并不适合使用straight的方式来进行读取，straight插件
+;; 会执行build步骤，将repo里的el文件连接到另一个目录，这种做法对于分层的插件以及调用其他脚本的插件并不适用
 (when IS-LINUX
   (straight-use-package
    '(popweb :type git
@@ -18,25 +19,31 @@
 		    :repo "manateelazycat/popweb"
 		    ))
 
-  (straight-use-package 'org-transclusion)
+  ;; 检查
+  (add-to-list 'load-path "~/.emacs.d/straight/repos/popweb/")
+  (ignore-errors (require 'popweb))
 
-  (require 'popweb)
-  (setq spk-popweb-dir "~/.emacs.d/straight/repos/popweb/extension/")
+  (with-eval-after-load 'popweb
+    (straight-use-package 'org-transclusion)
+    (setq spk-popweb-dir "~/.emacs.d/straight/repos/popweb/extension/")
 
-  ;; Org-Roam ID link and footnote link previewer
-  (add-to-list 'load-path (concat spk-popweb-dir "org-roam"))
-  (require 'popweb-org-roam-link)
+    ;; Org-Roam ID link and footnote link previewer
+    (add-to-list 'load-path (concat spk-popweb-dir "org-roam"))
+    (require 'popweb-org-roam-link)
 
-  ;; LaTeX preview functionality
-  (add-to-list 'load-path (concat spk-popweb-dir "latex"))
-  (require 'popweb-latex)
-  (add-hook 'latex-mode-hook #'popweb-latex-mode)
+    ;; LaTeX preview functionality
+    (add-to-list 'load-path (concat spk-popweb-dir "latex"))
+    (require 'popweb-latex)
+    (add-hook 'latex-mode-hook #'popweb-latex-mode)
 
-  ;; Chinese-English translation popup
-  (add-to-list 'load-path (concat spk-popweb-dir "dict")) ;
-  (require 'popweb-dict-bing)                             ; Translation using Bing
-  (require 'popweb-dict-youdao)                           ; Translation using Youdao
-  )
+    ;; Chinese-English translation popup
+    (add-to-list 'load-path (concat spk-popweb-dir "dict")) ;
+    (require 'popweb-dict-bing)                             ; Translation using Bing
+    (require 'popweb-dict-youdao)
+
+    (global-set-key (kbd "<f3>") #'popweb-dict-bing-pointer)
+    ))                                   ; Translation using Youdao
+
 
 ;; (autoload #'org-roam-server-mode "org-roam-server")
 (setq
