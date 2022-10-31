@@ -194,8 +194,6 @@
 ;; ediff 配置
 (setq-default ediff-split-window-function 'split-window-horizontally)
 
-(global-set-key (kbd "<f5>") 'abbrev-mode)
-
 ;; 添加鼠标相关的配置，解决滚轮滑动屏幕过快的问题 
 (setq mouse-scroll-delay 0.02)
 (defun up-slightly () (interactive) (scroll-up 1))

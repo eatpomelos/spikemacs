@@ -1,5 +1,5 @@
 ;; 初始化主体配置，这里可以使用dracula 或者使用自己定义的主题
-(straight-use-package 'circadian)
+;; (straight-use-package 'circadian)
 
 (defvar spk-theme-dir nil
   "Local themes directory.")
@@ -21,16 +21,22 @@
 
 ;; 根据时间加载主题
 ;; (when IS-LINUX
-  (require 'circadian)
-  (with-eval-after-load 'circadian
-    (setq circadian-themes
-          '(
-            ("7:30" . spk-mint)
-            ("18:00" . modus-vivendi)
-            ))
-    (circadian-setup)
-    )
+  ;; (require 'circadian)
+  ;; (with-eval-after-load 'circadian
+  ;;   (setq circadian-themes
+  ;;         '(
+  ;;           ("7:30" . spk-mint)
+  ;;           ("18:00" . modus-vivendi)
+  ;;           ))
+  ;;   (circadian-setup)
+  ;;   )
   ;; )
+
+;; 由于modus这个主题是在emacs27.1加入到emacs主线来的，低于这个版本的emacs需要自己手动下载
+(when EMACS27-
+  (straight-use-package 'modus-themes)
+  )
+(load-theme 'modus-vivendi)
 
 ;; 在加载新的主题之前先取消其他主题的设置
 (defadvice load-theme

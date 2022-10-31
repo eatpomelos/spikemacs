@@ -55,6 +55,7 @@
 ;; keybindings
 (global-set-key (kbd "<f12>") 'eshell)
 (global-set-key (kbd "<f2>") 'imenu-list-smart-toggle)
+(global-set-key (kbd "<f5>") 'hs-toggle-hiding)
 
 (with-eval-after-load 'imenu-list
   (setq

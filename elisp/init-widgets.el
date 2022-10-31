@@ -2,6 +2,8 @@
 ;; 在自己的配置文件路径中查找文件
 (straight-use-package 'tiny)
 
+(require 'init-tools)
+
 ;; 在浏览器中搜索
 ;;;###autoload
 (defun spk/search-symbol-from-input ()

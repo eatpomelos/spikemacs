@@ -54,10 +54,10 @@
 ;; ;; ;; 和编程相关的配置统一由init-prog.el 文件一起加载，在文件中分别加载各语言的配置文件
 (require 'init-prog)
 (require 'init-themes)
-(require 'init-widgets)
-
 ;; 部分配置只需要在linux上加载，这里使用宏进行控制
 (require 'init-eaf)
+
+(require 'init-widgets)
 
 ;; 这个文件按需求创建，主要是存放不同系统下自己可能使用的一些特定工具函数
 (spk-require 'init-private)

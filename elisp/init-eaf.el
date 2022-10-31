@@ -33,10 +33,17 @@
 (require 'eaf-video-player)
 (require 'eaf-markdown-previewer)
 
+;; 以下是为了在eaf中使用evil，但是当前仅针对doom和spacemacs进行了支持，普通模式的evil暂时不知道怎么设置，暂停
+;; (require 'eaf-evil)
+;; (setq eaf-evil-leader-keymap #'evil-leader--default-map)
+
+;; (setq eaf-evil-leader-key "SPC")
 (with-eval-after-load 'eaf-browser
   (setq eaf-browser-default-search-engine "bing")
-  ;; (setq eaf-browser-keybinding nil)
-  (setq eaf-chrome-bookmark-file (concat spk-local-dir "eaf-bookmarks"))
+  ;; 需要注意的是，在windows上使用eaf浏览器的时候，如果要导入
+  (when IS-WINDOWS
+    (setq eaf-chrome-bookmark-file (concat "C:/Users/" user-real-login-name "/AppData/Local/Google/Chrome/User Data/Default/Bookmarks"))
+    )
   ;; (setq eaf--get-titlebar-height nil)
   )
 
