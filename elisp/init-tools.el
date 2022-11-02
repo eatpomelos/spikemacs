@@ -1,10 +1,16 @@
 ;; 暂时用来存放自己使用的一些外部工具相关的配置，后续优化
 (straight-use-package 'graphviz-dot-mode)
 
+;; 后续增加一个开关用于动态开启预览，避免大文件编译耗时比较长导致卡顿？
+;; (defvar spk-dot-preview-switch t)
+
 (setq graphviz-dot-indent-width 4)
 
 ;; 由于emacs本身的image-mode处理的速度比较慢，可能出现在处理较大的文件的时候，导致emacs卡住的问题，这里不适用graphviz包的预览功能，而是使用eaf的image-viewer进行替代
 (setq graphviz-dot-auto-preview-on-save nil)
+
+;; 设置是否需要在保存的时候就自动预览
+(defvar spk/graphviz-auto-preview-on-save t)
 
 ;; 当配置好了eaf的时候，使用graphviz使用eaf-open 来进行预览，避免出现原生emacs的性能问题
 (with-eval-after-load 'eaf
@@ -48,7 +54,7 @@
 
   (defun spk/graphviz-live-reload-hook ()
     "Hook to run in `after-save-hook' for live preview to work."
-    (when (eq major-mode 'graphviz-dot-mode) 
+    (when (and (eq major-mode 'graphviz-dot-mode) spk/graphviz-auto-preview-on-save) 
       (spk/graphviz-dot-eaf-preview)))
 
   (add-hook 'after-save-hook 'spk/graphviz-live-reload-hook)

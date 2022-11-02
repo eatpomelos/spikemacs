@@ -24,7 +24,7 @@
 (autoload #'org-bars-mode "org-bars")
 ;; (autoload #'org-mode "org-roam-bibtex")
 (autoload #'org-bullets-mode "org-bullets")
-(autoload #'valign-mode "valign")
+;; (autoload #'valign-mode "valign")
 
 ;; init-editor
 (autoload #'er/mark-defun "expand-region")
@@ -83,4 +83,5 @@
 (autoload #'youdao-dictionary-search-at-point+ "youdao-dictionary")
 (autoload #'tiny-expand "tiny")
 
+(autoload #'blink-search "blink-search")
 (provide 'init-autoload)

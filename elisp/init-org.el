@@ -6,7 +6,7 @@
 ;; (straight-use-package 'org)
 ;; (straight-use-package 'org-modern)
 ;; 实现org-mode中表格的对齐
-(straight-use-package 'valign)
+;; (straight-use-package 'valign)
 
 (straight-use-package
  '(org-bars :type git
@@ -293,10 +293,10 @@
 (add-hook 'org-mode-hook #'org-bars-mode)
 ;; (add-hook 'org-mode-hook 'focus-mode)
 (add-hook 'org-mode-hook 'org-indent-mode)
-(add-hook 'org-mode-hook 'valign-mode)
+;; (add-hook 'org-mode-hook 'valign-mode)
 (add-hook 'org-mode-hook 'spk/org-mode-setup)
 
-(setq valign-fancy-bar t)
+;; (setq valign-fancy-bar t)
 
 ;; org-mode其余相关插件的初始化
 (require 'init-org-roam)

@@ -185,19 +185,6 @@
   (interactive)
   (counsel-find-file "~/.emacs.d/straight/build"))
 
-;; keybindings
-(evil-leader/set-key
-  "fc" 'spk-find-emacs-confs
-  "fp" 'spk-find-local-conf
-  "ff" 'spk-find-file
-  "fd" 'spk-find-linux-doc
-  "fqp" 'spk/find-linux-coded-dir
-  "fo" 'spk-open-file-with-system-application
-  "t" 'spk-find-local-templet
-  "ee" 'base64-encode-region
-  "ed" 'base64-decode-region
-  )
-
 (straight-use-package 'youdao-dictionary)
 (evil-leader/set-key
   "yo" 'youdao-dictionary-search-at-point+
@@ -273,5 +260,23 @@
                                         (interactive)
                                         (kill-line 0)
                                         (indent-according-to-mode)))
+
+(add-to-list 'load-path (concat spk-local-packges-dir "blink-search"))
+
+(advice-add 'blink-search-mode :after 'evil-emacs-state)
+
+;; keybindings
+(evil-leader/set-key
+  "fc" 'spk-find-emacs-confs
+  "fp" 'spk-find-local-conf
+  "ff" 'spk-find-file
+  "fd" 'spk-find-linux-doc
+  "fqp" 'spk/find-linux-coded-dir
+  "fo" 'spk-open-file-with-system-application
+  "t" 'spk-find-local-templet
+  "ee" 'base64-encode-region
+  "ed" 'base64-decode-region
+  "sl" 'blink-search
+  )
 
 (provide 'init-widgets)
