@@ -41,7 +41,8 @@
 ;; 设置agenda文件,注意以下这种写法，不加括号直接用字符串是不行的
 (setq org-agenda-files '("~/.emacs.d/docs/org"
 			             "~/.emacs.d/docs/org/notes"
-                         "~/.emacs.d/docs/roam/daily"))
+                         "~/.emacs.d/docs/roam/daily"
+                         "~/.emacs.d/.local/pravite"))
 
 ;; 设置笔记中用到的一些路径，包括日志路径、笔记路径，以及待办项目路径
 (setq spk-capture-todo-file (expand-file-name "todo.org" spk-org-directory)
@@ -297,6 +298,15 @@
 (add-hook 'org-mode-hook 'spk/org-mode-setup)
 
 ;; (setq valign-fancy-bar t)
+;; 从懒猫大佬配置里面抄的将org导出为docx的函数，需要依赖于pandoc
+(defun org-export-docx ()
+    "Export current buffer to docx file with the template.docx."
+    (interactive)
+    (let ((docx-file (concat (file-name-sans-extension (buffer-file-name)) ".docx"))
+          (template-file (expand-file-name "template.docx" spk-private-doc-dir)))
+      (shell-command (format "pandoc %s -o %s --reference-doc=%s"
+                             (buffer-file-name) docx-file template-file))
+      (message "Convert finish: %s" docx-file)))
 
 ;; org-mode其余相关插件的初始化
 (require 'init-org-roam)

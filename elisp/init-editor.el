@@ -12,6 +12,7 @@
    :repo "eatpomelos/symbol-overlay"
    )
  )
+
 ;; TODO 需要注意的是下面的相关配置会导致org-mode使用latex导出pdf时失败，暂时屏蔽以下配置，后续优化
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
 ;; (set-language-environment 'utf-8)

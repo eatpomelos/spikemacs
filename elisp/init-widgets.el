@@ -1,6 +1,9 @@
 ;; 用来存放自己日常使用的一些小函数
 ;; 在自己的配置文件路径中查找文件
 (straight-use-package 'tiny)
+;; (straight-use-package 'epc)
+
+;; (require 'epc)
 
 (require 'init-tools)
 
@@ -261,9 +264,24 @@
                                         (kill-line 0)
                                         (indent-according-to-mode)))
 
-(add-to-list 'load-path (concat spk-local-packges-dir "blink-search"))
 
-(advice-add 'blink-search-mode :after 'evil-emacs-state)
+;; 等有时间了找到执行不成成功的原因再调试打开
+;; (add-to-list 'load-path (concat spk-local-packges-dir "blink-search"))
+
+;; (add-to-list 'load-path (concat "d:/HOME/.emacs.d/.local/packages/" "blink-search"))
+;; (require 'blink-search)
+;; (with-eval-after-load 'blink-search
+;;   (straight-use-package 'svg)
+;;   (require 'svg)
+;;   (advice-add 'blink-search-mode :after 'evil-emacs-state)
+;;   (setq blink-search-epc-debug t)
+;;   (setq blink-search-enable-log t)
+;;   )
+
+;;;###autoload
+(defun spk/counsel-rg-current-dir ()
+  (interactive)
+  (counsel-rg nil default-directory))
 
 ;; keybindings
 (evil-leader/set-key
@@ -276,7 +294,8 @@
   "t" 'spk-find-local-templet
   "ee" 'base64-encode-region
   "ed" 'base64-decode-region
-  "sl" 'blink-search
+  ;; "sl" 'blink-search
+  "sc" 'spk/counsel-rg-current-dir
   )
 
 (provide 'init-widgets)

@@ -25,7 +25,7 @@
   (add-hook 'ivy-occur-grep-mode-hook
             #'(lambda ()
                 (evil-emacs-state)))
-  
+
   )
 
 (evil-leader/set-key

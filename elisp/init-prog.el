@@ -26,6 +26,46 @@
 			))
 ;; (require 'color-rg)
 
+;; 使用懒猫仓库的delete-block包用于删除块
+(straight-use-package
+ '(delete-block
+   :type git
+   :host github
+   :repo "manateelazycat/delete-block"
+   )
+ )
+
+;; (straight-use-package
+;;  '(sort-tab :type git
+;; 			:host github
+;; 			:repo "manateelazycat/sort-tab"
+;; 			))
+
+;; (require 'sort-tab)
+;; ;; 暂时全局开启sort-tab， 用于当前快速切换不同buffer，暂时试用，如无问题就加入到当前配置里面
+;; (sort-tab-mode 1)
+;; (with-eval-after-load 'sort-tab
+;;   (global-set-key (kbd "s-1") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "s-2") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "s-3") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "s-4") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "s-5") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "s-6") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "s-7") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "s-8") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "s-9") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "s-0") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "s-Q") 'sort-tab-close-all-tabs)
+;;   (global-set-key (kbd "s-q") 'sort-tab-close-mode-tabs)
+;;   (global-set-key (kbd "C-;") 'sort-tab-close-current-tab)
+;;   )
+
+(add-hook 'c-mode-hook (lambda ()
+                         (define-key c-mode-map (kbd "M-d") 'delete-block-forward)
+                         (define-key c-mode-map (kbd "M-DEL") 'delete-block-backward)
+                         (define-key c-mode-map (kbd "DEL") 'smart-hungry-delete-backward-char)
+                         (define-key c-mode-map (kbd "C-d") 'smart-hungry-delete-forward-char)))
+
 (with-eval-after-load 'yasnippet
   (let ((inhibit-message nil))
     (setq yas-snippets-dirs (concat spk-dir "snippets/"))
@@ -34,10 +74,6 @@
     (yas-reload-all)))
 
 (require 'init-tags)
-
-(add-hook 'c-mode-hook (lambda ()
-                         (define-key c-mode-map (kbd "DEL") 'smart-hungry-delete-backward-char)
-                         (define-key c-mode-map (kbd "C-d") 'smart-hungry-delete-forward-char)))
 
 (straight-use-package 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
@@ -290,10 +326,14 @@
   )
 
 (add-hook 'c-mode-hook 'highlight-changes-mode)
+;; 设置beacon颜色
+(setq beacon-color "#B0A4E3")
+;; (setq beacon-blink-when-focused nil)
+(setq beacon-blink-delay 0.2)
 (add-hook 'c-mode-hook 'beacon-mode)
 (global-set-key (kbd "<f10>") 'beacon-blink)
 
-;; 在org配置中增加对 sdasfkj 
+;; 在org配置中增加对 
 
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置
 (require 'init-elisp)

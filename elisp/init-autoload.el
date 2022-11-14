@@ -37,6 +37,9 @@
 (autoload #'toggle-company-english-helper "company-english-helper")
 (autoload #'awesome-tab-mode "awesome-tab")
 
+(autoload #'delete-block-backward "delete-block")
+(autoload #'delete-block-forward "delete-block")
+
 ;; init-prog
 ;; 配置better-jumper来满足阅读源代码时候的跳转需求
 (autoload #'better-jumper-mode "better-jumper")

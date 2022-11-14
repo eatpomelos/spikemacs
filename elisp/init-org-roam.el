@@ -60,8 +60,7 @@
 (global-set-key (kbd "C-c n") 'org-roam-dailies-capture-tomorrow)
 (global-set-key (kbd "C-c y") 'org-roam-dailies-capture-yesterday)
 
-
-;; org-roam也可以用来处理日记，有时间可以了解一下
+; org-roam也可以用来处理日记，有时间可以了解一下
 (evil-leader/set-key
   "of" 'org-roam-node-find
   ;; 暂不清楚ref在新版的org-roam中是怎么使用的
