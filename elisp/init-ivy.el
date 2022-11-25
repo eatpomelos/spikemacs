@@ -4,6 +4,9 @@
 (straight-use-package 'wgrep)
 (straight-use-package 'smex)
 
+;; 使用helpful插件替换原来的help
+;; (straight-use-package 'helpful)
+
 ;; 使用这种方式来管理配置之后，怎么管理快捷键？
 ;; (global-set-key (kbd "M-x") #'counsel-M-x)
 (global-set-key (kbd "C-s") #'swiper)
@@ -30,6 +33,7 @@
 
 (evil-leader/set-key
   "fl" 'counsel-locate
-  "x" 'counsel-M-x)
+  "x" 'counsel-M-x
+  )
 
 (provide 'init-ivy)

@@ -3,7 +3,6 @@
 (straight-use-package 'all-the-icons-dired)
 (straight-use-package 'all-the-icons-completion)
 
-
 ;; 在部分emacs29版本上移除了linum-mode
 (when EMACS28+
   (straight-use-package 'linum+)
@@ -43,5 +42,23 @@
            (format "[Pjt:%s]" (+spk-get-file-dir ".git")))
          )
         ))
+
+;; ;; 使用awesome-tray来优化显示
+;; (straight-use-package
+;;    '(awesome-tray :type git
+;; 		    :host github
+;; 		    :repo "manateelazycat/awesome-tray"
+;; 		    ))
+
+;; ;; 后续尝试使用awesome-tray，暂时由于这个插件并不是基于evil以及一些窗口管理插件设计，需要修改一些自定义face
+;; (require 'awesome-tray)
+;; (awesome-tray-enable)
+
+;; ;; 在某些模式下不开启awesome-tray
+;; (defadvice ediff-buffers (after ediff-tray-disable-hack activate)
+;;   (awesome-tray-disable))
+
+;; (defadvice ediff-quit (after ediff-quit-tray-disable-hack activate)
+;;   (awesome-tray-enable))
 
 (provide 'init-ui)

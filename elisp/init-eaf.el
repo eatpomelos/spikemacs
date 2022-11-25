@@ -37,9 +37,11 @@
 ;; (require 'eaf-evil)
 ;; (setq eaf-evil-leader-keymap #'evil-leader--default-map)
 
+;; eaf-browser-search-engines
 ;; (setq eaf-evil-leader-key "SPC")
 (with-eval-after-load 'eaf-browser
-  (setq eaf-browser-default-search-engine "bing")
+  ;; (add-to-list 'eaf-browser-search-engines '("baidu" . "http://www.baidu.com/s?ie=utf-8&f=8&wd=%s"))
+  ;; (setq eaf-browser-default-search-engine "baidu")
   ;; 需要注意的是，在windows上使用eaf浏览器的时候，如果要导入
   (when IS-WINDOWS
     (setq eaf-chrome-bookmark-file (concat "C:/Users/" user-real-login-name "/AppData/Local/Google/Chrome/User Data/Default/Bookmarks"))
@@ -48,6 +50,8 @@
       (setq eaf-office-extension-list nil)
       )
     )
+  
+  (advice-add 'eaf-mode :after 'evil-emacs-state)
   ;; (setq eaf--get-titlebar-height nil)
   )
 

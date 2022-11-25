@@ -28,6 +28,8 @@
     "wH" 'evil-window-move-far-left
     "wJ" 'evil-window-move-very-bottom
     "wK" 'evil-window-move-very-top
-    ))
+    )
+  (add-to-list 'winum-ignored-buffers " *Neotree*")
+  )
 
 (provide 'init-window)

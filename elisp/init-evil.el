@@ -25,12 +25,12 @@
     "bb" 'counsel-switch-buffer
     "bs" 'spk-switch-to-scratch
     "TAB" 'evil-switch-to-windows-last-buffer
-    "hk" 'describe-key
-    "hv" 'describe-variable
-    "hf" 'describe-function
     "hp" 'spk/find-repo-code
     "hb" 'describe-bindings
     "hi" 'info
+    "hk" 'describe-key
+    "hv" 'describe-variable
+    "hf" 'describe-function
     "hr" 'info-emacs-manual
     ;; "sp" 'counsel-rg
     )
