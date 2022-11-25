@@ -52,7 +52,20 @@
     )
   
   (advice-add 'eaf-mode :after 'evil-emacs-state)
+  (advice-add 'eaf-pdf-outline-mode :after 'evil-emacs-state)
+  (define-key eaf-pdf-outline-mode-map "j" 'next-line)
+  (define-key eaf-pdf-outline-mode-map "k" 'previous-line)
+  ;; 在大纲模式的时候增加快捷键退出
+  (define-key eaf-pdf-outline-mode-map "q" 'kill-this-buffer)
+  (define-key eaf-pdf-outline-edit-mode-map "q" 'kill-this-buffer)
   ;; (setq eaf--get-titlebar-height nil)
+
+  ;; 设置evil快捷键
+  (evil-leader/set-key
+    "er" 'eaf-open-pdf-from-history
+    "si" 'eaf-search-it
+    "oi" 'eaf-open-url-at-point
+    )
   )
 
 ;; eaf和straight的结构有冲突，这里不使用straight的方式加载

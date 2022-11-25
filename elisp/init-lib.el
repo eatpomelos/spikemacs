@@ -10,12 +10,6 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
-;; 添加自己的变量
-
-;; 使用浏览器在google中进行检索
-(defconst GOOGLE-SEARCH "https://www.google.com.hk/search?q=")
-(defconst BING-SEARCH "https://cn.bing.com/search?q=")
-
 ;; 基于当前文件比较简单的情况，features名和文件名一致才可以
 (defmacro spk-require (feature)
   `(when (file-exists-p (concat ,spk-elisp-dir (format "%s.el" ,feature)))
@@ -45,13 +39,6 @@
 
 (defmacro +spk-current-buffer-file-postfix ()
   `(cdr (assoc major-mode spk-lang-file-type-postfix-alist)))
-
-;; 在google浏览其中搜索当前光标位置的符号，后续改进
-;;;###autoload
-(defun spk/search-symbol-with-browser (symbol)
-  "Search symbol in browser."
-  (unless (string= symbol "")
-	(browse-url (format "%s%s" BING-SEARCH symbol))))
 
 ;;;###autoload
 (defun spk/time-cost (start-time)

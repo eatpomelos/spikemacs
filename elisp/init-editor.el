@@ -188,8 +188,6 @@
   "nw" 'widen
   "b \RET" 'counsel-bookmark
   "sy" 'symbol-overlay-save-symbol
-  "si" 'spk/search-symbol-from-input
-  "ss" 'spk/search-symbol-at-point
   )
 
 ;; ediff 配置

@@ -7,18 +7,6 @@
 
 (require 'init-tools)
 
-;; 在浏览器中搜索
-;;;###autoload
-(defun spk/search-symbol-from-input ()
-  (interactive)
-  (spk/search-symbol-with-browser (read-string "Plaese input keyword: "))
-  )
-
-;;;###autoload
-(defun spk/search-symbol-at-point ()
-  (interactive)
-  (spk/search-symbol-with-browser (symbol-at-point)))
-
 ;;;###autoload
 (defun spk/find-file-entry ()
   (interactive)

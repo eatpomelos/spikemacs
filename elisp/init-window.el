@@ -30,6 +30,13 @@
     "wK" 'evil-window-move-very-top
     )
   (add-to-list 'winum-ignored-buffers " *Neotree*")
+  ;; 设置在不开启evil-normal-state时窗口切换的快捷键
+  (global-set-key (kbd "C-x 9") 'delete-other-windows)
+  (global-set-key (kbd "C-x 1") 'winum-select-window-1)
+  (global-set-key (kbd "C-x 2") 'winum-select-window-2)
+  (global-set-key (kbd "C-x 3") 'winum-select-window-3)
+  (global-set-key (kbd "C-x 4") 'winum-select-window-4)
+  (global-set-key (kbd "C-x 5") 'winum-select-window-5)
   )
 
 (provide 'init-window)
