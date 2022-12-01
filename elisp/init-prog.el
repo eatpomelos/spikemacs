@@ -16,7 +16,7 @@
 
 (setq spk-source-code-dir
       (cond (IS-WINDOWS "D:/work/linux_code/")
-            (IS-LINUX "~/spk/source_code/")))
+            (IS-LINUX "~/spk/open_source/linux_code/")))
 
 ;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
 (straight-use-package
@@ -42,22 +42,23 @@
 ;; 			))
 
 ;; (require 'sort-tab)
-;; ;; 暂时全局开启sort-tab， 用于当前快速切换不同buffer，暂时试用，如无问题就加入到当前配置里面
+;; ;; ;; 暂时全局开启sort-tab， 用于当前快速切换不同buffer，暂时试用，如无问题就加入到当前配置里面
 ;; (sort-tab-mode 1)
 ;; (with-eval-after-load 'sort-tab
-;;   (global-set-key (kbd "s-1") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "s-2") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "s-3") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "s-4") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "s-5") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "s-6") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "s-7") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "s-8") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "s-9") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "s-0") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "s-Q") 'sort-tab-close-all-tabs)
-;;   (global-set-key (kbd "s-q") 'sort-tab-close-mode-tabs)
-;;   (global-set-key (kbd "C-;") 'sort-tab-close-current-tab)
+;;   (global-set-key (kbd "M-1") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "M-2") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "M-3") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "M-4") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "M-5") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "M-6") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "M-7") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "M-8") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "M-9") 'sort-tab-select-visible-tab)
+;;   (global-set-key (kbd "M-0") 'sort-tab-select-visible-tab)
+  
+;;   ;; (define-key evil-normal-state-map (kbd ",Q") 'sort-tab-close-all-tabs)
+;;   ;; (define-key evil-normal-state-map (kbd ",q") 'sort-tab-close-mode-tabs)
+;;   ;; (define-key evil-normal-state-map (kbd ",;") 'sort-tab-close-current-tab)
 ;;   )
 
 (add-hook 'c-mode-hook (lambda ()
@@ -114,6 +115,9 @@
     )
   (define-key imenu-list-major-mode-map (kbd "TAB") 'spk/imenu-list-peek-entry)
   (advice-add 'imenu-list-show :after #'evil-emacs-state)
+
+  (define-key imenu-list-major-mode-map "j" #'next-line)
+  (define-key imenu-list-major-mode-map "k" #'previous-line)
   )
 
 ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=29619
@@ -339,9 +343,8 @@
 (require 'init-elisp)
 (require 'init-C)
 
+;; 仅在linux上使用init-lsp，由于当前在windows上使用共享文件的方式来进行编码，导致有一些文件的路径不对
 (when IS-LINUX
   (require 'init-lsp))
-
-;; (require 'init-lsp)
 
 (provide 'init-prog)

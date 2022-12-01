@@ -5,6 +5,9 @@
 
 ;; 关闭 emacs 的欢迎界面
 (setq inhibit-splash-screen t)
+;; 如果url路径不存在，则首先创建，避免配置拷贝下来之后加载失败
+(unless (file-exists-p (concat spk-local-dir "url"))
+  (make-directory (concat spk-local-dir "url")))
 ;; 设置一些文件夹的位置
 (setq-default browse-url-temp-dir (concat spk-local-dir "url/"))
 (setq-default temporary-file-directory (concat spk-local-dir "url/"))

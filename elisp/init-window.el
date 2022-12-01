@@ -21,6 +21,7 @@
     "w/" 'split-window-right
     ;; "wm" 'delete-other-windows
     "wm" 'maximize-window
+    "ww" 'delete-other-windows
     "wd" 'delete-window
     "w-" 'split-window-below
     "w=" 'balance-windows
@@ -29,14 +30,15 @@
     "wJ" 'evil-window-move-very-bottom
     "wK" 'evil-window-move-very-top
     )
+  ;; 把一些辅助插件的buffer加入到ignore列表中，不进行winum排序
   (add-to-list 'winum-ignored-buffers " *Neotree*")
-  ;; 设置在不开启evil-normal-state时窗口切换的快捷键
-  (global-set-key (kbd "C-x 9") 'delete-other-windows)
+  ;; (add-to-list 'winum-ignored-buffers "*sort-tab*")
+  (add-to-list 'winum-ignored-buffers "*Ilist*")
+  ;; 暂时只需要4个快捷键，开启五个窗口的情况比较少
   (global-set-key (kbd "C-x 1") 'winum-select-window-1)
   (global-set-key (kbd "C-x 2") 'winum-select-window-2)
   (global-set-key (kbd "C-x 3") 'winum-select-window-3)
   (global-set-key (kbd "C-x 4") 'winum-select-window-4)
-  (global-set-key (kbd "C-x 5") 'winum-select-window-5)
   )
 
 (provide 'init-window)

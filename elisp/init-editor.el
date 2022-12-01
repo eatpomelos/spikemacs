@@ -15,17 +15,16 @@
 
 ;; TODO 需要注意的是下面的相关配置会导致org-mode使用latex导出pdf时失败，暂时屏蔽以下配置，后续优化
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
-;; (set-language-environment 'utf-8)
-;; (set-locale-environment "utf-8")
+(when IS-LINUX
+  (set-language-environment 'utf-8)
+  (set-locale-environment "utf-8")
+  (set-terminal-coding-system 'utf-8)
+  (modify-coding-system-alist 'process "*" 'utf-8)
+  (setq default-process-coding-system '(utf-8 . utf-8))
 
-;; 设置编码终端解决乱码问题，待测试
-;; (set-terminal-coding-system 'utf-8)
-;; (modify-coding-system-alist 'process "*" 'utf-8)
-;; (setq default-process-coding-system '(utf-8 . utf-8))
-
-;; 配置selectrum 
-;; (straight-use-package 'selectrum)
-;; (selectrum-mode +1)
+  ;; 配置selectrum 
+  (straight-use-package 'selectrum)
+  (selectrum-mode +1))
 
 ;; 考虑要不要加这个配置
 (straight-use-package 'undo-tree)
@@ -204,6 +203,6 @@
 (setq recentf-max-saved-items 1000)
 
 ;; 设置info-mode中的一些快捷键
-(define-key Info-mode-map "v" 'evil-visual-char)
+;; (define-key Info-mode-map "v" 'evil-visual-char)
 
 (provide 'init-editor)

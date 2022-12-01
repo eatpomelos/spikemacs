@@ -4,7 +4,9 @@
 
 (add-hook 'c-mode-hook 'yas-minor-mode)
 
-(add-hook 'prog-mode-hook 'company-mode)
+(when IS-WINDOWS
+  ;; 测试 lsp-bridge 暂时不在 prog-mode 下开启company-mode
+  (add-hook 'prog-mode-hook 'company-mode))
 (add-hook 'conf-mode-hook 'company-mode)
 (add-hook 'eshll-mode-hook 'company-mode)
 (add-hook 'org-mode-hook 'company-mode)

@@ -13,6 +13,7 @@
   (cond ((+spk-get-complete-file ".spk-project-files") (spk/project-fast-find-file))
         ((+spk-get-complete-file ".git") (project-find-file))
         ((+spk-get-complete-file ".svn") (spk/project-find-file))
+        ((and (+spk-get-complete-file "compile_commands.json") IS-LINUX) (projectile-find-file))
         (t (counsel-find-file))
         )
   )
@@ -254,17 +255,17 @@
 
 
 ;; 等有时间了找到执行不成成功的原因再调试打开
-;; (add-to-list 'load-path (concat spk-local-packges-dir "blink-search"))
+(when IS-LINUX
+  (add-to-list 'load-path (concat spk-local-packges-dir "blink-search"))
 
-;; (add-to-list 'load-path (concat "d:/HOME/.emacs.d/.local/packages/" "blink-search"))
-;; (require 'blink-search)
-;; (with-eval-after-load 'blink-search
-;;   (straight-use-package 'svg)
-;;   (require 'svg)
-;;   (advice-add 'blink-search-mode :after 'evil-emacs-state)
-;;   (setq blink-search-epc-debug t)
-;;   (setq blink-search-enable-log t)
-;;   )
+  (require 'blink-search)
+  (with-eval-after-load 'blink-search
+    (straight-use-package 'svg)
+    (require 'svg)
+    (advice-add 'blink-search-mode :after 'evil-emacs-state)
+    (setq blink-search-epc-debug t)
+    (setq blink-search-enable-log t)
+    ))
 
 ;;;###autoload
 (defun spk/counsel-rg-current-dir ()
