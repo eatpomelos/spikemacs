@@ -11,9 +11,11 @@
 (defun spk/find-file-entry ()
   (interactive)
   (cond ((+spk-get-complete-file ".spk-project-files") (spk/project-fast-find-file))
+        ((and (+spk-get-complete-file "compile_commands.json") IS-LINUX)
+         (projectile-find-file-in-directory (file-name-directory
+                                             (+spk-get-complete-file "compile_commands.json"))))
         ((+spk-get-complete-file ".git") (project-find-file))
         ((+spk-get-complete-file ".svn") (spk/project-find-file))
-        ((and (+spk-get-complete-file "compile_commands.json") IS-LINUX) (projectile-find-file))
         (t (counsel-find-file))
         )
   )

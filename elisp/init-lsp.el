@@ -17,9 +17,10 @@
 (require 'lsp-bridge)
 (global-lsp-bridge-mode)
 
-;; 需要注意的是，使用默认的project.el接口暂时只用.git目录作为根目录标识，可能需要手动创建
-(with-eval-after-load 'project
-  (evil-leader/set-key
-    ",f" 'spk/project-find-file-in-root))
+(add-hook 'c-mode-hook (lambda ()
+                         (evil-define-key* 'normal c-mode-map "gd" #'lsp-bridge-find-def)
+                         (evil-define-key* 'normal c-mode-map "gr" #'lsp-bridge-find-references)
+                         ))
+(advice-add 'lsp-bridge-ref-mode :after 'evil-emacs-state)
 
 (provide 'init-lsp)

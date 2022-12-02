@@ -149,6 +149,8 @@
   (let* ((root-dir (+spk-get-file-dir "TAGS")))
     (unless root-dir
       (setq root-dir (+spk-get-file-dir ".git")))
+    (unless root-dir
+      (setq root-dir (+spk-get-file-dir "compile_commands.json")))
     (if root-dir
         (counsel-find-file root-dir)
       (message "Not in a project")))
