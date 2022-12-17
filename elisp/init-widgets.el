@@ -69,7 +69,7 @@
 
 ;; 设置emacs的透明度
 ;; (setq alpha-list '((100 100) (75 45)))
-(setq alpha-list '((100 100) (45 45)))
+(setq alpha-list '((100 100) (65 65)))
 ;;;###autoload
 (defun loop-alpha ()
   (interactive)
@@ -274,6 +274,21 @@
   (interactive)
   (counsel-rg nil default-directory))
 
+(defconst spk-edit-point "spk-edit-point"
+  "Variable for storing the last edit point you want to store.")
+;; 实现一个函数用于记录任意位置，使用一个默认书签名，当多次记录的时候直接替换之前的同名书签
+
+;;;###autoload
+(defun spk/bookmark-last-edit-record ()
+  (interactive)
+  (bookmark-set-internal "Set bookmark unconditionally" spk-edit-point 'overwrite))
+
+;;;###autoload
+(defun spk/bookmark-last-edit-jump ()
+  (interactive)
+  (bookmark-jump (bookmark-get-bookmark spk-edit-point)))
+
+
 ;; keybindings
 (evil-leader/set-key
   "fc" 'spk-find-emacs-confs
@@ -287,6 +302,8 @@
   "ed" 'base64-decode-region
   ;; "sl" 'blink-search
   "sc" 'spk/counsel-rg-current-dir
+  "mm" 'spk/bookmark-last-edit-record
+  "mj" 'spk/bookmark-last-edit-jump
   )
 
 (provide 'init-widgets)

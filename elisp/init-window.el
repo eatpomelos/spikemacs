@@ -19,7 +19,6 @@
     "8" 'winum-select-window-8
     "9" 'winum-select-window-9
     "w/" 'split-window-right
-    ;; "wm" 'delete-other-windows
     "wm" 'maximize-window
     "ww" 'delete-other-windows
     "wd" 'delete-window

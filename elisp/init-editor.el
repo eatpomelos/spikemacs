@@ -2,7 +2,7 @@
 (straight-use-package 'expand-region)
 (straight-use-package 'restart-emacs)
 (straight-use-package 'json-mode)
-;; (straight-use-package 'sis)
+(straight-use-package 'sis)
 
 ;; 将此库文件更新为fork版本
 (straight-use-package
@@ -12,6 +12,8 @@
    :repo "eatpomelos/symbol-overlay"
    )
  )
+
+(sis-ism-lazyman-config nil t 'w32)
 
 ;; TODO 需要注意的是下面的相关配置会导致org-mode使用latex导出pdf时失败，暂时屏蔽以下配置，后续优化
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
