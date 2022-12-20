@@ -13,8 +13,38 @@
    )
  )
 
-(sis-ism-lazyman-config nil t 'w32)
+;; 使用posframe暂时实现一些简单的需求
+(straight-use-package 'posframe)
+(require 'posframe)
 
+;; 使用 posframe 实现一个简单的弹窗来显示info模式下的快捷键，参考posframe提供的demo
+(defvar spk-info-mode-pos-buf " *spk-info-posframe-buffer*")
+
+(defadvice Info-mode (after spk-info-hack activate)
+  (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
+    (erase-buffer)
+    (insert-file-contents (expand-file-name "info.txt" (concat spk-local-code-dir "posframe"))))
+  )
+
+;; 在Info模式下提供一个快速查看快捷键的函数   
+(defun spk/info-help-peek ()
+  "Info help peek."
+  (interactive)
+  (when (and (posframe-workable-p) t)
+    (posframe-show spk-info-mode-pos-buf
+                   :background-color "black"
+                   :foreground-color "yellow"
+                   :position (point))
+    (sit-for 5)
+    (message "hello prepare to hide")
+    (posframe-hide spk-info-mode-pos-buf)
+    )
+  )
+
+(define-key Info-mode-map (kbd "<f1>") #'spk/info-help-peek)
+
+;; windows上sis设置
+(sis-ism-lazyman-config nil t 'w32)
 ;; TODO 需要注意的是下面的相关配置会导致org-mode使用latex导出pdf时失败，暂时屏蔽以下配置，后续优化
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
 (when IS-LINUX

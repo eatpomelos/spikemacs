@@ -256,7 +256,7 @@
                                         (indent-according-to-mode)))
 
 
-;; 等有时间了找到执行不成成功的原因再调试打开
+;; ;; 等有时间了找到执行不成成功的原因再调试打开
 (when IS-LINUX
   (add-to-list 'load-path (concat spk-local-packges-dir "blink-search"))
 

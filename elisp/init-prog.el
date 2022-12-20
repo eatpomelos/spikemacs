@@ -243,10 +243,8 @@
   "pff" 'spk/find-file-entry
   "pfr" 'spk/project-find-file-in-root
   "pfa" 'spk/project-fast-find-all-file
-  ;; "pcf" 'spk/project-ctags-find-file
   "pfe" 'counsel-etags-find-tag
   "pfd" 'spk/project-find-docs-dir
-  ;; "pgd" 'spk/project-tags-code-navigation
   "eb" 'eval-buffer
   "mf" 'er/mark-defun
   "sp" 'dg                              ;;deadgrep

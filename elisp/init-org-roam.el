@@ -38,8 +38,8 @@
 
     ;; Chinese-English translation popup
     (add-to-list 'load-path (concat spk-popweb-dir "dict")) ;
-    (require 'popweb-dict-bing)                             ; Translation using Bing
-    (require 'popweb-dict-youdao)
+    ;; (require 'popweb-dict-bing)                             ; Translation using Bing
+    ;; (require 'popweb-dict-youdao)
 
     (global-set-key (kbd "<f3>") #'popweb-dict-bing-pointer)
     ))                                   ; Translation using Youdao
