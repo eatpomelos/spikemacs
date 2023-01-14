@@ -30,14 +30,17 @@
     "wK" 'evil-window-move-very-top
     )
   ;; 把一些辅助插件的buffer加入到ignore列表中，不进行winum排序
-  (add-to-list 'winum-ignored-buffers " *Neotree*")
+  (add-to-list 'winum-ignored-buffers " *NeoTree*")
   ;; (add-to-list 'winum-ignored-buffers "*sort-tab*")
   (add-to-list 'winum-ignored-buffers "*Ilist*")
   ;; 暂时只需要4个快捷键，开启五个窗口的情况比较少
-  (global-set-key (kbd "C-x 1") 'winum-select-window-1)
-  (global-set-key (kbd "C-x 2") 'winum-select-window-2)
-  (global-set-key (kbd "C-x 3") 'winum-select-window-3)
-  (global-set-key (kbd "C-x 4") 'winum-select-window-4)
+  (global-set-key (kbd "C-c 1") 'winum-select-window-1)
+  (global-set-key (kbd "C-c 2") 'winum-select-window-2)
+  (global-set-key (kbd "C-c 3") 'winum-select-window-3)
+  (global-set-key (kbd "C-c 4") 'winum-select-window-4)
+  (global-set-key (kbd "C-c 9") 'delete-other-windows)
+  (global-set-key (kbd "C-c /") 'split-window-right)
+  (global-set-key (kbd "C-c -") 'split-window-below)
   )
 
 (provide 'init-window)

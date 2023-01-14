@@ -337,14 +337,13 @@
 (add-hook 'c-mode-hook 'beacon-mode)
 (global-set-key (kbd "<f10>") 'beacon-blink)
 
-;; 在org配置中增加对 
-
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置
 (require 'init-elisp)
 (require 'init-C)
 
 ;; 仅在linux上使用init-lsp，由于当前在windows上使用共享文件的方式来进行编码，导致有一些文件的路径不对
 (when IS-LINUX
-  (require 'init-lsp))
+  (require 'init-lsp)
+  )
 
 (provide 'init-prog)

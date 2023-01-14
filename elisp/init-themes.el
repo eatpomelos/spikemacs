@@ -19,6 +19,11 @@
 (straight-use-package 'dracula-theme)
 (straight-use-package 'zen-and-art-theme)
 
+;; (straight-use-package
+;;    '(elegant-theme :type git
+;; 		    :host github
+;; 		    :repo "oracleyue/elegant-theme"))
+
 ;; 根据时间加载主题
 ;; (when IS-LINUX
   ;; (require 'circadian)

@@ -21,6 +21,13 @@
                          (evil-define-key* 'normal c-mode-map "gd" #'lsp-bridge-find-def)
                          (evil-define-key* 'normal c-mode-map "gr" #'lsp-bridge-find-references)
                          ))
+
+(add-hook 'python-mode-hook (lambda ()
+                              (evil-define-key* 'normal python-mode-map "gd" #'lsp-bridge-find-def)
+                              (evil-define-key* 'normal python-mode-map "gr" #'lsp-bridge-find-references)
+                              ))
+
+
 (advice-add 'lsp-bridge-ref-mode :after 'evil-emacs-state)
 
 (provide 'init-lsp)

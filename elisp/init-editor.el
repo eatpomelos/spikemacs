@@ -3,6 +3,7 @@
 (straight-use-package 'restart-emacs)
 (straight-use-package 'json-mode)
 (straight-use-package 'sis)
+(straight-use-package 'pangu-spacing)
 
 ;; 将此库文件更新为fork版本
 (straight-use-package
@@ -30,18 +31,20 @@
 (defun spk/info-help-peek ()
   "Info help peek."
   (interactive)
-  (when (and (posframe-workable-p) t)
+  (when (posframe-workable-p) 
     (posframe-show spk-info-mode-pos-buf
                    :background-color "black"
                    :foreground-color "yellow"
+                   :internal-border-width 2
+                   :internal-border-color "red"
                    :position (point))
-    (sit-for 5)
-    (message "hello prepare to hide")
+    (sit-for 10)
     (posframe-hide spk-info-mode-pos-buf)
     )
   )
 
-(define-key Info-mode-map (kbd "<f1>") #'spk/info-help-peek)
+(with-eval-after-load 'info
+  (define-key Info-mode-map (kbd "<f1>") #'spk/info-help-peek))
 
 ;; windows上sis设置
 (sis-ism-lazyman-config nil t 'w32)
@@ -221,6 +224,11 @@
   "sy" 'symbol-overlay-save-symbol
   )
 
+;; 修改书签后自动保存
+(setq bookmark-save-flag t)
+;; 显示文件大小
+(size-indication-mode t)
+
 ;; ediff 配置
 (setq-default ediff-split-window-function 'split-window-horizontally)
 
@@ -236,5 +244,11 @@
 
 ;; 设置info-mode中的一些快捷键
 ;; (define-key Info-mode-map "v" 'evil-visual-char)
+(require 'pangu-spacing)
+(global-pangu-spacing-mode 1)
+
+(add-hook 'org-mode-hook
+          #'(lambda ()
+             (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
 
 (provide 'init-editor)
