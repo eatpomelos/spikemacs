@@ -18,14 +18,6 @@
       (cond (IS-WINDOWS "D:/work/linux_code/")
             (IS-LINUX "~/spk/open_source/linux_code/")))
 
-;; TODO：有时间的时候看是否使用这个包替代现在的查询方案
-(straight-use-package
- '(color-rg :type git
-			:host github
-			:repo "manateelazycat/color-rg"
-			))
-;; (require 'color-rg)
-
 ;; 使用懒猫仓库的delete-block包用于删除块
 (straight-use-package
  '(delete-block
@@ -34,32 +26,6 @@
    :repo "manateelazycat/delete-block"
    )
  )
-
-;; (straight-use-package
-;;  '(sort-tab :type git
-;; 			:host github
-;; 			:repo "manateelazycat/sort-tab"
-;; 			))
-
-;; (require 'sort-tab)
-;; ;; ;; 暂时全局开启sort-tab， 用于当前快速切换不同buffer，暂时试用，如无问题就加入到当前配置里面
-;; (sort-tab-mode 1)
-;; (with-eval-after-load 'sort-tab
-;;   (global-set-key (kbd "M-1") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "M-2") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "M-3") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "M-4") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "M-5") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "M-6") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "M-7") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "M-8") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "M-9") 'sort-tab-select-visible-tab)
-;;   (global-set-key (kbd "M-0") 'sort-tab-select-visible-tab)
-  
-;;   ;; (define-key evil-normal-state-map (kbd ",Q") 'sort-tab-close-all-tabs)
-;;   ;; (define-key evil-normal-state-map (kbd ",q") 'sort-tab-close-mode-tabs)
-;;   ;; (define-key evil-normal-state-map (kbd ",;") 'sort-tab-close-current-tab)
-;;   )
 
 (add-hook 'c-mode-hook (lambda ()
                          (define-key c-mode-map (kbd "M-d") 'delete-block-forward)
@@ -156,20 +122,6 @@
       (message "Not in a project")))
   )
 
-;; 使用color-rg中的api在项目中搜索字符串
-;;;###autoload
-(defun spk/project-search-symbol-base-color-rg (&optional sym)
-  (let* ((prog-dir (+spk-get-file-dir "TAGS"))
-		 )
-	(unless prog-dir
-	  (setq prog-dir (+spk-get-file-dir ".git")))
-	(unless sym
-	  (setq sym (read-string "Please input symbol: ")))
-	(message (format "sym=%s dir=%s" sym prog-dir))
-	(if (and prog-dir (not (string= sym "")))
-		(color-rg-search-input sym prog-dir "*.[ch]")
-	  (message "Not in a project."))))
-
 ;;;###autoload
 (defun spk/project-find-file ()
   "Find file in project root directory."
@@ -191,19 +143,6 @@
       (setq dir default-directory))
     (spk-search-file-internal dir t symbol (+spk-current-buffer-file-postfix))
     ))
-
-;; 在大型项目中搜索字符串,使用基于color-rg的api来搜索
-;;;###autoload
-(defun spk/project-search-symbol-at-point ()
-  (interactive)
-  (spk/project-search-symbol-base-color-rg (thing-at-point 'symbol))
-  )
-
-;;;###autoload
-(defun spk/project-search-symbol-from-input ()
-  (interactive)
-  (spk/project-search-symbol-base-color-rg nil)
-  )
 
 ;; 在跳转到C函数时，将光标移动到函数名上 
 ;;;###autoload

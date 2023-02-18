@@ -83,7 +83,6 @@
 			              :host github
 			              :repo "manateelazycat/company-english-helper"))
 ;; 指定一个函数从文件中自动加载，暂时理解成指定一个函数为autoload，当使用这个函数时自动加载那个文件
-(global-set-key (kbd "<f1>") 'toggle-company-english-helper)
 
 (define-key global-map (kbd "C-=") 'er/expand-region)
 (define-key global-map (kbd "C-\-") 'er/contract-region)
@@ -238,6 +237,9 @@
 (defun down-slightly () (interactive) (scroll-down 1))
 (global-set-key [wheel-up] 'down-slightly)
 (global-set-key [wheel-down] 'up-slightly)
+
+;; 在Info-mode 下进入emacs-state，便于直接使用Info-mode中的快捷键
+(advice-add 'Info-mode :after 'evil-emacs-state)
 
 ;; 设置最近文件的最大条目数
 (setq recentf-max-saved-items 1000)

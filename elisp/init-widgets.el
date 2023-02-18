@@ -266,20 +266,6 @@
                                         (kill-line 0)
                                         (indent-according-to-mode)))
 
-
-;; ;; 等有时间了找到执行不成成功的原因再调试打开
-;; (when IS-LINUX
-;;   (add-to-list 'load-path (concat spk-local-packges-dir "blink-search"))
-
-;;   ;; (require 'blink-search)
-;;   (with-eval-after-load 'blink-search
-;;     (straight-use-package 'svg)
-;;     (require 'svg)
-;;     (advice-add 'blink-search-mode :after 'evil-emacs-state)
-;;     (setq blink-search-epc-debug t)
-;;     (setq blink-search-enable-log t)
-;;     ))
-
 ;;;###autoload
 (defun spk/counsel-rg-current-dir ()
   (interactive)
@@ -311,7 +297,6 @@
   "t" 'spk-find-local-templet
   "ee" 'base64-encode-region
   "ed" 'base64-decode-region
-  ;; "sl" 'blink-search
   "sc" 'spk/counsel-rg-current-dir
   "mm" 'spk/bookmark-last-edit-record
   "mj" 'spk/bookmark-last-edit-jump
