@@ -26,6 +26,17 @@
   (interactive)
   (counsel-find-file spk-elisp-dir))
 
+(when IS-LINUX
+  (setq spk-i3-conf-dir (concat (format "/home/%s%s" user-login-name "/.config/i3/config.d/")))
+;;;###autoload
+  (defun spk-find-i3-conf ()
+    "Find local config in the local path."
+    (interactive)
+    (counsel-find-file spk-i3-conf-dir))
+  (evil-leader/set-key
+    "fv" 'spk-find-i3-conf)
+  )
+
 ;; 打开电脑上的其他emacs配置
 ;;;###autoload
 (defun spk-find-emacs-confs ()
@@ -33,8 +44,8 @@
   (interactive)
   (let* ((emacs-conf-dir nil))
     (setq emacs-conf-dir
-	  (cond (IS-WINDOWS "d:/HOME/spike/configs")
-		(IS-LINUX "~/emacs-config")))
+	      (cond (IS-WINDOWS "d:/HOME/spike/configs")
+		        (IS-LINUX "~/emacs-config")))
     (counsel-find-file emacs-conf-dir)))
 
 ;; 当打开的文件较大时，
@@ -257,17 +268,17 @@
 
 
 ;; ;; 等有时间了找到执行不成成功的原因再调试打开
-(when IS-LINUX
-  (add-to-list 'load-path (concat spk-local-packges-dir "blink-search"))
+;; (when IS-LINUX
+;;   (add-to-list 'load-path (concat spk-local-packges-dir "blink-search"))
 
-  (require 'blink-search)
-  (with-eval-after-load 'blink-search
-    (straight-use-package 'svg)
-    (require 'svg)
-    (advice-add 'blink-search-mode :after 'evil-emacs-state)
-    (setq blink-search-epc-debug t)
-    (setq blink-search-enable-log t)
-    ))
+;;   ;; (require 'blink-search)
+;;   (with-eval-after-load 'blink-search
+;;     (straight-use-package 'svg)
+;;     (require 'svg)
+;;     (advice-add 'blink-search-mode :after 'evil-emacs-state)
+;;     (setq blink-search-epc-debug t)
+;;     (setq blink-search-enable-log t)
+;;     ))
 
 ;;;###autoload
 (defun spk/counsel-rg-current-dir ()
@@ -307,3 +318,5 @@
   )
 
 (provide 'init-widgets)
+
+(ivy--queue-exhibit) 

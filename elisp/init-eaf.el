@@ -40,6 +40,8 @@
   ;; 需要注意的是，在windows上使用eaf浏览器的时候，如果要导入
   (when IS-WINDOWS
     (setq eaf-chrome-bookmark-file (concat "C:/Users/" user-real-login-name "/AppData/Local/Google/Chrome/User Data/Default/Bookmarks"))
+    (when IS-LINUX
+      (setq eaf-chrome-bookmark-file /home/spikely/.config/google-chrome/Default/Bookmarks))
     ;; 在windows上如果没有安装 将 open-office 后缀列表设置为空
     (setq eaf-office-extension-list nil)
     )

@@ -78,7 +78,6 @@
       '("COMMIT_MSG"
         "COMMIT_EDITMSG"
         "github.*txt$"
-        ;; "/tmp/"
         "/ssh:"
         "/sudo:"
         "/TAGS$"

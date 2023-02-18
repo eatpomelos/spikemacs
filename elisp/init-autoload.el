@@ -86,5 +86,5 @@
 (autoload #'youdao-dictionary-search-at-point+ "youdao-dictionary")
 (autoload #'tiny-expand "tiny")
 
-(autoload #'blink-search "blink-search")
+;; (autoload #'blink-search "blink-search")
 (provide 'init-autoload)
