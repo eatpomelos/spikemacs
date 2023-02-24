@@ -8,6 +8,7 @@
   ;; 测试 lsp-bridge 暂时不在 prog-mode 下开启company-mode
   (add-hook 'prog-mode-hook 'company-mode))
 (add-hook 'conf-mode-hook 'company-mode)
+(add-hook 'emacs-lisp-mode-hook 'company-mode)
 (add-hook 'eshll-mode-hook 'company-mode)
 (add-hook 'org-mode-hook 'company-mode)
 

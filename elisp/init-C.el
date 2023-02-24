@@ -7,10 +7,6 @@
                         (other . "linux")))
 (setq c-basic-offset 4)
 
-(setq spk-linux-code-dir
-      (cond (IS-WINDOWS spk-source-code-dir)
-            (IS-LINUX (concat spk-source-code-dir "linux_code/"))))
-
 ;; 检测if 0 并用注释的face来显示这段内容
 ;; highlight c
 (defun my-c-mode-font-lock-if0 (limit)
@@ -64,6 +60,12 @@
   (when (boundp 'deadgrep-project-root-function)
     (make-local-variable 'deadgrep-project-root-function)
     (setq deadgrep-project-root-function 'spk/deadgrep-search-default-dir))
+
+  ;; 在进入C-mode的时候如果在根目录中发现了compile_command.json 文件则使用lsp-bridge的快捷键
+  (when (and (+spk-get-complete-file "compile_command.json") IS-LINUX)
+    (evil-define-key* 'normal c-mode-map "gd" #'lsp-bridge-find-def)
+    (evil-define-key* 'normal c-mode-map "gr" #'lsp-bridge-find-references)
+    )
   )
 
 (add-hook 'c-mode-hook #'spk/cc-mode-setup)

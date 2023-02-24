@@ -43,7 +43,7 @@
          )
         ))
 
-;; ;; 使用awesome-tray来优化显示
+;; 使用awesome-tray来优化显示
 ;; (straight-use-package
 ;;    '(awesome-tray :type git
 ;; 		    :host github

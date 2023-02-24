@@ -16,7 +16,7 @@
 
 (setq spk-source-code-dir
       (cond (IS-WINDOWS "D:/work/linux_code/")
-            (IS-LINUX "~/spk/open_source/linux_code/")))
+            (IS-LINUX "/home/spikely/spk/linux_source/")))
 
 ;; 使用懒猫仓库的delete-block包用于删除块
 (straight-use-package

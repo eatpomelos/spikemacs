@@ -74,9 +74,9 @@
       (insert latex-templet))
     ))
 
-(defun spk/find-linux-coded-dir ()
+(defun spk/find-linux-code-dir ()
   (interactive)
-  (counsel-find-file spk-linux-code-dir))
+  (counsel-find-file spk-source-code-dir))
 
 ;; 设置emacs的透明度
 ;; (setq alpha-list '((100 100) (75 45)))
@@ -292,7 +292,7 @@
   "fp" 'spk-find-local-conf
   "ff" 'spk-find-file
   "fd" 'spk-find-linux-doc
-  "fqp" 'spk/find-linux-coded-dir
+  "fqp" 'spk/find-linux-code-dir
   "fo" 'spk-open-file-with-system-application
   "t" 'spk-find-local-templet
   "ee" 'base64-encode-region
