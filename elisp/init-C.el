@@ -62,7 +62,7 @@
     (setq deadgrep-project-root-function 'spk/deadgrep-search-default-dir))
 
   ;; 在进入C-mode的时候如果在根目录中发现了compile_command.json 文件则使用lsp-bridge的快捷键
-  (when (and (+spk-get-complete-file "compile_command.json") IS-LINUX)
+  (when (and (+spk-get-complete-file "compile_commands.json") IS-LINUX)
     (evil-define-key* 'normal c-mode-map "gd" #'lsp-bridge-find-def)
     (evil-define-key* 'normal c-mode-map "gr" #'lsp-bridge-find-references)
     )

@@ -285,7 +285,6 @@
   (interactive)
   (bookmark-jump (bookmark-get-bookmark spk-edit-point)))
 
-
 ;; keybindings
 (evil-leader/set-key
   "fc" 'spk-find-emacs-confs
