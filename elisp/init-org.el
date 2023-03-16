@@ -1,11 +1,14 @@
-;; 和org 相关的配置
+;; 和 org 相关的配置
 
-;; 由于使用strainght.el 升级package 中org 有一个变量的名字发生了改变，此处使用本地org 包防止出现使用错误
+;; 由于使用 strainght.el 升级 package 中 org 有一个变量的名字发生了改变，此处使用本地 org 包防止出现使用错误
 (straight-use-package '(org :type built-in))
 (straight-use-package 'org-pomodoro)
+;; 增加 org 转换 srt 的插件
+(straight-use-package 'ox-rst)
+
 ;; (straight-use-package 'org)
 ;; (straight-use-package 'org-modern)
-;; 实现org-mode中表格的对齐
+;; 实现 org-mode 中表格的对齐
 ;; (straight-use-package 'valign)
 
 (straight-use-package
@@ -39,7 +42,7 @@
   (concat spk-org-directory "notes/")
   "Local notes path.")
 
-;; 设置agenda文件,注意以下这种写法，不加括号直接用字符串是不行的
+;; 设置 agenda 文件,注意以下这种写法，不加括号直接用字符串是不行的
 (setq org-agenda-files '("~/.emacs.d/docs/org"
 			             "~/.emacs.d/docs/org/notes"
                          "~/.emacs.d/docs/roam/daily"
@@ -56,7 +59,7 @@
       spk-notes-tips-file (expand-file-name "tips.org" spk-local-notes-dir)
       )
 
-;; 后续提高速度可以用eval-after-load来控制
+;; 后续提高速度可以用 eval-after-load 来控制
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline spk-capture-todo-file "Workspace")
          "* TODO [#B] %?\n  %i\n %U"
@@ -93,13 +96,14 @@
          "* %?\n %i\n %U"
          :empty-lines 1)))
 
-;; 下面使用的是别人提供的模板，主要是latex中使用的一些东西
+;; 下面使用的是别人提供的模板，主要是 latex 中使用的一些东西
 ;;org-export latex
+(require 'ox-latex)
 (setq org-alphabetical-lists t)
   ;;(setq org-latex-to-pdf-process (list "latexmk -pdf %f"))
   ;;(require 'ox-bibtex)
 
-;; 在windows上命令不统一，导致下面的rm命令无法执行，从而会保留一部分中间文件
+;; 在 windows 上命令不统一，导致下面的 rm 命令无法执行，从而会保留一部分中间文件
 (when IS-LINUX
     (setq org-latex-pdf-process
 	  '("xelatex -interaction nonstopmode %f"
@@ -109,7 +113,7 @@
 	    "rm -fr %b.out %b.log %b.tex %b.brf %b.bbl auto"
 	    )))
 
-;; 由于windows上的命令和linux不一致需要设置进行区分
+;; 由于 windows 上的命令和 linux 不一致需要设置进行区分
 (when IS-WINDOWS
   (setq org-latex-pdf-process
 	'("xelatex -interaction nonstopmode %f"
@@ -121,7 +125,6 @@
 
 (setq org-latex-compiler "xelatex")
 
-(require 'ox-latex)
 (add-to-list 'org-latex-classes
 	       '("org-dissertation"
 		 "\\documentclass[UTF8,twoside,a4paper,12pt,openright]{ctexrep}
@@ -280,17 +283,20 @@
 (defun spk/deadgrep-search-default-dir ()
   default-directory)
 
-;; org-mode启用的时候调用的函数，将需要在org-mode中添加的部分都放到这里来
+;; org-mode 启用的时候调用的函数，将需要在 org-mode 中添加的部分都放到这里来
 ;;;###autoload
 (defun spk/org-mode-setup ()
   (require 'deadgrep)
+  (require 'ox-rst)
+  ;; 与实际使用时相比，一级标题也使用了=，这里在原来的基础上增加一个=
+  (setq org-rst-headline-underline-characters '(?= ?- ?~ ?^ ?: ?' ?\ ?_))
   (when (boundp 'deadgrep-project-root-function)
     (make-local-variable 'deadgrep-project-root-function)
     (setq deadgrep-project-root-function 'spk/deadgrep-search-default-dir))
   )
 
 
-;; 添加相应hook
+;; 添加相应 hook
 (add-hook 'org-mode-hook 'org-num-mode)
 (add-hook 'org-mode-hook #'org-bars-mode)
 ;; (add-hook 'org-mode-hook 'focus-mode)
@@ -299,7 +305,7 @@
 (add-hook 'org-mode-hook 'spk/org-mode-setup)
 
 ;; (setq valign-fancy-bar t)
-;; 从懒猫大佬配置里面抄的将org导出为docx的函数，需要依赖于pandoc
+;; 从懒猫大佬配置里面抄的将 org 导出为 docx 的函数，需要依赖于 pandoc
 (defun org-export-docx ()
     "Export current buffer to docx file with the template.docx."
     (interactive)
@@ -309,7 +315,7 @@
                              (buffer-file-name) docx-file template-file))
       (message "Convert finish: %s" docx-file)))
 
-;; org-mode其余相关插件的初始化
+;; org-mode 其余相关插件的初始化
 (require 'init-org-roam)
 
 (provide 'init-org)

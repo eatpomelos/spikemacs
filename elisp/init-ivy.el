@@ -9,7 +9,7 @@
 
 ;; 使用这种方式来管理配置之后，怎么管理快捷键？
 ;; (global-set-key (kbd "M-x") #'counsel-M-x)
-(global-set-key (kbd "C-s") #'swiper)
+(global-set-key (kbd "C-s") #'swiper-isearch)
 
 (ivy-rich-mode 1)
 

@@ -95,7 +95,7 @@ and push it to `kill-ring'."
   (let* ((def-name nil))
     (setq def-name (spk-get-c-defun-name))
     (when def-name
-      (message (kill-new (spk-get-c-defun-name))))))
+      (message (kill-new def-name)))))
 
 ;; 可能hs-minor-mode的功能比较鸡肋，这里待商榷
 (define-key evil-normal-state-map (kbd ",n") #'spk-display-func-name)

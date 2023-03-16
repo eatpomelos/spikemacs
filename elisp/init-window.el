@@ -29,9 +29,11 @@
     "wJ" 'evil-window-move-very-bottom
     "wK" 'evil-window-move-very-top
     )
+
   ;; 把一些辅助插件的buffer加入到ignore列表中，不进行winum排序
-  (add-to-list 'winum-ignored-buffers " *NeoTree*")
-  (add-to-list 'winum-ignored-buffers "*Ilist*")
+  ;; (add-to-list 'winum-ignored-buffers " *NeoTree*")
+  ;; 一般开启Ilist  
+  ;; (add-to-list 'winum-ignored-buffers "*Ilist*")
   ;; 暂时只需要4个快捷键，开启五个窗口的情况比较少
   (global-set-key (kbd "C-c 1") 'winum-select-window-1)
   (global-set-key (kbd "C-c 2") 'winum-select-window-2)

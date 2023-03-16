@@ -46,6 +46,8 @@
     (setq eaf-office-extension-list nil)
     )
 
+  (setq eaf-browser-default-search-engine "bing")
+  
   (defun spk/eaf-pdf-outline-quite ()
     (interactive)
     (let* ((last-pdf-buf eaf-pdf-outline-pdf-document)
@@ -71,6 +73,10 @@
     "oi" 'eaf-open-url-at-point
     )
   )
+
+(global-set-key (kbd "C-c SPC") 'evil-switch-to-windows-last-buffer)
+(global-set-key (kbd "C-c p a") 'spk/project-fast-find-all-file)
+(global-set-key (kbd "C-c p f") 'spk/project-fast-find-file)
 
 ;; eaf和straight的结构有冲突，这里不使用straight的方式加载
 (provide 'init-eaf)

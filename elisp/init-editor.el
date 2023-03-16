@@ -5,7 +5,7 @@
 (straight-use-package 'sis)
 (straight-use-package 'pangu-spacing)
 
-;; 将此库文件更新为fork版本
+;; 将此库文件更新为 fork 版本
 (straight-use-package
  '(symbol-overlay
    :type git
@@ -14,11 +14,11 @@
    )
  )
 
-;; 使用posframe暂时实现一些简单的需求
+;; 使用 posframe 暂时实现一些简单的需求
 (straight-use-package 'posframe)
 (require 'posframe)
 
-;; 使用 posframe 实现一个简单的弹窗来显示info模式下的快捷键，参考posframe提供的demo
+;; 使用 posframe 实现一个简单的弹窗来显示 info 模式下的快捷键，参考 posframe 提供的 demo
 (defvar spk-info-mode-pos-buf " *spk-info-posframe-buffer*")
 
 (defadvice Info-mode (after spk-info-hack activate)
@@ -27,15 +27,15 @@
     (insert-file-contents (expand-file-name "info.txt" (concat spk-local-code-dir "posframe"))))
   )
 
-;; 在Info模式下提供一个快速查看快捷键的函数   
+;; 在 Info 模式下提供一个快速查看快捷键的函数   
 (defun spk/info-help-peek ()
   "Info help peek."
   (interactive)
   (when (posframe-workable-p) 
     (posframe-show spk-info-mode-pos-buf
-                   :background-color "black"
-                   :foreground-color "yellow"
-                   :internal-border-width 2
+                   :background-color (face-background 'default nil t)
+                   :foreground-color (face-foreground 'font-lock-string-face nil t)
+                   :internal-border-width 1
                    :internal-border-color "red"
                    :position (point))
     (sit-for 10)
@@ -46,9 +46,9 @@
 (with-eval-after-load 'info
   (define-key Info-mode-map (kbd "<f1>") #'spk/info-help-peek))
 
-;; windows上sis设置
+;; windows 上 sis 设置
 (sis-ism-lazyman-config nil t 'w32)
-;; TODO 需要注意的是下面的相关配置会导致org-mode使用latex导出pdf时失败，暂时屏蔽以下配置，后续优化
+;; TODO 需要注意的是下面的相关配置会导致 org-mode 使用 latex 导出 pdf 时失败，暂时屏蔽以下配置，后续优化
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
 (when IS-LINUX
   (set-language-environment 'utf-8)
@@ -57,7 +57,7 @@
   (modify-coding-system-alist 'process "*" 'utf-8)
   (setq default-process-coding-system '(utf-8 . utf-8))
 
-  ;; 配置selectrum 
+  ;; 配置 selectrum 
   (straight-use-package 'selectrum)
   (selectrum-mode +1))
 
@@ -65,11 +65,11 @@
 (straight-use-package 'undo-tree)
 (add-hook 'emacs-startup-hook #'global-undo-tree-mode)
 
-;; 在org-mode中打开自动折行功能，避免一行过长
+;; 在 org-mode 中打开自动折行功能，避免一行过长
 (add-hook 'org-mode-hook #'auto-fill-mode)
 (setq-default fill-column 90)
 
-;; 怎么在不添加新的package的情况下覆盖绑定?
+;; 怎么在不添加新的 package 的情况下覆盖绑定?
 (with-eval-after-load  'undo-tree
   (global-set-key (kbd "C-r") #'undo-tree-redo)
   (define-key evil-normal-state-map (kbd "C-r") #'undo-tree-redo)
@@ -77,26 +77,26 @@
   (setq undo-tree-auto-save-history nil)
   )
 
-;; 指定github上的包，并下载，由于当前的环境配置中 linux下的环境没有界面因此使用此package会导致emacs卡死
+;; 指定 github 上的包，并下载，由于当前的环境配置中 linux 下的环境没有界面因此使用此 package 会导致 emacs 卡死
 (straight-use-package
  '(company-english-helper :type git
 			              :host github
 			              :repo "manateelazycat/company-english-helper"))
-;; 指定一个函数从文件中自动加载，暂时理解成指定一个函数为autoload，当使用这个函数时自动加载那个文件
+;; 指定一个函数从文件中自动加载，暂时理解成指定一个函数为 autoload，当使用这个函数时自动加载那个文件
 
 (define-key global-map (kbd "C-=") 'er/expand-region)
 (define-key global-map (kbd "C-\-") 'er/contract-region)
 
 (global-set-key (kbd "C-c v") 'set-mark-command)
 (global-set-key (kbd "C-c l") 'avy-goto-line)
-;; 在minibuff中输入的时候由于焦点的变化导致光标无法回到minibuffer的输入框，且无法用C-g来解决
+;; 在 minibuff 中输入的时候由于焦点的变化导致光标无法回到 minibuffer 的输入框，且无法用 C-g 来解决
 (global-set-key (kbd "C-c C-g") 'exit-minibuffer)
 (global-set-key (kbd "C-<down>") 'text-scale-decrease)
 (global-set-key (kbd "C-<up>") 'text-scale-increase)
 
 (with-eval-after-load 'expand-region
   ;; 标记整个函数的时候，打印这个函数的行数
-  ;; (save-restriction) 函数是在执行之后恢复原来的buffer状态，包括变窄的状态等
+  ;; (save-restriction) 函数是在执行之后恢复原来的 buffer 状态，包括变窄的状态等
   (advice-add
    'er/mark-defun
    :before #'(lambda ()
@@ -133,10 +133,10 @@
   (setq ispell-process-directory "~/MSYS2/mingw64/bin/")
   )
 
-;; 由于高亮显示占用了evil的快捷键，且暂时不使用其自定义的快捷键，禁用symbol-overlay-mode
+;; 由于高亮显示占用了 evil 的快捷键，且暂时不使用其自定义的快捷键，禁用 symbol-overlay-mode
 (with-eval-after-load 'symbol-overlay
   (setq symbol-overlay-inhibit-map t)
-  ;; 默认的8个face不够用，这里增加到20个
+  ;; 默认的 8 个 face 不够用，这里增加到 20 个
   (defface symbol-overlay-face-9
     '((t (:background "SystemHilight" :foreground "black")))
     "Symbol Overlay default candidate 9"
@@ -186,7 +186,7 @@
     "Symbol Overlay default candidate 20"
     :group 'symbol-overlay)
 
-  ;; m1\n20|symbol-overlay-face-%d ，对于这种累加的变量，可以使用tiny-expand功能
+  ;; m1\n20|symbol-overlay-face-%d ，对于这种累加的变量，可以使用 tiny-expand 功能
   (setq symbol-overlay-faces
         '(symbol-overlay-face-1
           symbol-overlay-face-2
@@ -238,15 +238,19 @@
 (global-set-key [wheel-up] 'down-slightly)
 (global-set-key [wheel-down] 'up-slightly)
 
-;; 在Info-mode 下进入emacs-state，便于直接使用Info-mode中的快捷键
+;; 在 Info-mode 下进入 emacs-state，便于直接使用 Info-mode 中的快捷键
 (advice-add 'Info-mode :after 'evil-emacs-state)
 
 ;; 设置最近文件的最大条目数
 (setq recentf-max-saved-items 1000)
 
-;; 设置info-mode中的一些快捷键
+;; 设置 info-mode 中的一些快捷键
 ;; (define-key Info-mode-map "v" 'evil-visual-char)
+
+;; 这个包用于自动在中英文间插入空格
 (require 'pangu-spacing)
+;; 在中英文之间真的插入一个空格，而不是仅显示一个空格，方便在编程中智能删除中英文
+(setq pangu-spacing-real-insert-separtor nil)
 (global-pangu-spacing-mode 1)
 
 (add-hook 'org-mode-hook

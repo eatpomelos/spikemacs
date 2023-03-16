@@ -80,7 +80,7 @@
 
 ;; 设置emacs的透明度
 ;; (setq alpha-list '((100 100) (75 45)))
-(setq alpha-list '((100 100) (65 65)))
+(setq alpha-list '((100 100) (75 75) (65 65)))
 ;;;###autoload
 (defun loop-alpha ()
   (interactive)
@@ -191,15 +191,31 @@
   (counsel-find-file "~/.emacs.d/straight/build"))
 
 (straight-use-package 'youdao-dictionary)
+(when EMACS29+
+  (require 'popup))
 (evil-leader/set-key
   "yo" 'youdao-dictionary-search-at-point+
   "ys" 'youdao-dictionary-play-voice-at-point
   "yi" 'youdao-dictionary-search-from-input
   )
+
 ;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
 (advice-add 'youdao-dictionary-mode :after 'evil-emacs-state)
 (global-set-key (kbd "<f3>") #'youdao-dictionary-search-at-point+)
+(global-set-key (kbd "<f5>") #'spk/youdao-directory-search-form-input-posframe)
 
+(require 'youdao-dictionary)
+;;;###autoload
+(defun spk/youdao-directory-search-form-input-posframe ()
+  "Youdao dictionary search from input."
+  (interactive)
+  (let* ((word nil))
+    (setq word (read-string (format "Word: ")
+                            nil nil word))
+    (youdao-dictionary--pos-tip
+     (youdao-dictionary--format-result
+      (youdao-dictionary--request word)))
+    ))
 
 ;; 在windows上找不到 manual 节点，手动将emacs doc的位置添加到info-directory-list里面去
 (when IS-WINDOWS

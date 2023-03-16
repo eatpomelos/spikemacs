@@ -58,14 +58,15 @@
 ;; keybindings
 (global-set-key (kbd "<f12>") 'eshell)
 (global-set-key (kbd "<f2>") 'imenu-list-smart-toggle)
-(global-set-key (kbd "<f5>") 'hs-toggle-hiding)
 
 (with-eval-after-load 'imenu-list
   (setq
    imenu-list-position 'left
-   imenu-list-size 0.25
+   imenu-list-size 0.15
    ;; 此值设为t时，运行imenu-list-show会将光标移动到imenu-list的window
    imenu-list-focus-after-activation t
+   imenu-list-auto-resize nil
+   imenu-list-auto-update t
    )
 
   ;; 在imenu中跳转到条目所在位置，但是光标保留在当前位置
@@ -83,8 +84,7 @@
   (advice-add 'imenu-list-show :after #'evil-emacs-state)
 
   (define-key imenu-list-major-mode-map "j" #'next-line)
-  (define-key imenu-list-major-mode-map "k" #'previous-line)
-  )
+  (define-key imenu-list-major-mode-map "k" #'previous-line))
 
 ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=29619
 (setq xref-prompt-for-identifier
