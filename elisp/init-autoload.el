@@ -84,7 +84,6 @@
 
 ;; init-widgets
 (autoload #'youdao-dictionary-search-at-point+ "youdao-dictionary")
-(autoload #'spk/youdao-directory-search-form-input-posframe "youdao-dictionary")
 (autoload #'tiny-expand "tiny")
 
 (provide 'init-autoload)

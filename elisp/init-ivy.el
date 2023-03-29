@@ -3,6 +3,7 @@
 (straight-use-package 'ivy-rich)
 (straight-use-package 'wgrep)
 (straight-use-package 'smex)
+(straight-use-package 'which-key)
 
 ;; 使用helpful插件替换原来的help
 ;; (straight-use-package 'helpful)
@@ -15,6 +16,8 @@
 
 (with-eval-after-load 'ivy
   (setq ivy-use-virtual-buffers t)
+  ;; (setq ivy-use-ignore nil)
+  ;; (setq ivy-use-ignore-default nil)
   (setq enable-recursive-minibuffers t)
 
   (counsel-mode 1)
@@ -28,8 +31,11 @@
   (add-hook 'ivy-occur-grep-mode-hook
             #'(lambda ()
                 (evil-emacs-state)))
-
   )
+
+(add-hook 'evil-leader-mode-hook #'which-key-mode)
+(with-eval-after-load 'which-key
+  (setq which-key-idle-delay 0.1))
 
 (evil-leader/set-key
   "fl" 'counsel-locate

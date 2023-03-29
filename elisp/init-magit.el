@@ -3,8 +3,8 @@
 (straight-use-package 'vc-msg)
 
 ;; 下面的advice定义表示的是执行完magit-status 函数之后，切换evil模式到insert模式
-(advice-add 'magit-status :after #'evil-insert-state)
-(advice-add 'magit-log-mode :after #'linum-mode)
+(evil-set-initial-state 'magit-status-mode 'emacs)
+(evil-set-initial-state 'magit-log-mode 'emacs)
 
 (evil-leader/set-key
   "gs" 'magit-status

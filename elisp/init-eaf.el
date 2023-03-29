@@ -57,8 +57,9 @@
       (when (equal eaf-pdf-outline-pdf-document last-buf)
         (delete-window))))
   
-  (advice-add 'eaf-mode :after 'evil-emacs-state)
-  (advice-add 'eaf-pdf-outline-mode :after 'evil-emacs-state)
+  (evil-set-initial-state 'eaf-mode 'emacs)
+  (evil-set-initial-state 'eaf-pdf-outline-mode 'emacs)
+  
   (define-key eaf-pdf-outline-mode-map "j" 'next-line)
   (define-key eaf-pdf-outline-mode-map "k" 'previous-line)
   ;; 在大纲模式的时候增加快捷键退出

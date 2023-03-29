@@ -200,19 +200,20 @@
   )
 
 ;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
-(advice-add 'youdao-dictionary-mode :after 'evil-emacs-state)
+(evil-set-initial-state 'youdao-dictionary-mode 'emacs)
+
 (global-set-key (kbd "<f3>") #'youdao-dictionary-search-at-point+)
-(global-set-key (kbd "<f5>") #'spk/youdao-directory-search-form-input-posframe)
+(global-set-key (kbd "<f4>") #'spk/youdao-directory-search-form-input-popup)
 
 (require 'youdao-dictionary)
 ;;;###autoload
-(defun spk/youdao-directory-search-form-input-posframe ()
+(defun spk/youdao-directory-search-form-input-popup ()
   "Youdao dictionary search from input."
   (interactive)
   (let* ((word nil))
     (setq word (read-string (format "Word: ")
                             nil nil word))
-    (youdao-dictionary--pos-tip
+    (popup-tip
      (youdao-dictionary--format-result
       (youdao-dictionary--request word)))
     ))

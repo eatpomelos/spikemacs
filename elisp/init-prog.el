@@ -81,7 +81,7 @@
       )
     )
   (define-key imenu-list-major-mode-map (kbd "TAB") 'spk/imenu-list-peek-entry)
-  (advice-add 'imenu-list-show :after #'evil-emacs-state)
+  (evil-set-initial-state 'imenu-list-minor-mode 'emacs)
 
   (define-key imenu-list-major-mode-map "j" #'next-line)
   (define-key imenu-list-major-mode-map "k" #'previous-line))

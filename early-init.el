@@ -53,6 +53,7 @@
 
 (require 'init-lib)
 (require 'init-straight)
+(require 'init-themes)
 
 ;; 运行在不支持 early-init 的 emacs 版本上时在 init.el 文件中手动加载此文件
 (provide 'spk-early-init)

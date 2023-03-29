@@ -239,7 +239,7 @@
 (global-set-key [wheel-down] 'up-slightly)
 
 ;; 在 Info-mode 下进入 emacs-state，便于直接使用 Info-mode 中的快捷键
-(advice-add 'Info-mode :after 'evil-emacs-state)
+(evil-set-initial-state 'Info-mode 'emacs)
 
 ;; 设置最近文件的最大条目数
 (setq recentf-max-saved-items 1000)

@@ -1,6 +1,5 @@
 (straight-use-package 'company)
 (straight-use-package 'company-box)
-(straight-use-package 'which-key)
 
 (add-hook 'c-mode-hook 'yas-minor-mode)
 
@@ -37,9 +36,5 @@
 
 (with-eval-after-load 'company-box
   (setq company-box-doc-delay 0.25))
-
-(add-hook 'evil-leader-mode-hook #'which-key-mode)
-(with-eval-after-load 'which-key
-  (setq which-key-idle-delay 0.1))
 
 (provide 'init-company)

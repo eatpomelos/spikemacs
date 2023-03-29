@@ -41,37 +41,51 @@
 
 (require 'init-default)
 (require 'init-autoload)
-(require 'init-evil)
-(require 'init-ivy)
-(require 'init-org)
-(require 'init-editor)
-(require 'init-window)
-(require 'init-magit)
-(require 'init-dired)
 
-;; ;; ;; company 的配置包括 which-key
-(require 'init-company)
-;; ;; ;; 和编程相关的配置统一由init-prog.el 文件一起加载，在文件中分别加载各语言的配置文件
-(require 'init-prog)
-(require 'init-themes)
-;; 部分配置只需要在linux上加载，这里使用宏进行控制
-(require 'init-eaf)
+(let (
+      (gc-cons-threshold most-positive-fixnum)
+      (gc-cons-percentage 0.6)
+      (file-name-handler-alist nil)
+      )
 
-(require 'init-widgets)
+  (with-temp-message ""
+    (require 'init-evil)
+    (require 'init-ivy)
+    
+    (require 'init-window)
+     ;; 可以延后加载的插件
+    (run-with-idle-timer
+     1 nil
+     #'(lambda ()
+         (require 'init-org)
+         (require 'init-editor)
+     
+         (require 'init-magit)
+         (require 'init-dired)
 
-;; 这个文件按需求创建，主要是存放不同系统下自己可能使用的一些特定工具函数
-(spk-require 'init-private)
-(require 'init-ui)
+         ;; ;; ;; company 的配置包括 which-key
+         (require 'init-company)
+         ;; ;; ;; 和编程相关的配置统一由init-prog.el 文件一起加载，在文件中分别加载各语言的配置文件
+         (require 'init-prog)
+         ;; 部分配置只需要在linux上加载，这里使用宏进行控制
+         (require 'init-eaf)
 
-;; 在scratch中插入启动时间
-(add-hook 'window-setup-hook
-          (lambda ()
-            (switch-to-buffer "*scratch*")
-            (erase-buffer)
-            (insert (format "%s;; Happy hacking!! emacs startup with %.3fs!!\n"
-                            spk-scratch-log
-                            (float-time (time-subtract (current-time) before-init-time)))))
-          'append)
+         (require 'init-widgets)
+
+         ;; 这个文件按需求创建，主要是存放不同系统下自己可能使用的一些特定工具函数
+         (spk-require 'init-private)
+         (require 'init-ui)))
+
+    ;; 在scratch中插入启动时间
+    (add-hook 'window-setup-hook
+              (lambda ()
+                (switch-to-buffer "*scratch*")
+                (erase-buffer)
+                (insert (format "%s;; Happy hacking!! emacs startup with %.3fs!!\n"
+                                spk-scratch-log
+                                (float-time (time-subtract (current-time) before-init-time)))))
+              'append))
+  )
 
 (put 'narrow-to-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)

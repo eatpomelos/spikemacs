@@ -21,6 +21,6 @@
                               (evil-define-key* 'normal python-mode-map "gr" #'lsp-bridge-find-references)
                               ))
 
-(advice-add 'lsp-bridge-ref-mode :after 'evil-emacs-state)
+(evil-set-initial-state 'lsp-bridge-ref-mode 'emacs)
 
 (provide 'init-lsp)

@@ -32,6 +32,6 @@
   )
 
 ;; 在进入 neotree 显示的时候进入 evil 的 emacs-state
-(advice-add 'neotree-show :after #'evil-emacs-state)
+(evil-set-initial-state 'neotree-mode 'emacs)
 
 (provide 'init-dired)

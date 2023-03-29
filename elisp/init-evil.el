@@ -30,6 +30,10 @@
     "hi" 'info
     "hk" 'describe-key
     "hv" 'describe-variable
+    "hav" 'apropos-variable
+    "haf" 'apropos-function
+    "haa" 'apropos-command
+    "had" 'apropos-documentation
     "hf" 'describe-function
     "hr" 'info-emacs-manual
     ;; "sp" 'counsel-rg
