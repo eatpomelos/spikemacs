@@ -25,6 +25,7 @@
 (global-set-key (kbd "C-c n") 'org-roam-dailies-capture-tomorrow)
 (global-set-key (kbd "C-c y") 'org-roam-dailies-capture-yesterday)
 
+(global-set-key (kbd "C-c odt") 'org-roam-dailies-goto-today)
 ; org-roam也可以用来处理日记，有时间可以了解一下
 (evil-leader/set-key
   "of" 'org-roam-node-find

@@ -40,6 +40,7 @@
 (evil-leader/set-key
   "fl" 'counsel-locate
   "x" 'counsel-M-x
+  "lt" 'counsel-load-theme
   )
 
 (provide 'init-ivy)

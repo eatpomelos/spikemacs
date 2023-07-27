@@ -2,7 +2,6 @@
 (straight-use-package 'smart-hungry-delete)
 ;; (straight-use-package 'aggressive-indent-mode)
 (straight-use-package 'deadgrep)
-(straight-use-package 'beacon)
 (straight-use-package 'minimap)
 (straight-use-package 'yasnippet)
 
@@ -11,6 +10,8 @@
 
 ;; 替换xref的搜索程序，暂时没在windows上察觉到明显的速度变化
 (when (and EMACS28+ IS-LINUX)
+  (straight-use-package 'tree-sitter)
+  (straight-use-package 'tree-sitter-langs)
   (setq xref-search-program 'ripgrep)
   )
 
@@ -269,12 +270,6 @@
   )
 
 (add-hook 'c-mode-hook 'highlight-changes-mode)
-;; 设置beacon颜色
-(setq beacon-color "#B0A4E3")
-;; (setq beacon-blink-when-focused nil)
-(setq beacon-blink-delay 0.2)
-(add-hook 'c-mode-hook 'beacon-mode)
-(global-set-key (kbd "<f10>") 'beacon-blink)
 
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置
 (require 'init-elisp)

@@ -47,7 +47,7 @@
       (gc-cons-percentage 0.6)
       (file-name-handler-alist nil)
       )
-
+  (global-display-line-numbers-mode t)
   (with-temp-message ""
     (require 'init-evil)
     (require 'init-ivy)
@@ -68,7 +68,8 @@
          ;; ;; ;; 和编程相关的配置统一由init-prog.el 文件一起加载，在文件中分别加载各语言的配置文件
          (require 'init-prog)
          ;; 部分配置只需要在linux上加载，这里使用宏进行控制
-         (require 'init-eaf)
+         (when IS-LINUX
+           (require 'init-eaf))
 
          (require 'init-widgets)
 

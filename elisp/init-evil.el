@@ -5,6 +5,7 @@
 (straight-use-package 'evil-surround)
 (straight-use-package 'evil-nerd-commenter)
 (straight-use-package 'evil-smartparens)
+(straight-use-package 'evil-goggles)
 
 (add-hook 'emacs-startup-hook #'evil-mode)
 
@@ -44,7 +45,10 @@
     )
   ;; (require 'evil-surround)
   (global-evil-surround-mode 1)
-
+  
+  (evil-goggles-mode)
+  (evil-goggles-use-diff-faces)
+  
   (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
   (with-eval-after-load 'evil-nerd-commenter
     (evil-leader/set-key

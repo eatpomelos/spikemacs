@@ -5,7 +5,7 @@
 (straight-use-package 'org-pomodoro)
 ;; 增加 org 转换 srt 的插件
 (straight-use-package 'ox-rst)
-
+(straight-use-package 'markdown-mode)
 ;; (straight-use-package 'org)
 ;; (straight-use-package 'org-modern)
 ;; 实现 org-mode 中表格的对齐

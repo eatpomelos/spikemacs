@@ -3,12 +3,14 @@
 (straight-use-package 'all-the-icons-dired)
 (straight-use-package 'all-the-icons-completion)
 
+;; 由于大文件中linum渲染会对性能有影响，这里使用自带display-line-numbers 替代
 ;; 在部分emacs29版本上移除了linum-mode
-(when EMACS28+
-  (straight-use-package 'linum+)
-  (require 'linum+))
+;; (when EMACS28+
+;;   (straight-use-package 'linum+)
+;;   (require 'linum+))
 
-(global-linum-mode t)
+;; (global-linum-mode t)
+;; (line-number-mode t)
 
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 (all-the-icons-completion-mode 1)
@@ -51,6 +53,8 @@
 (require 'awesome-tray)
 (setq awesome-tray-active-modules
       '("file-path" "buffer-name" "evil" "location" "mode-name" "belong" "date"))
+
+(setq awesome-tray-position 'center)
 
 (awesome-tray-enable)
 

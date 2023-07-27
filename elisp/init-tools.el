@@ -1,6 +1,14 @@
 ;; 暂时用来存放自己使用的一些外部工具相关的配置，后续优化
 (straight-use-package 'graphviz-dot-mode)
 
+;; 在linux下使用emacs-rime 输入
+(when IS-LINUX
+  (straight-use-package 'rime)
+  (require 'rime)
+  (setq default-input-method "rime"
+        rime-show-candidate 'posframe)
+  )
+
 ;; 后续增加一个开关用于动态开启预览，避免大文件编译耗时比较长导致卡顿？
 ;; (defvar spk-dot-preview-switch t)
 
@@ -58,6 +66,22 @@
       (spk/graphviz-dot-eaf-preview)))
 
   (add-hook 'after-save-hook 'spk/graphviz-live-reload-hook)
+  )
+
+(setq mind-wave-dir (concat spk-local-packges-dir "mind-wave"))
+(setq spk-mind-wave-chat-dir (concat spk-local-dir "open-ai/chat"))
+
+(when (file-exists-p mind-wave-dir)
+  (add-to-list 'load-path (concat spk-local-packges-dir "mind-wave"))
+  (require 'mind-wave)
+  (setq mind-wave-api-key-path (concat spk-local-dir "open-ai/key.txt"))
+  )
+
+(when (file-exists-p spk-mind-wave-chat-dir)
+  (defun spk/open-private-chat-dir ()
+    (interactive)
+    (counsel-find-file spk-mind-wave-chat-dir))
+  (global-set-key (kbd "<f10>") 'spk/open-private-chat-dir)
   )
 
 (provide 'init-tools)

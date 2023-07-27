@@ -318,6 +318,8 @@
   "mj" 'spk/bookmark-last-edit-jump
   )
 
+;; 使用emacs中自带的calculator 日常计算的时候使用
+(evil-set-initial-state 'calculator-mode 'emacs)
 (provide 'init-widgets)
 
 (ivy--queue-exhibit) 

@@ -57,7 +57,6 @@
 (autoload #'lispy-mode "lispy")
 (autoload #'elisp-demos-advice-describe-function-1 "elisp-demos")
 (autoload #'elisp-demos-advice-helpful-update "elisp-demos")
-(autoload #'beacon-mode "beacon")
 (autoload #'minimap-mode "minimap")
 ;; (autoload #'focus-mode "focus")
 

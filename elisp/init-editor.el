@@ -22,9 +22,10 @@
 (defvar spk-info-mode-pos-buf " *spk-info-posframe-buffer*")
 
 (defadvice Info-mode (after spk-info-hack activate)
-  (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
-    (erase-buffer)
-    (insert-file-contents (expand-file-name "info.txt" (concat spk-local-code-dir "posframe"))))
+  (when (file-exists-p (expand-file-name "info.txt" (concat spk-local-code-dir "posframe")))
+    (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
+      (erase-buffer)
+      (insert-file-contents (expand-file-name "info.txt" (concat spk-local-code-dir "posframe")))))
   )
 
 ;; 在 Info 模式下提供一个快速查看快捷键的函数   
