@@ -84,7 +84,7 @@ The theme is emulate spk-mint to learn elisp."
    
    ;; linum 
    `(linum ((t (:background ,spk-mint-moon :foreground ,spk-mint-darkblue))))
-   `(line-number ((t (:background ,spk-mint-moon :foreground ,spk-mint-darkblue))))
+   `(line-number ((t (:background ,spk-mint-bg :foreground ,spk-mint-darkblue))))
    `(line-number-current-line ((t (:inherit hl-line))))
    `(header-line ((t (:background ,spk-mint-lightblue))))
 
