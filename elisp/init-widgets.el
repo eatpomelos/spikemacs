@@ -190,39 +190,7 @@
   (interactive)
   (counsel-find-file "~/.emacs.d/straight/build"))
 
-(straight-use-package 'youdao-dictionary)
-(when EMACS29+
-  (require 'popup))
-(evil-leader/set-key
-  "yo" 'youdao-dictionary-search-at-point+
-  "ys" 'youdao-dictionary-play-voice-at-point
-  "yi" 'youdao-dictionary-search-from-input
-  )
-
-;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
-(evil-set-initial-state 'youdao-dictionary-mode 'emacs)
-
-(global-set-key (kbd "<f3>") #'youdao-dictionary-search-at-point+)
-(global-set-key (kbd "<f4>") #'spk/youdao-directory-search-form-input-popup)
-
-(require 'youdao-dictionary)
-;;;###autoload
-(defun spk/youdao-directory-search-form-input-popup ()
-  "Youdao dictionary search from input."
-  (interactive)
-  (let* ((word nil))
-    (setq word (read-string (format "Word: ")
-                            nil nil word))
-    (popup-tip
-     (youdao-dictionary--format-result
-      (youdao-dictionary--request word)))
-    ))
-
-;; 在windows上找不到 manual 节点，手动将emacs doc的位置添加到info-directory-list里面去
 (when IS-WINDOWS
-  (add-to-list 'Info-directory-list
-	           "d:/HOME/spike/code/emacs-27.1/emacs-27.1/info")
-
   ;;;###autoload
   (defun spk/revert-buffer ()
     (interactive)
@@ -316,6 +284,52 @@
   "sc" 'spk/counsel-rg-current-dir
   "mm" 'spk/bookmark-last-edit-record
   "mj" 'spk/bookmark-last-edit-jump
+  )
+
+(setq spk-popweb-dir (concat spk-local-packges-dir "popweb"))
+(when (file-exists-p spk-popweb-dir)
+  (add-to-list 'load-path spk-popweb-dir)
+  ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/color-picker"))
+  (add-to-list 'load-path (concat spk-popweb-dir "/extension/dict"))
+  ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/latex"))
+  ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/org-roam"))
+  ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/url-preview"))
+  (require 'popweb)
+  (require 'popweb-dict)
+  ;; (require 'popweb-org-roam-link)
+  (global-set-key (kbd "<f3>") #'popweb-dict-youdao-pointer)
+  (global-set-key (kbd "<f4>") #'popweb-dict-youdao-input)
+  )
+
+(straight-use-package 'youdao-dictionary)
+
+(unless (file-exists-p spk-popweb-dir)
+  (when EMACS29+
+    (require 'popup))
+  (evil-leader/set-key
+    "yo" 'youdao-dictionary-search-at-point+
+    "ys" 'youdao-dictionary-play-voice-at-point
+    "yi" 'youdao-dictionary-search-from-input
+    )
+
+  ;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
+  (evil-set-initial-state 'youdao-dictionary-mode 'emacs)
+
+  (global-set-key (kbd "<f3>") #'youdao-dictionary-search-at-point+)
+  (global-set-key (kbd "<f4>") #'spk/youdao-directory-search-form-input-popup)
+
+  (require 'youdao-dictionary)
+;;;###autoload
+  (defun spk/youdao-directory-search-form-input-popup ()
+    "Youdao dictionary search from input."
+    (interactive)
+    (let* ((word nil))
+      (setq word (read-string (format "Word: ")
+                              nil nil word))
+      (popup-tip
+       (youdao-dictionary--format-result
+        (youdao-dictionary--request word)))
+      ))
   )
 
 ;; 使用emacs中自带的calculator 日常计算的时候使用

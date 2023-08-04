@@ -14,39 +14,6 @@
    )
  )
 
-;; 使用 posframe 暂时实现一些简单的需求
-(straight-use-package 'posframe)
-(require 'posframe)
-
-;; 使用 posframe 实现一个简单的弹窗来显示 info 模式下的快捷键，参考 posframe 提供的 demo
-(defvar spk-info-mode-pos-buf " *spk-info-posframe-buffer*")
-
-(defadvice Info-mode (after spk-info-hack activate)
-  (when (file-exists-p (expand-file-name "info.txt" (concat spk-local-code-dir "posframe")))
-    (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
-      (erase-buffer)
-      (insert-file-contents (expand-file-name "info.txt" (concat spk-local-code-dir "posframe")))))
-  )
-
-;; 在 Info 模式下提供一个快速查看快捷键的函数   
-(defun spk/info-help-peek ()
-  "Info help peek."
-  (interactive)
-  (when (posframe-workable-p) 
-    (posframe-show spk-info-mode-pos-buf
-                   :background-color (face-background 'default nil t)
-                   :foreground-color (face-foreground 'font-lock-string-face nil t)
-                   :internal-border-width 1
-                   :internal-border-color "red"
-                   :position (point))
-    (sit-for 10)
-    (posframe-hide spk-info-mode-pos-buf)
-    )
-  )
-
-(with-eval-after-load 'info
-  (define-key Info-mode-map (kbd "<f1>") #'spk/info-help-peek))
-
 ;; windows 上 sis 设置
 (sis-ism-lazyman-config nil t 'w32)
 ;; TODO 需要注意的是下面的相关配置会导致 org-mode 使用 latex 导出 pdf 时失败，暂时屏蔽以下配置，后续优化
@@ -233,20 +200,20 @@
 (setq-default ediff-split-window-function 'split-window-horizontally)
 
 ;; 添加鼠标相关的配置，解决滚轮滑动屏幕过快的问题 
-(setq mouse-scroll-delay 0.02)
-(defun up-slightly () (interactive) (scroll-up 1))
-(defun down-slightly () (interactive) (scroll-down 1))
-(global-set-key [wheel-up] 'down-slightly)
-(global-set-key [wheel-down] 'up-slightly)
+(when EMACS29-
+  (setq mouse-scroll-delay 0.02)
+  (defun up-slightly () (interactive) (scroll-up 1))
+  (defun down-slightly () (interactive) (scroll-down 1))
+  (global-set-key [wheel-up] 'down-slightly)
+  (global-set-key [wheel-down] 'up-slightly))
 
-;; 在 Info-mode 下进入 emacs-state，便于直接使用 Info-mode 中的快捷键
-(evil-set-initial-state 'Info-mode 'emacs)
+(when EMACS29+
+  (pixel-scroll-precision-mode t))
+
+(evil-set-initial-state 'profiler-report-mode 'emacs)
 
 ;; 设置最近文件的最大条目数
 (setq recentf-max-saved-items 1000)
-
-;; 设置 info-mode 中的一些快捷键
-;; (define-key Info-mode-map "v" 'evil-visual-char)
 
 ;; 这个包用于自动在中英文间插入空格
 (require 'pangu-spacing)

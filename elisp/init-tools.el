@@ -84,4 +84,6 @@
   (global-set-key (kbd "<f10>") 'spk/open-private-chat-dir)
   )
 
+(require 'init-info)
+
 (provide 'init-tools)

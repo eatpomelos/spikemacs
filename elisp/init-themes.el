@@ -41,14 +41,15 @@
 (when EMACS27-
   (straight-use-package 'modus-themes)
   )
+
 (load-theme 'modus-vivendi)
+;; (load-theme 'spk-mint)
 
 ;; 在加载新的主题之前先取消其他主题的设置
 (defadvice load-theme
     (before spk-disable-theme-hack activate)
   (mapc 'disable-theme custom-enabled-themes))
 
-;; (when IS-WINDOWS
-;;   (load-theme 'spk-mint))
+;; (load-theme 'spk-mint)
 
 (provide 'init-themes)

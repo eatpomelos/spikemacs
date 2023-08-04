@@ -51,10 +51,12 @@
 
 ;; 后续尝试使用awesome-tray，暂时由于这个插件并不是基于evil以及一些窗口管理插件设计，需要修改一些自定义face
 (require 'awesome-tray)
-(setq awesome-tray-active-modules
-      '("file-path" "buffer-name" "evil" "location" "mode-name" "belong" "date"))
-
+(setq awesome-tray-file-name-max-length 30)
 (setq awesome-tray-position 'center)
+(setq awesome-tray-active-modules
+      '("buffer-read-only" "file-path" "github" "buffer-name" "evil" "mode-name" "belong" "input-method" "date")
+      )
+
 
 (awesome-tray-enable)
 

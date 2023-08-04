@@ -44,4 +44,7 @@
   (global-set-key (kbd "C-c -") 'split-window-below)
   )
 
+;; 默认开启fringe时不设置边缘pixel
+(fringe-mode 0)
+
 (provide 'init-window)

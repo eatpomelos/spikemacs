@@ -54,7 +54,9 @@
 
 (add-hook 'prog-mode-hook #'better-jumper-mode)
 (add-hook 'prog-mode-hook 'electric-pair-mode)
-(add-hook 'prog-mode-hook 'hl-line-mode)
+
+(global-hl-line-mode t)
+;; (add-hook 'prog-mode-hook 'hl-line-mode)
 
 ;; keybindings
 (global-set-key (kbd "<f12>") 'eshell)

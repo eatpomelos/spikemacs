@@ -106,7 +106,8 @@
         ".*db$"
         "init\\.el$"
         "/roam/"
-        "/.emacs.d/")
+        "/.emacs.d/straight/"
+        )
 )
 
 (provide 'init-default)

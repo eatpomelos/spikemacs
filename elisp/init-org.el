@@ -300,7 +300,7 @@
 (add-hook 'org-mode-hook 'org-num-mode)
 (add-hook 'org-mode-hook #'org-bars-mode)
 ;; (add-hook 'org-mode-hook 'focus-mode)
-(add-hook 'org-mode-hook 'org-indent-mode)
+;; (add-hook 'org-mode-hook 'org-indent-mode)
 ;; (add-hook 'org-mode-hook 'valign-mode)
 (add-hook 'org-mode-hook 'spk/org-mode-setup)
 
