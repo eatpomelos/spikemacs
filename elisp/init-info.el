@@ -30,25 +30,25 @@
   )
 
 (with-eval-after-load 'info
-  (define-key Info-mode-map (kbd "<f1>") #'spk/info-help-peek))
+  (define-key Info-mode-map (kbd "<f1>") #'spk/info-help-peek)
+  ;; 在 Info-mode 下进入 emacs-state，便于直接使用 Info-mode 中的快捷键
+  (evil-set-initial-state 'Info-mode 'emacs)
+
+  ;; 定义vim中的移动模式，这里上下左右快捷键设置一下，和之前的冲突则找一下替代方法
+  (define-key Info-mode-map "h" 'backward-char)
+  (define-key Info-mode-map "j" 'next-line)
+  (define-key Info-mode-map "k" 'previous-line)
+  (define-key Info-mode-map "l" 'forward-char)
+  (define-key Info-mode-map "L" 'Info-forward-node)
+  (define-key Info-mode-map "H" 'Info-backward-node)
+  (define-key Info-mode-map "\\" 'Info-history)
+  (define-key Info-mode-map (kbd "C-c h") 'Info-help)
+  (define-key Info-mode-map "R" 'Info-history-back)
+  )
 ;; 在windows上找不到 manual 节点，手动将emacs doc的位置添加到info-directory-list里面去
 (when IS-WINDOWS
   (add-to-list 'Info-directory-list
 	           "d:/HOME/spike/code/emacs-27.1/emacs-27.1/info")
   )
-
-;; 在 Info-mode 下进入 emacs-state，便于直接使用 Info-mode 中的快捷键
-(evil-set-initial-state 'Info-mode 'emacs)
-
-;; 定义vim中的移动模式，这里上下左右快捷键设置一下，和之前的冲突则找一下替代方法
-(define-key Info-mode-map "h" 'backward-char)
-(define-key Info-mode-map "j" 'next-line)
-(define-key Info-mode-map "k" 'previous-line)
-(define-key Info-mode-map "l" 'forward-char)
-(define-key Info-mode-map "L" 'Info-forward-node)
-(define-key Info-mode-map "H" 'Info-backward-node)
-(define-key Info-mode-map "\\" 'Info-history)
-(define-key Info-mode-map (kbd "C-c h") 'Info-help)
-(define-key Info-mode-map "R" 'Info-history-back)
 
 (provide 'init-info)

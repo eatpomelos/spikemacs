@@ -6,7 +6,8 @@
   (straight-use-package 'rime)
   (require 'rime)
   (setq default-input-method "rime"
-        rime-show-candidate 'posframe)
+        rime-show-candidate 'posframe
+        rime-posframe-style 'vertical)
   )
 
 ;; 后续增加一个开关用于动态开启预览，避免大文件编译耗时比较长导致卡顿？

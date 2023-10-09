@@ -42,6 +42,9 @@
   (global-set-key (kbd "C-c 9") 'delete-other-windows)
   (global-set-key (kbd "C-c /") 'split-window-right)
   (global-set-key (kbd "C-c -") 'split-window-below)
+  (global-set-key (kbd "C-c w w") 'maximize-window)
+  (global-set-key (kbd "C-c w d") 'delete-window)
+  (global-set-key (kbd "C-c w =") 'balance-windows)
   )
 
 ;; 默认开启fringe时不设置边缘pixel

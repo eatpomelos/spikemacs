@@ -119,8 +119,10 @@ The theme is emulate spk-mint to learn elisp."
    `(org-link ((t (:foreground ,spk-mint-bamboo :underline t))))
    `(org-special-keyword ((t (:foreground ,spk-mint-pink))))
    ;; `(org-todo ((t (:foreground ,spk-mint-lightblue :background ,spk-mint-cyan))))
-   `(org-todo ((t (:foreground ,spk-mint-lightblue :background "grey"))))
-   `(org-done ((t (:foreground ,spk-mint-green))))
+   `(org-todo ((t (:foreground ,spk-mint-lightblue :background ,spk-mint-bg))))
+   `(org-done ((t (:foreground ,spk-mint-green :background ,spk-mint-bg))))
+   `(org-checkbox-statistics-todo ((t (:foreground ,spk-mint-green :background ,spk-mint-bg))))
+   `(org-checkbox-statistics-done ((t (:foreground ,spk-mint-green :background ,spk-mint-bg))))
    `(org-hide ((t (:foreground ,spk-mint-bg :background ,spk-mint-bg))))
 
    ;; 设置不同等级标题的大小，有点问题

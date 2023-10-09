@@ -85,6 +85,7 @@
     )
   (define-key imenu-list-major-mode-map (kbd "TAB") 'spk/imenu-list-peek-entry)
   (evil-set-initial-state 'imenu-list-minor-mode 'emacs)
+  (evil-set-initial-state 'imenu-list-major-mode 'emacs)
 
   (define-key imenu-list-major-mode-map "j" #'next-line)
   (define-key imenu-list-major-mode-map "k" #'previous-line))
@@ -178,7 +179,7 @@
 
 ;; key bindings
 (evil-leader/set-key
-  "pd" 'xref-find-definitions
+  "d" 'xref-find-definitions
   "pt" 'counsel-etags-find-tag-at-point
   "ps" 'spk/project-search-symbol-at-point
   "pi" 'spk/project-search-symbol-from-input

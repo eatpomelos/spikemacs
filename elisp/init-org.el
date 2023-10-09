@@ -19,7 +19,7 @@
 
 ;; (require 'org)
 ;; (straight-use-package 'focus)
-(add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
+;; (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
 ;; 设置折叠时显示的符号
 (when IS-LINUX
@@ -41,6 +41,9 @@
 (defvar spk-local-notes-dir
   (concat spk-org-directory "notes/")
   "Local notes path.")
+
+;; 设置org文件导出时的默认路径
+(setq spk-org-report_dir (concat spk-local-dir "ox-report/"))
 
 ;; 设置 agenda 文件,注意以下这种写法，不加括号直接用字符串是不行的
 (setq org-agenda-files '("~/.emacs.d/docs/org"

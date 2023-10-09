@@ -67,9 +67,7 @@
          )
         ("no" "Output documents" plain
          "%?"
-         :if-new (file+head "${slug}.org" "# -*- coding: utf-8 -*-\n#+title: ${title}\n#+date: %T\n#+filetags: documents\n")
-         )
-        ))
+         :if-new (file+head "${slug}.org" "# -*- coding: utf-8 -*-\n#+title: ${title}\n#+date: %T\n#+filetags: documents\n# #+EXPORT_FILE_NAME:~/.emacs.d/.local/ox-report/"))))
 
 ;; 设置日常笔记的模板，添加默认使用utf-8格式
 (setq org-roam-dailies-capture-templates

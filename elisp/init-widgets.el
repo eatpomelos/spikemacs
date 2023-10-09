@@ -11,6 +11,7 @@
 (defun spk/find-file-entry ()
   (interactive)
   (cond ((+spk-get-complete-file ".spk-project-files") (spk/project-fast-find-file))
+        ((+spk-get-complete-file ".spk-project-all-files") (spk/project-fast-find-all-file))
         ((and (+spk-get-complete-file "compile_commands.json") IS-LINUX)
          (projectile-find-file-in-directory (file-name-directory
                                              (+spk-get-complete-file "compile_commands.json"))))
@@ -301,9 +302,8 @@
   (global-set-key (kbd "<f4>") #'popweb-dict-youdao-input)
   )
 
-(straight-use-package 'youdao-dictionary)
-
 (unless (file-exists-p spk-popweb-dir)
+  (straight-use-package 'youdao-dictionary)
   (when EMACS29+
     (require 'popup))
   (evil-leader/set-key
@@ -331,6 +331,43 @@
         (youdao-dictionary--request word)))
       ))
   )
+
+(when IS-LINUX
+  (straight-use-package
+   '(sdcv :type git
+		  :host github
+		  :repo "manateelazycat/sdcv"))
+
+  (require 'sdcv)
+
+  (with-eval-after-load 'sdcv
+    (setq sdcv-say-word-p nil)          ;say word after translation
+
+    (setq sdcv-only-data-dir nil)
+  
+    (setq sdcv-dictionary-data-dir nil)
+  
+    (setq sdcv-dictionary-data-dictionary "/usr/share/stardict/dic") ;setup directory of stardict dictionary
+
+    (setq sdcv-dictionary-simple-list   ;setup dictionary list for simple search
+          '(
+            "懒虫简明汉英词典"
+            "计算机词汇"
+            "英汉汉英专业词典"
+            ;; "牛津英汉双解美化版"
+            ))
+
+    (setq sdcv-dictionary-complete-list ;setup dictionary list for complete search
+          '(
+            "懒虫简明汉英词典"
+            "计算机词汇"
+            "英汉汉英专业词典"
+            "牛津现代英汉双解词典"
+            "牛津英汉双解美化版"
+            ))
+    (global-set-key (kbd "<f3>") #'sdcv-search-pointer+)
+    (global-set-key (kbd "<f4>") #'sdcv-search-input+)
+    ))
 
 ;; 使用emacs中自带的calculator 日常计算的时候使用
 (evil-set-initial-state 'calculator-mode 'emacs)

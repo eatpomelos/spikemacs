@@ -4,6 +4,10 @@
 (straight-use-package 'json-mode)
 (straight-use-package 'sis)
 (straight-use-package 'pangu-spacing)
+(straight-use-package 'orderless)
+
+
+(setq completion-styles '(orderless))
 
 ;; 将此库文件更新为 fork 版本
 (straight-use-package
