@@ -60,5 +60,6 @@ semanticdb/
 # ignore session temporaty files
 session.*
 
+org-persist/
 projects
 tutorial
