@@ -13,7 +13,6 @@
 (straight-use-package 'rainbow-delimiters)
 (straight-use-package 'lispy)
 (straight-use-package 'elisp-demos)
-(straight-use-package 'elpl)
 
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'org-mode-hook #'rainbow-delimiters-mode)

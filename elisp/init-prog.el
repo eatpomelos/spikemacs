@@ -88,8 +88,16 @@
   (evil-set-initial-state 'imenu-list-major-mode 'emacs)
 
   (define-key imenu-list-major-mode-map "j" #'next-line)
-  (define-key imenu-list-major-mode-map "k" #'previous-line))
+  (define-key imenu-list-major-mode-map "k" #'previous-line)
 
+  ;; 打开imenu-list时根据当前光标所在的window自动选择打开位置
+  (defadvice imenu-list-show (before spk-imenu-show-pre activate)
+    (if (> (winum-get-number (get-buffer-window))
+           (+ (/ winum--window-count 2) (% winum--window-count 2)))
+        (setq imenu-list-position 'right)
+      (setq imenu-list-position 'left))
+    )
+  )
 ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=29619
 (setq xref-prompt-for-identifier
       '(not
