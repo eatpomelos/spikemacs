@@ -9,7 +9,6 @@
   (shell-command-to-string (format "git clone https://gitee.com/manateelazycat/lsp-bridge %s" spk-lsp-bridge-dir)))
 
 (add-to-list 'load-path spk-lsp-bridge-dir)
-(add-to-list 'load-path spk-lsp-bridge-dir)
 
 (require 'yasnippet)
 (yas-global-mode 1)

@@ -45,14 +45,7 @@
 ;;;###autoload
 (defun spk-get-c-defun-name ()
   (when (eq major-mode 'c-mode)
-    (save-excursion
-      (let* ((def-s nil))
-        (beginning-of-defun)
-        (when (ignore-errors (re-search-forward "[a-zA-Z_]?[a-zA-Z0-9_]+\s*("))
-          (backward-char 2)
-          (thing-at-point 'symbol)
-          )
-        ))))
+    (c-defun-name)))
 
 
 ;; 在C项目中获取当前所在的函数名，并将函数名push到kill-ring中

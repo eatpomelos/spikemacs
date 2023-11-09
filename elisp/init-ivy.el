@@ -35,7 +35,7 @@
 
 (add-hook 'evil-leader-mode-hook #'which-key-mode)
 (with-eval-after-load 'which-key
-  (setq which-key-idle-delay 0.1))
+  (setq which-key-idle-delay 1))
 
 (evil-leader/set-key
   "fl" 'counsel-locate

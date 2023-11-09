@@ -17,6 +17,7 @@
    :local-repo "~/.emacs.d/themes/spk-mint-theme" 
    ))
 (straight-use-package 'dracula-theme)
+(straight-use-package 'ef-themes)
 (straight-use-package 'zen-and-art-theme)
 
 ;; (straight-use-package
@@ -42,8 +43,9 @@
   (straight-use-package 'modus-themes)
   )
 
-(load-theme 'modus-vivendi)
-;; (load-theme 'spk-mint)
+;; (load-theme 'modus-vivendi)
+;; (load-theme 'ef-bio :no-conform)
+(load-theme 'spk-mint :no-conform)
 
 ;; 在加载新的主题之前先取消其他主题的设置
 (defadvice load-theme

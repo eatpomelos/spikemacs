@@ -28,6 +28,22 @@
    )
  )
 
+;; 增加flex和bison的major-mode
+(straight-use-package
+ '(flex :type git
+		:host github
+		:repo "manateelazycat/flex"
+		))
+
+(straight-use-package
+   '(bison :type git
+		    :host github
+		    :repo "manateelazycat/bison"
+		    ))
+
+(require 'flex)
+(require 'bison)
+
 (add-hook 'c-mode-hook (lambda ()
                          (define-key c-mode-map (kbd "M-d") 'delete-block-forward)
                          (define-key c-mode-map (kbd "M-DEL") 'delete-block-backward)
@@ -89,6 +105,11 @@
 
   (define-key imenu-list-major-mode-map "j" #'next-line)
   (define-key imenu-list-major-mode-map "k" #'previous-line)
+
+  (advice-add 'imenu-list-show :before
+              #'(lambda ()
+                  (deadgrep-visit-result-other-window)
+                  (winum-select-window-by-number spk-last-window)))
 
   ;; 打开imenu-list时根据当前光标所在的window自动选择打开位置
   (defadvice imenu-list-show (before spk-imenu-show-pre activate)
@@ -199,6 +220,7 @@
   "eb" 'eval-buffer
   "mf" 'er/mark-defun
   "sp" 'dg                              ;;deadgrep
+  "hm" 'manual-entry
   )
 
 ;; 充分利用avy的api来进行跳转等操作,可以考虑用bind-key的api来定义快捷键
@@ -282,6 +304,7 @@
 
 (add-hook 'c-mode-hook 'highlight-changes-mode)
 
+(evil-set-initial-state 'Man-mode 'normal)
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置
 (require 'init-elisp)
 (require 'init-C)
