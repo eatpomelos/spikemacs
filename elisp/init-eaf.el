@@ -59,12 +59,6 @@
         (delete-window))))
 
 
-  ;; 临时写一个函数用来通过eaf打开elisp中文文档
-  (defun spk/eaf-open-elisp-zh-web ()
-    (interactive)
-    (eaf-open-browser "https://runebook.dev/zh/docs/elisp/")
-    )
-  
   (evil-set-initial-state 'eaf-mode 'emacs)
   (evil-set-initial-state 'eaf-pdf-outline-mode 'emacs)
   
