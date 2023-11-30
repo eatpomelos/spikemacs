@@ -69,7 +69,8 @@
          (require 'init-prog)
          ;; 部分配置只需要在linux上加载，这里使用宏进行控制
          (when IS-LINUX
-           (require 'init-eaf))
+           (require 'init-eaf)
+           )
 
          (require 'init-widgets)
 

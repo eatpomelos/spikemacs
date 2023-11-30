@@ -1,5 +1,7 @@
 ;; 暂时用来存放自己使用的一些外部工具相关的配置，后续优化
 (straight-use-package 'graphviz-dot-mode)
+(straight-use-package 'plantuml-mode)
+(straight-use-package 'flycheck-plantuml)
 
 ;; 在linux下使用emacs-rime 输入
 (when IS-LINUX
@@ -21,9 +23,22 @@
 ;; 设置是否需要在保存的时候就自动预览
 (defvar spk/graphviz-auto-preview-on-save t)
 
-;; 当配置好了eaf的时候，使用graphviz使用eaf-open 来进行预览，避免出现原生emacs的性能问题
+(require 'plantuml-mode)
+(with-eval-after-load 'plantuml-mode
+  (setq plantuml-jar-path (expand-file-name "plantuml.jar" spk-local-dir))
+  (setq plantuml-default-exec-mode 'jar)
+
+  (unless (file-exists-p plantuml-jar-path)
+    (plantuml-download-jar))
+
+  (setq plantuml-output-type "png")
+  ;; (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+
+  )
+
+;; 当配置好了 eaf 的时候，使用 graphviz 使用 eaf-open 来进行预览，避免出现原生 emacs 的性能问题
 (with-eval-after-load 'eaf
-  ;; 写一个接口，判断某个文件是否已经在eaf中打开
+  ;; 写一个接口，判断某个文件是否已经在 eaf 中打开
   (defun spk/exists-eaf-buffer (url)
     (let ((ret nil))
       ;; Try to open buffer           ; ;
@@ -37,6 +52,25 @@
       ret)
     )
 
+  (defun spk/common-eaf-preview (f-name)
+    (require 'winum)
+    (progn
+      (unless (> winum--window-count 1)
+        (split-window-right)
+        (other-window 1)
+        )
+      (other-window 1)
+      (unless (spk/exists-eaf-buffer (expand-file-name f-name))
+        (eaf-open f-name)
+        )
+        
+      (when (and (commandp 'eaf-py-proxy-reload_image) (eq major-mode 'eaf-mode))
+        (eaf-py-proxy-reload_image)
+        )
+      (other-window 1)
+      )
+    )
+  
   (defun spk/graphviz-dot-eaf-preview ()
     "Compile the graph and preview it in an other buffer."
     (interactive)
@@ -45,21 +79,8 @@
           (command-result (string-trim (shell-command-to-string compile-command))))
       (if (string-prefix-p "Error:" command-result)
           (message command-result)
-        (progn
-          (unless (> winum--window-count 1)
-            (split-window-right)
-            (other-window 1)
-            )
-          (other-window 1)
-          (unless (spk/exists-eaf-buffer (expand-file-name f-name))
-            (eaf-open f-name)
-            )
-        
-          (when (and (commandp 'eaf-py-proxy-reload_image) (eq major-mode 'eaf-mode))
-            (eaf-py-proxy-reload_image)
-            )
-          (other-window 1)
-          ))))
+        (spk/common-eaf-preview f-name)
+        )))
 
   (defun spk/graphviz-live-reload-hook ()
     "Hook to run in `after-save-hook' for live preview to work."
@@ -67,6 +88,20 @@
       (spk/graphviz-dot-eaf-preview)))
 
   (add-hook 'after-save-hook 'spk/graphviz-live-reload-hook)
+
+  ;; plantuml 配置
+  (defun spk/plantuml-export-and-preview ()
+    (interactive)
+    (when (equal major-mode 'plantuml-mode)
+      (let* ((cmd-str nil)
+             (cur-file (buffer-file-name))
+             (cur-export-file nil)
+             )
+        (setq cmd-str (format "java -jar %s -t%s %s" plantuml-jar-path plantuml-output-type cur-file))
+        (shell-command-to-string cmd-str)
+        (spk/common-eaf-preview (format "%s.%s" (file-name-sans-extension (buffer-file-name)) plantuml-output-type))
+        )))
+  (add-hook 'after-save-hook 'spk/plantuml-export-and-preview)
   )
 
 (setq mind-wave-dir (concat spk-local-packges-dir "mind-wave"))
@@ -84,7 +119,6 @@
     (counsel-find-file spk-mind-wave-chat-dir))
   (global-set-key (kbd "<f10>") 'spk/open-private-chat-dir)
   )
-
 (require 'init-info)
 
 (provide 'init-tools)

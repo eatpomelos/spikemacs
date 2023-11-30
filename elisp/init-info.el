@@ -49,6 +49,10 @@
 (when IS-WINDOWS
   (add-to-list 'Info-directory-list
 	           "d:/HOME/spike/code/emacs-27.1/emacs-27.1/info")
+  (add-to-list 'Info-additional-directory-list
+             "d:/HOME/.emacs.d/docs/Code/elisp/Elisp_manual/info")
   )
+
+;; (info "d:/HOME/.emacs.d/docs/Code/elisp/Elisp_manual/info/03-数字.info")
 
 (provide 'init-info)
