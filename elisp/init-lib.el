@@ -11,6 +11,9 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
+(defmacro +spk-get-memavailable ()
+  `(string-to-number (shell-command-to-string "grep MemAvailable /proc/meminfo | awk '{print $2}'")))
+
 ;; 基于当前文件比较简单的情况，features名和文件名一致才可以
 (defmacro spk-require (feature)
   `(when (file-exists-p (concat ,spk-elisp-dir (format "%s.el" ,feature)))

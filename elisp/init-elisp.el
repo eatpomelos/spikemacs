@@ -9,6 +9,7 @@
 
 ;; 设置一些命令的别名 
 (defalias 'elisp-mode 'emacs-lisp-mode)
+(defalias 'spk/empty-line-p 'lispy--empty-line-p)
 
 (straight-use-package 'rainbow-delimiters)
 (straight-use-package 'lispy)

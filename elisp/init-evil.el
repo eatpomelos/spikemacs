@@ -6,6 +6,7 @@
 (straight-use-package 'evil-nerd-commenter)
 (straight-use-package 'evil-smartparens)
 (straight-use-package 'evil-goggles)
+(straight-use-package 'key-chord)
 
 (add-hook 'emacs-startup-hook #'evil-mode)
 
@@ -67,6 +68,11 @@
   (straight-use-package 'which-key)
   
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+  
+  ;; 使用 key-chord-mode 来实现键映射延迟功能
+  (key-chord-mode 1)
+  (setq key-chord-two-keys-delay 0.08)
+  (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
   )
 
 (provide 'init-evil)

@@ -3,6 +3,10 @@
 (straight-use-package 'all-the-icons-dired)
 (straight-use-package 'all-the-icons-completion)
 
+(straight-use-package 'rainbow-mode)
+
+;; 默认 elisp-mode 打开 rainbow-mode
+(add-hook 'emacs-lisp-mode-hook #'rainbow-mode)
 ;; 由于大文件中linum渲染会对性能有影响，这里使用自带display-line-numbers 替代
 ;; 在部分emacs29版本上移除了linum-mode
 ;; (when EMACS28+
@@ -46,7 +50,7 @@
 (straight-use-package
    '(awesome-tray :type git
 		    :host github
-		    :repo "manateelazycat/awesome-tray"
+		    :repo "eatpomelos/awesome-tray"
 		    ))
 
 ;; 后续尝试使用awesome-tray，暂时由于这个插件并不是基于evil以及一些窗口管理插件设计，需要修改一些自定义face

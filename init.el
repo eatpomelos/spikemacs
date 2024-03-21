@@ -16,12 +16,12 @@
 
 ;; 因为使用了一些高于26版本的api，暂时不支持低于此版本的emacs
 (when (version< emacs-version "26.0")
-  (error "emacs's version less than 26.0, can not load init files.")
+  (error "Emacs's version less than 26.0, can not load init files.")
   )
 
 ;; 当版本低于27.1的时候手动加载一遍early-init.el
 (when (version< emacs-version "27.1")
-  (message "emacs's version less than 27.1,manual loading early-init file ...")
+  (message "Emacs's version less than 27.1,manual loading early-init file ...")
   (add-to-list 'load-path
                user-emacs-directory)
   (require 'spk-early-init)
@@ -83,7 +83,7 @@
               (lambda ()
                 (switch-to-buffer "*scratch*")
                 (erase-buffer)
-                (insert (format "%s;; Happy hacking!! emacs startup with %.3fs!!\n"
+                (insert (format "%s;; Happy hacking!! Emacs startup with %.3fs!!\n"
                                 spk-scratch-log
                                 (float-time (time-subtract (current-time) before-init-time)))))
               'append))

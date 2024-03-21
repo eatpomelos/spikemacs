@@ -103,14 +103,17 @@
   (interactive)
   ;; (require 'smartparens)
   (cond ((spk--point-in-overlay-p spk-ovs)
-	 (let* ((pos (spk--point-in-overlay-p spk-ovs)))
-	   (delete-overlay (nth pos spk-ovs))
-	   (setq spk-ovs (spk/delete-list-element pos spk-ovs))))
-	(t (let* ((ov (make-overlay
-		       (line-beginning-position) (line-end-position))))
-	     (setq spk-ovs (push ov spk-ovs))
-	     (overlay-put ov 'face 'region)))
-	)
+	     (let* ((pos (spk--point-in-overlay-p spk-ovs)))
+	       (delete-overlay (nth pos spk-ovs))
+	       (setq spk-ovs (spk/delete-list-element pos spk-ovs))))
+	    (t (let* ((ov nil))
+             (unless (spk/empty-line-p)
+               (setq ov (make-overlay
+		                 (line-beginning-position) (line-end-position)))
+	           (setq spk-ovs (push ov spk-ovs))
+	           (overlay-put ov 'face 'region)))
+           )
+	    )
   )
 
 ;; 解决当在一个buffer中设置了高亮行的overlay时kill-buffer导致spk-ovs内容出错问题
