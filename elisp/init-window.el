@@ -1,6 +1,7 @@
 ;; 窗口操作相关配置
 (straight-use-package 'winum)
 (straight-use-package 'popwin)
+(straight-use-package 'perspective)
 
 (add-hook 'after-init-hook 'winum-mode)
 (add-hook 'winum-mode-hook 'popwin-mode)
@@ -49,5 +50,13 @@
 
 ;; 默认开启fringe时不设置边缘pixel
 (fringe-mode 0)
+
+(require 'perspective)
+(persp-mode 1)
+
+;; 设置工作区切换快捷键，后续继续优化
+(evil-leader/set-key
+    "ws" 'persp-switch
+    )
 
 (provide 'init-window)
