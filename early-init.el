@@ -16,6 +16,9 @@
 (defconst spk-local-dir
   (concat spk-dir ".local/"))
 
+(unless (file-exists-p spk-local-dir)
+  (make-directory spk-local-dir))
+
 (defconst spk-local-tmp-dir
   (concat spk-local-dir "tmp/")
   "Directory of temp files.")
