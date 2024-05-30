@@ -1,4 +1,4 @@
-;; 和 org 相关的配置
+;; 和 org 相关的配置  -*- lexical-binding: t; -*-
 
 ;; 由于使用 strainght.el 升级 package 中 org 有一个变量的名字发生了改变，此处使用本地 org 包防止出现使用错误
 (straight-use-package '(org :type built-in))

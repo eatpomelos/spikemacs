@@ -1,4 +1,4 @@
-;; 初始化主体配置，这里可以使用dracula 或者使用自己定义的主题
+;; 初始化主体配置，这里可以使用dracula 或者使用自己定义的主题  -*- lexical-binding: t; -*-
 ;; (straight-use-package 'circadian)
 
 (defvar spk-theme-dir nil

@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (straight-use-package 'better-jumper)
 (straight-use-package 'smart-hungry-delete)
 ;; (straight-use-package 'aggressive-indent-mode)

@@ -1,4 +1,4 @@
-;; 和C语言相关的配置
+;; 和C语言相关的配置  -*- lexical-binding: t; -*-
 (defconst spk-c-identifier-regex "[a-zA-Z_]?[a-zA-Z0-9_]+"
   "C identifier regular expression.")
 

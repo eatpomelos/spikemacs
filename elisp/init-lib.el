@@ -1,4 +1,4 @@
-;; 用来存放一些常用的函数以及宏,以及一些常用的接口
+;; 用来存放一些常用的函数以及宏,以及一些常用的接口  -*- lexical-binding: t; -*-
 ;; doom中定义的一些使用的值
 (defconst EMACS27+ (> emacs-major-version 26))
 (defconst EMACS27- (< emacs-major-version 27))

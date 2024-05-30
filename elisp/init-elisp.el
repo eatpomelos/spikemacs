@@ -1,4 +1,4 @@
-;; elisp相关配置
+;; elisp相关配置  -*- lexical-binding: t; -*-
 (when IS-WINDOWS
   (defvar spk-emacs-source-directory nil
     "Emacs source directory.")

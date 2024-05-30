@@ -1,4 +1,4 @@
-;; 不习惯默认的info-mode的绑定，这里手动配置一下info-mode中的一些快捷键，这样能够顺手一些
+;; 不习惯默认的info-mode的绑定，这里手动配置一下info-mode中的一些快捷键，这样能够顺手一些  -*- lexical-binding: t; -*-
 ;; 使用 posframe 暂时实现一些简单的需求
 (straight-use-package 'posframe)
 (require 'posframe)

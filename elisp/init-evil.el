@@ -1,4 +1,4 @@
-;; 配置 emacs 上的evil 相关的插件
+;; 配置 emacs 上的evil 相关的插件  -*- lexical-binding: t; -*-
 
 (straight-use-package 'evil)
 (straight-use-package 'evil-leader)

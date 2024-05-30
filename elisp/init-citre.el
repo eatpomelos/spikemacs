@@ -1,4 +1,4 @@
-;; citre依赖于tags文件，使用tags文件的话，自己定义的函数就废弃了。需要找到另一个查找文件的方法
+;; citre依赖于tags文件，使用tags文件的话，自己定义的函数就废弃了。需要找到另一个查找文件的方法  -*- lexical-binding: t; -*-
 
 ; citre ctags前端，要求对应的ctags版本
 (straight-use-package

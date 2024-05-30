@@ -1,4 +1,4 @@
-;; 关于目录操作相关的配置主要是 dired 以及其余对于目录等操作相关的
+;; 关于目录操作相关的配置主要是 dired 以及其余对于目录等操作相关的  -*- lexical-binding: t; -*-
 
 (straight-use-package 'neotree)
 ;; (straight-use-package 'dirvish)

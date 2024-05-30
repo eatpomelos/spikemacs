@@ -1,4 +1,4 @@
-;; 用来存放自己日常使用的一些小函数
+;; 用来存放自己日常使用的一些小函数  -*- lexical-binding: t; -*-
 ;; 在自己的配置文件路径中查找文件
 (straight-use-package 'tiny)
 ;; (straight-use-package 'epc)

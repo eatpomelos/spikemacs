@@ -1,4 +1,4 @@
-;; 只在linux下使用lsp，暂时不配置其他的东西
+;; 只在linux下使用lsp，暂时不配置其他的东西  -*- lexical-binding: t; -*-
 (straight-use-package 'projectile)
 (straight-use-package 'posframe)
 (straight-use-package 'corfu)

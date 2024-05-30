@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (setq spk-local-eaf-dir "~/.emacs.d/.local/packages/emacs-application-framework/")
 ;; (setq spk-local-eaf-app-dir (concat spk-local-eaf-dir "app/"))
 

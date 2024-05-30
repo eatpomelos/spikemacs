@@ -1,7 +1,10 @@
-;; 关闭提示音和自动备份
+;; 关闭提示音和自动备份  -*- lexical-binding: t; -*-
 (setq ring-bell-function 'ignore)
 (setq make-backup-files nil)
 (setq w32-use-full-screen-buffer t)
+
+;; 忽略告警
+(setq warning-suppress-types '((lexical-binding)))
 
 ;; 关闭 emacs 的欢迎界面
 (setq inhibit-splash-screen t)

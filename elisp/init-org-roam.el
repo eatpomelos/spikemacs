@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (straight-use-package 'org-roam)
 ;; (straight-use-package 'org-roam-server)
 ;; 设置org-roam的补全

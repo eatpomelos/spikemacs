@@ -1,4 +1,4 @@
-;; 设置autoload函数
+;; 设置autoload函数  -*- lexical-binding: t; -*-
 
 ;; init-evil
 (autoload #'evil-mode "evil")

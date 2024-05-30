@@ -1,4 +1,4 @@
-;; 窗口操作相关配置
+;; 窗口操作相关配置  -*- lexical-binding: t; -*-
 (straight-use-package 'winum)
 (straight-use-package 'popwin)
 ;; (straight-use-package 'perspective)

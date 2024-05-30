@@ -1,4 +1,4 @@
-;; magit相关配置
+;; magit相关配置  -*- lexical-binding: t; -*-
 (straight-use-package 'magit)
 (straight-use-package 'vc-msg)
 

@@ -1,4 +1,4 @@
-;; 用来放置与ctags相关的配置
+;; 用来放置与ctags相关的配置  -*- lexical-binding: t; -*-
 (straight-use-package 'ctags)
 (straight-use-package 'ctags-update)
 (straight-use-package 'company-ctags)

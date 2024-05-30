@@ -1,4 +1,4 @@
-;; 和编辑相关的一些插件的配置
+;; 和编辑相关的一些插件的配置  -*- lexical-binding: t; -*-
 (straight-use-package 'expand-region)
 (straight-use-package 'restart-emacs)
 (straight-use-package 'json-mode)

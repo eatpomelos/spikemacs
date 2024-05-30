@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (straight-use-package 'ivy)
 (straight-use-package 'counsel)
 (straight-use-package 'ivy-rich)

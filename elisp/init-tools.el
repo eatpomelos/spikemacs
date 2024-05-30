@@ -1,4 +1,4 @@
-;; 暂时用来存放自己使用的一些外部工具相关的配置，后续优化
+;; 暂时用来存放自己使用的一些外部工具相关的配置，后续优化  -*- lexical-binding: t; -*-
 (straight-use-package 'graphviz-dot-mode)
 (straight-use-package 'plantuml-mode)
 (straight-use-package 'flycheck-plantuml)

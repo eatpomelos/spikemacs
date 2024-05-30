@@ -1,4 +1,4 @@
-;; 用来存放和界面相关的配置
+;; 用来存放和界面相关的配置  -*- lexical-binding: t; -*-
 (straight-use-package 'all-the-icons-ivy-rich)
 (straight-use-package 'all-the-icons-dired)
 (straight-use-package 'all-the-icons-completion)
