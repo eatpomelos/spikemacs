@@ -3,6 +3,7 @@
 (straight-use-package 'all-the-icons-dired)
 (straight-use-package 'all-the-icons-completion)
 
+;; 将颜色相关的 RGB 值显示为对应颜色，这对主题定制等场景很好用
 (straight-use-package 'rainbow-mode)
 
 ;; 默认 elisp-mode 打开 rainbow-mode
@@ -58,7 +59,7 @@
 (setq awesome-tray-file-name-max-length 30)
 (setq awesome-tray-position 'center)
 (setq awesome-tray-active-modules
-      '("buffer-read-only" "file-path" "github" "buffer-name" "evil" "mode-name" "battery" "belong" "input-method" "date")
+      '("buffer-read-only" "file-path" "buffer-name" "git" "evil" "mode-name" "belong" "input-method" "date")
       )
 
 

@@ -10,30 +10,32 @@
 (add-to-list 'load-path spk-local-eaf-dir)
 ;; (add-to-list 'load-path spk-local-eaf-app-dir)
 
+;; 关闭默认eaf接管dired选项，必须在加载eaf之前设置
+(setq-default eaf-dired-advisor-enable nil)
+
 (require 'eaf)
 
-;; (require 'eaf-rss-reader)
-;; (require 'eaf-system-monitor)
+(require 'eaf-rss-reader)
+(require 'eaf-system-monitor)
 (require 'eaf-org-previewer)
 (require 'eaf-git)
-;; (require 'eaf-browser)
-;; (require 'eaf-file-manager)
-;; (require 'eaf-vue-demo)
+(require 'eaf-browser)
+(require 'eaf-file-manager)
+(require 'eaf-vue-demo)
 (require 'eaf-demo)
-;; (require 'eaf-airshare)
-;; (require 'eaf-camera)
+(require 'eaf-airshare)
+(require 'eaf-camera)
 (require 'eaf-jupyter)
-;; (require 'eaf-music-player)
+(require 'eaf-music-player)
 (require 'eaf-mindmap)
 (require 'eaf-image-viewer)
-;; (require 'eaf-file-sender)
-;; (require 'eaf-netease-cloud-music)
+(require 'eaf-file-sender)
+(require 'eaf-netease-cloud-music)
 (require 'eaf-pdf-viewer)
-;; (require 'eaf-terminal)
-;; (require 'eaf-file-browser)
-;; (require 'eaf-video-player)
+(require 'eaf-terminal)
+(require 'eaf-file-browser)
+(require 'eaf-video-player)
 (require 'eaf-markdown-previewer)
-
 
 (with-eval-after-load 'eaf-browser
   ;; 在eaf中用了s库相关的接口，在这里手动加载这个库，避免出错

@@ -7,6 +7,37 @@
                         (other . "linux")))
 (setq c-basic-offset 4)
 
+;; highlight c
+(defun my-c-mode-font-lock-if0 (limit)
+  (save-restriction
+    (widen)
+    (save-excursion
+      (goto-char (point-min))
+      (let ((depth 0) str start start-depth)
+        (while (re-search-forward "^\\s-*#\\s-*\\(if\\|else\\|endif\\)" limit 'move)
+          (setq str (match-string 1))
+          (if (string= str "if")
+              (progn
+                (setq depth (1+ depth))
+                (when (and (null start) (looking-at "\\s-+0"))
+                  (setq start (match-end 0)
+                        start-depth depth)))
+            (when (and start (= depth start-depth))
+              (c-put-font-lock-face start (match-beginning 0) 'font-lock-comment-face)
+              (setq start nil))
+            (when (string= str "endif")
+              (setq depth (1- depth)))))
+        (when (and start (> depth 0))
+          (c-put-font-lock-face start (point) 'font-lock-comment-face)))))
+  nil)
+
+(defun my-c-mode-common-hook-if0 ()
+  (font-lock-add-keywords
+   nil
+   '((my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend))) 'add-to-end))
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook-if0)
+
 (setq indent-tabs-mode nil)
 
 ;;;###autoload
@@ -20,9 +51,11 @@
   (when (boundp 'company-backends)
 	(make-local-variable 'company-backends)
 	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake company-dabbrev company-dabbrev-code))))
-  ;; 默认 在linux 下 C-mode 使用 lsp-bridge 来进行补全
+  ;; 默认 在 linux 下 C-mode 使用 lsp-bridge 来进行补全
   (when IS-LINUX
-    (company-box-mode -1))
+    (company-box-mode -1)
+    (flycheck-mode 1)
+    )
 
   ;; 在C-mode中deadgrep基于当前路径进行搜索
   (require 'deadgrep)
@@ -37,6 +70,7 @@
     )
   ;; 在c模式下取消C-j 快捷键
   (global-unset-key (kbd "C-j"))
+  ;; (spk-disable-electric-pair-mode)
   )
 
 (add-hook 'c-mode-hook #'spk/cc-mode-setup)
@@ -60,6 +94,11 @@ and push it to `kill-ring'."
     (setq def-name (spk-get-c-defun-name))
     (when def-name
       (message (kill-new def-name)))))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((C . t)
+   (emacs-lisp . t)))
 
 ;; 可能hs-minor-mode的功能比较鸡肋，这里待商榷
 (define-key evil-normal-state-map (kbd ",n") #'spk-display-func-name)

@@ -41,8 +41,6 @@
 (autoload #'delete-block-forward "delete-block")
 
 ;; init-prog
-;; 配置better-jumper来满足阅读源代码时候的跳转需求
-(autoload #'better-jumper-mode "better-jumper")
 ;; 使用这包来快速删除多余的空格
 (autoload #'smart-hungry-delete-char "smart-hungry-delete")
 (autoload #'smart-hungry-delete-backward-char "smart-hungry-delete")

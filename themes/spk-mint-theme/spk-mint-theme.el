@@ -28,7 +28,7 @@ The theme is emulate spk-mint to learn elisp."
       (spk-mint-white "#F9F1F6")      ;;霜色
       (spk-mint-blue "#5F9EA0")       ;;灰蓝色
       (spk-mint-skyblue "#70F3FF")    ;; 蔚蓝
-      (spk-mint-oriange "#FA8C35")
+      (spk-mint-orange "#FA8C35")
       (spk-mint-yellow "#FFA631")     ;; 杏黄
       (spk-mint-pink "#ff79c6")
       (spk-mint-green "#48C0A3")      ;; 青碧
@@ -54,10 +54,10 @@ The theme is emulate spk-mint to learn elisp."
    ;; 左边的边缘条设置
    `(fringe  ((t (:background ,spk-mint-bg :foreground ,spk-mint-fg))))
    ;; `(show-paren-match (:background ,background :foreground ,spk-mint-green :bold t))
-   ;; `(show-paren-mismatch (:background ,background :foreground ,spk-mint-oriange :bold t))
+   ;; `(show-paren-mismatch (:background ,background :foreground ,spk-mint-orange :bold t))
    ;; `(minibuffer-prompt (:weight bold :foreground ,foreground))
-   ;; `(isearch (:background ,spk-mint-oriange :foreground ,foreground :bold t))
-   ;; `(lazy-highlight (:background ,spk-mint-oriange :foreground ,foreground))
+   ;; `(isearch (:background ,spk-mint-orange :foreground ,foreground :bold t))
+   ;; `(lazy-highlight (:background ,spk-mint-orange :foreground ,foreground))
    `(link ((t (:underline t))))
 
    ;; font
@@ -80,7 +80,7 @@ The theme is emulate spk-mint to learn elisp."
 
    `(font-lock-type-face ((t (:foreground ,spk-mint-darkpurple :widget bold))))
    `(font-lock-variable-name-face ((t (:foreground ,spk-mint-fg :weight bold))))
-   `(font-lock-warning-face ((t (:foreground ,spk-mint-oriange :background ,spk-mint-bg))))
+   `(font-lock-warning-face ((t (:foreground ,spk-mint-orange :background ,spk-mint-bg))))
    
    ;; linum 
    `(linum ((t (:background ,spk-mint-moon :foreground ,spk-mint-darkblue))))
@@ -110,7 +110,7 @@ The theme is emulate spk-mint to learn elisp."
    `(rainbow-delimiters-depth-9-face ((t (:foreground ,spk-mint-bamboo))))
    `(rainbow-delimiters-depth-10-face ((t (:foreground ,spk-mint-blue))))
    `(rainbow-delimiters-depth-11-face ((t (:foreground ,spk-mint-pink))))
-   `(rainbow-delimiters-depth-12-face ((t (:foreground ,spk-mint-oriange))))
+   `(rainbow-delimiters-depth-12-face ((t (:foreground ,spk-mint-orange))))
 
    ;; org
    `(org-tag ((t
@@ -119,8 +119,8 @@ The theme is emulate spk-mint to learn elisp."
    `(org-link ((t (:foreground ,spk-mint-bamboo :underline t))))
    `(org-special-keyword ((t (:foreground ,spk-mint-pink))))
    ;; `(org-todo ((t (:foreground ,spk-mint-lightblue :background ,spk-mint-cyan))))
-   `(org-todo ((t (:foreground ,spk-mint-lightblue :background ,spk-mint-bg))))
-   `(org-done ((t (:foreground ,spk-mint-green :background ,spk-mint-bg))))
+   `(org-todo ((t (:foreground ,spk-mint-red :background ,spk-mint-moon))))
+   `(org-done ((t (:foreground ,spk-mint-green :background ,spk-mint-moon))))
    `(org-checkbox-statistics-todo ((t (:foreground ,spk-mint-green :background ,spk-mint-bg))))
    `(org-checkbox-statistics-done ((t (:foreground ,spk-mint-green :background ,spk-mint-bg))))
    `(org-hide ((t (:foreground ,spk-mint-bg :background ,spk-mint-bg))))
@@ -133,7 +133,7 @@ The theme is emulate spk-mint to learn elisp."
    `(org-level-5 ((t (:weight normal :foreground ,spk-mint-blue))))
    `(org-level-6 ((t (:weight normal :foreground ,spk-mint-bamboo))))
    `(org-level-7 ((t (:weight normal :foreground ,spk-mint-darkgreen))))
-   `(org-level-8 ((t (:weight normal :foreground ,spk-mint-oriange))))
+   `(org-level-8 ((t (:weight normal :foreground ,spk-mint-orange))))
 
    ;; magit设置，现在有些默认设置看不清字
 
@@ -163,7 +163,7 @@ The theme is emulate spk-mint to learn elisp."
    ;; dired设置
    `(dired-header ((t (:background ,spk-mint-green :foreground ,spk-mint-darkpurple))))
    `(dired-directory ((t (:foreground ,spk-mint-green))))
-   `(dired-perm-write ((t (:foreground ,spk-mint-oriange))))
+   `(dired-perm-write ((t (:foreground ,spk-mint-orange))))
    `(dired-ignored ((t (:foreground ,spk-mint-lightblue))))
    ;; flyspell设置
    

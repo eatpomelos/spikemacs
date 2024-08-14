@@ -1,5 +1,10 @@
 ;; magit相关配置  -*- lexical-binding: t; -*-
-(straight-use-package 'magit)
+;; 指定 magit 版本
+(straight-use-package
+ '(magit :type git
+         :host github
+         :repo "magit/magit"
+         ))
 (straight-use-package 'vc-msg)
 
 ;; 下面的advice定义表示的是执行完magit-status 函数之后，切换evil模式到insert模式
@@ -16,7 +21,7 @@
   "gbd" 'magit-branch-delete
   "gbb" 'magit-blame-addition
   "gbq" 'magit-blame-quit
-  ;; gl 作为 log 命令前缀
+  ;; gl 作为 log 命令的前缀
   "gll" 'magit-log
   "gla" 'magit-log-all
   "glc" 'magit-log-current
@@ -29,10 +34,10 @@
   "gta" 'magit-stash-apply
   "gts" 'magit-stash-show
   ;; gr 作为 ref 的前缀包括 reflog 和 refs
-  "gfs" 'magit-show-refs
-  "gfc" 'magit-reflog-current
-  "gfo" 'magit-reflog-other
-  "gfh" 'magit-reflog-head
+  "grs" 'magit-show-refs
+  "grc" 'magit-reflog-current
+  "gro" 'magit-reflog-other
+  "grh" 'magit-reflog-head
   ;; 其他命令
   "gm" 'vc-msg-show
   )

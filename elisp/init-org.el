@@ -6,6 +6,8 @@
 ;; 增加 org 转换 srt 的插件
 (straight-use-package 'ox-rst)
 (straight-use-package 'markdown-mode)
+(straight-use-package 'markdown-preview-mode)
+;; (straight-use-package 'grip-mode)
 ;; (straight-use-package 'org)
 ;; (straight-use-package 'org-modern)
 ;; 实现 org-mode 中表格的对齐
@@ -19,18 +21,22 @@
 
 ;; (require 'org)
 ;; (straight-use-package 'focus)
-;; (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
+;; 默认在 markdown 文件中使用 org-mode
+(add-to-list 'auto-mode-alist '("\\.md\\'" . org-mode))
+
+;; (with-eval-after-load 'markdown-mode
+;;   (add-hook 'markdown-mode-hook #'grip-mode)
+;;   (setq grip-preview-use-webkit nil)
+;;   (setq grip-preview-host "localhost"))
 
 ;; 设置折叠时显示的符号
 (when IS-LINUX
   (setq org-ellipsis "⤵"))
 ;; 设置一下自己的任务管理的一些简单的配置,要是想放弃一个任务的时候，要进行说明，以后可能会再次启用这个任务
-(setq org-todo-keywords '((sequence "TODO(t)" "DOING(i)" "PAUSE(p@)" "|" "DONE(d)" "ABORT(a@/!)")))
-(setq org-todo-keyword-faces '(("TODO" . "red")
-                               ("DOING" . "yellow")
-                               ("DONE" . "green")
-                               ("ABORT" . "blue")
-                               ("PAUSE" . "cyan1")))
+(setq org-todo-keywords '((sequence "TODO(t)" "PENDING(i)" "PAUSE(p@)" "|" "DONE(d)" "ABORT(a@/!)")))
+(setq org-todo-keyword-faces '(("PENDING" . error)
+                               ("ABORT" . success)
+                               ("PAUSE" . warning)))
 
 
 (defvar spk-org-directory "~/.emacs.d/docs/org"

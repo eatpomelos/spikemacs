@@ -32,21 +32,12 @@
   (straight-use-package 'selectrum)
   (selectrum-mode +1))
 
-;; 考虑要不要加这个配置
-(straight-use-package 'undo-tree)
-(add-hook 'emacs-startup-hook #'global-undo-tree-mode)
-
 ;; 在 org-mode 中打开自动折行功能，避免一行过长
 (add-hook 'org-mode-hook #'auto-fill-mode)
 (setq-default fill-column 90)
 
-;; 怎么在不添加新的 package 的情况下覆盖绑定?
-(with-eval-after-load  'undo-tree
-  (global-set-key (kbd "C-r") #'undo-tree-redo)
-  (define-key evil-normal-state-map (kbd "C-r") #'undo-tree-redo)
-  (global-set-key (kbd "C-/") #'undo-tree-undo)
-  (setq undo-tree-auto-save-history nil)
-  )
+(global-set-key (kbd "C-r") #'undo-redo)
+(global-set-key (kbd "C-/") #'undo)
 
 ;; 指定 github 上的包，并下载，由于当前的环境配置中 linux 下的环境没有界面因此使用此 package 会导致 emacs 卡死
 (straight-use-package

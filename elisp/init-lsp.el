@@ -5,6 +5,9 @@
 
 (setq spk-lsp-bridge-dir (concat spk-local-packges-dir "lsp-bridge/"))
 
+(setq projectile-git-fd-args "-H -0 -E .git -tf -c never")
+;; (setq projectile-fd-executable "fd")
+
 (unless (file-exists-p spk-lsp-bridge-dir)
   (shell-command-to-string (format "git clone https://gitee.com/manateelazycat/lsp-bridge %s" spk-lsp-bridge-dir)))
 
@@ -23,8 +26,8 @@
   )
 
 (add-hook 'lsp-bridge-mode-hook #'(lambda ()
-                                    (message (format "spike start timer"))
                                     (unless spk-lsp-free-check-timer
+                                      (message (format "spike start timer"))
                                       (setq spk-lsp-free-check-timer
                                             (run-with-timer 0 15 #'spk/lsp-consider-restart-lsp-bridge)))))
 
@@ -36,10 +39,19 @@
                                               )))
 
 (require 'lsp-bridge)
-(global-lsp-bridge-mode)
+;; (add-hook 'prog-mode-hook 'lsp-bridge-mode)
+(add-hook 'c-mode-hook 'lsp-bridge-mode)
+(add-hook 'perl-mode-hook 'lsp-bridge-mode)
+(add-hook 'emacs-lisp-mode-hook 'lsp-bridge-mode)
+(add-hook 'python-mode-hook 'lsp-bridge-mode)
+(add-hook 'inferior-emacs-lisp-mode-hook 'lsp-bridge-mode)
 
-;; 将隐藏补全框的字符设置成nil，在所有情况下都进行补全，后续实际体验过程中再修改
-(setq lsp-bridege-completion-hide-characters nil)
+(setq lsp-bridge-search-words-rebuild-cache-idle 0.5)
+
+;; (global-lsp-bridge-mode)
+
+;; 将隐藏补全框的字符设置成 nil，在所有情况下都进行补全，后续实际体验过程中再修改
+;; (setq lsp-bridege-completion-hide-characters nil)
 
 (add-hook 'python-mode-hook (lambda ()
                               (evil-define-key* 'normal python-mode-map "gd" #'lsp-bridge-find-def)

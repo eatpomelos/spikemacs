@@ -41,6 +41,8 @@
   (define-key Info-mode-map "l" 'forward-char)
   (define-key Info-mode-map "L" 'Info-forward-node)
   (define-key Info-mode-map "H" 'Info-backward-node)
+  (define-key Info-mode-map "r" 'Info-history-back)
+  (define-key Info-mode-map "R" 'Info-history-forward)
   (define-key Info-mode-map "\\" 'Info-history)
   (define-key Info-mode-map (kbd "C-c h") 'Info-help)
   (define-key Info-mode-map "R" 'Info-history-back)
@@ -52,7 +54,5 @@
   (add-to-list 'Info-additional-directory-list
              "d:/HOME/.emacs.d/docs/Code/elisp/Elisp_manual/info")
   )
-
-;; (info "d:/HOME/.emacs.d/docs/Code/elisp/Elisp_manual/info/03-数字.info")
 
 (provide 'init-info)

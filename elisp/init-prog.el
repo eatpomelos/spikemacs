@@ -1,15 +1,24 @@
 ;; -*- lexical-binding: t; -*-
-(straight-use-package 'better-jumper)
 (straight-use-package 'smart-hungry-delete)
 ;; (straight-use-package 'aggressive-indent-mode)
 (straight-use-package 'deadgrep)
 (straight-use-package 'minimap)
 (straight-use-package 'yasnippet)
+(straight-use-package 'ninja-mode)
+(straight-use-package 'gn-mode)
+(straight-use-package 'dogears)
 
 (defvar spk-source-code-dir nil
   "Path to store the source code.")
 
-;; 替换xref的搜索程序，暂时没在windows上察觉到明显的速度变化
+(add-to-list 'auto-mode-alist '("\\.gn$" . gn-mode))
+(add-to-list 'auto-mode-alist '("\\.gni$" . gn-mode))
+
+
+(with-eval-after-load 'gn-mode
+  (setq gn-basic-indent 4)
+  )
+;; 替换 xref 的搜索程序，暂时没在 windows 上察觉到明显的速度变化
 (when (and EMACS28+ IS-LINUX)
   (straight-use-package 'tree-sitter)
   (straight-use-package 'tree-sitter-langs)
@@ -45,6 +54,9 @@
 (require 'flex)
 (require 'bison)
 
+(add-to-list 'auto-mode-alist '("\\.y$" . bison-mode))
+(add-to-list 'auto-mode-alist '("\\.l$" . flex-mode))
+
 (add-hook 'c-mode-hook (lambda ()
                          (define-key c-mode-map (kbd "M-d") 'delete-block-forward)
                          (define-key c-mode-map (kbd "M-DEL") 'delete-block-backward)
@@ -69,7 +81,7 @@
 
 (straight-use-package 'imenu-list)
 
-(add-hook 'prog-mode-hook #'better-jumper-mode)
+(add-hook 'prog-mode-hook #'dogears-mode)
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 
 (global-hl-line-mode t)
@@ -233,18 +245,28 @@
 (define-key evil-normal-state-map (kbd ",a") #'spk/jump-to-beginning-of-defname)
 (define-key evil-normal-state-map (kbd ",e") #'end-of-defun)
 
-;; 配置better-jumper快捷键来满足跳转需求
-(with-eval-after-load 'better-jumper
-  ;; 在进行跳转之后，闪一下当前行，便于在大段代码中定位行
-  (advice-add 'better-jumper-jump-backward :after #'xref-pulse-momentarily)
-  (advice-add 'better-jumper-jump-forward :after #'xref-pulse-momentarily)
+(with-eval-after-load 'dogears
+  (setq dogears-idle 1
+        dogears-limit 200
+        dogears-position-delta 20)
+  (setq dogears-functions '(find-file recenter-top-bottom
+                                      other-window switch-to-buffer
+                                      aw-select toggle-window-split
+                                      windmove-do-window-select
+                                      pager-page-down pager-page-up
+                                      tab-bar-select-tab
+                                      pop-to-mark-command
+                                      pop-global-mark
+                                      goto-last-change
+                                      xref-go-back
+                                      xref-find-definitions
+                                      xref-find-references))
+  
+  (advice-add 'dogears-back :after #'xref-pulse-momentarily)
+  (advice-add 'dogears-forward :after #'xref-pulse-momentarily)
 
-  (define-key prog-mode-map (kbd "C-<f8>") 'better-jumper-jump-backward)
-  (define-key prog-mode-map (kbd "C-<f9>") 'better-jumper-jump-forward)
-
-  ;; LINUX上的备用按键
-  (define-key prog-mode-map (kbd "C-\{") 'better-jumper-jump-backward)
-  (define-key prog-mode-map (kbd "C-\}") 'better-jumper-jump-forward)
+  (define-key prog-mode-map (kbd "C-\{") 'dogears-back)
+  (define-key prog-mode-map (kbd "C-\}") 'dogears-forward)
   )
 
 (defalias 'dg 'deadgrep)
@@ -289,7 +311,7 @@
     (highlight-changes-remove-highlight (point-min) (point-max))))
 
 ;; 当撤销到最后一步的时候也需要取消高亮
-(defadvice undo-tree-undo (after spik-remove-highlight activate)
+(defadvice undo (after spik-remove-highlight activate)
   (when (highlight-changes-mode)
     (unless (buffer-modified-p)
       (highlight-changes-remove-highlight (point-min) (point-max)))))
@@ -309,6 +331,7 @@
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置
 (require 'init-elisp)
 (require 'init-C)
+(require 'init-rust)
 
 ;; 仅在linux上使用init-lsp，由于当前在windows上使用共享文件的方式来进行编码，导致有一些文件的路径不对
 (when IS-LINUX

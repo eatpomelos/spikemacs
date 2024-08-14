@@ -79,6 +79,7 @@
 
 ;; 开启括号的补全
 (electric-pair-mode 1)
+(setq electric-quote-comment t)
 
 ;; 显示当前列
 (column-number-mode 1)

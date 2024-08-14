@@ -119,6 +119,21 @@
     (counsel-find-file spk-mind-wave-chat-dir))
   (global-set-key (kbd "<f10>") 'spk/open-private-chat-dir)
   )
+
+;; 删除buffer中的所有空行
+(defun spk/delete-buffer-blank-lines ()
+  (interactive)
+  (save-excursion
+    (save-restriction
+      (widen)
+      (goto-char (point-min))
+      (while (< (point) (buffer-size))
+        (delete-blank-lines)
+        (forward-line)
+        )
+      ))
+  )
+
 (require 'init-info)
 
 (provide 'init-tools)

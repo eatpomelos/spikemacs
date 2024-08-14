@@ -28,7 +28,7 @@
   (counsel-find-file spk-elisp-dir))
 
 (when IS-LINUX
-  (setq spk-i3-conf-dir (concat (format "/home/%s%s" user-login-name "/.config/i3/config.d/")))
+  (setq spk-i3-conf-dir (concat (format "/home/%s%s" user-login-name "/.config")))
 ;;;###autoload
   (defun spk-find-i3-conf ()
     "Find local config in the local path."
@@ -246,8 +246,13 @@
   (mapcar #'spk/bookmark_delete-no-file-exist (bookmark-all-names))
   )
 
-(global-set-key (kbd "M-p") 'scroll-down-command)
-(global-set-key (kbd "M-n") 'scroll-up-command)
+(global-set-key (kbd "M-p") (lambda ()
+                              (interactive)
+                              (scroll-down-command (/ (window-height) 2))))
+
+(global-set-key (kbd "M-n") (lambda ()
+                              (interactive)
+                              (scroll-up-command (/ (window-height) 2))))
 
 ;; 向左删除本行内容，但是保留缩进
 (global-set-key (kbd "C-<backspace>") (lambda ()
@@ -301,8 +306,8 @@
   (require 'popweb)
   (require 'popweb-dict)
   ;; (require 'popweb-org-roam-link)
-  (global-set-key (kbd "<f3>") #'popweb-dict-youdao-pointer)
-  (global-set-key (kbd "<f4>") #'popweb-dict-youdao-input)
+  (global-set-key (kbd "<f5>") #'popweb-dict-youdao-pointer)
+  (global-set-key (kbd "<f6>") #'popweb-dict-youdao-input)
   )
 
 (unless (file-exists-p spk-popweb-dir)
@@ -318,8 +323,8 @@
   ;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
   (evil-set-initial-state 'youdao-dictionary-mode 'emacs)
 
-  (global-set-key (kbd "<f3>") #'youdao-dictionary-search-at-point+)
-  (global-set-key (kbd "<f4>") #'spk/youdao-directory-search-form-input-popup)
+  (global-set-key (kbd "<f5>") #'youdao-dictionary-search-at-point+)
+  (global-set-key (kbd "<f6>") #'spk/youdao-directory-search-form-input-popup)
 
   (require 'youdao-dictionary)
 ;;;###autoload
