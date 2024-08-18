@@ -80,11 +80,7 @@
     "m\]" 'er/mark-sentence))
 
 
-(global-set-key (kbd "<f8>") 'symbol-overlay-put)
-(global-set-key (kbd "S-<f8>") 'symbol-overlay-jump-prev)
-(global-set-key (kbd "S-<f9>") 'symbol-overlay-jump-next)
-
-(global-set-key (kbd "C-'") 'symbol-overlay-put)
+(global-set-key (kbd "C-\"") 'symbol-overlay-put)
 (global-set-key (kbd "C-<") 'symbol-overlay-jump-prev)
 (global-set-key (kbd "C->") 'symbol-overlay-jump-next)
 

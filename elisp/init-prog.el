@@ -81,7 +81,8 @@
 
 (straight-use-package 'imenu-list)
 
-(add-hook 'prog-mode-hook #'dogears-mode)
+;; (add-hook 'prog-mode-hook #'dogears-mode)
+(dogears-mode)
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 
 (global-hl-line-mode t)
@@ -89,7 +90,8 @@
 
 ;; keybindings
 (global-set-key (kbd "<f12>") 'eshell)
-(global-set-key (kbd "<f2>") 'imenu-list-smart-toggle)
+;; (global-set-key (kbd "<f2>") 'imenu-list-smart-toggle)
+(global-set-key (kbd "C-|") 'imenu-list-smart-toggle)
 
 (with-eval-after-load 'imenu-list
   (setq

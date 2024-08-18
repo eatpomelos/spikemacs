@@ -11,18 +11,16 @@
 ;; (add-to-list 'load-path spk-local-eaf-app-dir)
 
 ;; 关闭默认eaf接管dired选项，必须在加载eaf之前设置
-(setq-default eaf-dired-advisor-enable nil)
+;; (setq-default eaf-dired-advisor-enable nil)
 
 (require 'eaf)
 
 (require 'eaf-rss-reader)
-(require 'eaf-system-monitor)
 (require 'eaf-org-previewer)
 (require 'eaf-git)
 (require 'eaf-browser)
 (require 'eaf-file-manager)
 (require 'eaf-vue-demo)
-(require 'eaf-demo)
 (require 'eaf-airshare)
 (require 'eaf-camera)
 (require 'eaf-jupyter)
@@ -30,7 +28,6 @@
 (require 'eaf-mindmap)
 (require 'eaf-image-viewer)
 (require 'eaf-file-sender)
-(require 'eaf-netease-cloud-music)
 (require 'eaf-pdf-viewer)
 (require 'eaf-terminal)
 (require 'eaf-file-browser)
@@ -80,9 +77,18 @@
     )
   )
 
+(with-eval-after-load 'eaf-file-manager
+  (evil-leader/set-key
+    ;; 当加载了eaf时，用eaf的文件管理器接管dired
+    "fj" 'eaf-open-file-manager
+    )
+  (global-set-key (kbd "C-x C-j") 'eaf-open-file-manager)
+  )
+
 (global-set-key (kbd "C-c SPC") 'evil-switch-to-windows-last-buffer)
 (global-set-key (kbd "C-c p a") 'spk/project-fast-find-all-file)
 (global-set-key (kbd "C-c p f") 'spk/project-fast-find-file)
+(global-set-key (kbd "C-c f l") 'counsel-locate)
 
 ;; eaf和straight的结构有冲突，这里不使用straight的方式加载
 (provide 'init-eaf)
