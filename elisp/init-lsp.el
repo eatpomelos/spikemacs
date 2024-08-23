@@ -41,6 +41,17 @@
 (require 'lsp-bridge)
 ;; (add-hook 'prog-mode-hook 'lsp-bridge-mode)
 (add-hook 'c-mode-hook 'lsp-bridge-mode)
+
+;; 在进入 C-mode 的时候如果在根目录中发现了 compile_command.json 文件则使用 lsp-bridge 的快捷键
+(add-hook 'c-mode-hook #'(lambda ()
+                           (when (and (+spk-get-complete-file "compile_commands.json") IS-LINUX)
+                             (evil-define-key* 'normal c-mode-map "gd" #'lsp-bridge-find-def)
+                             (evil-define-key* 'normal c-mode-map "gr" #'lsp-bridge-find-references)
+                             )))
+
+;; 在开启lsp的时候，移除company-mode的hook，使用lsp的补全
+(remove-hook 'prog-mode-hook 'company-mode)
+
 (add-hook 'perl-mode-hook 'lsp-bridge-mode)
 (add-hook 'emacs-lisp-mode-hook 'lsp-bridge-mode)
 (add-hook 'python-mode-hook 'lsp-bridge-mode)
