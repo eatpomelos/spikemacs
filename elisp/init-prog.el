@@ -344,7 +344,7 @@
 (require 'init-rust)
 
 ;; 仅在linux上使用init-lsp，由于当前在windows上使用共享文件的方式来进行编码，导致有一些文件的路径不对
-(when IS-LINUX
+(when (and IS-LINUX (> (/ (+spk-get-memavailable) 1024) 8000))
   (require 'init-lsp)
   )
 

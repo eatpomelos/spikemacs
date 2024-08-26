@@ -296,7 +296,8 @@
   )
 
 (setq spk-popweb-dir (concat spk-local-packges-dir "popweb"))
-(when (file-exists-p spk-popweb-dir)
+(when (and (file-exists-p spk-popweb-dir)
+           (> (/ (+spk-get-memavailable) 1024) 8000))
   (add-to-list 'load-path spk-popweb-dir)
   ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/color-picker"))
   (add-to-list 'load-path (concat spk-popweb-dir "/extension/dict"))
