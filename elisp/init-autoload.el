@@ -46,6 +46,7 @@
 (autoload #'smart-hungry-delete-backward-char "smart-hungry-delete")
 ;; (autoload #'aggressive-indent-mode "aggressive-indent-mode")
 (autoload #'imenu-list-smart-toggle "imenu-list")
+(autoload #'deadgrep-visit-result-other-window "deadgrep")
 (autoload #'deadgrep "deadgrep")
 
 (autoload #'ctags-auto-update-mode "ctags-update")
