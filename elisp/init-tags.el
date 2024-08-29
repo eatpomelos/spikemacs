@@ -17,53 +17,32 @@
   (message "project setup finished.")
   )
 
-;; 这个创建的文件能够提供给grep来达到查找引用的效果，在创建缓存文件的时候需要考虑换行符以及其余命令需要的格式
-;; 将创建的文件缓存
-;;;###autoload
 (defun spk/project-create-file-cache-by-tags (&optional ignore-exist)
-  "Create project file cache."
+  "create project file cache."
   (interactive)
   (catch 'done
 	(when (and ignore-exist
 			   (+spk-get-complete-file spk-ctags-file-cache-file))
 	  (throw 'done nil))
 	(unless (+spk-get-complete-file spk-ctags-file-cache-file)
-      ;; 只有能找到TAGS文件的时候才去创建文件缓存
+      ;; 只有能找到tags文件的时候才去创建文件缓存
       (if (+spk-get-file-dir "TAGS")
 	      (make-empty-file (concat (+spk-get-file-dir "TAGS") spk-ctags-file-cache-file))
-        (message "not found CTAGS file.")
+        (message "not found ctags file.")
         (throw 'done nil)
         ))
-	(let* ((tags-dir (+spk-get-file-dir "TAGS"))
-		   (tags-file (+spk-get-complete-file "TAGS"))
-		   (time (current-time))
-		   (cache-file (+spk-get-complete-file spk-ctags-file-cache-file))
-		   (prev-line-regex "^\014$") ;;通过阅读TAGS文件得知，在文件行之前会有一个特殊符号 
-		   (large-string "")
-		   all-content
-		   file-line
-		   )
-	  (unless tags-file
-		(throw 'done nil))
-	  (setq all-content (with-temp-buffer
-						  (insert-file-contents tags-file)
-						  (buffer-string)))
-	  (with-temp-buffer
-		;; (set-buffer-file-coding-system 'utf-8-unix 't)
-		(insert all-content)
-		(goto-char (point-min))
-		(while (search-forward-regexp prev-line-regex (point-max) t)
-		  (forward-line)
-		  (setq file-line (buffer-substring (line-beginning-position) (line-end-position)))
-		  (when (string-match "^\\(.*\\),.*$" file-line)
-			(setq large-string (concat large-string (format "%s\012" (match-string 1 file-line)))))
-		  (forward-line)))
-	  (with-temp-buffer
-		(insert large-string)
-		(write-file cache-file)
-		)
-	  (message (format "create file finished (%s)" (spk/time-cost time)))
-	  )))
+    
+    (save-excursion
+	  (let* ((in-file "TAGS")
+		     (out-file spk-ctags-file-cache-file)
+             (cmd-str nil)
+             (cache-script (concat spk-scripts-dir "create_tags_file_cache"))
+		     )
+        (when (logand (file-modes cache-script) #x001)
+          (shell-command (format "chmod +x %s" cache-script)))
+        (setq cmd-str (format "%s %s %s" cache-script in-file out-file))
+	    (compilation-start cmd-str)
+	    ))))
 
 ;; 使用shell命令来搜索指定路径下的所有文件，并生成缓存
 ;;;###autoload

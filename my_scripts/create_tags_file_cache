@@ -1,0 +1,36 @@
+#!/usr/bin/perl
+# 用 perl 脚本实现过滤出tags文件中文件名行，并生成文件缓存功能
+use 5.010;
+use utf8;
+use strict;
+
+open(my $IN, "<:encoding(utf8)", $ARGV[0]) || die "Cannot open the in file: $!\n";
+my @lines = <$IN>;
+close($IN);
+
+if ((scalar @ARGV) != 2) {
+    say "example:$0 in_file out_file";
+    exit(1);
+}
+
+# 用于标记是否当前是需要查找行的前一行
+my $prev_line = 0;
+foreach my $line (@lines) {
+    if ($line =~ m/^\014$/) {
+        $line =~ s/.*//;
+        $prev_line = 1;
+    } elsif ($prev_line == 1) {
+        $line =~ s/(^[^,]+),.*($)/$1$2/;
+        $prev_line = 0;
+    } else {
+        $line =~ s/.*//;
+    }
+}
+
+# 清除空行
+@lines = grep {/\S/} @lines;
+
+# 将修改后的内容写入新文件
+open(my $OUT, ">:encoding(utf8)", $ARGV[1]) or die "Cannot open file: $!\n";
+print $OUT @lines;
+close($OUT);

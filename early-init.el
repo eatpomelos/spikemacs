@@ -22,7 +22,10 @@
 (defconst spk-local-tmp-dir
   (concat spk-local-dir "tmp/")
   "Directory of temp files.")
-  
+
+(defconst spk-scripts-dir
+  (concat spk-dir "my_scripts/"))
+
 ;; 私有包放置的位置，可能是没有加入elpa的包或者是自己为了学elisp而抄的或者写的demo
 (defconst spk-local-packges-dir
   (concat spk-local-dir "packages/"))
