@@ -46,10 +46,10 @@
 		))
 
 (straight-use-package
-   '(bison :type git
-		    :host github
-		    :repo "manateelazycat/bison"
-		    ))
+ '(bison :type git
+		 :host github
+		 :repo "manateelazycat/bison"
+		 ))
 
 (require 'flex)
 (require 'bison)
@@ -91,7 +91,7 @@
 ;; keybindings
 (global-set-key (kbd "<f12>") 'eshell)
 ;; (global-set-key (kbd "<f2>") 'imenu-list-smart-toggle)
-(global-set-key (kbd "C-|") 'imenu-list-smart-toggle)
+(global-set-key (kbd "C-\\") 'imenu-list-smart-toggle)
 
 (with-eval-after-load 'imenu-list
   (setq
@@ -274,6 +274,13 @@
 
   (global-set-key (kbd "C-\{") 'dogears-back)
   (global-set-key (kbd "C-\}") 'dogears-forward)
+  (global-set-key (kbd "C-\|") 'dogears-list)
+  (evil-set-initial-state 'dogears-list-mode 'emacs)
+  
+  (define-key dogears-list-mode-map "h" 'backward-char)
+  (define-key dogears-list-mode-map "j" 'next-line)
+  (define-key dogears-list-mode-map "k" 'previous-line)
+  (define-key dogears-list-mode-map "l" 'forward-char)
   )
 
 ;; (add-hook 'prog-mode-hook #'dogears-mode)
