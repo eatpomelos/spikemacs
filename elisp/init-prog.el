@@ -247,27 +247,30 @@
 (define-key evil-normal-state-map (kbd ",a") #'spk/jump-to-beginning-of-defname)
 (define-key evil-normal-state-map (kbd ",e") #'end-of-defun)
 
-(setq dogears-functions '(find-file recenter-top-bottom
-                                      other-window switch-to-buffer
-                                      aw-select toggle-window-split
-                                      windmove-do-window-select
-                                      pager-page-down pager-page-up
-                                      tab-bar-select-tab
-                                      pop-to-mark-command
-                                      pop-global-mark
-                                      goto-last-change
-                                      xref-go-back
-                                      xref-find-definitions
-                                      xref-find-references
-                                      switch-to-buffer-other-frame
-                                      switch-to-buffer-other-window
-                                      ))
+(setq dogears-functions '(
+                          ;; find-file
+                          recenter-top-bottom
+                          other-window switch-to-buffer
+                          aw-select toggle-window-split
+                          windmove-do-window-select
+                          pager-page-down pager-page-up
+                          tab-bar-select-tab
+                          pop-to-mark-command
+                          pop-global-mark
+                          goto-last-change
+                          xref-go-back
+                          xref-find-definitions
+                          xref-find-references
+                          lsp-bridge-find-def
+                          ;; switch-to-buffer-other-frame
+                          ;; switch-to-buffer-other-window
+                          ))
 (with-eval-after-load 'dogears
   (setq dogears-idle 1
         dogears-limit 200
         dogears-position-delta 20)
   
-  (setq dogears-ignore-modes (append '(minibuffer-mode help-mode) dogears-ignore-modes))
+  (setq dogears-ignore-modes (append '(minibuffer-mode help-mode imenu-list-major-mode) dogears-ignore-modes))
   
   (advice-add 'dogears-back :after #'xref-pulse-momentarily)
   (advice-add 'dogears-forward :after #'xref-pulse-momentarily)

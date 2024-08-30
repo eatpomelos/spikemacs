@@ -80,9 +80,10 @@
     "m\]" 'er/mark-sentence))
 
 
-(global-set-key (kbd "C-\"") 'symbol-overlay-put)
-(global-set-key (kbd "C-<") 'symbol-overlay-jump-prev)
-(global-set-key (kbd "C->") 'symbol-overlay-jump-next)
+(global-set-key (kbd "C-\'") 'symbol-overlay-put)
+(global-set-key (kbd "C-\"") 'symbol-overlay-rename)
+(global-set-key (kbd "C-:") 'symbol-overlay-jump-prev)
+(global-set-key (kbd "C-;") 'symbol-overlay-jump-next)
 
 
 ;; 设置英语检错，设置有问题，暂时未解决
