@@ -79,17 +79,17 @@
 
 
 ;; 这部分配置暂时用不到，页面的org-roam-ui暂时不能正常显示
-(with-eval-after-load 'org-roam
-  (require 'org-roam-ui)
+;; (with-eval-after-load 'org-roam
+;;   (require 'org-roam-ui )
 
-  (require 'websocket)
-  (require 'simple-httpd)
+;;   (require 'websocket)
+;;   ;; (require 'simple-httpd)
   
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t)
-  (org-roam-setup)
-  )
+;;   (setq org-roam-ui-sync-theme t
+;;         org-roam-ui-follow t
+;;         org-roam-ui-update-on-save t
+;;         org-roam-ui-open-on-start t)
+;;   (org-roam-setup)
+;;   )
 
 (provide 'init-org-roam)

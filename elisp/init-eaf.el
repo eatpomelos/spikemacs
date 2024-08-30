@@ -34,6 +34,11 @@
 (require 'eaf-video-player)
 (require 'eaf-markdown-previewer)
 
+(defun spk/eaf-open-current-file-manager ()
+  "Open EAF file manager."
+  (interactive)
+  (eaf-open default-directory "file-manager"))
+
 (with-eval-after-load 'eaf-browser
   ;; 在eaf中用了s库相关的接口，在这里手动加载这个库，避免出错
   (require 's)
@@ -80,9 +85,9 @@
 (with-eval-after-load 'eaf-file-manager
   (evil-leader/set-key
     ;; 当加载了eaf时，用eaf的文件管理器接管dired
-    "fj" 'eaf-open-file-manager
+    "fj" 'spk/eaf-open-current-file-manager
     )
-  (global-set-key (kbd "C-x C-j") 'eaf-open-file-manager)
+  (global-set-key (kbd "C-x C-j") 'spk/eaf-open-current-file-manager)
   )
 
 (global-set-key (kbd "C-c SPC") 'evil-switch-to-windows-last-buffer)

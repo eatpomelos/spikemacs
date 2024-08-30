@@ -46,7 +46,7 @@
 
 ;; (load-theme 'modus-vivendi)
 ;; (load-theme 'ef-bio :no-comform)
-(load-theme 'spk-mint :no-comform)
+;; (load-theme 'spk-mint :no-comform)
 
 ;; 在加载新的主题之前先取消其他主题的设置
 (defadvice load-theme
