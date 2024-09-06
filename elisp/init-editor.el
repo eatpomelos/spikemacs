@@ -17,6 +17,13 @@
    )
  )
 
+;; 参考自：https://emacs-china.org/t/topic/25811/7
+(setq-default bidi-display-reordering nil)
+(setq bidi-inhibit-bpa t
+      long-line-threshold 1000
+      large-hscroll-threshold 1000
+      syntax-wholeline-max 1000)
+
 ;; windows 上 sis 设置
 (sis-ism-lazyman-config nil t 'w32)
 ;; TODO 需要注意的是下面的相关配置会导致 org-mode 使用 latex 导出 pdf 时失败，暂时屏蔽以下配置，后续优化

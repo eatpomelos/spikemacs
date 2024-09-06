@@ -248,7 +248,7 @@
 (define-key evil-normal-state-map (kbd ",e") #'end-of-defun)
 
 (setq dogears-functions '(
-                          ;; find-file
+                          find-file
                           recenter-top-bottom
                           other-window switch-to-buffer
                           aw-select toggle-window-split
@@ -262,8 +262,8 @@
                           xref-find-definitions
                           xref-find-references
                           lsp-bridge-find-def
-                          ;; switch-to-buffer-other-frame
-                          ;; switch-to-buffer-other-window
+                          switch-to-buffer-other-frame
+                          switch-to-buffer-other-window
                           ))
 (with-eval-after-load 'dogears
   (setq dogears-idle 1

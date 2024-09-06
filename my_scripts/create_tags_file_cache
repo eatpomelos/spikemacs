@@ -4,14 +4,14 @@ use 5.010;
 use utf8;
 use strict;
 
-open(my $IN, "<:encoding(utf8)", $ARGV[0]) || die "Cannot open the in file: $!\n";
-my @lines = <$IN>;
-close($IN);
-
 if ((scalar @ARGV) != 2) {
     say "example:$0 in_file out_file";
     exit(1);
 }
+
+open(my $IN, "<:encoding(utf8)", $ARGV[0]) || die "Cannot open the in file: $!\n";
+my @lines = <$IN>;
+close($IN);
 
 # 用于标记是否当前是需要查找行的前一行
 my $prev_line = 0;
