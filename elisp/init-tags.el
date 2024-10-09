@@ -36,7 +36,7 @@
            (cmd-str nil)
            (cache-script (concat spk-scripts-dir "create_tags_file_cache"))
 		   )
-      (when (logand (file-modes cache-script) #x001)
+      (when (zerop (logand (file-modes cache-script) #x001))
         (shell-command (format "chmod +x %s" cache-script)))
       (setq cmd-str (format "%s %s %s" cache-script in-file out-file))
 	  (compilation-start cmd-str)
