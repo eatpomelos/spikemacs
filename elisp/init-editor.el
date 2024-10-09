@@ -104,7 +104,7 @@
   (setq symbol-overlay-inhibit-map t)
   ;; 默认的 8 个 face 不够用，这里增加到 20 个
   (defface symbol-overlay-face-9
-    '((t (:background "SystemHilight" :foreground "black")))
+    '((t (:background "DarkOrchid4" :foreground "black")))
     "Symbol Overlay default candidate 9"
     :group 'symbol-overlay)
   (defface symbol-overlay-face-10

@@ -31,18 +31,16 @@
         (message "not found ctags file.")
         (throw 'done nil)
         ))
-    
-    (save-excursion
-	  (let* ((in-file "TAGS")
-		     (out-file spk-ctags-file-cache-file)
-             (cmd-str nil)
-             (cache-script (concat spk-scripts-dir "create_tags_file_cache"))
-		     )
-        (when (logand (file-modes cache-script) #x001)
-          (shell-command (format "chmod +x %s" cache-script)))
-        (setq cmd-str (format "%s %s %s" cache-script in-file out-file))
-	    (compilation-start cmd-str)
-	    ))))
+	(let* ((in-file "TAGS")
+		   (out-file spk-ctags-file-cache-file)
+           (cmd-str nil)
+           (cache-script (concat spk-scripts-dir "create_tags_file_cache"))
+		   )
+      (when (logand (file-modes cache-script) #x001)
+        (shell-command (format "chmod +x %s" cache-script)))
+      (setq cmd-str (format "%s %s %s" cache-script in-file out-file))
+	  (compilation-start cmd-str)
+	  )))
 
 ;; 使用shell命令来搜索指定路径下的所有文件，并生成缓存
 ;;;###autoload
