@@ -209,6 +209,7 @@
   (pixel-scroll-precision-mode t))
 
 (evil-set-initial-state 'profiler-report-mode 'emacs)
+(evil-set-initial-state 'edebug-mode 'emacs)
 
 ;; 设置最近文件的最大条目数
 (setq recentf-max-saved-items 1000)
