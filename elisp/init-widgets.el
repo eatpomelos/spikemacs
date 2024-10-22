@@ -296,6 +296,10 @@
   )
 
 (setq spk-popweb-dir (concat spk-local-packges-dir "popweb"))
+(unless (file-exists-p spk-popweb-dir)
+  (shell-command-to-string (format "git clone https://github.com/manateelazycat/popweb %s" spk-popweb-dir))
+  )
+
 (when (and (file-exists-p spk-popweb-dir)
            (> (/ (+spk-get-memavailable) 1024) 6000))
   (add-to-list 'load-path spk-popweb-dir)
@@ -309,36 +313,6 @@
   ;; (require 'popweb-org-roam-link)
   (global-set-key (kbd "<f5>") #'popweb-dict-youdao-pointer)
   (global-set-key (kbd "<f6>") #'popweb-dict-youdao-input)
-  )
-
-(unless (file-exists-p spk-popweb-dir)
-  (straight-use-package 'youdao-dictionary)
-  (when EMACS29+
-    (require 'popup))
-  (evil-leader/set-key
-    "yo" 'youdao-dictionary-search-at-point+
-    "ys" 'youdao-dictionary-play-voice-at-point
-    "yi" 'youdao-dictionary-search-from-input
-    )
-
-  ;; 在进入了youdao-directory-mode之后进入insert-mode，使用q来退出
-  (evil-set-initial-state 'youdao-dictionary-mode 'emacs)
-
-  (global-set-key (kbd "<f5>") #'youdao-dictionary-search-at-point+)
-  (global-set-key (kbd "<f6>") #'spk/youdao-directory-search-form-input-popup)
-
-  (require 'youdao-dictionary)
-;;;###autoload
-  (defun spk/youdao-directory-search-form-input-popup ()
-    "Youdao dictionary search from input."
-    (interactive)
-    (let* ((word nil))
-      (setq word (read-string (format "Word: ")
-                              nil nil word))
-      (popup-tip
-       (youdao-dictionary--format-result
-        (youdao-dictionary--request word)))
-      ))
   )
 
 (when IS-LINUX

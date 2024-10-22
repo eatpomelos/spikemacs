@@ -81,7 +81,6 @@
 ;; init-themes
 
 ;; init-widgets
-(autoload #'youdao-dictionary-search-at-point+ "youdao-dictionary")
 (autoload #'tiny-expand "tiny")
 
 (provide 'init-autoload)
