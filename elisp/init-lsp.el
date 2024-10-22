@@ -42,15 +42,25 @@
 ;; (add-hook 'prog-mode-hook 'lsp-bridge-mode)
 (add-hook 'c-mode-hook 'lsp-bridge-mode)
 
+(defun spk/find-def-entry ()
+  (interactive)
+  (if (+spk-get-complete-file "compile_commands.json")
+      (lsp-bridge-find-def)
+    (xref-find-definitions (thing-at-point 'symbol))
+    ))
+
+(defun spk/find-ref-entry ()
+  (interactive)
+  (if (+spk-get-complete-file "compile_commands.json")
+      (lsp-bridge-find-references)
+    (xref-find-references (thing-at-point 'symbol))
+    ))
+
 ;; 在进入 C-mode 的时候如果在根目录中发现了 compile_command.json 文件则使用 lsp-bridge 的快捷键
 (add-hook 'c-mode-hook #'(lambda ()
-                           (if (and (+spk-get-complete-file "compile_commands.json") IS-LINUX)
-                               (progn
-                                 (evil-define-key* 'normal c-mode-map "gd" #'lsp-bridge-find-def)
-                                 (evil-define-key* 'normal c-mode-map "gr" #'lsp-bridge-find-references))
-                             (progn
-                                 (evil-define-key* 'normal c-mode-map "gd" #'xref-find-definitions)
-                                 (evil-define-key* 'normal c-mode-map "gr" #'xref-find-references))
+                           (when IS-LINUX
+                             (evil-define-key* 'normal c-mode-map "gd" #'spk/find-def-entry)
+                             (evil-define-key* 'normal c-mode-map "gr" #'spk/find-ref-entry)
                              )))
 
 ;; 在开启lsp的时候，移除company-mode的hook，使用lsp的补全
