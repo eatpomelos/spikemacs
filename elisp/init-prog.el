@@ -143,6 +143,7 @@
 	xref-find-definitions-other-frame)
       )
 
+(evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
 ;; functions
 
 ;; 跳转到函数开头，两秒内如果有操作则回到当前位置，否则两秒后自动跳转回来
@@ -223,7 +224,6 @@
 
 ;; key bindings
 (evil-leader/set-key
-  "d" 'xref-find-definitions
   "pt" 'counsel-etags-find-tag-at-point
   "ps" 'spk/project-search-symbol-at-point
   "pi" 'spk/project-search-symbol-from-input
@@ -258,13 +258,14 @@
                           pop-to-mark-command
                           pop-global-mark
                           goto-last-change
-                          xref-go-back
-                          xref-find-definitions
-                          xref-find-references
-                          lsp-bridge-find-def
-                          switch-to-buffer-other-frame
-                          switch-to-buffer-other-window
+                          ;; xref-go-back
+                          ;; xref-find-definitions
+                          ;; xref-find-references
+                          ;; lsp-bridge-find-def
+                          ;; switch-to-buffer-other-frame
+                          ;; switch-to-buffer-other-window
                           ))
+
 (with-eval-after-load 'dogears
   (setq dogears-idle 1
         dogears-limit 200
@@ -272,9 +273,6 @@
   
   (setq dogears-ignore-modes (append '(minibuffer-mode help-mode imenu-list-major-mode) dogears-ignore-modes))
   
-  (advice-add 'dogears-back :after #'xref-pulse-momentarily)
-  (advice-add 'dogears-forward :after #'xref-pulse-momentarily)
-
   (global-set-key (kbd "C-\{") 'dogears-back)
   (global-set-key (kbd "C-\}") 'dogears-forward)
   (global-set-key (kbd "C-\|") 'dogears-list)
