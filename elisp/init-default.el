@@ -4,7 +4,8 @@
 (setq w32-use-full-screen-buffer t)
 
 ;; 忽略告警
-(setq warning-suppress-types '((lexical-binding)))
+(setq warning-suppress-types '((lexical-binding)
+                               (iedit)))
 
 ;; 关闭 emacs 的欢迎界面
 (setq inhibit-splash-screen t)
