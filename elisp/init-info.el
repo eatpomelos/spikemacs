@@ -30,7 +30,7 @@
   )
 
 (with-eval-after-load 'info
-  (define-key Info-mode-map (kbd "<f1>") #'spk/info-help-peek)
+  (define-key Info-mode-map (kbd "C-c h") #'spk/info-help-peek)
   ;; 在 Info-mode 下进入 emacs-state，便于直接使用 Info-mode 中的快捷键
   (evil-set-initial-state 'Info-mode 'emacs)
 

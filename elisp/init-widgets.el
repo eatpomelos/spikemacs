@@ -92,7 +92,7 @@
        ) (car h) (car (cdr h)))
     (setq alpha-list (cdr (append alpha-list (list h))))))
 
-(global-set-key (kbd "<f7>") #'loop-alpha)
+(global-set-key (kbd "C-M-\`") #'loop-alpha)
 
 ;; 高亮当前行的函数，偶尔会出问题，暂时未解决 
 (setq spk-ovs nil)
@@ -126,8 +126,6 @@
               ))
         spk-ovs)
   )
-
-(global-set-key (kbd "<f9>") #'spk/highlight_or_unhighlight_line_at_point)
 
 ;;;###autoload
 (defun spk/yank-buffer-filename ()
@@ -311,8 +309,10 @@
   (require 'popweb)
   (require 'popweb-dict)
   ;; (require 'popweb-org-roam-link)
-  (global-set-key (kbd "<f5>") #'popweb-dict-youdao-pointer)
-  (global-set-key (kbd "<f6>") #'popweb-dict-youdao-input)
+  (evil-leader/set-key
+    "jp" 'popweb-dict-youdao-pointer
+    "ji" 'popweb-dict-youdao-input
+    )
   )
 
 (when IS-LINUX
@@ -348,8 +348,10 @@
             "牛津现代英汉双解词典"
             "牛津英汉双解美化版"
             ))
-    (global-set-key (kbd "<f3>") #'sdcv-search-pointer+)
-    (global-set-key (kbd "<f4>") #'sdcv-search-input+)
+    (evil-leader/set-key
+      "li" 'sdcv-search-input+
+      "lp" 'sdcv-search-pointer+
+      )
     ))
 
 ;; 使用emacs中自带的calculator 日常计算的时候使用

@@ -105,22 +105,6 @@
   (add-hook 'after-save-hook 'spk/plantuml-export-and-preview)
   )
 
-(setq mind-wave-dir (concat spk-local-packges-dir "mind-wave"))
-(setq spk-mind-wave-chat-dir (concat spk-local-dir "open-ai/chat"))
-
-(when (file-exists-p mind-wave-dir)
-  (add-to-list 'load-path (concat spk-local-packges-dir "mind-wave"))
-  (require 'mind-wave)
-  (setq mind-wave-api-key-path (concat spk-local-dir "open-ai/key.txt"))
-  )
-
-(when (file-exists-p spk-mind-wave-chat-dir)
-  (defun spk/open-private-chat-dir ()
-    (interactive)
-    (counsel-find-file spk-mind-wave-chat-dir))
-  (global-set-key (kbd "<f10>") 'spk/open-private-chat-dir)
-  )
-
 ;; 删除buffer中的所有空行
 (defun spk/delete-buffer-blank-lines ()
   (interactive)
