@@ -81,8 +81,6 @@
 
 (straight-use-package 'imenu-list)
 
-;; (add-hook 'prog-mode-hook #'dogears-mode)
-(dogears-mode)
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 
 (global-hl-line-mode t)
@@ -249,7 +247,7 @@
 (setq dogears-functions '(
                           find-file
                           recenter-top-bottom
-                          other-window switch-to-buffer
+                          ;; other-window switch-to-buffer
                           aw-select toggle-window-split
                           windmove-do-window-select
                           pager-page-down pager-page-up
@@ -257,10 +255,10 @@
                           pop-to-mark-command
                           pop-global-mark
                           goto-last-change
-                          ;; xref-go-back
-                          ;; xref-find-definitions
-                          ;; xref-find-references
-                          ;; lsp-bridge-find-def
+                          xref-go-back
+                          xref-find-definitions
+                          xref-find-references
+                          lsp-bridge-find-def
                           ;; switch-to-buffer-other-frame
                           ;; switch-to-buffer-other-window
                           ))
@@ -270,7 +268,7 @@
         dogears-limit 200
         dogears-position-delta 20)
   
-  (setq dogears-ignore-modes (append '(minibuffer-mode help-mode imenu-list-major-mode) dogears-ignore-modes))
+  (setq dogears-ignore-modes (append '(minibuffer-mode help-mode imenu-list-major-mode xref--xref-buffer-mode) dogears-ignore-modes))
   
   (global-set-key (kbd "C-\{") 'dogears-back)
   (global-set-key (kbd "C-\}") 'dogears-forward)
@@ -281,11 +279,11 @@
   (define-key dogears-list-mode-map "j" 'next-line)
   (define-key dogears-list-mode-map "k" 'previous-line)
   (define-key dogears-list-mode-map "l" 'forward-char)
+
   )
 
 ;; (add-hook 'prog-mode-hook #'dogears-mode)
 (dogears-mode t)
-
 (defalias 'dg 'deadgrep)
 
 ;; 是否有匹配多个map的按键配置方案?

@@ -42,6 +42,7 @@
 ;; (add-hook 'prog-mode-hook 'lsp-bridge-mode)
 (add-hook 'c-mode-hook 'lsp-bridge-mode)
 
+;;;###autoload
 (defun spk/find-def-entry ()
   (interactive)
   (if (+spk-get-complete-file "compile_commands.json")
@@ -49,6 +50,7 @@
     (xref-find-definitions (thing-at-point 'symbol))
     ))
 
+;;;###autoload
 (defun spk/find-ref-entry ()
   (interactive)
   (if (+spk-get-complete-file "compile_commands.json")
