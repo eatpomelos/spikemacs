@@ -85,6 +85,7 @@
     "sl" 'sort-tab-select-last-tab
     "sdc" 'sort-tab-close-current-tab
     "sdo" 'sort-tab-close-other-tabs
+    "sdm" 'sort-tab-close-mode-tabs
     )
   
   (define-key evil-normal-state-map (kbd ",1") #'spk/sort-tab-select-num-1)
