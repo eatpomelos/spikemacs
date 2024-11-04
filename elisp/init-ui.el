@@ -47,6 +47,56 @@
 
 (setq-default display-time-format " %F %R")
 
+;; 使用sort-tab来简化常用buffer的切换
+(straight-use-package
+   '(sort-tab :type git
+		    :host github
+            :repo "manateelazycat/sort-tab"
+		    ))
+(require 'sort-tab)
+(sort-tab-mode 1)
+
+(with-eval-after-load 'sort-tab
+  ;; sort-tab是由一个buffer实现的，因此这里不将此buffer作为计算winum的buffer
+  (when (boundp 'winum-ignored-buffers)
+    (add-to-list 'winum-ignored-buffers "*sort-tab*")
+    )
+  
+  (setq sort-tab-show-index-number t)
+
+  (defun spk/sort-tab-select-num (idx)
+    (sort-tab-select-visible-nth-tab idx)
+    )
+  
+  (defun spk/sort-tab-select-num-1 () (interactive) (spk/sort-tab-select-num 1))
+  (defun spk/sort-tab-select-num-2 () (interactive) (spk/sort-tab-select-num 2))
+  (defun spk/sort-tab-select-num-3 () (interactive) (spk/sort-tab-select-num 3))
+  (defun spk/sort-tab-select-num-4 () (interactive) (spk/sort-tab-select-num 4))
+  (defun spk/sort-tab-select-num-5 () (interactive) (spk/sort-tab-select-num 5))
+  (defun spk/sort-tab-select-num-6 () (interactive) (spk/sort-tab-select-num 6))
+  (defun spk/sort-tab-select-num-7 () (interactive) (spk/sort-tab-select-num 7))
+  (defun spk/sort-tab-select-num-8 () (interactive) (spk/sort-tab-select-num 8))
+  (defun spk/sort-tab-select-num-9 () (interactive) (spk/sort-tab-select-num 9))
+
+  (evil-leader/set-key
+    "sj" 'sort-tab-select-next-tab
+    "sk" 'sort-tab-select-prev-tab
+    "sh" 'sort-tab-select-first-tab
+    "sl" 'sort-tab-select-last-tab
+    "sdc" 'sort-tab-close-current-tab
+    "sdo" 'sort-tab-close-other-tabs
+    )
+  
+  (define-key evil-normal-state-map (kbd ",1") #'spk/sort-tab-select-num-1)
+  (define-key evil-normal-state-map (kbd ",2") #'spk/sort-tab-select-num-2)
+  (define-key evil-normal-state-map (kbd ",3") #'spk/sort-tab-select-num-3)
+  (define-key evil-normal-state-map (kbd ",4") #'spk/sort-tab-select-num-4)
+  (define-key evil-normal-state-map (kbd ",5") #'spk/sort-tab-select-num-5)
+  (define-key evil-normal-state-map (kbd ",6") #'spk/sort-tab-select-num-6)
+  (define-key evil-normal-state-map (kbd ",7") #'spk/sort-tab-select-num-7)
+  (define-key evil-normal-state-map (kbd ",8") #'spk/sort-tab-select-num-8)
+  (define-key evil-normal-state-map (kbd ",9") #'spk/sort-tab-select-num-9)
+  )
 ;; 使用awesome-tray来优化显示
 (straight-use-package
    '(awesome-tray :type git
