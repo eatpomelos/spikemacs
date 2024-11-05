@@ -299,7 +299,7 @@
   )
 
 (when (and (file-exists-p spk-popweb-dir)
-           (> (/ (+spk-get-memavailable) 1024) 6000))
+           (> (/ (+spk-get-memavailable) 1024) 4000))
   (add-to-list 'load-path spk-popweb-dir)
   ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/color-picker"))
   (add-to-list 'load-path (concat spk-popweb-dir "/extension/dict"))
