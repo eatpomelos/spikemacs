@@ -97,6 +97,26 @@
   (define-key evil-normal-state-map (kbd ",7") #'spk/sort-tab-select-num-7)
   (define-key evil-normal-state-map (kbd ",8") #'spk/sort-tab-select-num-8)
   (define-key evil-normal-state-map (kbd ",9") #'spk/sort-tab-select-num-9)
+  
+  ;; 在i3+emacs29.4 的笔记本配置上，开启了sort-tab会在切换theme之后，出现minibuffer无法resize问题
+  ;; 这里在load-theme之前先关掉sort-tab，并保存原始状态，在切换之后再次打开sort-tab
+  (defvar spk-cur-sort-tab-p nil "Save current srot-tab-mode value.")
+  
+  (defadvice load-theme
+      (before spk-sort-before-hack activate)
+    (progn
+      (setq spk-cur-sort-tab-p sort-tab-mode)
+      (when sort-tab-mode
+        (sort-tab-turn-off)
+        )))
+
+  (defadvice load-theme
+      (after spk-sort-after-hack activate)
+    (progn
+      (when spk-cur-sort-tab-p
+        (sort-tab-turn-on)
+        (setq spk-cur-sort-tab-p sort-tab-mode)
+        )))
   )
 ;; 使用awesome-tray来优化显示
 (straight-use-package
