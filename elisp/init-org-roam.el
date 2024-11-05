@@ -22,9 +22,6 @@
 ;; 后面使用org-roam-caputure的方式来进行记录，使用agenda来记录和安排重要工作
 (global-set-key (kbd "C-c r") 'org-roam-capture)
 (global-set-key (kbd "C-c d") 'org-roam-dailies-capture-date)
-(global-set-key (kbd "C-c t") 'org-roam-dailies-capture-today)
-(global-set-key (kbd "C-c n") 'org-roam-dailies-capture-tomorrow)
-(global-set-key (kbd "C-c y") 'org-roam-dailies-capture-yesterday)
 
 (global-set-key (kbd "C-c odt") 'org-roam-dailies-goto-today)
 ; org-roam也可以用来处理日记，有时间可以了解一下
