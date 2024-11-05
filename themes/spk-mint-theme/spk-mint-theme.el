@@ -168,6 +168,11 @@ The theme is emulate spk-mint to learn elisp."
    ;; flyspell设置
    
    ;; cc-mode 设置
+
+   ;; sort-tab设置
+   `(sort-tab-current-tab-face ((t (:inherit hl-line))))
+   `(sort-tab-other-tab-face ((t (:foreground ,spk-mint-comment))))
+   `(sort-tab-separator-face ((t (:foreground ,spk-mint-bamboo))))
    ))
 
 
