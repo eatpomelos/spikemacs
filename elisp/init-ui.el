@@ -83,19 +83,14 @@
     (interactive)
     (unless (fboundp 'ivy-read)
       (require 'ivy))
-    (let* ((sort-tab-hash (make-hash-table))
-           (cur-sort-tabs sort-tab-visible-buffers)
-           (sort-tab-buf-name nil)
+    (let* ((cur-sort-tabs sort-tab-visible-buffers)
+           (sort-tab-buffers nil)
            (select-line nil)
-           (buf-name nil)
            )
       (dolist (val cur-sort-tabs)
-        (setq buf-name (buffer-name val))
-        (puthash buf-name val sort-tab-hash)
-        (add-to-list 'sort-tab-buf-name buf-name)
-        )
-      (setq select-line (ivy-read (format "Select sort tab:") sort-tab-buf-name))
-      (switch-to-buffer (gethash select-line sort-tab-hash))
+        (push (buffer-name val) sort-tab-buffers))
+      (setq select-line (ivy-read (format "Select sort tab:") sort-tab-buffers))
+      (switch-to-buffer select-line)
       )
     )
   
@@ -172,5 +167,5 @@
     (after spk-load-theme-hack activate)
   (awesome-tray-enable))
 
-
 (provide 'init-ui)
+
