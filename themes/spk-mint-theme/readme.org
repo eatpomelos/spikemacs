@@ -1,4 +1,5 @@
-#+Title spk-mint 主题
+
++Title spk-mint 主题
 #+begin_example
 比较想要的效果是：类似薄荷色的一个亮色主题，暗色主题dracula暂时来说已经足够好了，暂不考虑
 #+end_example

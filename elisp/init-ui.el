@@ -78,7 +78,29 @@
   (defun spk/sort-tab-select-num-8 () (interactive) (spk/sort-tab-select-num 8))
   (defun spk/sort-tab-select-num-9 () (interactive) (spk/sort-tab-select-num 9))
 
+  ;; 增加ivy读取候选项选择切换到sort-tab的命令
+  (defun spk/sort-tab-counsel-select ()
+    (interactive)
+    (unless (fboundp 'ivy-read)
+      (require 'ivy))
+    (let* ((sort-tab-hash (make-hash-table))
+           (cur-sort-tabs sort-tab-visible-buffers)
+           (sort-tab-buf-name nil)
+           (select-line nil)
+           (buf-name nil)
+           )
+      (dolist (val cur-sort-tabs)
+        (setq buf-name (buffer-name val))
+        (puthash buf-name val sort-tab-hash)
+        (add-to-list 'sort-tab-buf-name buf-name)
+        )
+      (setq select-line (ivy-read (format "Select sort tab:") sort-tab-buf-name))
+      (switch-to-buffer (gethash select-line sort-tab-hash))
+      )
+    )
+  
   (evil-leader/set-key
+    "ss" 'spk/sort-tab-counsel-select
     "sj" 'sort-tab-select-next-tab
     "sk" 'sort-tab-select-prev-tab
     "sh" 'sort-tab-select-first-tab
@@ -105,6 +127,7 @@
   (global-set-key (kbd "C-c m") 'spk/sort-tab-select-num-2)
   (global-set-key (kbd "C-c ,") 'spk/sort-tab-select-num-3)
   (global-set-key (kbd "C-c .") 'spk/sort-tab-select-num-4)
+  (global-set-key (kbd "C-c s") 'spk/sort-tab-counsel-select)
 
   ;; 在i3+emacs29.4 的笔记本配置上，开启了sort-tab会在切换theme之后，出现minibuffer无法resize问题
   ;; 这里在load-theme之前先关掉sort-tab，并保存原始状态，在切换之后再次打开sort-tab

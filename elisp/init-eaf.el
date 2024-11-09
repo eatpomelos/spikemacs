@@ -50,7 +50,8 @@
     )
 
   (when IS-LINUX
-    (setq eaf-chrome-bookmark-file "/home/spikely/.config/google-chrome/Default/Bookmarks"))
+    (setq eaf-chrome-bookmark-file "/home/spikely/.config/google-chrome/Default/Bookmarks")
+    )
 
   (setq eaf-browser-default-search-engine "bing")
   
