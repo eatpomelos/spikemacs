@@ -29,7 +29,7 @@
 (require 'eaf-image-viewer)
 (require 'eaf-file-sender)
 (require 'eaf-pdf-viewer)
-(require 'eaf-terminal)
+(require 'eaf-pyqterminal)
 (require 'eaf-file-browser)
 (require 'eaf-video-player)
 (require 'eaf-markdown-previewer)
@@ -98,6 +98,13 @@
 (global-set-key (kbd "C-c p a") 'spk/project-fast-find-all-file)
 (global-set-key (kbd "C-c p f") 'spk/project-fast-find-file)
 (global-set-key (kbd "C-c f l") 'counsel-locate)
+
+(with-eval-after-load 'eaf-pyqterminal
+  (setq eaf-pyqterminal-font-size 16
+        eaf-pyqterminal-cursor-type "hlbar"
+        eaf-pyqterminal-font-family "文泉驿等宽正黑"
+        )
+  )
 
 ;; eaf和straight的结构有冲突，这里不使用straight的方式加载
 (provide 'init-eaf)
