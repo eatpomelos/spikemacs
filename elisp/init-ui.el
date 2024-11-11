@@ -85,12 +85,10 @@
       (require 'ivy))
     (let* ((cur-sort-tabs sort-tab-visible-buffers)
            (sort-tab-buffers nil)
-           (select-line nil)
            )
       (dolist (val cur-sort-tabs)
         (push (buffer-name val) sort-tab-buffers))
-      (setq select-line (ivy-read (format "Select sort tab:") sort-tab-buffers))
-      (switch-to-buffer select-line)
+      (switch-to-buffer (ivy-read (format "Select sort tab:") sort-tab-buffers))
       )
     )
   
