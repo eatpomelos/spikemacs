@@ -126,14 +126,14 @@ The theme is emulate spk-mint to learn elisp."
    `(org-hide ((t (:foreground ,spk-mint-bg :background ,spk-mint-bg))))
 
    ;; 设置不同等级标题的大小，有点问题
-   `(org-level-1 ((t (:weight normal :foreground ,spk-mint-darkblue))))
-   `(org-level-2 ((t (:weight normal :foreground ,spk-mint-red))))
-   `(org-level-3 ((t (:weight normal :foreground ,spk-mint-violetred))))
-   `(org-level-4 ((t (:weight normal :foreground ,spk-mint-yellow))))
-   `(org-level-5 ((t (:weight normal :foreground ,spk-mint-blue))))
-   `(org-level-6 ((t (:weight normal :foreground ,spk-mint-bamboo))))
-   `(org-level-7 ((t (:weight normal :foreground ,spk-mint-darkgreen))))
-   `(org-level-8 ((t (:weight normal :foreground ,spk-mint-orange))))
+   `(org-level-1 ((t (:height 1.3 :weight normal :foreground ,spk-mint-darkblue))))
+   `(org-level-2 ((t (:height 1.2 :weight normal :foreground ,spk-mint-red))))
+   `(org-level-3 ((t (:height 1.1 :weight normal :foreground ,spk-mint-violetred))))
+   `(org-level-4 ((t (:height 1.0 :weight normal :foreground ,spk-mint-yellow))))
+   `(org-level-5 ((t (:height 1.0 :weight normal :foreground ,spk-mint-blue))))
+   `(org-level-6 ((t (:height 1.0 :weight normal :foreground ,spk-mint-bamboo))))
+   `(org-level-7 ((t (:height 1.0 :weight normal :foreground ,spk-mint-darkgreen))))
+   `(org-level-8 ((t (:height 1.0 :weight normal :foreground ,spk-mint-orange))))
 
    ;; magit设置，现在有些默认设置看不清字
 
