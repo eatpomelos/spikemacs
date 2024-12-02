@@ -324,6 +324,11 @@
                              (buffer-file-name) docx-file template-file))
       (message "Convert finish: %s" docx-file)))
 
+;; 新增tip类型的自定义block，用于在导出成rst时生成tips
+(add-to-list 'org-structure-template-alist '("t" . "tip"))
+(add-to-list 'org-structure-template-alist '("w" . "attention"))
+(add-to-list 'org-structure-template-alist '("i" . "important"))
+
 ;; org-mode 其余相关插件的初始化
 (require 'init-org-roam)
 
