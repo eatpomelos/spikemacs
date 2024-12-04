@@ -213,6 +213,8 @@
 
 ;; 设置最近文件的最大条目数
 (setq recentf-max-saved-items 1000)
+;; 设置不清空recentf，避免卡顿
+(setq recentf-auto-cleanup 'never)
 
 ;; 这个包用于自动在中英文间插入空格
 (require 'pangu-spacing)
