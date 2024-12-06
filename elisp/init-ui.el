@@ -154,8 +154,9 @@
 (setq awesome-tray-file-name-max-length 30)
 (setq awesome-tray-position 'center)
 (setq awesome-tray-active-modules
-      '("buffer-read-only" "file-path" "buffer-name" "git" "evil" "mode-name" "belong" "input-method" "date")
+      '("buffer-read-only" "file-path" "buffer-name" "location" "git" "evil" "mode-name" "belong" "input-method" "date")
       )
+(setq awesome-tray-location-format "%l:%p")
 
 
 (awesome-tray-enable)
