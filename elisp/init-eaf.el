@@ -58,7 +58,7 @@
   (defun spk/eaf-pdf-outline-quite ()
     (interactive)
     (let* ((last-pdf-buf eaf-pdf-outline-pdf-document)
-           (last-buf (spk/alternate-buffer)))
+           (last-buf (car (window-prev-buffers))))
       (kill-this-buffer)
       (switch-to-buffer-other-window last-pdf-buf)
       (when (equal eaf-pdf-outline-pdf-document last-buf)

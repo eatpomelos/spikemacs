@@ -51,23 +51,6 @@
 	(format "%.02f seconds"
 			time-passed)))
 
-;; 用于获取上一个buffer，此函数从evil中移植过来，避免过多依赖
-;;;###autoload
-(defun spk/alternate-buffer (&optional window)
-  "Return the last buffer WINDOW has displayed other than the
-current one (equivalent to Vim's alternate buffer).
-
-Returns the first item in `window-prev-buffers' that isn't
-`window-buffer' of WINDOW."
-  ;; If the last buffer visited has been killed, then `window-prev-buffers'
-  ;; returns a list with `current-buffer' at the head, we account for this
-  ;; possibility.
-  (let* ((prev-buffers (window-prev-buffers))
-         (head (car prev-buffers)))
-    (if (eq (car head) (window-buffer window))
-        (cadr prev-buffers)
-      head)))
-
 ;; 能不能改成异步执行，避免阻塞emacs？执行这个命令的时候，会导致emacs卡死，可能由于后台执行的命令引起的，实际上在后台运行此命令也会导致卡死，在大型项目中谨慎使用 
 ;;;###autoload
 (defun spk-search-file-internal (directory &optional grep-p symbol pfix)
