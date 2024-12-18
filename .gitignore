@@ -9,6 +9,7 @@ eaf/*
 
 auto-save-list/
 smex-items
+eln-cache/
 
 # ignore dot files but .gitignore
 .*

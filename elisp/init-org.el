@@ -38,7 +38,6 @@
                                ("ABORT" . success)
                                ("PAUSE" . warning)))
 
-
 (defvar spk-org-directory "~/.emacs.d/docs/org"
   "Default directory of org files."
   )
@@ -304,6 +303,17 @@
     (setq deadgrep-project-root-function 'spk/deadgrep-search-default-dir))
   )
 
+(with-eval-after-load 'ox-rst
+  (defadvice org-rst-export-to-rst (after spk-org-rst-hack activate)
+    (let* ((rst-file (concat (file-name-sans-extension (buffer-file-name)) ".rst"))
+           (exec-script (concat spk-scripts-dir "org-ox-rst-table-multicol"))
+           (cmd-str nil)
+           )
+      (setq cmd-str (format "%s %s" exec-script rst-file))
+      (message "prepare to exec:%s" cmd-str)
+	  (shell-command cmd-str)
+      )
+    ))
 
 ;; 添加相应 hook
 (add-hook 'org-mode-hook 'org-num-mode)

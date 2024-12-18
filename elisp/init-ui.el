@@ -83,7 +83,8 @@
     (interactive)
     (unless (fboundp 'ivy-read)
       (require 'ivy))
-    (let* ((cur-sort-tabs sort-tab-visible-buffers)
+    (let* (
+           (cur-sort-tabs sort-tab-visible-buffers)
            (sort-tab-buffers nil)
            )
       (dolist (val cur-sort-tabs)
@@ -91,7 +92,7 @@
       (switch-to-buffer (ivy-read (format "Select sort tab:") sort-tab-buffers))
       )
     )
-  
+
   (evil-leader/set-key
     "ss" 'spk/sort-tab-counsel-select
     "sj" 'sort-tab-select-next-tab

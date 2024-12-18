@@ -1,0 +1,39 @@
+#!/usr/bin/perl
+# 用 perl 脚本实现将一个rst文件中的表格进行替换，自定义一个行合并标识符，进行替换
+use utf8;
+use strict;
+
+my $arg_num = scalar @ARGV;
+if ($arg_num < 1) {
+    print "example:$0 in_file out_file";
+    exit(1);
+}
+
+open(my $IN, "<:encoding(utf8)", $ARGV[0]) || die "Cannot open the in file: $!\n";
+my @lines = <$IN>;
+close($IN);
+
+# 用于标记当前行的下标，用于删除根据下表删除上一行内容
+my $cur_line = 0;
+# 用于标识当前是否是在处理一个表格
+my $table_fsm = 0;
+foreach my $line (@lines) {
+    if (($table_fsm == 0) && $line =~ m/^\s*\.\.\stable::/) {
+        $table_fsm = 1;
+    } elsif (($table_fsm == 1) && ($line =~ m/^\s*\+([-=]+\+)+/)) {
+        # 2表示当前已经识别到间隔行，后续可以正式进行匹配了
+        $table_fsm = 2;   
+    } elsif (($table_fsm == 2) && ($line =~ m/^\s*\|\s*\\\s*\|/)) {
+        splice(@lines, $cur_line - 1, 1);
+        $line =~ s/(^\s*\|\s*)\\(\s*\|.*)/$1 $2/;
+    } elsif (($table_fsm == 2) && ($line =~ /^\s*$/)) {
+        $table_fsm = 0;  
+    }
+    # print "$line";
+    $cur_line += 1;
+}
+
+# 将修改后的内容写入新文件
+open(my $OUT, ">:encoding(utf8)", $ARGV[$arg_num - 1]) or die "Cannot open file: $!\n";
+print $OUT @lines;
+close($OUT);
