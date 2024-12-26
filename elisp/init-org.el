@@ -11,7 +11,7 @@
 ;; (straight-use-package 'org)
 ;; (straight-use-package 'org-modern)
 ;; 实现 org-mode 中表格的对齐
-;; (straight-use-package 'valign)
+(straight-use-package 'valign)
 
 (straight-use-package
  '(org-bars :type git

@@ -16,28 +16,6 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
-;; 设置一个定时器每隔 15 秒获取一次剩余内存
-(setq spk-lsp-free-check-timer nil)
-
-(defun spk/lsp-consider-restart-lsp-bridge ()
-  (unless (> (/ (+spk-get-memavailable) 1024) 300)
-    (message (format "run out of memory consider to restart lsp-bridge"))
-    (lsp-bridge-restart-process))
-  )
-
-(add-hook 'lsp-bridge-mode-hook #'(lambda ()
-                                    (unless spk-lsp-free-check-timer
-                                      (message (format "spike start timer"))
-                                      (setq spk-lsp-free-check-timer
-                                            (run-with-timer 0 15 #'spk/lsp-consider-restart-lsp-bridge)))))
-
-(add-hook 'lsp-bridge-stop-process-hook #'(lambda ()
-                                            (when spk-lsp-free-check-timer
-                                              (message (format "spike cancel timer"))
-                                              (cancel-timer spk-lsp-free-check-timer)
-                                              (setq spk-lsp-free-check-timer nil)
-                                              )))
-
 (require 'lsp-bridge)
 ;; (add-hook 'prog-mode-hook 'lsp-bridge-mode)
 (add-hook 'c-mode-hook 'lsp-bridge-mode)
