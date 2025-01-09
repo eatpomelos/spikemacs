@@ -67,8 +67,9 @@
          (require 'init-company)
          ;; ;; ;; 和编程相关的配置统一由init-prog.el 文件一起加载，在文件中分别加载各语言的配置文件
          (require 'init-prog)
-         ;; 部分配置只需要在linux上加载，这里使用宏进行控制
-         (when (and IS-LINUX (> (/ (+spk-get-memavailable) 1024) 8000))
+         ;; 部分配置只需要在linux上加载，这里使用宏进行控制，目前nixos上eaf先不加载
+         (when (and IS-LINUX (not IS-NIXOS)
+                    (> (/ (+spk-get-memavailable) 1024) 8000))
            (require 'init-eaf)
            )
 

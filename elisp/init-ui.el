@@ -3,6 +3,7 @@
 (straight-use-package 'all-the-icons-dired)
 (straight-use-package 'all-the-icons-completion)
 
+
 ;; 将颜色相关的 RGB 值显示为对应颜色，这对主题定制等场景很好用
 (straight-use-package 'rainbow-mode)
 
@@ -21,6 +22,7 @@
 (all-the-icons-completion-mode 1)
 (all-the-icons-ivy-rich-mode 1)
 
+;; (set-default-font)
 ;; 设置title-format
 (defvar spk-title-format (concat "Emacs@Spikemacs" "===  "))
 (setq-default frame-title-format spk-title-format)
@@ -168,4 +170,3 @@
   (awesome-tray-enable))
 
 (provide 'init-ui)
-

@@ -3,23 +3,27 @@
 (straight-use-package 'posframe)
 (straight-use-package 'corfu)
 
-(setq spk-lsp-bridge-dir (concat spk-local-packges-dir "lsp-bridge/"))
-
 (setq projectile-git-fd-args "-H -0 -E .git -tf -c never")
 ;; (setq projectile-fd-executable "fd")
 
-(unless (file-exists-p spk-lsp-bridge-dir)
-  (shell-command-to-string (format "git clone https://gitee.com/manateelazycat/lsp-bridge %s" spk-lsp-bridge-dir)))
+(straight-use-package
+ '(lsp-bridge
+   :type git
+   :host github
+   :repo "manateelazycat/lsp-bridge"
+   :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
+   :build (:not compile)
+   ))
 
-(add-to-list 'load-path spk-lsp-bridge-dir)
 
 (require 'yasnippet)
 (yas-global-mode 1)
 
 (require 'lsp-bridge)
-;; (add-hook 'prog-mode-hook 'lsp-bridge-mode)
+(add-hook 'prog-mode-hook 'lsp-bridge-mode)
 (add-hook 'c-mode-hook 'lsp-bridge-mode)
 
+(setq acm-enable-tabby nil)
 ;;;###autoload
 (defun spk/find-def-entry ()
   (interactive)

@@ -8,6 +8,11 @@
 (straight-use-package 'gn-mode)
 (straight-use-package 'dogears)
 
+;; nixos相关配置
+(straight-use-package 'nix-mode)
+(straight-use-package 'nixos-options)
+(straight-use-package 'company-nixos-options)
+
 (defvar spk-source-code-dir nil
   "Path to store the source code.")
 
