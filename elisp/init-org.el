@@ -298,6 +298,7 @@
   (require 'ox-rst)
   ;; 与实际使用时相比，一级标题也使用了=，这里在原来的基础上增加一个=
   (setq org-rst-headline-underline-characters '(?= ?- ?~ ?^ ?: ?' ?\ ?_))
+  (setq org-rst-link-use-ref-role t)
   (when (boundp 'deadgrep-project-root-function)
     (make-local-variable 'deadgrep-project-root-function)
     (setq deadgrep-project-root-function 'spk/deadgrep-search-default-dir))
