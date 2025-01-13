@@ -65,8 +65,11 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq custom-file (expand-file-name "custom.el" spk-dir))
-(when (file-exists-p custom-file)
-  (load custom-file 'no-error 'no-message))
+(if (file-exists-p custom-file)
+    (load custom-file 'no-error 'no-message)
+  (ignore-errors
+    (set-face-attribute 'default nil :font (font-spec :family "文泉驿等宽正黑" :size 20)))
+  )
 
 ;; (setq inhibit-splash-screen t)
 (setq-default cursor-type 'bar)

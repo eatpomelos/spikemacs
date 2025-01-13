@@ -6,9 +6,6 @@
 (add-hook 'after-init-hook 'winum-mode)
 (add-hook 'winum-mode-hook 'popwin-mode)
 
-(ignore-errors
-  (set-face-attribute 'default nil :font (font-spec :family "文泉驿等宽正黑" :size 20)))
-
 (with-eval-after-load 'winum
   (setq winum-format " [%s] ")
   (evil-leader/set-key
