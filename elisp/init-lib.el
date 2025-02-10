@@ -10,6 +10,7 @@
 (defconst IS-LINUX   (eq system-type 'gnu/linux))
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
+(defconst IS-WSL    (and IS-LINUX (string-match "Microsoft" (shell-command-to-string "uname -r"))))
 (defconst IS-NIXOS (string= (system-name) "nixos"))
 
 (defmacro +spk-get-memavailable ()

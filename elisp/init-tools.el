@@ -11,8 +11,26 @@
         rime-show-candidate 'posframe
         rime-posframe-style 'vertical)
   (global-set-key (kbd "C-<SPC>") 'toggle-input-method)
+  (when IS-WSL
+    (setq rime-emacs-module-header-root
+          (file-truename
+           (concat (file-name-directory
+                    (directory-file-name (file-name-directory
+                                    (file-truename
+                                     (directory-file-name "/run/current-system/sw/bin/emacs"))))) "/include")))
+    (setq rime-librime-root
+          (file-name-directory
+           (directory-file-name
+            (file-name-directory
+             (file-truename
+              (directory-file-name "/run/current-system/sw/lib/librime.so"))))))
+    (setq rime-share-data-dir (concat user-emacs-directory "rime"))
+    (unless (file-exists-p rime-share-data-dir)
+      (make-directory rime-share-data-dir)
+      )
+    )
   )
-
+  
 ;; 后续增加一个开关用于动态开启预览，避免大文件编译耗时比较长导致卡顿？
 ;; (defvar spk-dot-preview-switch t)
 
