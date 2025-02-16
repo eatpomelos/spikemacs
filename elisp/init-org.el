@@ -302,6 +302,10 @@
   (when (boundp 'deadgrep-project-root-function)
     (make-local-variable 'deadgrep-project-root-function)
     (setq deadgrep-project-root-function 'spk/deadgrep-search-default-dir))
+  ;; 由于org默认绑定了想要使用的全局快捷键，这里在加载org-mode时单独绑定按按键到org-mode
+  (when (commandp 'symbol-overlay-put)
+    (define-key org-mode-map (kbd "C-\'") #'symbol-overlay-put)
+    )
   )
 
 (with-eval-after-load 'ox-rst
