@@ -17,6 +17,9 @@
    )
  )
 
+;; 打开版本控制的文件时不询问
+(setq vc-follow-symlinks t)
+
 ;; 参考自：https://emacs-china.org/t/topic/25811/7
 (setq-default bidi-display-reordering nil)
 (setq bidi-inhibit-bpa t

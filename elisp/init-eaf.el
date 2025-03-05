@@ -59,7 +59,7 @@
     (interactive)
     (let* ((last-pdf-buf eaf-pdf-outline-pdf-document)
            (last-buf (car (window-prev-buffers))))
-      (kill-this-buffer)
+      (kill-current-buffer)
       (switch-to-buffer-other-window last-pdf-buf)
       (when (equal eaf-pdf-outline-pdf-document last-buf)
         (delete-window))))
