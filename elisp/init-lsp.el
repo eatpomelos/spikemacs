@@ -20,8 +20,8 @@
 (yas-global-mode 1)
 
 (require 'lsp-bridge)
-(add-hook 'prog-mode-hook 'lsp-bridge-mode)
 (add-hook 'c-mode-hook 'lsp-bridge-mode)
+(add-hook 'nix-mode-hook 'lsp-bridge-mode)
 
 (setq acm-enable-tabby nil)
 ;;;###autoload

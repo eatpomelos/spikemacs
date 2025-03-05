@@ -68,7 +68,8 @@
 (if (file-exists-p custom-file)
     (load custom-file 'no-error 'no-message)
   (ignore-errors
-    (set-face-attribute 'default nil :font (font-spec :family "文泉驿等宽正黑" :size 20)))
+    ;; (set-face-attribute 'default nil :font (font-spec :family "文泉驿等宽正黑" :size 20)))
+    (set-face-attribute 'default nil :font (font-spec :family "文泉驿等宽正黑" :size 18)))
   )
 
 ;; (setq inhibit-splash-screen t)
