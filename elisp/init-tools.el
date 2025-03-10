@@ -30,7 +30,18 @@
       )
     )
   )
-  
+
+(when IS-WSL
+  (straight-use-package
+   '(pyim
+     :type git
+     :host github
+     :repo "tumashu/pyim"))
+  (require 'pyim)
+  (setq default-input-method "pyim")
+  (global-set-key (kbd "C-\\") 'toggle-input-method)
+  )
+
 ;; 后续增加一个开关用于动态开启预览，避免大文件编译耗时比较长导致卡顿？
 ;; (defvar spk-dot-preview-switch t)
 
@@ -38,7 +49,7 @@
 
 ;; 由于emacs本身的image-mode处理的速度比较慢，可能出现在处理较大的文件的时候，导致emacs卡住的问题，这里不适用graphviz包的预览功能，而是使用eaf的image-viewer进行替代
 (setq graphviz-dot-auto-preview-on-save nil)
-
+ 
 ;; 设置是否需要在保存的时候就自动预览
 (defvar spk/graphviz-auto-preview-on-save t)
 
@@ -47,8 +58,8 @@
   (setq plantuml-jar-path (expand-file-name "plantuml.jar" spk-local-dir))
   (setq plantuml-default-exec-mode 'jar)
 
-  (unless (file-exists-p plantuml-jar-path)
-    (plantuml-download-jar))
+ (unless (file-exists-p plantuml-jar-path)
+   (plantuml-download-jar))
 
   (setq plantuml-output-type "png")
   ;; (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
