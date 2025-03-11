@@ -37,9 +37,19 @@
      :type git
      :host github
      :repo "tumashu/pyim"))
+  (straight-use-package 'pyim-basedict)
+  
   (require 'pyim)
-  (setq default-input-method "pyim")
-  (global-set-key (kbd "C-\\") 'toggle-input-method)
+  (require 'pyim-basedict)
+  (require 'pyim-cregexp-utils)
+  
+  (pyim-basedict-enable)
+  (pyim-isearch-mode 1)
+
+  (setq default-input-method "pyim"
+        pyim-default-scheme 'quanpin
+        pyim-cloudim 'baidu
+        pyim-page-length 8)
   )
 
 ;; 后续增加一个开关用于动态开启预览，避免大文件编译耗时比较长导致卡顿？
