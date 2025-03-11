@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # 用 perl 脚本实现将一个rst文件中的表格进行替换，自定义一个行合并标识符，进行替换
 use utf8;
 use strict;

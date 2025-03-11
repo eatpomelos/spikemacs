@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # 用 perl 脚本实现过滤出tags文件中文件名行，并生成文件缓存功能
 use 5.010;
 use utf8;
