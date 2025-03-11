@@ -5,7 +5,8 @@
 
 ;; 忽略告警
 (setq warning-suppress-types '((lexical-binding)
-                               (iedit)))
+                               (iedit)
+                               ))
 
 ;; 关闭 emacs 的欢迎界面
 (setq inhibit-splash-screen t)

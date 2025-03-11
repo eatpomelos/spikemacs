@@ -25,23 +25,26 @@
 ;; 		    :host github
 ;; 		    :repo "oracleyue/elegant-theme"))
 
-;; 根据时间加载主题
-(when IS-LINUX
-  (require 'circadian)
-  (with-eval-after-load 'circadian
-    (setq circadian-themes
-          '(
-            ("7:30" . spk-mint)
-            ;; ("18:00" . modus-vivendi)
-            ("18:00" . doom-city-lights)
-            ))
-    (circadian-setup)
-    )
-  )
-
 ;; 由于modus这个主题是在emacs27.1加入到emacs主线来的，低于这个版本的emacs需要自己手动下载
 (when EMACS27-
   (straight-use-package 'modus-themes)
+  )
+
+;; 根据时间加载主题
+(if (display-graphic-p)
+    (when IS-LINUX
+      (require 'circadian)
+      (with-eval-after-load 'circadian
+        (setq circadian-themes
+              '(
+                ("7:30" . spk-mint)
+                ;; ("18:00" . modus-vivendi)
+                ("18:00" . doom-city-lights)
+                ))
+        (circadian-setup)
+        )
+      )
+  (load-theme 'modus-vivendi)
   )
 
 ;; (load-theme 'modus-vivendi)
