@@ -31,21 +31,19 @@
   )
 
 ;; 根据时间加载主题
-(if (display-graphic-p)
-    (when IS-LINUX
-      (require 'circadian)
-      (with-eval-after-load 'circadian
-        (setq circadian-themes
-              '(
-                ("7:30" . spk-mint)
-                ;; ("18:00" . modus-vivendi)
-                ("18:00" . doom-city-lights)
-                ))
-        (circadian-setup)
-        )
-      )
-  (load-theme 'modus-vivendi)
+(when IS-LINUX
+  (require 'circadian)
+  (with-eval-after-load 'circadian
+    (setq circadian-themes
+          '(
+            ("7:30" . spk-mint)
+            ;; ("18:00" . modus-vivendi)
+            ("18:00" . doom-city-lights)
+            ))
+    (circadian-setup)
+    )
   )
+
 
 ;; (load-theme 'modus-vivendi)
 ;; (load-theme 'ef-bio :no-comform)

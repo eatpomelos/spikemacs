@@ -48,7 +48,6 @@
 
   (setq default-input-method "pyim"
         pyim-default-scheme 'quanpin
-        pyim-cloudim 'baidu
         pyim-page-length 8)
   )
 
