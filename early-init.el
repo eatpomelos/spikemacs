@@ -31,7 +31,7 @@
   (concat spk-local-dir "packages/"))
   
 ;; 设置几个常用的capture 的文件的路径
-(defconst spk-private-doc-dir "~/.emacs.d/docs/"
+(defconst spk-private-doc-dir "~/spk-docs/"
   "My private document directory.")
 
 ;; 放置一些模板的地址，主要是一些函数以及机制的使用实例，后续设计具体的一些实现和模板
