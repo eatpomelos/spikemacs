@@ -66,6 +66,8 @@
   ;; 在 c 模式下取消 C-j 快捷键
   (global-unset-key (kbd "C-j"))
   ;; (spk-disable-electric-pair-mode)
+  ;; 手动关闭tab插入模式
+  (indent-tabs-mode -1)
   )
 
 (add-hook 'c-mode-hook #'spk/cc-mode-setup)
