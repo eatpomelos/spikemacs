@@ -293,25 +293,28 @@
   "mj" 'spk/bookmark-last-edit-jump
   )
 
-(setq spk-popweb-dir (concat spk-local-packges-dir "popweb"))
-(unless (file-exists-p spk-popweb-dir)
-  (shell-command-to-string (format "git clone https://github.com/manateelazycat/popweb %s" spk-popweb-dir))
-  )
+;; 在wsl上不开启，由于目前使用wsl的机器配置较差，可能导致问题
+(unless IS-WSL
+  (setq spk-popweb-dir (concat spk-local-packges-dir "popweb"))
+  (unless (file-exists-p spk-popweb-dir)
+    (shell-command-to-string (format "git clone https://github.com/manateelazycat/popweb %s" spk-popweb-dir))
+    )
 
-(when (and (file-exists-p spk-popweb-dir)
-           (> (/ (+spk-get-memavailable) 1024) 4000))
-  (add-to-list 'load-path spk-popweb-dir)
-  ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/color-picker"))
-  (add-to-list 'load-path (concat spk-popweb-dir "/extension/dict"))
-  ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/latex"))
-  ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/org-roam"))
-  ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/url-preview"))
-  (require 'popweb)
-  (require 'popweb-dict)
-  ;; (require 'popweb-org-roam-link)
-  (evil-leader/set-key
-    "jp" 'popweb-dict-youdao-pointer
-    "ji" 'popweb-dict-youdao-input
+  (when (and (file-exists-p spk-popweb-dir)
+             (> (/ (+spk-get-memavailable) 1024) 4000))
+    (add-to-list 'load-path spk-popweb-dir)
+    ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/color-picker"))
+    (add-to-list 'load-path (concat spk-popweb-dir "/extension/dict"))
+    ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/latex"))
+    ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/org-roam"))
+    ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/url-preview"))
+    (require 'popweb)
+    (require 'popweb-dict)
+    ;; (require 'popweb-org-roam-link)
+    (evil-leader/set-key
+      "jp" 'popweb-dict-youdao-pointer
+      "ji" 'popweb-dict-youdao-input
+      )
     )
   )
 
