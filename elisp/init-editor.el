@@ -5,6 +5,7 @@
 (straight-use-package 'sis)
 (straight-use-package 'pangu-spacing)
 (straight-use-package 'orderless)
+(straight-use-package 'vterm)
 
 (setq completion-styles '(orderless))
 
