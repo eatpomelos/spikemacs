@@ -241,9 +241,9 @@
   )
 
 ;; 充分利用avy的api来进行跳转等操作,可以考虑用bind-key的api来定义快捷键
-(define-key evil-normal-state-map (kbd ",w") #'avy-goto-char-2)
 (define-key evil-normal-state-map (kbd ",b") #'isearch-backward)
-(define-key evil-normal-state-map (kbd ",f") #'isearch-forward)
+(define-key evil-normal-state-map (kbd ",w") #'isearch-forward)
+(define-key evil-normal-state-map (kbd ",f") #'avy-goto-char-timer)
 (define-key evil-normal-state-map (kbd ",l") #'avy-goto-line)
 (define-key evil-normal-state-map (kbd ",p") #'spk/project-peek-functions-head)
 (define-key evil-normal-state-map (kbd ",a") #'spk/jump-to-beginning-of-defname)
