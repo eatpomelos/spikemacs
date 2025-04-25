@@ -47,8 +47,8 @@
   (pyim-isearch-mode 1)
 
   (setq default-input-method "pyim"
-        pyim-default-scheme 'pyim-shuangpin
-        pyim-assistant-scheme 'pyim-quanpin
+        pyim-default-scheme 'xiaohe-shuangpin
+        pyim-assistant-scheme 'quanpin
         pyim-page-length 8)
   )
 
