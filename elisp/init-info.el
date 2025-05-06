@@ -13,8 +13,19 @@
       (insert-file-contents (expand-file-name "info.txt" (concat spk-local-code-dir "posframe")))))
   )
 
+;; 增加一个函数用于显示临时内容
+(defun spk-set-pos-buf-ctx ()
+  "set current marked text to posfram buffer."
+  (interactive)
+  (let* ((buf-ctx (buffer-substring (region-beginning) (region-end))))
+    (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
+      (erase-buffer)
+      (insert buf-ctx)
+      ))
+  )
+
 ;; 在 Info 模式下提供一个快速查看快捷键的函数   
-(defun spk/info-help-peek ()
+(defun spk/bulletin-peek ()
   "Info help peek."
   (interactive)
   (when (posframe-workable-p) 
@@ -29,8 +40,9 @@
     )
   )
 
+(global-set-key (kbd "C-c h") #'spk/bulletin-peek)
+
 (with-eval-after-load 'info
-  (define-key Info-mode-map (kbd "C-c h") #'spk/info-help-peek)
   ;; 在 Info-mode 下进入 emacs-state，便于直接使用 Info-mode 中的快捷键
   (evil-set-initial-state 'Info-mode 'emacs)
 
