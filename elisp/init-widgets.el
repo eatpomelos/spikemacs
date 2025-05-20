@@ -7,7 +7,87 @@
 
 (require 'init-tools)
 
-;;;###autoload
+;; 配置reader用于
+(setq spk-emacs-reader-dir (concat spk-local-packges-dir "emacs-reader/")
+      spk-emacs-reader-p (file-exists-p (concat spk-emacs-reader-dir "render-core.so")))
+
+(if spk-emacs-reader-p
+    (progn
+      (add-to-list 'load-path spk-emacs-reader-dir)
+      (require 'reader)
+      (require 'reader-bookmark)
+      (require 'reader-saveplace)
+      (evil-set-initial-state 'reader-mode 'emacs)
+
+      (defun spk/reader-open-doc ()
+        (interactive)
+        (make-local-variable 'default-directory)
+        (setq default-directory "/home/spikely/EBOOK")
+        (reader-open-doc)
+        )
+
+      ;; 用于保存打开历史，后续参考recentf实现一个基于历史记录打开的功能
+      (defvar spk-reader-history-file (expand-file-name ".spk-reader-history" spk-local-dir)
+        "History of reader open files.")
+      
+;;       (defun spk/reader-open-doc-record ()
+;;         "Open a document for viewing.
+;; This function calls the module function `reader-dyn--load-doc' from the dynamic module
+;; to render the first page and displays it in a new buffer.  The only files
+;; that can be opened are of the following formats:
+;; - PDF
+;; - EPUB
+;; - MOBI
+;; - FB2
+;; - XPS/OpenXPS
+;; - CBZ
+;; - DOCX/PPTX/XLSX
+;; - ODT/ODS/ODP/ODG
+
+;; Any other file format would simply not show up as a candidate."
+;;         (interactive)
+;;         (let* (
+;;                (exts '("pdf" "epub" "mobi" "fb2" "xps" "cbz" "docx"
+;; 		               "pptx" "xlsx" "odt" "ods" "odp" "odg"))
+;; 	           (rgx (concat "\\." (regexp-opt exts t) "$"))
+;; 	           (files (directory-files default-directory nil rgx))
+;; 	           (file (read-file-name
+;; 		              "Open document: "
+;; 		              nil nil t nil
+;; 		              (lambda (f)
+;; 		                (or (file-directory-p f)
+;; 		                    (string-match-p rgx f))))))
+;;           (switch-to-buffer (create-file-buffer file))
+;;           (insert "\n")
+;;           (reader-dyn--load-doc (expand-file-name file))
+;;           (reader-mode)))
+      
+;;       (file-name-history)
+;;       (recentf-load-list)
+;;       (progn
+;;         (let* ((exts '("pdf" "epub" "mobi" "fb2" "xps" "cbz" "docx"
+;; 		               "pptx" "xlsx" "odt" "ods" "odp" "odg"))
+;; 	           (rgx (concat "\\." (regexp-opt exts t) "$"))
+;; 	           (files (directory-files default-directory nil rgx))
+;;                )
+;;             (switch-to-buffer (create-file-buffer (concat "/home/spikely/EBOOK/linux/Linux基本命令大全.pdf")))
+;;           (insert "\n")
+;;           (reader-dyn--load-doc (expand-file-name (concat "/home/spikely/EBOOK/linux/Linux基本命令大全.pdf")))
+;;           (reader-mode))
+;;         )
+
+;;       (defun spk/reader-open-from-history ()
+;;         (interactive)
+;;         )
+        (evil-leader/set-key
+          "er" 'spk/reader-open-doc
+          )
+      )
+  (message "emacs reader not compiler.")
+  )
+
+
+;;;###autoload 
 (defun spk/find-file-entry ()
   (interactive)
   (cond ((+spk-get-complete-file ".spk-project-files") (spk/project-fast-find-file))
