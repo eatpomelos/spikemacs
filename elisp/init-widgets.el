@@ -7,6 +7,18 @@
 
 (require 'init-tools)
 
+;;(straight-use-package
+;; `(reader :type git
+;;          :host codeberg
+;;          :repo "divyaranjan/emacs-reader"
+;;		  :files ("*.el" "render-core.so")
+;;		  :pre-build ("cc" "-fPIC" "-shared" "-o" "render-core.so" "-DLINUX"
+;;					  "render/elisp-helpers.c" "render/mupdf-helpers.c" "render/render-core.c"
+;;					  ,@(split-string-shell-command
+;;					     (string-trim-right
+;;					      (shell-command-to-string "pkg-config --cflags --libs mupdf"))))
+;;        ))
+
 ;; 配置reader用于
 (setq spk-emacs-reader-dir (concat spk-local-packges-dir "emacs-reader/")
       spk-emacs-reader-p (file-exists-p (concat spk-emacs-reader-dir "render-core.so")))
@@ -26,64 +38,11 @@
         (reader-open-doc)
         )
 
-      ;; 用于保存打开历史，后续参考recentf实现一个基于历史记录打开的功能
-      (defvar spk-reader-history-file (expand-file-name ".spk-reader-history" spk-local-dir)
-        "History of reader open files.")
-      
-;;       (defun spk/reader-open-doc-record ()
-;;         "Open a document for viewing.
-;; This function calls the module function `reader-dyn--load-doc' from the dynamic module
-;; to render the first page and displays it in a new buffer.  The only files
-;; that can be opened are of the following formats:
-;; - PDF
-;; - EPUB
-;; - MOBI
-;; - FB2
-;; - XPS/OpenXPS
-;; - CBZ
-;; - DOCX/PPTX/XLSX
-;; - ODT/ODS/ODP/ODG
-
-;; Any other file format would simply not show up as a candidate."
-;;         (interactive)
-;;         (let* (
-;;                (exts '("pdf" "epub" "mobi" "fb2" "xps" "cbz" "docx"
-;; 		               "pptx" "xlsx" "odt" "ods" "odp" "odg"))
-;; 	           (rgx (concat "\\." (regexp-opt exts t) "$"))
-;; 	           (files (directory-files default-directory nil rgx))
-;; 	           (file (read-file-name
-;; 		              "Open document: "
-;; 		              nil nil t nil
-;; 		              (lambda (f)
-;; 		                (or (file-directory-p f)
-;; 		                    (string-match-p rgx f))))))
-;;           (switch-to-buffer (create-file-buffer file))
-;;           (insert "\n")
-;;           (reader-dyn--load-doc (expand-file-name file))
-;;           (reader-mode)))
-      
-;;       (file-name-history)
-;;       (recentf-load-list)
-;;       (progn
-;;         (let* ((exts '("pdf" "epub" "mobi" "fb2" "xps" "cbz" "docx"
-;; 		               "pptx" "xlsx" "odt" "ods" "odp" "odg"))
-;; 	           (rgx (concat "\\." (regexp-opt exts t) "$"))
-;; 	           (files (directory-files default-directory nil rgx))
-;;                )
-;;             (switch-to-buffer (create-file-buffer (concat "/home/spikely/EBOOK/linux/Linux基本命令大全.pdf")))
-;;           (insert "\n")
-;;           (reader-dyn--load-doc (expand-file-name (concat "/home/spikely/EBOOK/linux/Linux基本命令大全.pdf")))
-;;           (reader-mode))
-;;         )
-
-;;       (defun spk/reader-open-from-history ()
-;;         (interactive)
-;;         )
         (evil-leader/set-key
           "er" 'spk/reader-open-doc
           )
       )
-  (message "emacs reader not compiler.")
+  (message "emacs reader not compile.")
   )
 
 
