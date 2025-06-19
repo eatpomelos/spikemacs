@@ -7,16 +7,16 @@
 
 (require 'init-tools)
 
-;;(straight-use-package
+;; (straight-use-package
 ;; `(reader :type git
 ;;          :host codeberg
 ;;          :repo "divyaranjan/emacs-reader"
-;;		  :files ("*.el" "render-core.so")
-;;		  :pre-build ("cc" "-fPIC" "-shared" "-o" "render-core.so" "-DLINUX"
-;;					  "render/elisp-helpers.c" "render/mupdf-helpers.c" "render/render-core.c"
-;;					  ,@(split-string-shell-command
-;;					     (string-trim-right
-;;					      (shell-command-to-string "pkg-config --cflags --libs mupdf"))))
+;; 		  :files ("*.el" "render-core.so")
+;; 		  :pre-build ("cc" "-fPIC" "-shared" "-o" "render-core.so" "-DLINUX"
+;; 					  "render/elisp-helpers.c" "render/mupdf-helpers.c" "render/render-core.c"
+;; 					  ,@(split-string-shell-command
+;; 					     (string-trim-right
+;; 					      (shell-command-to-string "pkg-config --cflags --libs mupdf"))))
 ;;        ))
 
 ;; 配置reader用于
