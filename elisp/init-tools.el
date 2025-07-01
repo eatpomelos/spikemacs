@@ -68,8 +68,8 @@
   (setq plantuml-jar-path (expand-file-name "plantuml.jar" spk-local-dir))
   (setq plantuml-default-exec-mode 'jar)
 
- (unless (file-exists-p plantuml-jar-path)
-   (plantuml-download-jar))
+ ;; (unless (file-exists-p plantuml-jar-path)
+ ;;   (plantuml-download-jar))
 
   (setq plantuml-output-type "png")
   ;; (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
