@@ -29,6 +29,7 @@ eln-cache/
 
 bookmarks
 server/
+tramp
 
 # ignore straight repos
 straight/

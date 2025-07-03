@@ -94,6 +94,11 @@
 (with-eval-after-load 'eaf-pdf-viewer
   (setq eaf-pdf-dark-mode "ignore")
   )
+
+(with-eval-after-load 'eaf-music-player
+  (setq eaf-music-default-file "~/Music/")
+  )
+
 (global-set-key (kbd "C-c SPC") 'evil-switch-to-windows-last-buffer)
 (global-set-key (kbd "C-c p a") 'spk/project-fast-find-all-file)
 (global-set-key (kbd "C-c p f") 'spk/project-fast-find-file)
