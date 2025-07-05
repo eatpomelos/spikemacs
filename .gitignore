@@ -30,6 +30,7 @@ eln-cache/
 bookmarks
 server/
 tramp
+games/
 
 # ignore straight repos
 straight/

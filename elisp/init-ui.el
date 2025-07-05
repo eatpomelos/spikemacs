@@ -119,10 +119,6 @@
   ;; 新增快捷键用于在eaf相关的页面以及其余默认emacs-state的buffer进行切换
   (global-set-key (kbd "C-c j") 'sort-tab-select-next-tab)
   (global-set-key (kbd "C-c k") 'sort-tab-select-prev-tab)
-  (global-set-key (kbd "C-c n") 'spk/sort-tab-select-num-1)
-  (global-set-key (kbd "C-c m") 'spk/sort-tab-select-num-2)
-  (global-set-key (kbd "C-c ,") 'spk/sort-tab-select-num-3)
-  (global-set-key (kbd "C-c .") 'spk/sort-tab-select-num-4)
   (global-set-key (kbd "C-c s") 'spk/sort-tab-counsel-select)
 
   ;; 在i3+emacs29.4 的笔记本配置上，开启了sort-tab会在切换theme之后，出现minibuffer无法resize问题
