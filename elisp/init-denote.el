@@ -9,8 +9,10 @@
 ;; 安装denote，用denote来管理笔记系统
 ;; 临时设者一个目录用于测试denote的基本功能
 
-(setq denote-directory "~/spk-tmp")
-(setq denote-journal-directory "~/spk-tmp/journal")
+(setq spk-denote-dir (concat spk-doc-dir "denote/")
+      denote-directory spk-denote-dir
+      denote-journal-directory (concat denote-directory "journal/")
+      )
 
 (add-hook 'completion-list-mode-hook #'consult-preview-at-point-mode)
 

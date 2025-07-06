@@ -93,10 +93,12 @@
 
 (with-eval-after-load 'eaf-pdf-viewer
   (setq eaf-pdf-dark-mode "ignore")
+  (setq eaf-pdf-history-filter-pattern "^\\(.*\\)$")
   )
 
 (with-eval-after-load 'eaf-music-player
   (setq eaf-music-default-file "~/Music/")
+  (add-to-list 'eaf-music-extension-list "flac")
   )
 
 (global-set-key (kbd "C-c SPC") 'evil-switch-to-windows-last-buffer)
