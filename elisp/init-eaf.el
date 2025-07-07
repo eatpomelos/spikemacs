@@ -15,7 +15,7 @@
 
 (require 'eaf)
 
-;; (require 'eaf-rss-reader)
+(require 'eaf-rss-reader)
 (require 'eaf-org-previewer)
 ;; (require 'eaf-git)
 (require 'eaf-browser)
@@ -23,14 +23,14 @@
 ;; (require 'eaf-vue-demo)
 ;; (require 'eaf-airshare)
 ;; (require 'eaf-camera)
-;; (require 'eaf-jupyter)
+(require 'eaf-jupyter)
 (require 'eaf-music-player)
-;; (require 'eaf-mindmap)
-;; (require 'eaf-image-viewer)
-;; (require 'eaf-file-sender)
+(require 'eaf-mindmap)
+(require 'eaf-image-viewer)
+(require 'eaf-file-sender)
 (require 'eaf-pdf-viewer)
 (require 'eaf-pyqterminal)
-;; (require 'eaf-file-browser)
+(require 'eaf-file-browser)
 (require 'eaf-video-player)
 (require 'eaf-markdown-previewer)
 
@@ -97,16 +97,31 @@
   )
 
 (with-eval-after-load 'eaf-music-player
+    (evil-leader/set-key
+    "em" 'eaf-open-music-player
+    )
   (setq eaf-music-default-file "~/Music/")
   (add-to-list 'eaf-music-extension-list "flac")
   )
 
+(with-eval-after-load 'eaf-org-previewer
+  (defun spk/eaf-org-preview-current-buffer ()
+    (interactive)
+    (let* ((file-path (buffer-file-name (current-buffer))))
+      (if (file-exists-p file-path)
+          (eaf-open file-path "org-previewer")
+        (message (format "file %s not exist" file-path)))
+      )
+    )
+  )
 (global-set-key (kbd "C-c SPC") 'evil-switch-to-windows-last-buffer)
 (global-set-key (kbd "C-c p a") 'spk/project-fast-find-all-file)
 (global-set-key (kbd "C-c p f") 'spk/project-fast-find-file)
 (global-set-key (kbd "C-c f l") 'counsel-locate)
 
+
 (with-eval-after-load 'eaf-pyqterminal
+  (global-set-key (kbd "C-c RET") 'eaf-open-pyqterminal)
   (setq eaf-pyqterminal-font-size 16
         eaf-pyqterminal-cursor-type "hlbar"
         eaf-pyqterminal-font-family "文泉驿等宽正黑"
