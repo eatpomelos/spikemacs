@@ -37,7 +37,11 @@
 (defun spk/eaf-open-current-file-manager ()
   "Open EAF file manager."
   (interactive)
-  (eaf-open default-directory "file-manager"))
+  (if (eq major-mode 'dired-mode)
+      (dired (file-name-parent-directory (dired-current-directory)))
+    (dired-jump)
+    )
+  )
 
 (with-eval-after-load 'eaf-browser
   ;; 在eaf中用了s库相关的接口，在这里手动加载这个库，避免出错
@@ -83,13 +87,11 @@
     )
   )
 
-(with-eval-after-load 'eaf-file-manager
-  (evil-leader/set-key
-    ;; 当加载了eaf时，用eaf的文件管理器接管dired
-    "fj" 'spk/eaf-open-current-file-manager
-    )
-  (global-set-key (kbd "C-x C-j") 'spk/eaf-open-current-file-manager)
-  )
+(evil-leader/set-key
+  "fj" 'spk/eaf-open-current-file-manager)
+
+(global-set-key (kbd "C-x C-j") 'spk/eaf-open-current-file-manager)
+
 
 (with-eval-after-load 'eaf-pdf-viewer
   (setq eaf-pdf-dark-mode "ignore")
