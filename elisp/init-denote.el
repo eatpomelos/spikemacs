@@ -12,14 +12,15 @@
 (setq spk-denote-dir (concat spk-doc-dir "denote/")
       denote-directory spk-denote-dir
       denote-journal-directory (concat denote-directory "journal/")
+      spk-denote-notes-directory (concat denote-directory "notes/")
       )
 
 (add-hook 'completion-list-mode-hook #'consult-preview-at-point-mode)
 
 ;; https://github.com/mclear-tools/consult-noteus
 (setq consult-notes-sources
-      '(
-        ("notes"    ?o "~/spk-tmp")
-        ("journal"  ?j "~/spk-tmp/journal")
+      `(
+        ("notes"    ?n ,spk-denote-notes-directory)
+        ("journal"  ?j ,denote-journal-directory)
         ))
 (provide 'init-denote)

@@ -304,10 +304,6 @@
 ;;;###autoload
 (defun spk/org-mode-setup ()
   (require 'deadgrep)
-  (require 'ox-rst)
-  ;; 与实际使用时相比，一级标题也使用了=，这里在原来的基础上增加一个=
-  (setq org-rst-headline-underline-characters '(?= ?- ?~ ?^ ?: ?' ?\ ?_))
-  (setq org-rst-link-use-ref-role t)
   (when (boundp 'deadgrep-project-root-function)
     (make-local-variable 'deadgrep-project-root-function)
     (setq deadgrep-project-root-function 'spk/deadgrep-search-default-dir))
@@ -317,7 +313,12 @@
     )
   )
 
+;; 加载ox-rst
+(require 'ox-rst)
 (with-eval-after-load 'ox-rst
+  ;; 与实际使用时相比，一级标题也使用了=，这里在原来的基础上增加一个=
+  (setq org-rst-headline-underline-characters '(?= ?- ?~ ?^ ?: ?' ?\ ?_))
+  (setq org-rst-link-use-ref-role t)
   (defadvice org-rst-export-to-rst (after spk-org-rst-hack activate)
     (let* ((rst-file (concat (file-name-sans-extension (buffer-file-name)) ".rst"))
            (exec-script (concat spk-scripts-dir "org-ox-rst-table-multicol"))
