@@ -26,7 +26,8 @@
 (add-hook 'org-mode-hook #'denote-fontify-links-mode)
 
 (setq denote-save-buffers nil)
-(setq denote-known-keywords '("emacs" "philosophy" "politics" "economics"))
+;; 常用的关键字，这里需要仔细配置一下
+(setq denote-known-keywords '("emacs" "linux" "politics" "economics"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-prompts '(title keywords))
@@ -36,6 +37,12 @@
 
 ;; Pick dates, where relevant, with Org's advanced interface:
 (setq denote-date-prompt-use-org-read-date t)
+
+;; 设置denote 快捷键，常用的快捷键需要配置一下
+(global-set-key (kbd "C-c n j") 'denote-link-open-at-point)
+(global-set-key (kbd "C-c n f") 'consult-notes)
+(global-set-key (kbd "C-c n d") 'denote-journal-new-entry)
+(global-set-key (kbd "C-c n n") 'denote)
 
 ;; Automatically rename Denote buffers using the `denote-rename-buffer-format'.
 (denote-rename-buffer-mode 1)
