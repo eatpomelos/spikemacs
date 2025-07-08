@@ -44,6 +44,7 @@
 ;; https://github.com/mclear-tools/consult-noteus
 (setq consult-notes-sources
       `(
+        ("denote"   ?d ,denote-directory)
         ("notes"    ?n ,spk-denote-notes-directory)
         ("journal"  ?j ,denote-journal-directory)
         ))
