@@ -39,6 +39,7 @@
 
 (setq default-directory "~")
 
+(require 'init-themes)
 (require 'init-default)
 (require 'init-autoload)
 

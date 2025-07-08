@@ -3,7 +3,6 @@
 (straight-use-package 'all-the-icons-dired)
 (straight-use-package 'all-the-icons-completion)
 
-
 ;; 将颜色相关的 RGB 值显示为对应颜色，这对主题定制等场景很好用
 (straight-use-package 'rainbow-mode)
 
@@ -144,25 +143,27 @@
 ;; 使用awesome-tray来优化显示
 (straight-use-package
    '(awesome-tray :type git
-		    :host github
-		    :repo "eatpomelos/awesome-tray"
-		    ))
+		          :host github
+		          :repo "eatpomelos/awesome-tray"
+		          ))
 
 ;; 后续尝试使用awesome-tray，暂时由于这个插件并不是基于evil以及一些窗口管理插件设计，需要修改一些自定义face
-(require 'awesome-tray)
-(setq awesome-tray-file-name-max-length 30)
-(setq awesome-tray-position 'center)
-(setq awesome-tray-active-modules
-      '("buffer-read-only" "file-path" "buffer-name" "location" "git" "evil" "mode-name" "belong" "input-method" "date")
-      )
-(setq awesome-tray-location-format "%l:%p")
+(when (is-gui)
+  (require 'awesome-tray)
+  (setq awesome-tray-file-name-max-length 30)
+  (setq awesome-tray-position 'center)
+  (setq awesome-tray-active-modules
+        '("buffer-read-only" "file-path" "buffer-name" "location" "git" "evil" "mode-name" "belong" "input-method" "date")
+        )
+  (setq awesome-tray-location-format "%l:%p")
 
+  (awesome-tray-enable)
 
-(awesome-tray-enable)
-
-;; 加载主题之后打开awesome-tray
-(defadvice load-theme
-    (after spk-load-theme-hack activate)
-  (awesome-tray-enable))
+  ;; 加载主题之后打开awesome-tray
+  (defadvice load-theme
+      (after spk-load-theme-hack activate)
+    (awesome-tray-enable)
+    )
+  )
 
 (provide 'init-ui)

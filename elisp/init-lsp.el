@@ -15,8 +15,7 @@
    :build (:not compile)
    ))
 
-
-(unless (display-graphic-p)
+(unless (is-gui)
   (straight-use-package
    '(popon :host nil :repo "https://codeberg.org/akib/emacs-popon.git"))
   (straight-use-package
@@ -26,9 +25,9 @@
 (yas-global-mode 1)
 
 ;; lsp-bridge terminal patch
-(unless (display-graphic-p)
-              (with-eval-after-load 'acm
-                (require 'acm-terminal)))
+(when (is-tui)
+  (with-eval-after-load 'acm
+    (require 'acm-terminal)))
               
 (require 'lsp-bridge)
 (add-hook 'c-mode-hook 'lsp-bridge-mode)

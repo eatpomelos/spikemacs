@@ -27,7 +27,7 @@
 
 (setq denote-save-buffers nil)
 ;; 常用的关键字，这里需要仔细配置一下
-(setq denote-known-keywords '("emacs" "linux" "politics" "economics"))
+(setq denote-known-keywords '("emacs" "linux" "work" "economics"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-prompts '(title keywords))
@@ -38,12 +38,6 @@
 ;; Pick dates, where relevant, with Org's advanced interface:
 (setq denote-date-prompt-use-org-read-date t)
 
-;; 设置denote 快捷键，常用的快捷键需要配置一下
-(global-set-key (kbd "C-c n j") 'denote-link-open-at-point)
-(global-set-key (kbd "C-c n f") 'consult-notes)
-(global-set-key (kbd "C-c n d") 'denote-journal-new-entry)
-(global-set-key (kbd "C-c n n") 'denote)
-
 ;; Automatically rename Denote buffers using the `denote-rename-buffer-format'.
 (denote-rename-buffer-mode 1)
 
@@ -53,4 +47,45 @@
         ("notes"    ?n ,spk-denote-notes-directory)
         ("journal"  ?j ,denote-journal-directory)
         ))
+
+;; 获取当天的denote-journal 文件，这里和原始的用法不同，默认认为一天只会有一个journal文件
+(defun spk/find-today-journal-denote-entry ()
+  "Get today denote journal entry."
+  (interactive)
+  (make-local-variable 'denote-directory)
+  (setq denote-directory denote-journal-directory)
+  (if-let* ((files
+               (denote-directory-files
+                (denote-journal--filename-date-regexp (current-time))))
+            (file (denote-journal-select-file-prompt files)))
+      (funcall denote-open-link-function file)
+    (denote-journal-new-entry)
+    )
+  )
+
+;; 设置denote 快捷键，常用的快捷键需要配置一下
+(global-set-key (kbd "C-c n j") 'denote-link-open-at-point)
+(global-set-key (kbd "C-c n f") 'consult-notes)
+(global-set-key (kbd "C-c n i") 'denote-insert-link)
+(global-set-key (kbd "C-c ndn") 'denote-journal-new-entry)
+(global-set-key (kbd "C-c ndt") 'spk/find-today-journal-denote-entry)
+(global-set-key (kbd "C-c n n") 'denote)
+(global-set-key (kbd "C-c n r") 'denote-find-backlink)
+
+;; 在笔记未迁移完成前先保留org-roam 的配置
+(require 'init-org-roam)
+
+(evil-leader/set-key
+  ;; org-roam 的快捷键，笔记迁移完成后删除
+  "oo" 'org-roam-node-find
+  "of" 'consult-notes
+  "os" 'consult-notes-search-in-all-notes
+  "or" 'denote-find-backlink
+  "oi" 'denote-insert-link
+  "oj" 'denote-link-open-at-point
+  "odt" 'spk/find-today-journal-denote-entry
+  "odn" 'denote-journal-new-entry
+  "odd" 'denote
+  )
+
 (provide 'init-denote)

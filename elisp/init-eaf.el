@@ -34,8 +34,8 @@
 (require 'eaf-video-player)
 (require 'eaf-markdown-previewer)
 
-(defun spk/eaf-open-current-file-manager ()
-  "Open EAF file manager."
+(defun spk/dired-jump ()
+  "Same as `dired-jump'."
   (interactive)
   (if (eq major-mode 'dired-mode)
       (dired (file-name-parent-directory (dired-current-directory)))
@@ -88,9 +88,9 @@
   )
 
 (evil-leader/set-key
-  "fj" 'spk/eaf-open-current-file-manager)
+  "fj" 'spk/dired-jump)
 
-(global-set-key (kbd "C-x C-j") 'spk/eaf-open-current-file-manager)
+(global-set-key (kbd "C-x C-j") 'spk/dired-jump)
 
 
 (with-eval-after-load 'eaf-pdf-viewer

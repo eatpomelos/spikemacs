@@ -7,6 +7,9 @@
 (straight-use-package 'orderless)
 (straight-use-package 'vterm)
 
+;; 使用xclip解决在wsl的终端无法共享剪切板的问题
+(straight-use-package 'xclip)
+
 (setq completion-styles '(orderless))
 
 ;; 将此库文件更新为 fork 版本
@@ -17,6 +20,9 @@
    :repo "eatpomelos/symbol-overlay"
    )
  )
+
+(require 'xclip)
+(xclip-mode t)
 
 ;; 打开版本控制的文件时不询问
 (setq vc-follow-symlinks t)
@@ -91,13 +97,20 @@
     "m\]" 'er/mark-sentence))
 
 
-(global-set-key (kbd "C-\'") 'symbol-overlay-put)
-(global-set-key (kbd "C-\"") 'symbol-overlay-rename)
-(global-set-key (kbd "C-:") 'symbol-overlay-jump-prev)
-(global-set-key (kbd "C-;") 'symbol-overlay-jump-next)
+(when (is-gui)
+  (global-set-key (kbd "C-\'") 'symbol-overlay-put)
+  (global-set-key (kbd "C-\"") 'symbol-overlay-rename)
+  (global-set-key (kbd "C-:") 'symbol-overlay-jump-prev)
+  (global-set-key (kbd "C-;") 'symbol-overlay-jump-next))
 
 
-;; 设置英语检错，设置有问题，暂时未解决
+;; (when (is-tui)
+;;   (global-set-key (kbd "M-\'") 'symbol-overlay-put)
+;;   (global-set-key (kbd "M-\"") 'symbol-overlay-rename)
+;;   (global-set-key (kbd "M-:") 'symbol-overlay-jump-prev)
+;;   (global-set-key (kbd "M-;") 'symbol-overlay-jump-next))
+
+;; ;; 设置英语检错，设置有问题，暂时未解决
 (when IS-WINDOWS
   (setq ispell-program-name "aspell")
   (setq ispell-process-directory "~/MSYS2/mingw64/bin/")

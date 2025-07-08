@@ -31,7 +31,7 @@
   )
 
 ;; 根据时间加载主题
-(when IS-LINUX
+(when (and IS-LINUX (is-gui))
   (require 'circadian)
   (with-eval-after-load 'circadian
     (setq circadian-themes
@@ -42,6 +42,11 @@
             ))
     (circadian-setup)
     )
+  )
+
+;; 在终端中使用暗色壁纸，提高性能 
+(when (is-tui)
+  (load-theme 'modus-vivendi :no-comform)
   )
 
 

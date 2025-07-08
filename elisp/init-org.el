@@ -355,7 +355,6 @@
 (add-to-list 'org-structure-template-alist '("i" . "important"))
 
 ;; org-mode 其余相关插件的初始化
-(require 'init-org-roam)
 (require 'init-denote)
 
 (provide 'init-org)

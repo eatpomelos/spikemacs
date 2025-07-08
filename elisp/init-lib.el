@@ -13,6 +13,12 @@
 (defconst IS-WSL    (and IS-LINUX (string-match "Microsoft" (shell-command-to-string "uname -r"))))
 (defconst IS-NIXOS (string= (system-name) "nixos"))
 
+(defun is-gui ()
+ (display-graphic-p))
+
+(defun is-tui ()
+ (not (display-graphic-p)))
+
 (defmacro +spk-get-memavailable ()
   `(string-to-number (shell-command-to-string "grep MemAvailable /proc/meminfo | awk '{print $2}'")))
 
