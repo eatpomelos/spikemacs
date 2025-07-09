@@ -38,7 +38,8 @@
           '(
             ("7:30" . spk-mint)
             ;; ("18:00" . modus-vivendi)
-            ("18:00" . doom-city-lights)
+            ;; ("18:00" . doom-city-lights)
+            ("18:00" . ef-bio)
             ))
     (circadian-setup)
     )

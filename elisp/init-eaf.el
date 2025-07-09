@@ -3,7 +3,7 @@
 ;; (setq spk-local-eaf-app-dir (concat spk-local-eaf-dir "app/"))
 
 (unless (file-exists-p spk-local-eaf-dir)
-  (shell-command-to-string (format "git clone https://gitee.com/emacs-eaf/emacs-application-framework %s" spk-local-eaf-dir))
+  (shell-command-to-string (format "git clone https://github.com/emacs-eaf/emacs-application-framework.git %s" spk-local-eaf-dir))
   )
 
 ;; 将eaf加入读取列表
@@ -94,7 +94,8 @@
 
 
 (with-eval-after-load 'eaf-pdf-viewer
-  (setq eaf-pdf-dark-mode "ignore")
+  ;; (setq eaf-pdf-dark-mode "ignore")
+  (setq eaf-pdf-dark-mode "follow")
   (setq eaf-pdf-history-filter-pattern "^\\(.*\\)$")
   )
 
