@@ -40,6 +40,7 @@
 
 ;; Automatically rename Denote buffers using the `denote-rename-buffer-format'.
 (denote-rename-buffer-mode 1)
+(consult-notes-denote-mode 1)
 
 ;; https://github.com/mclear-tools/consult-noteus
 (setq consult-notes-sources
@@ -59,10 +60,17 @@
                (denote-directory-files
                 (denote-journal--filename-date-regexp (current-time))))
             (file (denote-journal-select-file-prompt files)))
-      (funcall denote-open-link-function file)
+      (progn
+        ;; 如果当前文件已经打开，则直接跳转到对应buffer
+        (cond ((get-file-buffer file) (switch-to-buffer (get-file-buffer file)))
+              (t (funcall denote-open-link-function file))
+              ))
     (denote-journal-new-entry)
     )
   )
+
+;; 在笔记未迁移完成前先保留org-roam 的配置
+(require 'init-org-roam)
 
 ;; 设置denote 快捷键，常用的快捷键需要配置一下
 (global-set-key (kbd "C-c n j") 'denote-link-open-at-point)
@@ -72,9 +80,6 @@
 (global-set-key (kbd "C-c ndt") 'spk/find-today-journal-denote-entry)
 (global-set-key (kbd "C-c n n") 'denote)
 (global-set-key (kbd "C-c n r") 'denote-find-backlink)
-
-;; 在笔记未迁移完成前先保留org-roam 的配置
-(require 'init-org-roam)
 
 (evil-leader/set-key
   ;; org-roam 的快捷键，笔记迁移完成后删除
@@ -87,6 +92,7 @@
   "odt" 'spk/find-today-journal-denote-entry
   "odn" 'denote-journal-new-entry
   "odd" 'denote
+  "odr" 'denote-region
   )
 
 (provide 'init-denote)
