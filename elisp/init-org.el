@@ -296,6 +296,19 @@
 (global-set-key (kbd "C-c c") #'org-capture)
 ;; 用来返回当前目录
 
+(setq org-startup-with-inline-images t)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (C . t) ;; 启用 Python 语言
+   (emacs-lisp . t) ;; 启用 Python 语言
+   (perl . t) ;; 启用 Python 语言
+   (python . t) ;; 启用 Python 语言
+   ;; 这里可以添加其他你需要的语言，例如：
+   (dot . t)
+   (plantuml . t)
+   ))
+
 ;;;###autoload
 (defun spk/deadgrep-search-default-dir ()
   default-directory)
