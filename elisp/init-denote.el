@@ -77,11 +77,23 @@
     )
   )
 
+;; 定义一个函数，实现打开当前光标下的链接功能
+(defun spk/open-link-at-point ()
+  "Open link at point."
+  (interactive)
+  (let* ()
+    (cond
+     ((get-text-property (point) 'denote-link-query-part) (denote-link-open-at-point))
+     ((eq major-mode 'org-mode) (org-open-at-point))
+     (t (message (format "Can not open link at point.")))
+     ))
+  )
+
 ;; 在笔记未迁移完成前先保留org-roam 的配置
 (require 'init-org-roam)
 
 ;; 设置denote 快捷键，常用的快捷键需要配置一下
-(global-set-key (kbd "C-c n j") 'denote-link-open-at-point)
+(global-set-key (kbd "C-c n j") 'spk/open-link-at-point)
 (global-set-key (kbd "C-c n f") 'consult-notes)
 (global-set-key (kbd "C-c n i") 'denote-insert-link)
 (global-set-key (kbd "C-c ndn") 'denote-journal-new-entry)
@@ -96,7 +108,7 @@
   "os" 'consult-notes-search-in-all-notes
   "or" 'denote-find-backlink
   "oi" 'denote-insert-link
-  "oj" 'denote-link-open-at-point
+  "oj" 'spk/open-link-at-point
   "odt" 'spk/find-today-journal-denote-entry
   "odn" 'denote-journal-new-entry
   "odd" 'denote
