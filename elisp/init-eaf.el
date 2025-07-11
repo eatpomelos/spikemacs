@@ -81,7 +81,6 @@
 
   ;; 设置evil快捷键
   (evil-leader/set-key
-    "er" 'eaf-open-pdf-from-history
     "si" 'eaf-search-it
     "oi" 'eaf-open-url-at-point
     )
@@ -97,12 +96,17 @@
   ;; (setq eaf-pdf-dark-mode "ignore")
   (setq eaf-pdf-dark-mode "follow")
   (setq eaf-pdf-history-filter-pattern "^\\(.*\\)$")
+  (global-set-key (kbd "C-c e r") 'eaf-open-pdf-from-history)
+
+   (evil-leader/set-key
+     "er" 'eaf-open-pdf-from-history)
+
   )
 
 (with-eval-after-load 'eaf-music-player
-    (evil-leader/set-key
-    "em" 'eaf-open-music-player
-    )
+  (global-set-key (kbd "C-c e m") 'eaf-open-music-player)
+  (evil-leader/set-key
+    "em" 'eaf-open-music-player)
   (setq eaf-music-default-file "~/Music/")
   (add-to-list 'eaf-music-extension-list "flac")
   )
@@ -117,11 +121,11 @@
       )
     )
   )
+
 (global-set-key (kbd "C-c SPC") 'evil-switch-to-windows-last-buffer)
 (global-set-key (kbd "C-c p a") 'spk/project-fast-find-all-file)
 (global-set-key (kbd "C-c p f") 'spk/project-fast-find-file)
 (global-set-key (kbd "C-c f l") 'counsel-locate)
-
 
 (with-eval-after-load 'eaf-pyqterminal
   (global-set-key (kbd "C-c RET") 'eaf-open-pyqterminal)

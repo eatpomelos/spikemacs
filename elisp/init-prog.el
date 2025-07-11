@@ -92,7 +92,6 @@
 ;; (add-hook 'prog-mode-hook 'hl-line-mode)
 
 ;; keybindings
-(global-set-key (kbd "C-c e") 'eshell)
 (global-set-key (kbd "C-\\") 'imenu-list-smart-toggle)
 
 (with-eval-after-load 'imenu-list
