@@ -325,8 +325,6 @@
   "fqp" 'spk/find-linux-code-dir
   "fo" 'spk-open-file-with-system-application
   "t" 'spk-find-local-templet
-  "ee" 'base64-encode-region
-  "ed" 'base64-decode-region
   "sc" 'spk/counsel-rg-current-dir
   "mm" 'spk/bookmark-last-edit-record
   "mj" 'spk/bookmark-last-edit-jump

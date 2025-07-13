@@ -100,7 +100,7 @@
 
    (evil-leader/set-key
      "er" 'eaf-open-pdf-from-history)
-
+   (setq eaf-find-file-ext-blacklist '("md" "org" "html" "htm"))
   )
 
 (with-eval-after-load 'eaf-music-player

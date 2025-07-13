@@ -30,7 +30,7 @@
 
 (setq denote-save-buffers nil)
 ;; 常用的关键字，这里需要仔细配置一下
-(setq denote-known-keywords '("emacs" "linux" "work" "reading"))
+(setq denote-known-keywords '("emacs" "linux" "work" "reading" "programming"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-prompts '(title keywords))
@@ -50,12 +50,12 @@
 ;; https://github.com/mclear-tools/consult-noteus
 (setq consult-notes-sources
       `(
-        ("denote"   ?h ,denote-directory)
-        ("notes"    ?n ,spk-denote-notes-directory)
-        ("journal"  ?j ,denote-journal-directory)
-        ("work"     ?w ,spk-denote-work-directory)
-        ("reading"  ?r ,spk-denote-reading-directory)
-        ("draft"    ?d ,spk-denote-draft-directory)
+        ("denote"       ?h ,denote-directory)
+        ("notes"        ?n ,spk-denote-notes-directory)
+        ("journal"      ?j ,denote-journal-directory)
+        ("work"         ?w ,spk-denote-work-directory)
+        ("reading"      ?r ,spk-denote-reading-directory)
+        ("draft"        ?d ,spk-denote-draft-directory)
         ))
 
 ;; 获取当天的denote-journal 文件，这里和原始的用法不同，默认认为一天只会有一个journal文件

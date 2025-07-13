@@ -31,6 +31,7 @@ bookmarks
 server/
 tramp
 games/
+request/
 
 # ignore straight repos
 straight/

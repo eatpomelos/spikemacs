@@ -3,6 +3,30 @@
 (straight-use-package 'plantuml-mode)
 (straight-use-package 'flycheck-plantuml)
 
+(when (and IS-LINUX (not IS-WSL))
+  (straight-use-package 'calibredb)
+  (require 'calibredb)
+  (setq calibredb-root-dir "~/spk-calibre")
+  ;; for folder driver metadata: it should be .metadata.calibre
+  (setq calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
+  (setq calibredb-library-alist '(
+                                  ("~/spk-calibre/linux")
+                                  ("~/spk-calibre/emacs")
+                                  ("~/spk-calibre/programming")
+                                  ("~/spk-calibre/reading")
+                                  ("~/spk-calibre/manga")
+                                  )
+        calibredb-format-nerd-icons t
+        )
+  (global-set-key (kbd "C-c e l") 'calibredb-library-list)
+  (evil-leader/set-key
+    "el" 'calibredb-library-list)
+  (evil-set-initial-state 'calibredb-search-mode 'emacs)
+  
+  (define-key calibredb-search-mode-map "h" 'calibredb-search-previous-page)
+  (define-key calibredb-search-mode-map "l" 'calibredb-search-next-page)
+  )
+
 ;; 在linux下使用emacs-rime 输入
 (when IS-LINUX
   (straight-use-package 'rime)
@@ -142,6 +166,7 @@
         (spk/common-eaf-preview (format "%s.%s" (file-name-sans-extension (buffer-file-name)) plantuml-output-type))
         )))
   (add-hook 'after-save-hook 'spk/plantuml-export-and-preview)
+
   )
 
 ;; 删除buffer中的所有空行
