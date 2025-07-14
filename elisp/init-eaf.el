@@ -128,7 +128,7 @@
 (global-set-key (kbd "C-c f l") 'counsel-locate)
 
 (with-eval-after-load 'eaf-pyqterminal
-  (global-set-key (kbd "C-c RET") 'eaf-open-pyqterminal)
+  (global-set-key (kbd "C-c e RET") 'eaf-open-pyqterminal)
   (setq eaf-pyqterminal-font-size 16
         eaf-pyqterminal-cursor-type "hlbar"
         eaf-pyqterminal-font-family "文泉驿等宽正黑"

@@ -25,6 +25,7 @@
   
   (define-key calibredb-search-mode-map "h" 'calibredb-search-previous-page)
   (define-key calibredb-search-mode-map "l" 'calibredb-search-next-page)
+  (define-key calibredb-search-mode-map "x" 'calibredb-toggle-highlight-at-point)
   )
 
 ;; 在linux下使用emacs-rime 输入
