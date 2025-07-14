@@ -17,7 +17,7 @@
       spk-denote-notes-directory (concat denote-directory "notes/")
       spk-denote-work-directory (concat denote-directory "work/")
       spk-denote-reading-directory (concat denote-directory "reading/")
-      spk-denote-draft-directory (concat denote-directory "draft/")
+      spk-denote-programming-directory (concat denote-directory "programming/")
       )
 
 (add-hook 'completion-list-mode-hook #'consult-preview-at-point-mode)
@@ -55,7 +55,7 @@
         ("journal"      ?j ,denote-journal-directory)
         ("work"         ?w ,spk-denote-work-directory)
         ("reading"      ?r ,spk-denote-reading-directory)
-        ("draft"        ?d ,spk-denote-draft-directory)
+        ("programming"        ?p ,spk-denote-programming-directory)
         ))
 
 ;; 获取当天的denote-journal 文件，这里和原始的用法不同，默认认为一天只会有一个journal文件
