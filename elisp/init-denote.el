@@ -30,7 +30,7 @@
 
 (setq denote-save-buffers nil)
 ;; 常用的关键字，这里需要仔细配置一下
-(setq denote-known-keywords '("emacs" "linux" "work" "reading" "programming"))
+(setq denote-known-keywords '("emacs" "linux" "work" "reading" "programming" "step"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-prompts '(title keywords))
@@ -92,6 +92,8 @@
 ;; 在笔记未迁移完成前先保留org-roam 的配置
 (require 'init-org-roam)
 
+(global-set-key (kbd "C-c b") 'consult-buffer)
+
 ;; 设置denote 快捷键，常用的快捷键需要配置一下
 (global-set-key (kbd "C-c n j") 'spk/open-link-at-point)
 (global-set-key (kbd "C-c n f") 'consult-notes)
@@ -113,6 +115,7 @@
   "odn" 'denote-journal-new-entry
   "odd" 'denote
   "odr" 'denote-region
+  "ods" 'denote-signature
   )
 
 (provide 'init-denote)

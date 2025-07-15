@@ -6,6 +6,14 @@
 ;; 将颜色相关的 RGB 值显示为对应颜色，这对主题定制等场景很好用
 (straight-use-package 'rainbow-mode)
 
+(straight-use-package
+ '(image-slicing :host github :repo "ginqi7/image-slicing"))
+
+(require 'image-slicing)
+(add-to-list 'shr-external-rendering-functions
+             '(img . image-slicing-tag-img))
+(push #'image-slicing-mode eww-after-render-hook)
+
 ;; 默认 elisp-mode 打开 rainbow-mode
 (add-hook 'emacs-lisp-mode-hook #'rainbow-mode)
 ;; 由于大文件中linum渲染会对性能有影响，这里使用自带display-line-numbers 替代
