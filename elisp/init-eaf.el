@@ -107,7 +107,8 @@
   (global-set-key (kbd "C-c e m") 'eaf-open-music-player)
   (evil-leader/set-key
     "em" 'eaf-open-music-player)
-  (setq eaf-music-default-file "~/Music/")
+  ;; eaf似乎存在一个bug，这里通过expand-file-name转化为绝对路径能解决这个bug
+  (setq eaf-music-default-file (expand-file-name "~/Music/"))
   (add-to-list 'eaf-music-extension-list "flac")
   )
 
