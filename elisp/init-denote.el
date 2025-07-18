@@ -38,7 +38,7 @@
 (setq denote-excluded-keywords-regexp nil)
 (setq denote-rename-confirmations '(rewrite-front-matter modify-file-name))
 ;; 添加子目录选项，添加笔记时候，指定添加的目录
-(setq denote-prompts '(title keywords subdirectory))
+(setq denote-prompts '(title keywords signature subdirectory))
 
 ;; Pick dates, where relevant, with Org's advanced interface:
 (setq denote-date-prompt-use-org-read-date t)
