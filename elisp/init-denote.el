@@ -81,19 +81,19 @@
 (defun spk/open-link-at-point ()
   "Open link at point."
   (interactive)
-  (let* ((url (thing-at-point 'url))))
-  (cond
-   ((get-text-property (point) 'denote-link-query-part)
-    (denote-link-open-at-point))
-   (url
-    (if (commandp 'eaf-open)
-        (eaf-open-url-at-point)
-      (eww url)
-      ))
-   ((eq major-mode 'org-mode)
-    (org-open-at-point))
-   (t (message "Can not open link at point."))
-   )
+  (let* ((url (thing-at-point 'url)))
+    (cond
+     ((get-text-property (point) 'denote-link-query-part)
+      (denote-link-open-at-point))
+     (url
+      (if (commandp 'eaf-open)
+          (eaf-open-url-at-point)
+        (eww url)
+        ))
+     ((eq major-mode 'org-mode)
+      (org-open-at-point))
+     (t (message "Can not open link at point."))
+     ))
   )
 
 ;; 在笔记未迁移完成前先保留org-roam 的配置
