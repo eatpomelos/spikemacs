@@ -30,7 +30,7 @@
 
 (setq denote-save-buffers nil)
 ;; 常用的关键字，这里需要仔细配置一下
-(setq denote-known-keywords '("emacs" "linux" "work" "reading" "programming" "step"))
+(setq denote-known-keywords '("emacs" "linux" "work" "reading" "programming" "step" "literature"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-prompts '(title keywords))
@@ -81,12 +81,19 @@
 (defun spk/open-link-at-point ()
   "Open link at point."
   (interactive)
-  (let* ()
-    (cond
-     ((get-text-property (point) 'denote-link-query-part) (denote-link-open-at-point))
-     ((eq major-mode 'org-mode) (org-open-at-point))
-     (t (message (format "Can not open link at point.")))
-     ))
+  (let* ((url (thing-at-point 'url))))
+  (cond
+   ((get-text-property (point) 'denote-link-query-part)
+    (denote-link-open-at-point))
+   (url
+    (if (commandp 'eaf-open)
+        (eaf-open-url-at-point)
+      (eww url)
+      ))
+   ((eq major-mode 'org-mode)
+    (org-open-at-point))
+   (t (message "Can not open link at point."))
+   )
   )
 
 ;; 在笔记未迁移完成前先保留org-roam 的配置
