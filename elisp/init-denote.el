@@ -30,7 +30,7 @@
 
 (setq denote-save-buffers nil)
 ;; 常用的关键字，这里需要仔细配置一下
-(setq denote-known-keywords '("emacs" "linux" "work" "reading" "programming" "step" "literature"))
+(setq denote-known-keywords '("emacs" "linux" "work" "reading" "programming" "wiki" "literature"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-prompts '(title keywords))
