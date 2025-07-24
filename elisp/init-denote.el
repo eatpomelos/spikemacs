@@ -11,8 +11,8 @@
 ;; 安装denote，用denote来管理笔记系统
 ;; 临时设者一个目录用于测试denote的基本功能
 
-(setq spk-denote-dir (concat spk-doc-dir "denote/")
-      denote-directory spk-denote-dir
+(setq spk-note-dir (concat spk-doc-dir "spk-notes/")
+      denote-directory (concat spk-note-dir "denote/")
       denote-journal-directory (concat denote-directory "journal/")
       spk-denote-notes-directory (concat denote-directory "notes/")
       spk-denote-work-directory (concat denote-directory "work/")
@@ -81,19 +81,22 @@
 (defun spk/open-link-at-point ()
   "Open link at point."
   (interactive)
-  (let* ((url (thing-at-point 'url)))
+  (let* ((url (thing-at-point 'url))
+         )
     (cond
      ((get-text-property (point) 'denote-link-query-part)
       (denote-link-open-at-point))
      (url
-      (if (commandp 'eaf-open)
-          (eaf-open-url-at-point)
-        (eww url)
-        ))
+      (if (and (eq major-mode 'org-mode) (string-match-p "^file:" url))
+          (org-open-at-point)
+        (if (commandp 'eaf-open)
+            (eaf-open-url-at-point)
+          (eww url)
+          )))
      ((eq major-mode 'org-mode)
       (org-open-at-point))
-     (t (message "Can not open link at point."))
-     ))
+     (t (message "Can not open link at point.")))
+    )
   )
 
 ;; 在笔记未迁移完成前先保留org-roam 的配置
