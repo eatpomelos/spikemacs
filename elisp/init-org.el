@@ -7,9 +7,7 @@
 (straight-use-package 'ox-rst)
 (straight-use-package 'markdown-mode)
 (straight-use-package 'markdown-preview-mode)
-;; (straight-use-package 'grip-mode)
 ;; (straight-use-package 'org)
-;; (straight-use-package 'org-modern)
 ;; 实现 org-mode 中表格的对齐
 (straight-use-package 'valign)
 
@@ -19,15 +17,8 @@
 			:repo "tonyaldon/org-bars"
 			))
 
-;; (require 'org)
-;; (straight-use-package 'focus)
 ;; 默认在 markdown 文件中使用 org-mode
 (add-to-list 'auto-mode-alist '("\\.md\\'" . org-mode))
-
-;; (with-eval-after-load 'markdown-mode
-;;   (add-hook 'markdown-mode-hook #'grip-mode)
-;;   (setq grip-preview-use-webkit nil)
-;;   (setq grip-preview-host "localhost"))
 
 ;; 设置折叠时显示的符号
 (when IS-LINUX

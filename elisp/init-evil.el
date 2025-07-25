@@ -54,15 +54,10 @@
   (with-eval-after-load 'evil-nerd-commenter
     (evil-leader/set-key
       ;; 下面的是官方文档中的快捷键设置，先注释掉，需要的时候开启想要的功能
-      ;; "ci" 'evilnc-comment-or-uncomment-lines
       "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
       "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
       "cc" 'evilnc-copy-and-comment-lines
       "cp" 'evilnc-comment-or-uncomment-paragraphs
-      ;; "cr" 'comment-or-uncomment-region
-      ;; "cv" 'evilnc-toggle-invert-comment-line-by-line
-      ;; "."  'evilnc-copy-and-comment-operator
-      ;; "\\" 'evilnc-comment-operator	; if you prefer backslash key
       ))
 
   (straight-use-package 'which-key)

@@ -1,50 +1,8 @@
 ;; 用来存放自己日常使用的一些小函数  -*- lexical-binding: t; -*-
 ;; 在自己的配置文件路径中查找文件
 (straight-use-package 'tiny)
-;; (straight-use-package 'epc)
-
-;; (require 'epc)
 
 (require 'init-tools)
-
-;; (straight-use-package
-;; `(reader :type git
-;;          :host codeberg
-;;          :repo "divyaranjan/emacs-reader"
-;; 		  :files ("*.el" "render-core.so")
-;; 		  :pre-build ("cc" "-fPIC" "-shared" "-o" "render-core.so" "-DLINUX"
-;; 					  "render/elisp-helpers.c" "render/mupdf-helpers.c" "render/render-core.c"
-;; 					  ,@(split-string-shell-command
-;; 					     (string-trim-right
-;; 					      (shell-command-to-string "pkg-config --cflags --libs mupdf"))))
-;;        ))
-
-;; 配置reader用于
-(setq spk-emacs-reader-dir (concat spk-local-packges-dir "emacs-reader/")
-      spk-emacs-reader-p (file-exists-p (concat spk-emacs-reader-dir "render-core.so")))
-
-(if spk-emacs-reader-p
-    (progn
-      (add-to-list 'load-path spk-emacs-reader-dir)
-      (require 'reader)
-      (require 'reader-bookmark)
-      (require 'reader-saveplace)
-      (evil-set-initial-state 'reader-mode 'emacs)
-
-      (defun spk/reader-open-doc ()
-        (interactive)
-        (make-local-variable 'default-directory)
-        (setq default-directory "/home/spikely/EBOOK")
-        (reader-open-doc)
-        )
-
-        (evil-leader/set-key
-          "er" 'spk/reader-open-doc
-          )
-      )
-  (message "emacs reader not compile.")
-  )
-
 
 ;;;###autoload 
 (defun spk/find-file-entry ()
