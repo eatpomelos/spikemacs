@@ -2,6 +2,10 @@
 ;; 在自己的配置文件路径中查找文件
 (straight-use-package 'tiny)
 
+;; 使用go-translate 来辅助翻译
+(straight-use-package 'pdd)
+(straight-use-package 'go-translate)
+
 (require 'init-tools)
 
 ;;;###autoload 
@@ -288,69 +292,51 @@
   "mj" 'spk/bookmark-last-edit-jump
   )
 
-;; 在wsl上不开启，由于目前使用wsl的机器配置较差，可能导致问题
-(unless IS-WSL
-  (setq spk-popweb-dir (concat spk-local-packges-dir "popweb"))
-  (unless (file-exists-p spk-popweb-dir)
-    (shell-command-to-string (format "git clone https://github.com/manateelazycat/popweb %s" spk-popweb-dir))
-    )
+;; 使用go-traslate 来帮助翻译
+(require 'gt)
+(setq gt-langs '(en zh))
 
-  (when (and (file-exists-p spk-popweb-dir)
-             (> (/ (+spk-get-memavailable) 1024) 4000))
-    (add-to-list 'load-path spk-popweb-dir)
-    ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/color-picker"))
-    (add-to-list 'load-path (concat spk-popweb-dir "/extension/dict"))
-    ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/latex"))
-    ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/org-roam"))
-    ;; (add-to-list 'load-path (concat spk-popweb-dir "/extension/url-preview"))
-    (require 'popweb)
-    (require 'popweb-dict)
-    ;; (require 'popweb-org-roam-link)
-    (evil-leader/set-key
-      "jp" 'popweb-dict-youdao-pointer
-      "ji" 'popweb-dict-youdao-input
-      )
-    )
+(defun spk/gt-update-posframe-colors ()
+  "Update gt-posframe-pop-render colors based on the current theme."
+  (setq gt-default-translator
+        (gt-translator
+          :taker (gt-taker :text 'word :pick 'paragraph)
+          :engines (list (gt-youdao-dict-engine :if 'word)
+                         (gt-bing-engine))
+          :render (list
+                    (gt-overlay-render
+                     :type 'after
+                     :sface nil
+                     :rface 'font-lock-doc-face
+                     :if 'not-word)
+                    (gt-posframe-pop-render
+                     :if 'word
+                     :frame-params
+                     (list
+                      ;; 直接在这里获取当前主题的颜色
+                      :background-color (face-background 'default nil t)
+                      :foreground-color (face-foreground 'font-lock-string-face nil t)
+                      :internal-border-width 1
+                      :internal-border-color "red"))))))
+;; 配置加载时设置一词默认值
+(spk/gt-update-posframe-colors)
+
+(defadvice load-theme
+      (after spk-gt-load-theme-hack activate)
+  (spk/gt-update-posframe-colors)
+)
+
+(gt-translator
+ :engines (list (gt-google-engine :if 'word)               ; 只有当翻译内容为单词时启用
+                (gt-bing-engine :if '(and not-word parts)) ; 只有翻译内容不是单词且是多个段落时启用
+                (gt-deepl-engine :if 'not-word :cache nil) ; 只有翻译内容不是单词时启用; 不缓存
+                (gt-youdao-dict-engine :if '(or src:zh tgt:zh)) ; 只有翻译中文时启用
+                (gt-youdao-suggest-engine :if '(and word src:en)))
+ ) ; 只有翻译英文单词时启用
+
+(evil-leader/set-key
+  "jp" 'gt-translate
   )
-
-(when IS-LINUX
-  (straight-use-package
-   '(sdcv :type git
-		  :host github
-		  :repo "manateelazycat/sdcv"))
-
-  (require 'sdcv)
-
-  (with-eval-after-load 'sdcv
-    (setq sdcv-say-word-p nil)          ;say word after translation
-
-    (setq sdcv-only-data-dir nil)
-  
-    (setq sdcv-dictionary-data-dir nil)
-  
-    (setq sdcv-dictionary-data-dictionary "/usr/share/stardict/dic") ;setup directory of stardict dictionary
-
-    (setq sdcv-dictionary-simple-list   ;setup dictionary list for simple search
-          '(
-            "懒虫简明汉英词典"
-            "计算机词汇"
-            "英汉汉英专业词典"
-            ;; "牛津英汉双解美化版"
-            ))
-
-    (setq sdcv-dictionary-complete-list ;setup dictionary list for complete search
-          '(
-            "懒虫简明汉英词典"
-            "计算机词汇"
-            "英汉汉英专业词典"
-            "牛津现代英汉双解词典"
-            "牛津英汉双解美化版"
-            ))
-    (evil-leader/set-key
-      "li" 'sdcv-search-input+
-      "lp" 'sdcv-search-pointer+
-      )
-    ))
 
 ;; 使用emacs中自带的calculator 日常计算的时候使用
 (evil-set-initial-state 'calculator-mode 'emacs)
