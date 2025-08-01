@@ -13,6 +13,7 @@
 
 (setq spk-note-dir (concat spk-doc-dir "spk-notes/")
       denote-directory (concat spk-note-dir "denote/")
+      spk-denote-index-directory (concat denote-directory "index/")
       denote-journal-directory (concat denote-directory "journal/")
       spk-denote-notes-directory (concat denote-directory "notes/")
       spk-denote-work-directory (concat denote-directory "work/")
@@ -50,13 +51,23 @@
 ;; https://github.com/mclear-tools/consult-noteus
 (setq consult-notes-sources
       `(
-        ("denote"       ?h ,denote-directory)
+        ("index"        ?i ,spk-denote-index-directory)
         ("notes"        ?n ,spk-denote-notes-directory)
         ("journal"      ?j ,denote-journal-directory)
         ("work"         ?w ,spk-denote-work-directory)
         ("reading"      ?r ,spk-denote-reading-directory)
-        ("programming"        ?p ,spk-denote-programming-directory)
+        ("programming"  ?p ,spk-denote-programming-directory)
         ))
+
+(defun spk/denote-insert-link ()
+  (interactive
+   (let* ((file (denote-file-prompt nil "Link to FILE"))
+          (file-type (denote-filetype-heuristics buffer-file-name))
+          (description (when (file-exists-p file)
+                         (denote-get-link-description file))))
+     (list file file-type description current-prefix-arg)))
+  (make-local-variable 'denote-directory)
+  (denote-insert-link))
 
 ;; 获取当天的denote-journal 文件，这里和原始的用法不同，默认认为一天只会有一个journal文件
 (defun spk/find-today-journal-denote-entry ()
@@ -65,8 +76,8 @@
   (make-local-variable 'denote-directory)
   (setq denote-directory denote-journal-directory)
   (if-let* ((files
-               (denote-directory-files
-                (denote-journal--filename-date-regexp (current-time))))
+             (denote-directory-files
+              (denote-journal--filename-date-regexp (current-time))))
             (file (denote-journal-select-file-prompt files)))
       (progn
         ;; 如果当前文件已经打开，则直接跳转到对应buffer

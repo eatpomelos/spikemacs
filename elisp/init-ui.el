@@ -14,6 +14,15 @@
              '(img . image-slicing-tag-img))
 (push #'image-slicing-mode eww-after-render-hook)
 
+;; (require 'block)
+;; (straight-use-package
+;;  '(ekp :host github :repo "Kinneyzhang/emacs-kp"
+;;        :files (:defaults "*.el" "dictionaries")
+;;        ))
+
+;; (straight-use-package
+;;  '(ETML :host github :repo "Kinneyzhang/ETML"))
+
 ;; 默认 elisp-mode 打开 rainbow-mode
 (add-hook 'emacs-lisp-mode-hook #'rainbow-mode)
 
