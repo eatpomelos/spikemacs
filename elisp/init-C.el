@@ -81,7 +81,7 @@
 
 ;; 在C项目中获取当前所在的函数名，并将函数名push到kill-ring中
 ;;;###autoload
-(defun spk-display-func-name ()
+(defun spk/display-func-name ()
   "Display current C function name,
 and push it to `kill-ring'."
   (interactive)
@@ -98,7 +98,7 @@ and push it to `kill-ring'."
    (emacs-lisp . t)))
 
 ;; 可能hs-minor-mode的功能比较鸡肋，这里待商榷
-(define-key evil-normal-state-map (kbd ",n") #'spk-display-func-name)
+(define-key evil-normal-state-map (kbd ",n") #'spk/display-func-name)
 (define-key evil-normal-state-map (kbd ",hb") #'hs-hide-block)
 (define-key evil-normal-state-map (kbd ",ha") #'hs-hide-all)
 (define-key evil-normal-state-map (kbd ",sb") #'hs-show-block)

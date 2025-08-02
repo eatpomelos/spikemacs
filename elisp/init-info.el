@@ -14,7 +14,7 @@
   )
 
 ;; 增加一个函数用于显示临时内容
-(defun spk-set-pos-buf-ctx ()
+(defun spk/set-pos-buf-ctx ()
   "set current marked text to posfram buffer."
   (interactive)
   (let* ((buf-ctx (buffer-substring (region-beginning) (region-end))))

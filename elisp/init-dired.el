@@ -17,7 +17,7 @@
   (define-key neotree-mode-map "K" #'neotree-select-previous-sibling-node)
   (define-key neotree-mode-map "L" #'neotree-select-down-node)
   ;; 由于 neotree 实现的这个接口是使用的 linux 下的文件管理程序，在 windows 下使用自己实现的接口
-  (define-key neotree-mode-map "o" #'spk-open-file-with-system-application)
+  (define-key neotree-mode-map "o" #'spk/open-file-with-system-application)
   (setq neo-theme (if (is-gui) 'icons 'arrow))
   
   (setq neo-reset-size-on-open t)

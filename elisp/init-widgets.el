@@ -23,32 +23,21 @@
   )
 
 ;;;###autoload
-(defun spk-find-local-conf ()
+(defun spk/find-local-conf ()
   "Find local config in the local path."
   (interactive)
   (counsel-find-file spk-elisp-dir))
 
 (when IS-LINUX
-  (setq spk-i3-conf-dir (concat (format "/home/%s%s" user-login-name "/.config")))
+  (setq spk-usr-conf-dir (concat (format "/home/%s%s" user-login-name "/.config")))
 ;;;###autoload
-  (defun spk-find-i3-conf ()
+  (defun spk/find-usr-conf ()
     "Find local config in the local path."
     (interactive)
-    (counsel-find-file spk-i3-conf-dir))
+    (counsel-find-file spk-usr-conf-dir))
   (evil-leader/set-key
-    "fv" 'spk-find-i3-conf)
+    "fv" 'spk/find-usr-conf)
   )
-
-;; 打开电脑上的其他emacs配置
-;;;###autoload
-(defun spk-find-emacs-confs ()
-  "Find another emacs config file."
-  (interactive)
-  (let* ((emacs-conf-dir nil))
-    (setq emacs-conf-dir
-	      (cond (IS-WINDOWS "d:/HOME/spike/configs")
-		        (IS-LINUX "~/emacs-config")))
-    (counsel-find-file emacs-conf-dir)))
 
 ;; 当打开的文件较大时，
 ;;;###autoload
@@ -60,7 +49,7 @@
 (add-hook 'find-file-hook 'spk-view-large-file)
 
 ;; 定义插入的latex模板，可以通过设置模板来实现相应功能，后续删除这个接口
-(defun spk-insert-latex-templet ()
+(defun spk/insert-latex-templet ()
   "Insert a latex templet."
   (interactive)
   (let* ((latex-templet nil))
@@ -75,10 +64,6 @@
       (goto-char (point-min))
       (insert latex-templet))
     ))
-
-(defun spk/find-linux-code-dir ()
-  (interactive)
-  (counsel-find-file spk-source-code-dir))
 
 ;; 设置emacs的透明度
 ;; (setq alpha-list '((100 100) (75 45)))
@@ -140,7 +125,7 @@
   )
 
 ;;;###autoload
-(defun spk-find-local-templet ()
+(defun spk/find-local-templet ()
   "Find elpa packages."
   (interactive)
   (let* ((dir spk-local-code-dir))
@@ -150,7 +135,7 @@
 
 ;; 在上级多少层目录查找文件
 ;;;###autoload
-(defun spk-find-file (&optional level)
+(defun spk/find-file (&optional level)
   "Find file in current directory or LEVEL parent directory."
   (interactive "p")
   (unless level (setq level 0))
@@ -168,7 +153,7 @@
 ;; 在系统文件管理器中打开当前路径，以下函数方法可以考虑是否能写成通用函数 
 ;; (replace-regexp-in-string) 替换字符串中的某个字符，但是有问题
 ;;;###autoload
-(defun spk-open-file-with-system-application ()
+(defun spk/open-file-with-system-application ()
   "Open directory with system application"
   (interactive)
   (let* ((current-dir
@@ -199,17 +184,6 @@
     (interactive)
     (revert-buffer-with-coding-system 'chinese-gbk))
   )
-
-(defvar spk-linux-doc-dir nil
-  "LINUX kernel documents directory.")
-
-;; 暂时只用来管理linux标准内核的文档，后续可以扩展成一个列表用选择需要查看的文档
-;;;###autoload
-(defun spk-find-linux-doc ()
-  "Open linux default documentation directory."
-  (interactive)
-  (when spk-linux-doc-dir
-    (spk-search-file-internal spk-linux-doc-dir t)))
 
 ;; 强制清除缓冲区内容，如果当前缓冲区设置的是只读模式则先取消只读
 (defun spk/erase-current-buffer-force ()
@@ -280,13 +254,11 @@
 
 ;; keybindings
 (evil-leader/set-key
-  "fc" 'spk-find-emacs-confs
-  "fp" 'spk-find-local-conf
-  "ff" 'spk-find-file
-  "fd" 'spk-find-linux-doc
+  "fp" 'spk/find-local-conf
+  "ff" 'spk/find-file
   "fqp" 'spk/find-linux-code-dir
-  "fo" 'spk-open-file-with-system-application
-  "t" 'spk-find-local-templet
+  "fo" 'spk/open-file-with-system-application
+  "t" 'spk/find-local-templet
   "sc" 'spk/counsel-rg-current-dir
   "mm" 'spk/bookmark-last-edit-record
   "mj" 'spk/bookmark-last-edit-jump

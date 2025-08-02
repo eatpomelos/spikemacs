@@ -110,7 +110,7 @@ pfix is the postfix of file"
 
 ;; 切换到scratch 缓冲区
 ;;;###autoload
-(defun spk-switch-to-scratch ()
+(defun spk/switch-to-scratch ()
   "Switch to scratch buffer."
   (interactive)
   (save-excursion

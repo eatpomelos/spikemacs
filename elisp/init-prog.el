@@ -13,9 +13,6 @@
 (straight-use-package 'nixos-options)
 (straight-use-package 'company-nixos-options)
 
-(defvar spk-source-code-dir nil
-  "Path to store the source code.")
-
 (add-to-list 'auto-mode-alist '("\\.gn$" . gn-mode))
 (add-to-list 'auto-mode-alist '("\\.gni$" . gn-mode))
 
@@ -29,10 +26,6 @@
   (straight-use-package 'tree-sitter-langs)
   (setq xref-search-program 'ripgrep)
   )
-
-(setq spk-source-code-dir
-      (cond (IS-WINDOWS "D:/work/linux_code/")
-            (IS-LINUX "/home/spikely/spk/linux_source/")))
 
 ;; 使用懒猫仓库的delete-block包用于删除块
 (straight-use-package

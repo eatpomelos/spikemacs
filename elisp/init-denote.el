@@ -59,16 +59,6 @@
         ("programming"  ?p ,spk-denote-programming-directory)
         ))
 
-(defun spk/denote-insert-link ()
-  (interactive
-   (let* ((file (denote-file-prompt nil "Link to FILE"))
-          (file-type (denote-filetype-heuristics buffer-file-name))
-          (description (when (file-exists-p file)
-                         (denote-get-link-description file))))
-     (list file file-type description current-prefix-arg)))
-  (make-local-variable 'denote-directory)
-  (denote-insert-link))
-
 ;; 获取当天的denote-journal 文件，这里和原始的用法不同，默认认为一天只会有一个journal文件
 (defun spk/find-today-journal-denote-entry ()
   "Get today denote journal entry."

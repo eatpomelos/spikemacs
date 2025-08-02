@@ -25,7 +25,7 @@
     "fr" 'counsel-recentf
     "bd" 'kill-current-buffer
     "bb" 'counsel-switch-buffer
-    "bs" 'spk-switch-to-scratch
+    "bs" 'spk/switch-to-scratch
     "TAB" 'evil-switch-to-windows-last-buffer
     "hp" 'spk/find-repo-code
     "hb" 'describe-bindings
