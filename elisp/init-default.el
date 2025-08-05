@@ -117,6 +117,8 @@
         "init\\.el$"
         "/roam/"
         "/.emacs.d/straight/"
+        "/spk-docs/spk-notes/"
+        "/spk-calibre/"
         )
 )
 

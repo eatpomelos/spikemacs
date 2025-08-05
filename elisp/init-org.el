@@ -47,6 +47,8 @@
   (concat spk-org-directory "notes/")
   "Local notes path.")
 
+;; 在打开org文件时，自动折叠其中的block块
+(setq org-hide-block-startup t)
 ;; 设置org文件导出时的默认路径
 (setq spk-org-report_dir (concat spk-local-dir "ox-report/"))
 
