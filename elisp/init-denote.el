@@ -8,8 +8,6 @@
 (require 'denote-journal)
 (require 'denote-journal-capture)
 (require 'consult-notes)
-;; 安装denote，用denote来管理笔记系统
-;; 临时设者一个目录用于测试denote的基本功能
 
 (setq spk-note-dir (concat spk-doc-dir "spk-notes/")
       denote-directory (concat spk-note-dir "denote/")
@@ -53,7 +51,7 @@
       `(
         ("index"        ?i ,spk-denote-index-directory)
         ("notes"        ?n ,spk-denote-notes-directory)
-        ("journal"      ?j ,denote-journal-directory)
+        ("journal"      ?j ,denote-journal-directory :hidden t)
         ("work"         ?w ,spk-denote-work-directory)
         ("reading"      ?r ,spk-denote-reading-directory)
         ("programming"  ?p ,spk-denote-programming-directory)
@@ -63,8 +61,6 @@
 (defun spk/find-today-journal-denote-entry ()
   "Get today denote journal entry."
   (interactive)
-  (make-local-variable 'denote-directory)
-  (setq denote-directory denote-journal-directory)
   (if-let* ((files
              (denote-directory-files
               (denote-journal--filename-date-regexp (current-time))))
