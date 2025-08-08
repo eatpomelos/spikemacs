@@ -34,7 +34,7 @@
   )
 
 (defvar spk-org-directory
-  (concat spk-doc-dir "org/")
+  (concat spk-doc-dir "spk-notes/org/")
   "Default directory of org files."
   )
 
@@ -53,9 +53,9 @@
 (setq spk-org-report_dir (concat spk-local-dir "ox-report/"))
 
 ;; 设置 agenda 文件,注意以下这种写法，不加括号直接用字符串是不行的
-(setq org-agenda-files '("~/spk-docs/org"
-			             "~/spk-docs/org/notes"
-                         "~/spk-docs/roam/daily"
+(setq org-agenda-files '("~/spk-docs/spk-notes/org"
+			             "~/spk-docs/spk-notes/org/notes"
+                         "~/spk-docs/spk-notes/roam/daily"
                          "~/.emacs.d/.local/pravite"))
 
 ;; 设置笔记中用到的一些路径，包括日志路径、笔记路径，以及待办项目路径
