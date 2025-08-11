@@ -59,7 +59,7 @@
 
   (setq eaf-browser-default-search-engine "bing")
   
-  (defun spk/eaf-pdf-outline-quite ()
+  (defun spk/eaf-pdf-outline-quit ()
     (interactive)
     (let* ((last-pdf-buf eaf-pdf-outline-pdf-document)
            (last-buf (car (window-prev-buffers))))
@@ -75,8 +75,8 @@
   (define-key eaf-pdf-outline-mode-map "j" 'next-line)
   (define-key eaf-pdf-outline-mode-map "k" 'previous-line)
   ;; 在大纲模式的时候增加快捷键退出
-  (define-key eaf-pdf-outline-mode-map "q" 'spk/eaf-pdf-outline-quite)
-  (define-key eaf-pdf-outline-edit-mode-map "q" 'spk/eaf-pdf-outline-quite)
+  (define-key eaf-pdf-outline-mode-map "q" 'spk/eaf-pdf-outline-quit)
+  (define-key eaf-pdf-outline-edit-mode-map "q" 'spk/eaf-pdf-outline-quit)
   ;; (setq eaf--get-titlebar-height nil)
 
   ;; 设置evil快捷键

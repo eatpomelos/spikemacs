@@ -57,6 +57,7 @@
                              (evil-define-key* 'normal c-mode-map "gr" #'spk/find-ref-entry)
                              )))
 
+(evil-define-key* 'normal c-mode-map "gp" #'lsp-bridge-peek)
 ;; 在开启lsp的时候，移除company-mode的hook，使用lsp的补全
 (remove-hook 'prog-mode-hook 'company-mode)
 
