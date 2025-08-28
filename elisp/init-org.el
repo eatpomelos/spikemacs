@@ -10,6 +10,9 @@
 ;; (straight-use-package 'org)
 ;; 实现 org-mode 中表格的对齐
 (straight-use-package 'valign)
+;; mermaind支持
+(straight-use-package 'ob-mermaid)
+(straight-use-package 'mermaid-mode)
 
 (straight-use-package
  '(org-bars :type git
@@ -299,6 +302,7 @@
    (python . t) ;; 启用 Python 语言
    ;; 这里可以添加其他你需要的语言，例如：
    (dot . t)
+   (mermaid . t)
    (plantuml . t)
    ))
 

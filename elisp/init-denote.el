@@ -51,7 +51,7 @@
       `(
         ("index"        ?i ,spk-denote-index-directory)
         ("notes"        ?n ,spk-denote-notes-directory)
-        ("journal"      ?j ,denote-journal-directory :hidden t)
+        ("journal"      ?j ,denote-journal-directory)
         ("work"         ?w ,spk-denote-work-directory)
         ("reading"      ?r ,spk-denote-reading-directory)
         ("programming"  ?p ,spk-denote-programming-directory)

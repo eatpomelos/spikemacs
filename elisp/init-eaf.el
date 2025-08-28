@@ -125,7 +125,7 @@
 
 (global-set-key (kbd "C-c SPC") 'evil-switch-to-windows-last-buffer)
 (global-set-key (kbd "C-c p a") 'spk/project-fast-find-all-file)
-(global-set-key (kbd "C-c p f") 'spk/project-fast-find-file)
+(global-set-key (kbd "C-c p f") 'spk/find-file-entry)
 (global-set-key (kbd "C-c f l") 'counsel-locate)
 
 (with-eval-after-load 'eaf-pyqterminal
