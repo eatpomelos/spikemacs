@@ -34,9 +34,26 @@
       large-hscroll-threshold 1000
       syntax-wholeline-max 1000)
 
-;; windows 上 sis 设置
-(sis-ism-lazyman-config nil t 'w32)
 ;; 需要注意的是下面的相关配置会导致 org-mode 使用 latex 导出 pdf 时失败，暂时屏蔽以下配置，后续优化
+(with-eval-after-load 'sis
+  
+  (if IS-WINDOWS
+      ;; windows 上 sis 设置
+      (sis-ism-lazyman-config nil t 'w32)
+    ;; linux上使用fcitx5，这里需要多设置一个英文输入法，这里的1是安装的rime
+    (sis-ism-lazyman-config "2" "1" 'fcitx5)
+    )
+
+  ;; enable the /cursor color/ mode
+  (sis-global-cursor-color-mode t)
+  ;; enable the /respect/ mode
+  (sis-global-respect-mode t)
+  ;; enable the /context/ mode for all buffers
+  (sis-global-context-mode t)
+  ;; enable the /inline english/ mode for all buffers
+  (sis-global-inline-mode t)
+  )
+
 ;; 下面的是为了解决之前输入中文卡顿的原因，同时也解决了一些字显示的问题。
 (when IS-LINUX
   (set-language-environment 'utf-8)
