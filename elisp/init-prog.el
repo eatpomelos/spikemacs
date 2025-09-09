@@ -243,16 +243,11 @@
 
 (setq dogears-functions '(
                           find-file
-                          recenter-top-bottom
                           ;; other-window switch-to-buffer
-                          aw-select toggle-window-split
-                          windmove-do-window-select
-                          pager-page-down pager-page-up
                           tab-bar-select-tab
                           pop-to-mark-command
                           pop-global-mark
                           goto-last-change
-                          xref-go-back
                           xref-find-definitions
                           xref-find-references
                           lsp-bridge-find-def
@@ -263,9 +258,9 @@
 (with-eval-after-load 'dogears
   (setq dogears-idle 1
         dogears-limit 200
-        dogears-position-delta 20)
+        dogears-position-delta 100)
   
-  (setq dogears-ignore-modes (append '(minibuffer-mode help-mode imenu-list-major-mode xref--xref-buffer-mode) dogears-ignore-modes))
+  (setq dogears-ignore-modes (append '(help-mode imenu-list-major-mode) dogears-ignore-modes))
   
   (global-set-key (kbd "C-\{") 'dogears-back)
   (global-set-key (kbd "C-\}") 'dogears-forward)
