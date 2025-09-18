@@ -44,14 +44,14 @@
 
 ;; Automatically rename Denote buffers using the `denote-rename-buffer-format'.
 (denote-rename-buffer-mode 1)
-(consult-notes-denote-mode 1)
+;; 由于这里想要去掉journal目录，所以不开启consult-notes-denote-mode
+(consult-notes-denote-mode 0)
 
 ;; https://github.com/mclear-tools/consult-noteus
 (setq consult-notes-sources
       `(
         ("index"        ?i ,spk-denote-index-directory)
         ("notes"        ?n ,spk-denote-notes-directory)
-        ("journal"      ?j ,denote-journal-directory)
         ("work"         ?w ,spk-denote-work-directory)
         ("reading"      ?r ,spk-denote-reading-directory)
         ("programming"  ?p ,spk-denote-programming-directory)
