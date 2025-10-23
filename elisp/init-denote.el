@@ -113,7 +113,8 @@
   "oo" 'org-roam-node-find
   "of" 'consult-notes
   "os" 'consult-notes-search-in-all-notes
-  "or" 'denote-find-backlink
+  "ob" 'denote-find-backlink
+  "or" 'denote-find-link
   "oi" 'denote-insert-link
   "oj" 'spk/open-link-at-point
   "odt" 'spk/find-today-journal-denote-entry
