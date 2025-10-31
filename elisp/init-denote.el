@@ -32,7 +32,6 @@
 (setq denote-known-keywords '("emacs" "linux" "work" "reading" "programming" "wiki" "literature"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
-(setq denote-prompts '(title keywords))
 (setq denote-excluded-directories-regexp nil)
 (setq denote-excluded-keywords-regexp nil)
 (setq denote-rename-confirmations '(rewrite-front-matter modify-file-name))
@@ -118,7 +117,7 @@
          (description (read-string "Description: " nil t (abbreviate-file-name ins-file)))
          (link-string (format "[[file:%s][%s]]" (abbreviate-file-name ins-file) description))
          )
-    (if (file-exists-p ins-file)
+    (if ins-file
         (insert link-string)
       (message "file:%s is not exist." ins-file))
     )
