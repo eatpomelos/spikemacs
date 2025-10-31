@@ -97,7 +97,7 @@
 
 ;; 简单封装一个函数，在插入链接时，基于ref_File 目录插入，由于ref_File 目录的文件较多，
 ;; 所以需要查找补全插入，为了提升速度，基于文件缓存的方式是最快的，可以考虑不用默认的org方式
-(defun spk/org-insert-link ()
+(defun spk/org-insert-ref-file ()
   (interactive)
   (let* ((default-directory spk-denote-ref-file-directory)
          (cache-file (expand-file-name spk-prj-all-cache-file spk-denote-ref-file-directory))
@@ -127,7 +127,7 @@
 (global-set-key (kbd "C-c ndn") 'denote-journal-new-entry)
 (global-set-key (kbd "C-c ndt") 'spk/find-today-journal-denote-entry)
 (global-set-key (kbd "C-c n n") 'denote)
-(global-set-key (kbd "C-c n l") 'spk/org-insert-link)
+(global-set-key (kbd "C-c n l") 'spk/org-insert-ref-file)
 (global-set-key (kbd "C-c n r") 'denote-find-backlink)
 
 (evil-leader/set-key
