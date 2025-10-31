@@ -95,17 +95,26 @@
     )
   )
 
-;; 简单封装一个函数，在插入链接时，基于ref_File 目录插入，由于ref_File 目录的文件较多，
-;; 所以需要查找补全插入，为了提升速度，基于文件缓存的方式是最快的，可以考虑不用默认的org方式
-(defun spk/org-insert-ref-file ()
-  (interactive)
-  (let* ((default-directory spk-denote-ref-file-directory)
+(defun spk/denote-get-ref-file ()
+  "get denote ref file path."
+   (let* ((default-directory spk-denote-ref-file-directory)
          (cache-file (expand-file-name spk-prj-all-cache-file spk-denote-ref-file-directory))
          (ins-file
           (cond 
            ((file-exists-p cache-file)
             (spk/find-file-from-cache cache-file nil))
            (t (spk-search-file-internal spk-denote-ref-file-directory nil))))
+         )
+    (if (file-exists-p ins-file)
+        ins-file
+      nil)))
+
+;; 简单封装一个函数，在插入链接时，基于ref_File 目录插入，由于ref_File 目录的文件较多，
+;; 所以需要查找补全插入，为了提升速度，基于文件缓存的方式是最快的，可以考虑不用默认的org方式
+(defun spk/org-insert-ref-file ()
+  "Insert denote ref file link."
+  (interactive)
+  (let* ((ins-file (spk/denote-get-ref-file))
          (description (read-string "Description: " nil t (abbreviate-file-name ins-file)))
          (link-string (format "[[file:%s][%s]]" (abbreviate-file-name ins-file) description))
          )
@@ -114,6 +123,13 @@
       (message "file:%s is not exist." ins-file))
     )
   )
+
+;; 增加接口查找并打开ref文件
+(defun spk/denote-find-ref-file ()
+  (interactive)
+  (let* ((ref-file (spk/denote-get-ref-file)))
+    (when ref-file
+      (find-file ref-file))))
 
 ;; 在笔记未迁移完成前先保留org-roam 的配置
 (require 'init-org-roam)
@@ -128,6 +144,7 @@
 (global-set-key (kbd "C-c ndt") 'spk/find-today-journal-denote-entry)
 (global-set-key (kbd "C-c n n") 'denote)
 (global-set-key (kbd "C-c n l") 'spk/org-insert-ref-file)
+(global-set-key (kbd "C-c n q") 'spk/denote-find-ref-file)
 (global-set-key (kbd "C-c n r") 'denote-find-backlink)
 
 (evil-leader/set-key
@@ -138,6 +155,8 @@
   "ob" 'denote-find-backlink
   "or" 'denote-find-link
   "oi" 'denote-insert-link
+  "ol" 'spk/org-insert-ref-file
+  "oq" 'spk/denote-find-ref-file
   "oj" 'spk/open-link-at-point
   "odt" 'spk/find-today-journal-denote-entry
   "odn" 'denote-journal-new-entry
