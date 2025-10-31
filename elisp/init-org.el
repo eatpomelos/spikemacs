@@ -13,6 +13,7 @@
 ;; mermaind支持
 (straight-use-package 'ob-mermaid)
 (straight-use-package 'mermaid-mode)
+;; (straight-use-package 'org-sliced-images)
 
 (straight-use-package
  '(org-bars :type git
@@ -347,6 +348,8 @@
 ;; (add-hook 'org-mode-hook 'org-indent-mode)
 ;; (add-hook 'org-mode-hook 'valign-mode)
 (add-hook 'org-mode-hook 'spk/org-mode-setup)
+
+;; (add-hook 'org-mode-hook 'org-sliced-images-mode)
 
 ;; (setq valign-fancy-bar t)
 ;; 从懒猫大佬配置里面抄的将 org 导出为 docx 的函数，需要依赖于 pandoc

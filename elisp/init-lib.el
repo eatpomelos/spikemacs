@@ -61,7 +61,7 @@
 
 ;; 能不能改成异步执行，避免阻塞emacs？执行这个命令的时候，会导致emacs卡死，可能由于后台执行的命令引起的，实际上在后台运行此命令也会导致卡死，在大型项目中谨慎使用 
 ;;;###autoload
-(defun spk-search-file-internal (directory &optional grep-p symbol pfix)
+(defun spk-search-file-internal (directory open-p &optional grep-p symbol pfix)
   "Find/Search file in DIRECTORY.
 If GREP-P is t, grep files .
 If GREP-P is nil, find files.
@@ -103,9 +103,12 @@ pfix is the postfix of file"
 		  (setq selected-file selected-line))
 		 )
 		(when (and selected-line (file-exists-p selected-file))
-		  (find-file selected-file)
-		  (when linenum
-			(goto-line (string-to-number linenum))))
+          (if open-p
+              (progn
+		        (find-file selected-file)
+		        (when linenum
+			      (goto-line (string-to-number linenum))))
+            selected-file))
 		))))
 
 ;; 切换到scratch 缓冲区

@@ -148,7 +148,7 @@
 	        (directory-file-name default-directory))
       (file-name-directory  (directory-file-name parent-directory))
       (setq i (1+ i)))
-    (spk-search-file-internal parent-directory)))
+    (spk-search-file-internal parent-directory t)))
 
 ;; 在系统文件管理器中打开当前路径，以下函数方法可以考虑是否能写成通用函数 
 ;; (replace-regexp-in-string) 替换字符串中的某个字符，但是有问题

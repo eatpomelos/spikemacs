@@ -173,7 +173,7 @@
 	(unless dir
 	  (setq dir (locate-dominating-file default-directory ".\svn")))
     (if dir
-		(spk-search-file-internal dir)
+		(spk-search-file-internal dir t)
       (message "Not in a project directory."))
 	))
 
@@ -184,7 +184,7 @@
       (setq dir (locate-dominating-file default-directory "TAGS")))
     (unless dir
       (setq dir default-directory))
-    (spk-search-file-internal dir t symbol (+spk-current-buffer-file-postfix))
+    (spk-search-file-internal dir t t symbol (+spk-current-buffer-file-postfix))
     ))
 
 ;; 在跳转到C函数时，将光标移动到函数名上 

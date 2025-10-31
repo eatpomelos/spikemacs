@@ -54,7 +54,11 @@
       (setq cache-file spk-prj-all-cache-file))
     (unless suffix
       (setq suffix ""))
-    (setq cmd-str (format "find %s -type f -regex \"^.*%s\" | xargs -n1 > %s" dir suffix (expand-file-name cache-file dir)))
+
+    (setq cmd-str (format "find %s -type f -regex \".*%s\" > %s" 
+                          dir 
+                          suffix 
+                          (expand-file-name cache-file dir)))
     ;; 注意compilation-start的用法
     (compilation-start cmd-str)
     )
@@ -63,11 +67,12 @@
 ;; 指定后缀来生成文件缓存，如果不指定则默认搜索所有文件，暂时未添加过滤条件
 ;; (spk/create-cache-from-dir (+spk-get-file-dir ".git") nil ".el")
 ;;;###autoload
-(defun spk/find-file-from-cache (cache-file)
+(defun spk/find-file-from-cache (cache-file open-p)
   "Find file from cache file."
   (let* (candidates
          ;; 在多重目录下，如果存在大小写不一致的tags文件，就会导致获取到的根目录出错，在进行跳转时拼接完整路径出错.
 		 (root-dir (+spk-get-file-dir (if IS-WINDOWS (file-name-nondirectory cache-file) "TAGS")))
+         full-file-path
 		 selected
 		 )
 	(when cache-file
@@ -82,7 +87,9 @@
 			(forward-line))
 		  (when (and candidates (setq selected (ivy-read (format "Find file : " ) candidates)))
             (message "root-dir %s" root-dir)
-			(find-file (expand-file-name selected root-dir))
+			(setq full-file-path (expand-file-name selected root-dir))
+            (when open-p (find-file full-file-path))
+            full-file-path
 			))
 		)))
   )
@@ -90,11 +97,11 @@
 (defun spk/project-fast-find-file ()
   "Find file in project."
   (interactive)
-  (spk/find-file-from-cache (+spk-get-complete-file spk-ctags-file-cache-file)))
+  (spk/find-file-from-cache (+spk-get-complete-file spk-ctags-file-cache-file) t))
 
 (defun spk/project-fast-find-all-file ()
   "Find all file in project."
   (interactive)
-  (spk/find-file-from-cache (+spk-get-complete-file spk-prj-all-cache-file)))
+  (spk/find-file-from-cache (+spk-get-complete-file spk-prj-all-cache-file) t))
 
 (provide 'init-tags)
