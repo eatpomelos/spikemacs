@@ -42,12 +42,12 @@
 	  (compilation-start cmd-str)
 	  )))
 
-;; 使用shell命令来搜索指定路径下的所有文件，并生成缓存
 ;;;###autoload
 (defun spk/create-cache-from-dir (&optional dir cache-file suffix)
   "Create cache file by use shell cmd."
   (interactive)
-  (let* (cmd-str)
+  (let* (cmd-str
+         (process-name "spk-cache-gen"))
     (unless dir
       (setq dir "."))
     (unless cache-file
@@ -59,8 +59,8 @@
                           dir 
                           suffix 
                           (expand-file-name cache-file dir)))
-    ;; 注意compilation-start的用法
-    (compilation-start cmd-str)
+    (message "Starting cache generation in background...")
+    (start-process process-name nil "sh" "-c" cmd-str)
     )
   )
 
