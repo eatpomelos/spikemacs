@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+# 定义目录的指纹文件，用于记录本目录以及子目录校验和，用于判断这个目录下是否发生了文件结构变化
+target_dir="$1"
+max_depth="$2"
+fingerprint_file="$target_dir/.spk-dir-fingerprint"
+cache_file="$target_dir/.spk-project-all-files"
+
+if [ "$#" -ne 2 ]; then
+    echo "usage: $(basename "$0") direction maxdepth"
+    exit 1
+fi
+
+check_and_update_cache()
+{
+    if [ -f "$fingerprint_file" ]; then
+        last_fp=$(cat "$fingerprint_file")
+    else
+        last_fp=""
+    fi
+    
+    cur_fp=$(find "$target_dir" -maxdepth "$max_depth" -type d -exec stat -c "%y" {} + | sort | sha1sum | awk '{print $1}')
+
+    if [ "$last_fp" != "$cur_fp" ]; then
+        find "$target_dir" -type f > "$cache_file"
+        echo "$cur_fp" > "$fingerprint_file"
+    fi
+
+    echo "last_fp:$last_fp    cur_fp:$cur_fp"
+}
+
+check_and_update_cache

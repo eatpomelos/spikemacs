@@ -9,6 +9,10 @@
 (require 'denote-journal-capture)
 (require 'consult-notes)
 
+(defvar spk-denote-ref-path-depth 2)
+(defvar spk-denote-ref-update-interval 20
+  "Interval in seconds between updating the ref file cache.")
+
 (setq spk-note-dir (concat spk-doc-dir "spk-notes/")
       denote-directory (concat spk-note-dir "denote/")
       spk-denote-index-directory (concat denote-directory "index/")
@@ -132,6 +136,17 @@
   (let* ((ref-file (spk/denote-get-ref-file)))
     (when ref-file
       (find-file ref-file))))
+
+;; 启用一个定时器，检测ref目录的文件结构变化，如果发生变化，则重新生成文件缓存
+(run-with-timer 0 spk-denote-ref-update-interval #'(lambda ()
+                         (let* (cmd-str)
+                           (setq cmd-str
+                                 (format "%s %s %d"
+                                         (concat spk-scripts-dir "update_file_cache")
+                                         (expand-file-name spk-denote-ref-file-directory)
+                                         spk-denote-ref-path-depth))
+                           (start-process "update-denote-ref-cache" nil "sh" "-c" cmd-str))
+                         ))
 
 ;; 在笔记未迁移完成前先保留org-roam 的配置
 (require 'init-org-roam)
