@@ -114,9 +114,12 @@
   "Insert denote ref file link."
   (interactive)
   (let* ((ins-file (spk/denote-get-ref-file))
-         (description (read-string "Description: " nil t (abbreviate-file-name ins-file)))
-         (link-string (format "[[file:%s][%s]]" (abbreviate-file-name ins-file) description))
-         )
+         (description (read-string "Description: " nil t nil))
+         (link-string (format "[[file:%s]%s]"
+                              (abbreviate-file-name ins-file)
+                              (if (> (length description) 0)
+                                  (format "[%s]" description)
+                                description))))
     (if ins-file
         (insert link-string)
       (message "file:%s is not exist." ins-file))

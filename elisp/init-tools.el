@@ -2,6 +2,7 @@
 (straight-use-package 'graphviz-dot-mode)
 (straight-use-package 'plantuml-mode)
 (straight-use-package 'flycheck-plantuml)
+(straight-use-package 'pcap-mode)
 
 (when (and IS-LINUX (not IS-WSL))
   (straight-use-package 'calibredb)
