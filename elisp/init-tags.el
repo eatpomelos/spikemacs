@@ -71,27 +71,26 @@
   "Find file from cache file."
   (let* (candidates
          ;; 在多重目录下，如果存在大小写不一致的tags文件，就会导致获取到的根目录出错，在进行跳转时拼接完整路径出错.
+         (time (current-time))
 		 (root-dir (+spk-get-file-dir (if IS-WINDOWS (file-name-nondirectory cache-file) "TAGS")))
          full-file-path
-		 selected
-		 )
+		 selected)
 	(when cache-file
 	  (with-temp-buffer
-		(let* (one-file)
-		  (insert-file cache-file)
-		  (goto-char (point-min))
-          ;; 通过buffer-size和point值来判断是否遍历到最后一行
-		  (while (< (point) (buffer-size))
-			(setq cur-line (buffer-substring (line-beginning-position) (line-end-position)))
-			(push cur-line candidates)
-			(forward-line))
-		  (when (and candidates (setq selected (ivy-read (format "Find file : " ) candidates)))
-            (message "root-dir %s" root-dir)
-			(setq full-file-path (expand-file-name selected root-dir))
-            (when open-p (find-file full-file-path))
-            full-file-path
-			))
-		)))
+		(insert-file cache-file)
+		(goto-char (point-min))
+        
+        (setq candidates
+          (cl-loop while (not (eobp))
+                   collect (buffer-substring (line-beginning-position) (line-end-position))
+                   do (forward-line)))
+ 
+		(when (and candidates (setq selected (ivy-read (format "Find file in %s: " (spk/time-cost time)) candidates)))
+          (message "root-dir %s" root-dir)
+		  (setq full-file-path (expand-file-name selected root-dir))
+          (when open-p (find-file full-file-path))
+          full-file-path
+		  ))))
   )
 
 (defun spk/project-fast-find-file ()
