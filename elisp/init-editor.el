@@ -227,9 +227,6 @@
   "sy" 'symbol-overlay-save-symbol
   )
 
-;; 从kill-ring中搜索插入
-(global-set-key (kbd "C-c p") #'consult-yank-from-kill-ring)
-
 ;; 修改书签后自动保存
 (setq bookmark-save-flag t)
 ;; 显示文件大小
