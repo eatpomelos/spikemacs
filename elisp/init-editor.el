@@ -6,6 +6,7 @@
 (straight-use-package 'pangu-spacing)
 (straight-use-package 'orderless)
 (straight-use-package 'vterm)
+(straight-use-package 'consult)
 
 ;; 使用xclip解决在wsl的终端无法共享剪切板的问题
 (straight-use-package 'xclip)
@@ -213,6 +214,9 @@
   "b \RET" 'counsel-bookmark
   "sy" 'symbol-overlay-save-symbol
   )
+
+;; 从kill-ring中搜索插入
+(global-set-key (kbd "C-c p") #'consult-yank-from-kill-ring)
 
 ;; 修改书签后自动保存
 (setq bookmark-save-flag t)

@@ -57,8 +57,6 @@
 
 (setq-default display-time-format " %F %R")
 
-(straight-use-package 'consult)
-
 (defun spk/consult-buffer-select ()
   (interactive)
   (make-local-variable 'consult-buffer-sources)
