@@ -7,6 +7,7 @@
 (straight-use-package 'orderless)
 (straight-use-package 'vterm)
 (straight-use-package 'consult)
+(straight-use-package 'vundo)
 
 ;; 使用xclip解决在wsl的终端无法共享剪切板的问题
 (straight-use-package 'xclip)
@@ -69,8 +70,19 @@
 (add-hook 'org-mode-hook #'auto-fill-mode)
 (setq-default fill-column 90)
 
-(global-set-key (kbd "C-r") #'undo-redo)
-(global-set-key (kbd "C-/") #'undo)
+(defun spk/undo-vundo ()
+  "Enhance undo functionality."
+  (interactive)
+  (undo)
+  ;; 激活一个临时键图，有效期内按下同一个键执行另一个函数
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map (this-command-keys) 'vundo)
+     map)
+   t))
+
+;; 使用vundo让撤销功能更强大
+(global-set-key (kbd "C-/") #'spk/undo-vundo)
 
 ;; 指定 github 上的包，并下载，由于当前的环境配置中 linux 下的环境没有界面因此使用此 package 会导致 emacs 卡死
 (straight-use-package

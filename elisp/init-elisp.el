@@ -30,7 +30,12 @@
 	(make-local-variable 'company-backends)
 	(setq company-backends
 		  '((company-elisp company-files company-yasnippet company-keywords company-dabbrev company-dabbrev-code)))
-	))
+	)
+  ;; 保留lispy-kill 快捷键
+  (evil-collection-define-key 'normal 'evil-collection-lispy-mode-map
+    (kbd "C-k") 'lispy-kill
+    )
+  )
 
 ;; Add `company-elisp' backend for elisp.
 (add-hook 'emacs-lisp-mode-hook #'spk/elisp-setup)
