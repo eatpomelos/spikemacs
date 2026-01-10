@@ -109,12 +109,7 @@
       )
     )
   (define-key imenu-list-major-mode-map (kbd "TAB") 'spk/imenu-list-peek-entry)
-  (evil-set-initial-state 'imenu-list-minor-mode 'emacs)
-  (evil-set-initial-state 'imenu-list-major-mode 'emacs)
-
-  (define-key imenu-list-major-mode-map "j" #'next-line)
-  (define-key imenu-list-major-mode-map "k" #'previous-line)
-
+  
   (advice-add 'imenu-list-show :before
               #'(lambda ()
                   (deadgrep-visit-result-other-window)
@@ -136,9 +131,6 @@
 	xref-find-definitions-other-window
 	xref-find-definitions-other-frame)
       )
-
-(evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
-;; functions
 
 ;; 跳转到函数开头，两秒内如果有操作则回到当前位置，否则两秒后自动跳转回来
 ;;;###autoload
@@ -334,7 +326,6 @@
 
 (add-hook 'c-mode-hook 'highlight-changes-mode)
 
-(evil-set-initial-state 'Man-mode 'normal)
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置
 (require 'init-elisp)
 (require 'init-C)

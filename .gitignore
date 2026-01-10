@@ -3,6 +3,7 @@ docs
 eshell/
 recentf
 abbrev_defs
+eww-bookmarks
 
 # ignore eaf temporary file
 eaf/*

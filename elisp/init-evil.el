@@ -6,15 +6,19 @@
 (straight-use-package 'evil-nerd-commenter)
 (straight-use-package 'evil-smartparens)
 (straight-use-package 'evil-goggles)
+(straight-use-package 'evil-collection)
 (straight-use-package 'key-chord)
 
-(add-hook 'emacs-startup-hook #'evil-mode)
+;; See https://github.com/emacs-evil/evil-collection/issues/60 
+(setq evil-want-keybinding nil)
+(evil-mode 1)
 
 (with-eval-after-load 'evil
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
   
-  ;; (require 'evil-leader)
+  ;; See https://github.com/emacs-evil/evil-collection/issues/60 
+  (setq evil-want-keybinding nil)
   (global-evil-leader-mode t)
   (evil-leader/set-leader "<SPC>")
 
@@ -68,6 +72,9 @@
   (key-chord-mode 1)
   (setq key-chord-two-keys-delay 0.08)
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+
+  ;; 开启evil-collection 模式，给大多数模式提供默认配置
+  (evil-collection-init)
   )
 
 (provide 'init-evil)

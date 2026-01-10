@@ -7,10 +7,6 @@
          ))
 (straight-use-package 'vc-msg)
 
-;; 下面的advice定义表示的是执行完magit-status 函数之后，切换evil模式到insert模式
-(evil-set-initial-state 'magit-status-mode 'emacs)
-(evil-set-initial-state 'magit-log-mode 'emacs)
-
 ;; 通用的配置通过magit-status触发，基于单独文件的log基于magit-log触发
 (evil-leader/set-key
   ;; 将 status 作为一个大的入口
