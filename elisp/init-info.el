@@ -35,8 +35,9 @@
                    :internal-border-width 1
                    :internal-border-color "red"
                    :position (point))
-    (sit-for 10)
-    (posframe-hide spk-info-mode-pos-buf)
+    (unwind-protect
+        (sit-for 10)
+      (posframe-hide spk-info-mode-pos-buf))
     )
   )
 
