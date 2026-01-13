@@ -74,7 +74,7 @@
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
   ;; 开启evil-collection 模式，给大多数模式提供默认配置
-  (evil-collection-init)
+  (evil-collection-init '(calendar dired calc ediff info magit imenu imenu-list xref man neotree))
   )
 
 (provide 'init-evil)
