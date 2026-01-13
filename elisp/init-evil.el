@@ -42,12 +42,8 @@
     "had" 'apropos-documentation
     "hf" 'describe-function
     "hr" 'info-emacs-manual
-    ;; "sp" 'counsel-rg
     )
   
-  (evil-leader/set-key-for-mode
-    'emacs-lisp-mode "sp" 'counsel-rg
-    )
   ;; (require 'evil-surround)
   (global-evil-surround-mode 1)
   

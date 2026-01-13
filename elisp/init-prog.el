@@ -301,6 +301,8 @@
               #'(lambda ()
                   (deadgrep-visit-result-other-window)
                   (winum-select-window-by-number spk-last-window)))
+  (evil-leader/set-key-for-mode
+    'emacs-lisp-mode "sp" 'deadgrep)
   )
 
 ;; ;; 高亮更改文本,但是这个配置不好用的地方在于你保存了之后，不会自动取消你之前改变的文本

@@ -245,7 +245,6 @@
 (evil-leader/set-key
   "fp" 'spk/find-local-conf
   "ff" 'spk/find-file
-  "fqp" 'spk/find-linux-code-dir
   "fo" 'spk/open-file-with-system-application
   "t" 'spk/find-local-templet
   "sc" 'spk/counsel-rg-current-dir
