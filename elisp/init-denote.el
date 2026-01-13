@@ -18,8 +18,6 @@
       spk-denote-index-directory (concat denote-directory "index/")
       denote-journal-directory (concat denote-directory "journal/")
       spk-denote-notes-directory (concat denote-directory "notes/")
-      spk-denote-work-directory (concat denote-directory "work/")
-      spk-denote-reading-directory (concat denote-directory "reading/")
       spk-denote-ref-file-directory (concat spk-note-dir "ref_File/")
       )
 
@@ -40,7 +38,7 @@
 (setq denote-excluded-keywords-regexp nil)
 (setq denote-rename-confirmations '(rewrite-front-matter modify-file-name))
 ;; 添加子目录选项，添加笔记时候，指定添加的目录
-(setq denote-prompts '(title keywords signature subdirectory))
+(setq denote-prompts '(title keywords signature))
 
 ;; Pick dates, where relevant, with Org's advanced interface:
 (setq denote-date-prompt-use-org-read-date t)
@@ -55,8 +53,6 @@
       `(
         ("index"        ?i ,spk-denote-index-directory)
         ("notes"        ?n ,spk-denote-notes-directory)
-        ("work"         ?w ,spk-denote-work-directory)
-        ("reading"      ?r ,spk-denote-reading-directory)
         ))
 
 ;; 获取当天的denote-journal 文件，这里和原始的用法不同，默认认为一天只会有一个journal文件
