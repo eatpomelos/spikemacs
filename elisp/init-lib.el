@@ -53,6 +53,18 @@
   `(cdr (assoc major-mode spk-lang-file-type-postfix-alist)))
 
 ;;;###autoload
+(defun spk/basic-adv-cmd (basic-cmd adv-cmd)
+  "Enhance basic functionality."
+  (call-interactively basic-cmd)
+  ;; 激活一个临时键图，有效期内按下同一个键执行另一个函数
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map (this-command-keys) adv-cmd)
+     map)
+   t)
+  )
+
+;;;###autoload
 (defun spk/time-cost (start-time)
   "Just like `counsel-etags--time-cost'."
   (let* ((time-passed (float-time (time-since start-time))))

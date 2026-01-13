@@ -70,19 +70,8 @@
 (add-hook 'org-mode-hook #'auto-fill-mode)
 (setq-default fill-column 90)
 
-(defun spk/undo-vundo ()
-  "Enhance undo functionality."
-  (interactive)
-  (undo)
-  ;; 激活一个临时键图，有效期内按下同一个键执行另一个函数
-  (set-transient-map
-   (let ((map (make-sparse-keymap)))
-     (define-key map (this-command-keys) 'vundo)
-     map)
-   t))
-
 ;; 使用vundo让撤销功能更强大
-(global-set-key (kbd "C-/") #'spk/undo-vundo)
+(global-set-key (kbd "C-/") (lambda () (interactive) (spk/basic-adv-cmd 'undo 'vundo)))
 
 ;; 指定 github 上的包，并下载，由于当前的环境配置中 linux 下的环境没有界面因此使用此 package 会导致 emacs 卡死
 (straight-use-package
@@ -237,7 +226,7 @@
 
 ;; 添加鼠标相关的配置，解决滚轮滑动屏幕过快的问题 
 (when EMACS29-
-  (setq mouse-scroll-delay 0.02)
+   (setq mouse-scroll-delay 0.02)
   (defun up-slightly () (interactive) (scroll-up 1))
   (defun down-slightly () (interactive) (scroll-down 1))
   (global-set-key [wheel-up] 'down-slightly)
