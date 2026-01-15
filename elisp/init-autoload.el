@@ -64,8 +64,8 @@
 (autoload #'popwin-mode "popwin")
 
 ;; init-magit
-(autoload #'vc-msg-show "vc-msg")
 (autoload #'magit-status "magit")
+(autoload #'magit-rev-format "magit")
 (autoload #'magit-log-all "magit")
 (autoload #'magit-blame "magit")
 

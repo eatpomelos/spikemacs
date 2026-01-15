@@ -5,7 +5,6 @@
          :host github
          :repo "magit/magit"
          ))
-(straight-use-package 'vc-msg)
 
 ;; 通用的配置通过magit-status触发，基于单独文件的log基于magit-log触发
 (evil-leader/set-key
@@ -35,15 +34,25 @@
   "gro" 'magit-reflog-other
   "grh" 'magit-reflog-head
   ;; 其他命令
-  "gm" 'vc-msg-show
+  "gm" 'spk/tiny-vc-msg
   )
 
-;; (with-eval-after-load 'magit
-;;   ;; 设置magit 快捷键，适配evil的操作方式来进行设置
-;;   (define-key magit-log-mode-map "h" #'backward-char)
-;;   (define-key magit-log-mode-map "j" #'magit-section-forward)
-;;   (define-key magit-log-mode-map "k" #'magit-section-backward)
-;;   (define-key magit-log-mode-map "l" #'forward-char)
-;;   )
+;;;###autoload
+(defun spk/tiny-vc-msg ()
+  (interactive)
+  (let* ((file (buffer-file-name))
+         (line (line-number-at-pos))
+         ;; 强制使用 git blame 命令获取特定行的 commit hash
+         (rev (shell-command-to-string 
+               (format "git -C %s blame -L %d,%d %s --porcelain | head -n 1 | cut -d' ' -f1"
+                       (expand-file-name default-directory)
+                       line line
+                       (file-name-nondirectory file)))))
+    (setq rev (string-trim rev))
+    (if (and rev (not (string-empty-p rev)))
+        (let ((msg-str (magit-rev-format "%h %an %ad %s" rev)))
+          (spk/set-pos-buf-ctx msg-str)
+          (spk/bulletin-peek))
+      (message "No commit info found for this line."))))
 
 (provide 'init-magit)

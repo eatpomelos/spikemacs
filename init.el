@@ -94,5 +94,5 @@
 
 (put 'narrow-to-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
 (put 'list-timers 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)

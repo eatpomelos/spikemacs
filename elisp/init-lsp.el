@@ -68,6 +68,8 @@
 
 (setq lsp-bridge-search-words-rebuild-cache-idle 0.5)
 
+(setq lsp-bridge-popup-documentation-frame t)
+
 ;; (global-lsp-bridge-mode)
 
 ;; 将隐藏补全框的字符设置成 nil，在所有情况下都进行补全，后续实际体验过程中再修改

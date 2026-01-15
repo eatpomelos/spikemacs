@@ -13,6 +13,41 @@
 (defconst IS-WSL    (and IS-LINUX (string-match "Microsoft" (shell-command-to-string "uname -r"))))
 (defconst IS-NIXOS (string= (system-name) "nixos"))
 
+;; 使用 posframe 暂时实现一些简单的需求
+(straight-use-package 'posframe)
+(require 'posframe)
+
+;; 增加一个函数用于显示临时内容
+(defun spk/set-pos-buf-ctx (&optional input)
+  "set current marked text to posfram buffer."
+  (interactive)
+  (let* ((buf-ctx (cond
+                  (input (format "%s" input)) ; 强制转换为字符串
+                  ((use-region-p) (buffer-substring (region-beginning) (region-end)))
+                  (t ""))))
+    (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
+      (erase-buffer)
+      (insert buf-ctx)
+      ))
+  )
+
+;; 在 Info 模式下提供一个快速查看快捷键的函数   
+(defun spk/bulletin-peek ()
+  "Info help peek."
+  (interactive)
+  (when (posframe-workable-p) 
+    (posframe-show spk-info-mode-pos-buf
+                   :background-color (face-background 'default nil t)
+                   :foreground-color (face-foreground 'font-lock-string-face nil t)
+                   :internal-border-width 1
+                   :internal-border-color "red"
+                   :position (point))
+    (unwind-protect
+        (sit-for 10)
+      (posframe-hide spk-info-mode-pos-buf))
+    )
+  )
+
 (defun is-gui ()
  (display-graphic-p))
 
