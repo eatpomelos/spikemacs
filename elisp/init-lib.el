@@ -77,7 +77,7 @@
     (cond
      (update-func (call-interactively update-func))
      ((vc-root-dir) (spk/tiny-vc-msg))
-     (t (spk/set-pos-buf-ctx ""))
+     (t (spk/set-pos-buf-ctx "bulletin is null"))
      ))
   )
 
