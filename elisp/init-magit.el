@@ -34,25 +34,6 @@
   "gro" 'magit-reflog-other
   "grh" 'magit-reflog-head
   ;; 其他命令
-  "gm" 'spk/tiny-vc-msg
   )
-
-;;;###autoload
-(defun spk/tiny-vc-msg ()
-  (interactive)
-  (let* ((file (buffer-file-name))
-         (line (line-number-at-pos))
-         ;; 强制使用 git blame 命令获取特定行的 commit hash
-         (rev (shell-command-to-string 
-               (format "git -C %s blame -L %d,%d %s --porcelain | head -n 1 | cut -d' ' -f1"
-                       (expand-file-name default-directory)
-                       line line
-                       (file-name-nondirectory file)))))
-    (setq rev (string-trim rev))
-    (if (and rev (not (string-empty-p rev)))
-        (let ((msg-str (magit-rev-format "%h %an %ad %s" rev)))
-          (spk/set-pos-buf-ctx msg-str)
-          (spk/bulletin-peek))
-      (message "No commit info found for this line."))))
 
 (provide 'init-magit)

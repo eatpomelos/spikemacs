@@ -83,7 +83,7 @@
 ;; 从kill-ring中搜索插入
 (global-set-key (kbd "C-c p") #'consult-yank-from-kill-ring)
 
-(global-set-key (kbd "C-c h") #'spk/bulletin-peek)
+(global-set-key (kbd "C-c h") #'spk/smart-bulletin-peek)
 
 ;; 高亮当前行的函数，偶尔会出问题，暂时未解决 
 (setq spk-ovs nil)

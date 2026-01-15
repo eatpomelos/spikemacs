@@ -66,6 +66,7 @@
 ;; init-magit
 (autoload #'magit-status "magit")
 (autoload #'magit-rev-format "magit")
+(autoload #'magit-git-string "magit")
 (autoload #'magit-log-all "magit")
 (autoload #'magit-blame "magit")
 

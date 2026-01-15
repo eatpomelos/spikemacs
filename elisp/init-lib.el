@@ -17,6 +17,11 @@
 (straight-use-package 'posframe)
 (require 'posframe)
 
+;; 使用 posframe 实现一个简单的弹窗来显示 info 模式下的快捷键，参考 posframe 提供的 demo
+(defvar spk-info-mode-pos-buf " *spk-info-posframe-buffer*")
+(defvar spk-bulltin-help-alist nil "alist for mode update function.")
+(defvar spk-bulletin-tmp-ctx nil "temp context.")
+
 ;; 增加一个函数用于显示临时内容
 (defun spk/set-pos-buf-ctx (&optional input)
   "set current marked text to posfram buffer."
@@ -25,11 +30,17 @@
                   (input (format "%s" input)) ; 强制转换为字符串
                   ((use-region-p) (buffer-substring (region-beginning) (region-end)))
                   (t ""))))
+    (unless input
+      (setq spk-bulletin-tmp-ctx buf-ctx))
     (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
       (erase-buffer)
       (insert buf-ctx)
       ))
   )
+
+(defun spk/reset-pos-buf-ctx ()
+  (interactive)
+  (setq spk-bulletin-tmp-ctx nil))
 
 ;; 在 Info 模式下提供一个快速查看快捷键的函数   
 (defun spk/bulletin-peek ()
@@ -48,8 +59,38 @@
     )
   )
 
+(defun spk/tiny-vc-msg ()
+  (interactive)
+  (let* ((file (buffer-file-name))
+         (line (line-number-at-pos))
+         ;; 使用 magit 提供的底层函数，绕过 shell 解析，速度更快且支持远程 TRAMP 文件
+         (rev (magit-git-string "blame" "-L" (format "%d,%d" line line) "-p" file)))
+    (when rev
+      (let* ((hash (car (split-string rev " ")))
+             (msg-str (magit-rev-format "%h %an %ad %s" hash)))
+        (spk/set-pos-buf-ctx (or msg-str "current line not commit."))))))
+
+;; 设置一个函数更新bulletin内容
+(defun spk/update-bulletin-content ()
+  "update bulltin content."
+  (let* ((update-func (cdr (assoc major-mode spk-bulltin-help-alist))))
+    (cond
+     (update-func (call-interactively update-func))
+     ((vc-root-dir) (spk/tiny-vc-msg))
+     (t (spk/set-pos-buf-ctx ""))
+     ))
+  )
+
+(defun spk/smart-bulletin-peek ()
+  "Smart bulletin peek."
+  (interactive)
+  ;; 没有设置tmp内容才更新
+  (unless spk-bulletin-tmp-ctx
+    (spk/update-bulletin-content))
+  (spk/bulletin-peek))
+
 (defun is-gui ()
- (display-graphic-p))
+  (display-graphic-p))
 
 (defun is-tui ()
  (not (display-graphic-p)))
