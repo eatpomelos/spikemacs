@@ -98,9 +98,27 @@
      )
     ))
 
+;; denote--get-link-file-path-at-point
+(defun spk/org-bulletin-file-peek ()
+  (interactive)
+  (let* ((peek-file
+          (cond
+           ((get-text-property (point) 'denote-link-query-part)
+            (denote--get-link-file-path-at-point))
+           ((thing-at-point 'url) (thing-at-point 'url))
+           (t nil)
+           )))
+    (if (and peek-file (string-match-p "^file:" peek-file))
+        (spk/set-pos-buf-ctx (replace-regexp-in-string "^file:*" "" peek-file))
+      (spk/set-pos-buf-ctx "bulletin is null")
+      )
+    ))
+
+(add-to-list 'spk-bulletin-help-alist '(org-mode . spk/org-bulletin-file-peek))
+
 (defun spk/denote-get-ref-file ()
   "get denote ref file path."
-   (let* ((default-directory spk-denote-ref-file-directory)
+  (let* ((default-directory spk-denote-ref-file-directory)
          (cache-file (expand-file-name spk-prj-all-cache-file spk-denote-ref-file-directory))
          (ins-file
           (cond 

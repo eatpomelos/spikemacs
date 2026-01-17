@@ -4,11 +4,7 @@
 ;;;###autoload
 (defun spk/info-load-cheat-sheet ()
   (interactive)
-  (let ((info-path (expand-file-name "info.txt" (concat spk-local-code-dir "posframe"))))
-    (when (file-exists-p info-path)
-      (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
-        (erase-buffer)
-        (insert-file-contents info-path)))))
+  (spk/set-pos-buf-ctx (expand-file-name "info.txt" (concat spk-local-code-dir "posframe"))))
 
 (add-to-list 'spk-bulletin-help-alist '(Info-mode . spk/info-load-cheat-sheet))
 

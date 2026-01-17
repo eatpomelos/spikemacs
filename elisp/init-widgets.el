@@ -81,7 +81,7 @@
 (global-set-key (kbd "C-M-\`") #'loop-alpha)
 
 ;; 从kill-ring中搜索插入
-(global-set-key (kbd "C-c p") #'consult-yank-from-kill-ring)
+(global-set-key (kbd "C-c y") #'consult-yank-from-kill-ring)
 
 (global-set-key (kbd "C-c h") #'spk/smart-bulletin-peek)
 

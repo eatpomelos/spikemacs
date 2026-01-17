@@ -26,16 +26,27 @@
 (defun spk/set-pos-buf-ctx (&optional input)
   "set current marked text to posfram buffer."
   (interactive)
-  (let* ((buf-ctx (cond
-                  (input (format "%s" input)) ; 强制转换为字符串
-                  ((use-region-p) (buffer-substring (region-beginning) (region-end)))
-                  (t ""))))
+  (let* ((raw-ctx (cond
+                   (input (format "%s" input)) ; 强制转换为字符串
+                   ((use-region-p) (buffer-substring (region-beginning) (region-end)))
+                   (t "")))
+         (full-path (when (and raw-ctx (not (string-empty-p raw-ctx)))
+                      (expand-file-name raw-ctx))))
     (unless input
-      (setq spk-bulletin-tmp-ctx buf-ctx))
+      (setq spk-bulletin-tmp-ctx raw-ctx))
     (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
-      (erase-buffer)
-      (insert buf-ctx)
-      ))
+      (let* ((inhibit-read-only t))
+        (erase-buffer)
+        (cond
+         ((and full-path (file-exists-p full-path) (file-regular-p full-path))
+          (progn
+            (insert-file-contents full-path nil 0 5000)
+            (goto-char (point-min))
+            (forward-line 20)
+            (delete-region (point) (point-max))
+            ))
+         (t (insert raw-ctx))
+         ))))
   )
 
 (defun spk/reset-pos-buf-ctx ()
@@ -54,6 +65,7 @@
                    :left-fringe 7
                    :right-fringe 7
                    :y-pixel-offset 25
+                   :max-width 100     ; 或者设置最大宽度
                    :lines-truncate t
                    :internal-border-color (face-background 'highlight) ; 极弱对比度
                    :override-parameters	'((alpha . 95))
