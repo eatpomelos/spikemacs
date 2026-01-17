@@ -23,7 +23,7 @@
 (defvar spk-bulletin-tmp-ctx nil "temp context.")
 
 ;; 增加一个函数用于显示临时内容
-(defun spk/set-pos-buf-ctx (&optional input)
+(defun spk/set-pos-buf-ctx (&optional input start-line line-limit)
   "set current marked text to posfram buffer."
   (interactive)
   (let* ((raw-ctx (cond
@@ -41,9 +41,14 @@
          ((and full-path (file-exists-p full-path) (file-regular-p full-path))
           (progn
             (insert-file-contents full-path nil 0 5000)
-            (goto-char (point-min))
-            (forward-line 20)
-            (delete-region (point) (point-max))
+            (when start-line 
+              (goto-char (point-min))
+              (forward-line start-line)
+              (delete-region (point-min) (point)))
+            (when line-limit
+              (goto-char (point-min))
+              (forward-line line-limit)
+              (delete-region (point) (point-max)))
             ))
          (t (insert raw-ctx))
          ))))

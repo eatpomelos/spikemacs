@@ -109,7 +109,7 @@
            (t nil)
            )))
     (if (and peek-file (string-match-p "^file:" peek-file))
-        (spk/set-pos-buf-ctx (replace-regexp-in-string "^file:*" "" peek-file))
+        (spk/set-pos-buf-ctx (replace-regexp-in-string "^file:*" "" peek-file) 5 20)
       (spk/set-pos-buf-ctx "bulletin is null")
       )
     ))
