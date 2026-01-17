@@ -172,7 +172,7 @@
 (global-set-key (kbd "C-c b") 'consult-buffer)
 
 ;; 设置denote 快捷键，常用的快捷键需要配置一下
-(global-set-key (kbd "C-c n j") 'spk/open-link-at-point)
+(global-set-key (kbd "C-c j") 'spk/open-link-at-point)
 (global-set-key (kbd "C-c n f") 'consult-notes)
 (global-set-key (kbd "C-c n i") 'denote-insert-link)
 (global-set-key (kbd "C-c ndn") 'denote-journal-new-entry)
