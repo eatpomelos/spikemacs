@@ -19,7 +19,7 @@
 
 ;; 使用 posframe 实现一个简单的弹窗来显示 info 模式下的快捷键，参考 posframe 提供的 demo
 (defvar spk-info-mode-pos-buf " *spk-info-posframe-buffer*")
-(defvar spk-bulltin-help-alist nil "alist for mode update function.")
+(defvar spk-bulletin-help-alist nil "alist for mode update function.")
 (defvar spk-bulletin-tmp-ctx nil "temp context.")
 
 ;; 增加一个函数用于显示临时内容
@@ -50,8 +50,13 @@
     (posframe-show spk-info-mode-pos-buf
                    :background-color (face-background 'default nil t)
                    :foreground-color (face-foreground 'font-lock-string-face nil t)
-                   :internal-border-width 1
-                   :internal-border-color "red"
+                   :internal-border-width 2
+                   :left-fringe 7
+                   :right-fringe 7
+                   :y-pixel-offset 25
+                   :lines-truncate t
+                   :internal-border-color (face-background 'highlight) ; 极弱对比度
+                   :override-parameters	'((alpha . 95))
                    :position (point))
     (unwind-protect
         (sit-for 10)
@@ -73,7 +78,7 @@
 ;; 设置一个函数更新bulletin内容
 (defun spk/update-bulletin-content ()
   "update bulltin content."
-  (let* ((update-func (cdr (assoc major-mode spk-bulltin-help-alist))))
+  (let* ((update-func (cdr (assoc major-mode spk-bulletin-help-alist))))
     (cond
      (update-func (call-interactively update-func))
      ((vc-root-dir) (spk/tiny-vc-msg))

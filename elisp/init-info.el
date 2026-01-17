@@ -10,7 +10,7 @@
         (erase-buffer)
         (insert-file-contents info-path)))))
 
-(add-to-list 'spk-bulltin-help-alist '(Info-mode . spk/info-load-cheat-sheet))
+(add-to-list 'spk-bulletin-help-alist '(Info-mode . spk/info-load-cheat-sheet))
 
 ;; 在windows上找不到 manual 节点，手动将emacs doc的位置添加到info-directory-list里面去
 (when IS-WINDOWS
