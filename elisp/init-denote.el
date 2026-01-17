@@ -160,8 +160,8 @@
                          (let* (cmd-str)
                            (setq cmd-str
                                  (format "%s %s %d"
-                                         (concat spk-scripts-dir "update_file_cache")
-                                         (expand-file-name spk-denote-ref-file-directory)
+                                         (shell-quote-argument (concat spk-scripts-dir "update_file_cache"))
+                                         (shell-quote-argument (expand-file-name spk-denote-ref-file-directory))
                                          spk-denote-ref-path-depth))
                            (start-process "update-denote-ref-cache" nil "sh" "-c" cmd-str))
                          ))
