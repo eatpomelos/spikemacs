@@ -12,6 +12,10 @@
 (defconst spk-last-edit-register ?p
   "Variable for storing the last edit point you want to store.")
 
+(setq register-preview-delay 0.5) ; 顺便加速预览
+;; 强制重新加载已关闭的文件缓冲区而无需询问
+(setq confirm-nonexistent-file-or-buffer nil)
+
 ;;;###autoload
 (defun spk/last-point-record ()
   (interactive)
