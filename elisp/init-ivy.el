@@ -1,5 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 (straight-use-package 'ivy)
+(straight-use-package 'ivy-posframe)
 (straight-use-package 'counsel)
 (straight-use-package 'ivy-rich)
 (straight-use-package 'wgrep)
@@ -14,6 +15,10 @@
 (global-set-key (kbd "C-s") #'swiper-isearch)
 
 (ivy-rich-mode 1)
+
+;; 悬浮窗显示
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+(ivy-posframe-mode 1)
 
 (with-eval-after-load 'ivy
   (setq ivy-use-virtual-buffers t)
