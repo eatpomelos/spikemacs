@@ -26,6 +26,14 @@
   (interactive)
   (window-configuration-to-register spk-last-edit-register))
 
+(defun spk/advice-ignore-y-or-n (orig-fun &rest args)
+  "临时绕过 y-or-n-p 的询问"
+  (cl-letf (((symbol-function 'y-or-n-p) (lambda (&rest _) t)))
+    (apply orig-fun args)))
+
+;; 仅针对寄存器跳转函数应用此逻辑
+(advice-add 'register-val-jump-to :around #'spk/advice-ignore-y-or-n)
+
 ;;;###autoload
 (defun spk/last-edit-jump ()
   (interactive)
