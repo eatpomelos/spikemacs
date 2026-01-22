@@ -174,7 +174,7 @@
     (if (not elf-cmd)
         (message "This command is not supported by your system.")
       (message (format "%s %s" elf-cmd current-dir))
-      (shell-command-to-string (format "%s %s" elf-cmd current-dir))
+      (start-process "spk-open-dir" elf-cmd current-dir)
       )
     ))
 
@@ -246,7 +246,8 @@
 ;; keybindings
 (evil-leader/set-key
   "fp" 'spk/find-local-conf
-  "ff" 'spk/find-file
+  "ff" 'spk/find-file-entry
+  "fs" 'spk/find-file
   "fo" 'spk/open-file-with-system-application
   "t" 'spk/find-local-templet
   "sc" 'spk/counsel-rg-current-dir
