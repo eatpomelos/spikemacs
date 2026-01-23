@@ -3,6 +3,7 @@
 (straight-use-package 'denote-journal)
 (straight-use-package 'denote-journal-capture)
 (straight-use-package 'consult-notes)
+(straight-use-package 'denote-explore)
 
 (require 'denote)
 (require 'denote-journal)
@@ -198,6 +199,10 @@
   "odd" 'denote
   "odr" 'denote-region
   "ods" 'denote-signature
+  "oei" 'denote-explore-isolated-files
+  "oew" 'denote-explore-random-keyword
+  "oer" 'denote-explore-rename-keyword
+  "oed" 'denote-explore-missing-links
   )
 
 (provide 'init-denote)
