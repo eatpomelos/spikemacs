@@ -81,12 +81,13 @@
 (defun spk/open-link-at-point ()
   "Open link at point."
   (interactive)
-  (let* ((url (thing-at-point 'url)))
+  (let* ((url (thing-at-point 'url))
+         (org-link-elisp-confirm-function nil))
     (cond
      ((get-text-property (point) 'denote-link-query-part)
       (denote-link-open-at-point))
      (url
-      (if (and (eq major-mode 'org-mode) (string-match-p "^file:" url))
+      (if (and (eq major-mode 'org-mode) (not (string-match-p "^\\(https?\\|ftp\\):" url)))
           (org-open-at-point)
         (if (commandp 'eaf-open)
             (eaf-open-url-at-point)
