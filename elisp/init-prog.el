@@ -97,19 +97,6 @@
    imenu-list-auto-update t
    )
 
-  ;; 在imenu中跳转到条目所在位置，但是光标保留在当前位置
-  (defun spk/imenu-list-peek-entry ()
-    "Imenu-list peek."
-    (interactive)
-    (let* ((line-num (line-number-at-pos)))
-      (imenu-list-goto-entry)
-      (require 'winum)
-      (winum-select-window-1)
-      (goto-line line-num)
-      )
-    )
-  (define-key imenu-list-major-mode-map (kbd "TAB") 'spk/imenu-list-peek-entry)
-  
   (advice-add 'imenu-list-show :before
               #'(lambda ()
                   (deadgrep-visit-result-other-window)
