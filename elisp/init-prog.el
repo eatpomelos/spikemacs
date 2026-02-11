@@ -102,13 +102,14 @@
                   (deadgrep-visit-result-other-window)
                   (winum-select-window-by-number spk-last-window)))
 
-  ;; 打开imenu-list时根据当前光标所在的window自动选择打开位置
-  (defadvice imenu-list-show (before spk-imenu-show-pre activate)
-    (if (> (winum-get-number (get-buffer-window))
-           (+ (/ winum--window-count 2) (% winum--window-count 2)))
-        (setq imenu-list-position 'right)
-      (setq imenu-list-position 'left))
-    )
+  (defun spk-imenu-list-update-position-by-coord (&rest _)
+    "根据物理位置判断：如果窗口中心点在屏幕右半边，则 Imenu 显示在右。"
+    (let* ((edges (window-edges)) 
+           (win-center-x (/ (+ (nth 0 edges) (nth 2 edges)) 2))
+           (frame-width (frame-width)))
+      (setq imenu-list-position (if (> win-center-x (/ frame-width 2)) 'right 'left))))
+  (advice-add 'imenu-list-show :before #'spk-imenu-list-update-position-by-coord)
+  
   )
 ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=29619
 (setq xref-prompt-for-identifier
