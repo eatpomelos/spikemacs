@@ -39,6 +39,10 @@
 ;; 设置eshell的路径
 (setq-default eshell-directory-name (concat spk-local-tmp-dir "eshell/"))
 
+;; 设置邮箱和用户名字
+(setq user-full-name "spikely")
+(setq user-mail-address "spikeluoyu@outlook.com")
+
 (defconst spk-scratch-log
   ";;   _____       _ __                                 
 ;;  / ___/____  (_) /_____  ____ ___  ____ ___________
