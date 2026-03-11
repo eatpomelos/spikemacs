@@ -10,8 +10,8 @@
 (add-to-list 'load-path spk-local-eaf-dir)
 ;; (add-to-list 'load-path spk-local-eaf-app-dir)
 
-;; 关闭默认eaf接管dired选项，必须在加载eaf之前设置
-;; (setq-default eaf-dired-advisor-enable nil)
+;; 关闭默认eaf接管find-file选项，由于find-file和org-find-file这两个接口太底层了，所以会导致意料之外的接管
+(setq-default eaf-find-file-advisor-enable nil)
 
 (require 'eaf)
 
@@ -19,7 +19,7 @@
 (require 'eaf-org-previewer)
 ;; (require 'eaf-git)
 (require 'eaf-browser)
-;; (require 'eaf-file-manager)
+(require 'eaf-file-manager)
 ;; (require 'eaf-vue-demo)
 ;; (require 'eaf-airshare)
 ;; (require 'eaf-camera)

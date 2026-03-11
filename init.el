@@ -64,9 +64,9 @@
          (require 'init-magit)
          (require 'init-dired)
 
-         ;; ;; ;; company 的配置包括 which-key
+         ;; company 的配置包括 which-key
          (require 'init-company)
-         ;; ;; ;; 和编程相关的配置统一由init-prog.el 文件一起加载，在文件中分别加载各语言的配置文件
+         ;; 和编程相关的配置统一由init-prog.el 文件一起加载，在文件中分别加载各语言的配置文件
          (require 'init-prog)
          ;; 部分配置只需要在linux上加载，这里使用宏进行控制，目前nixos上eaf先不加载
          (when (and IS-LINUX
@@ -79,7 +79,8 @@
 
          ;; 这个文件按需求创建，主要是存放不同系统下自己可能使用的一些特定工具函数
          (spk-require 'init-private)
-         (require 'init-ui)))
+         (require 'init-ui)
+	 ))
 
     ;; 在scratch中插入启动时间
     (add-hook 'window-setup-hook
