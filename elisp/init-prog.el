@@ -222,12 +222,12 @@
 (define-key evil-normal-state-map (kbd ",e") #'end-of-defun)
 
 (setq dogears-functions '(
-                          find-file
+                          ;; find-file
                           ;; other-window switch-to-buffer
-                          tab-bar-select-tab
-                          pop-to-mark-command
-                          pop-global-mark
-                          goto-last-change
+                          ;; tab-bar-select-tab
+                          ;; pop-to-mark-command
+                          ;; pop-global-mark
+                          ;; goto-last-change
                           xref-find-definitions
                           xref-find-references
                           lsp-bridge-find-def
