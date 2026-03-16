@@ -75,7 +75,6 @@
 
 ;; 设置tab的空格数，并不使用tab缩进而是使用空格来替代tab
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
 
 (straight-use-package 'imenu-list)
 

@@ -48,6 +48,7 @@
 ;; 经过测试company-ctags比company-etags使用体验要好不少，这里使用ctags来进行补全，避免在大型项目中造成严重卡顿
 ;;;###autoload
 (defun spk/cc-mode-setup ()
+  (setq tab-width 4)
   (when (boundp 'company-backends)
 	(make-local-variable 'company-backends)
 	(setq company-backends '((company-keywords company-ctags company-yasnippet company-capf company-cmake company-dabbrev company-dabbrev-code))))
