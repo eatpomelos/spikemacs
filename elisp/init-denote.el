@@ -35,6 +35,8 @@
 (setq denote-save-buffers nil)
 ;; 常用的关键字，这里需要仔细配置一下
 (setq denote-known-keywords '("emacs" "linux" "work" "reading" "programming" "wiki" "literature"))
+;; 定义自己的控制标签，用来标识一个文件的生命周期
+(setq spk-denote-known-keywords '("mustcheck" "archived" "permanent"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-excluded-directories-regexp nil)
@@ -59,6 +61,55 @@
         ("works"         ?w ,spk-denote-work-directory)
         ("reading"      ?r ,spk-denote-reading-directory)
         ))
+
+;; 1. 定义控制标签（生命周期管理）
+(setq spk-denote-known-keywords '("mustcheck" "archived" "permanent"))
+
+;; 2. 核心通用函数：开关标签
+(defun spk/denote-toggle-keyword (&optional target)
+  "快速开关当前文件的关键字标签。
+若未提供 TARGET，则从 `spk-denote-known-keywords` 中 Ivy 选一个。"
+  (interactive)
+  (let* ((file (or (buffer-file-name) 
+                   (dired-get-filename nil t))))
+    (unless (and file (file-exists-p file) (denote-file-has-identifier-p file))
+      (user-error "无效操作：当前文件不是有效的 Denote 笔记"))
+    (let* ((current-kw (denote-extract-keywords-from-path file))
+           ;; 如果没传参数，弹出 Ivy，并过滤掉已有的标签
+           (actual-target (or target 
+                              (ivy-read "Select state tag: " 
+                                        (cl-remove-if (lambda (k) (member k current-kw)) 
+                                                      spk-denote-known-keywords))))
+           (denote-rename-confirmations nil)
+           (denote-save-buffers t)
+           (denote-after-rename-file-hook nil))
+
+      ;; 如果添加 permanent，自动移除 mustcheck；
+      ;; 如果添加 mustcheck，自动移除 permanent。
+      (let* ((is-adding (not (member actual-target current-kw)))
+             (new-kw (if is-adding
+                         (cons actual-target current-kw)
+                       (remove actual-target current-kw))))
+        ;; 自动清理互斥状态
+        (when is-adding
+          (cond ((string= actual-target "permanent") (setq new-kw (remove "mustcheck" new-kw)))
+                ((string= actual-target "mustcheck") (setq new-kw (remove "permanent" new-kw)))))
+        (setq new-kw (sort new-kw #'string<))
+        (denote-rename-file file 'keep-current new-kw 'keep-current 'keep-current 'keep-current)
+        
+        ;; 如果在 Dired 模式，刷新当前行
+        (when (derived-mode-p 'dired-mode)
+          (dired-revert))
+
+        (message "'%s' %s (Current: %s)" 
+                 actual-target 
+                 (if is-adding "Added" "Removed")
+                 (mapconcat #'identity new-kw ", "))))))
+
+;; 快速移除mustcheck
+(defun spk/denote-toggle-mustcheck-keyword ()
+  (interactive)
+  (spk/denote-toggle-keyword "mustcheck"))
 
 ;; 获取当天的denote-journal 文件，这里和原始的用法不同，默认认为一天只会有一个journal文件
 (defun spk/find-today-journal-denote-entry ()
@@ -183,6 +234,8 @@
 (global-set-key (kbd "C-c n l") 'spk/org-insert-ref-file)
 (global-set-key (kbd "C-c n q") 'spk/denote-find-ref-file)
 (global-set-key (kbd "C-c n r") 'denote-find-backlink)
+(global-set-key (kbd "C-c n t") 'spk/denote-toggle-mustcheck-keyword)
+(global-set-key (kbd "C-c n a") 'spk/denote-toggle-keyword)
 
 (evil-leader/set-key
   ;; org-roam 的快捷键，笔记迁移完成后删除
@@ -193,6 +246,8 @@
   "or" 'denote-find-link
   "oi" 'denote-insert-link
   "ol" 'spk/org-insert-ref-file
+  "ot" 'spk/denote-toggle-mustcheck-keyword
+  "oa" 'spk/denote-toggle-keyword
   "oq" 'spk/denote-find-ref-file
   "oj" 'spk/open-link-at-point
   "odt" 'spk/find-today-journal-denote-entry
@@ -203,7 +258,7 @@
   "oei" 'denote-explore-isolated-files
   "oew" 'denote-explore-random-keyword
   "oer" 'denote-explore-rename-keyword
-  "oed" 'denote-explore-missing-links
-  )
+  "oed" 'denote-explore-missing-links)
+
 
 (provide 'init-denote)
