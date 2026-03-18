@@ -62,10 +62,6 @@
         ("reading"      ?r ,spk-denote-reading-directory)
         ))
 
-;; 1. 定义控制标签（生命周期管理）
-(setq spk-denote-known-keywords '("mustcheck" "archived" "permanent"))
-
-;; 2. 核心通用函数：开关标签
 (defun spk/denote-toggle-keyword (&optional target)
   "快速开关当前文件的关键字标签。
 若未提供 TARGET，则从 `spk-denote-known-keywords` 中 Ivy 选一个。"
