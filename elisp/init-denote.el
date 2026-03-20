@@ -71,11 +71,10 @@
     (unless (and file (file-exists-p file) (denote-file-has-identifier-p file))
       (user-error "无效操作：当前文件不是有效的 Denote 笔记"))
     (let* ((current-kw (denote-extract-keywords-from-path file))
-           ;; 如果没传参数，弹出 Ivy，并过滤掉已有的标签
            (actual-target (or target 
-                              (ivy-read "Select state tag: " 
-                                        (cl-remove-if (lambda (k) (member k current-kw)) 
-                                                      spk-denote-known-keywords))))
+                              (completing-read "Select state tag: " 
+                                               (cl-remove-if (lambda (k) (member k current-kw))
+                                                             spk-denote-known-keywords))))
            (denote-rename-confirmations nil)
            (denote-save-buffers t)
            (denote-after-rename-file-hook nil))
@@ -88,8 +87,14 @@
                        (remove actual-target current-kw))))
         ;; 自动清理互斥状态
         (when is-adding
-          (cond ((string= actual-target "permanent") (setq new-kw (remove "mustcheck" new-kw)))
-                ((string= actual-target "mustcheck") (setq new-kw (remove "permanent" new-kw)))))
+          (cond 
+           ((string= actual-target "permanent") 
+            (setq new-kw (cl-set-difference new-kw '("mustcheck" "archived") :test #'string=)))
+           ((string= actual-target "mustcheck") 
+            (setq new-kw (cl-set-difference new-kw '("permanent" "archived") :test #'string=)))
+           ((string= actual-target "archived") 
+            (setq new-kw (cl-set-difference new-kw '("mustcheck" "permanent") :test #'string=)))))
+        
         (setq new-kw (sort new-kw #'string<))
         (denote-rename-file file 'keep-current new-kw 'keep-current 'keep-current 'keep-current)
         
@@ -103,9 +108,9 @@
                  (mapconcat #'identity new-kw ", "))))))
 
 ;; 快速移除mustcheck
-(defun spk/denote-toggle-mustcheck-keyword ()
+(defun spk/denote-toggle-card-state ()
   (interactive)
-  (spk/denote-toggle-keyword "mustcheck"))
+  (spk/denote-toggle-keyword))
 
 ;; 获取当天的denote-journal 文件，这里和原始的用法不同，默认认为一天只会有一个journal文件
 (defun spk/find-today-journal-denote-entry ()
@@ -264,7 +269,7 @@
 (global-set-key (kbd "C-c n l") 'spk/org-insert-ref-file)
 (global-set-key (kbd "C-c n q") 'spk/denote-find-ref-file)
 (global-set-key (kbd "C-c n r") 'denote-find-backlink)
-(global-set-key (kbd "C-c n t") 'spk/denote-toggle-mustcheck-keyword)
+(global-set-key (kbd "C-c n t") 'spk/denote-toggle-card-state)
 (global-set-key (kbd "C-c n a") 'spk/denote-toggle-keyword)
 
 (evil-leader/set-key
@@ -277,7 +282,7 @@
   "or" 'denote-find-link
   "oi" 'denote-insert-link
   "ol" 'spk/org-insert-ref-file
-  "ot" 'spk/denote-toggle-mustcheck-keyword
+  "ot" 'spk/denote-toggle-card-state
   "oa" 'spk/denote-toggle-keyword
   "oq" 'spk/denote-find-ref-file
   "oj" 'spk/open-link-at-point
