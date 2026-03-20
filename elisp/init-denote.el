@@ -66,7 +66,7 @@
   "快速开关当前文件的关键字标签。
 若未提供 TARGET，则从 `spk-denote-known-keywords` 中 Ivy 选一个。"
   (interactive)
-  (let* ((file (or (buffer-file-name) 
+  (let* ((file (or (buffer-file-name)
                    (dired-get-filename nil t))))
     (unless (and file (file-exists-p file) (denote-file-has-identifier-p file))
       (user-error "无效操作：当前文件不是有效的 Denote 笔记"))
@@ -98,7 +98,7 @@
           (dired-revert))
 
         (message "'%s' %s (Current: %s)" 
-                 actual-target 
+                 actual-target
                  (if is-adding "Added" "Removed")
                  (mapconcat #'identity new-kw ", "))))))
 
@@ -123,6 +123,41 @@
     (denote-journal-new-entry)
     )
   )
+
+(defun spk/list-mustcheck-links ()
+  "列出当前denote卡片中被标记为mustcheck的卡片"
+  (interactive)
+  (let* ((files (denote-directory-files))
+         (mustcheck-files (seq-filter
+                           (lambda (file)
+                             (string-match-p "__.*mustcheck" file))
+                           files))
+         (grouped-files (seq-group-by (lambda (f)
+                                        (file-name-nondirectory
+                                         (directory-file-name (file-name-directory f))))
+                                      mustcheck-files)))
+    (with-current-buffer (get-buffer-create "*Denote MustCheck*")
+      (let ((inhibit-read-only t))
+        (erase-buffer)
+        (insert (make-string 30 ?=) "\n")
+        (insert (format "*TOTAL MUSTCHECK: %d*\n" (length mustcheck-files)))
+        (insert (make-string 30 ?=) "\n")
+
+        (if (null mustcheck-files)
+            (insert "No pending items.")
+          (dolist (group grouped-files)
+            (let ((dir-name (car group))
+                  (file-list (cdr group)))
+              (insert (format "\n* %s (%d)\n" (upcase dir-name) (length file-list)))
+              (dolist (file file-list)
+                (let* ((id (denote-retrieve-filename-identifier file))
+                       (title (denote-retrieve-filename-title file)))
+                  (insert (format "[[denote:%s][%s]]\n" id title)))))))
+        (org-mode)
+        (goto-char (point-min))
+        (show-all)
+        (switch-to-buffer-other-window (current-buffer))
+        (message "MustCheck: %d items." (length mustcheck-files))))))
 
 ;; 定义一个函数，实现打开当前光标下的链接功能
 (defun spk/open-link-at-point ()
@@ -170,7 +205,7 @@
   (let* ((default-directory spk-denote-ref-file-directory)
          (cache-file (expand-file-name spk-prj-all-cache-file spk-denote-ref-file-directory))
          (ins-file
-          (cond 
+          (cond
            ((file-exists-p cache-file)
             (spk/find-file-from-cache cache-file nil))
            (t (spk-search-file-internal spk-denote-ref-file-directory nil))))
@@ -224,9 +259,8 @@
 (global-set-key (kbd "C-c n j") 'spk/open-link-at-point)
 (global-set-key (kbd "C-c n f") 'consult-notes)
 (global-set-key (kbd "C-c n i") 'denote-insert-link)
-(global-set-key (kbd "C-c ndn") 'denote-journal-new-entry)
-(global-set-key (kbd "C-c ndt") 'spk/find-today-journal-denote-entry)
-(global-set-key (kbd "C-c n n") 'denote)
+(global-set-key (kbd "C-c n n") 'spk/list-mustcheck-links)
+(global-set-key (kbd "C-c n d") 'denote)
 (global-set-key (kbd "C-c n l") 'spk/org-insert-ref-file)
 (global-set-key (kbd "C-c n q") 'spk/denote-find-ref-file)
 (global-set-key (kbd "C-c n r") 'denote-find-backlink)
@@ -235,7 +269,8 @@
 
 (evil-leader/set-key
   ;; org-roam 的快捷键，笔记迁移完成后删除
-  "oo" 'org-roam-node-find
+  "oo" 'spk/list-mustcheck-links
+  "op" 'org-roam-node-find
   "of" 'consult-notes
   "os" 'consult-notes-search-in-all-notes
   "ob" 'denote-find-backlink
@@ -250,6 +285,7 @@
   "odn" 'denote-journal-new-entry
   "odd" 'denote
   "odr" 'denote-region
+  "odl" 'spk/list-mustcheck-links
   "ods" 'denote-signature
   "oei" 'denote-explore-isolated-files
   "oew" 'denote-explore-random-keyword
