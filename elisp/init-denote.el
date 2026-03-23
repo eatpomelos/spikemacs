@@ -87,13 +87,12 @@
                        (remove actual-target current-kw))))
         ;; 自动清理互斥状态
         (when is-adding
-          (cond 
-           ((string= actual-target "permanent") 
-            (setq new-kw (cl-set-difference new-kw '("mustcheck" "archived") :test #'string=)))
-           ((string= actual-target "mustcheck") 
-            (setq new-kw (cl-set-difference new-kw '("permanent" "archived") :test #'string=)))
-           ((string= actual-target "archived") 
-            (setq new-kw (cl-set-difference new-kw '("mustcheck" "permanent") :test #'string=)))))
+          (setq new-kw 
+                (pcase actual-target
+                  ("permanent" (cl-set-difference new-kw '("mustcheck" "archived") :test #'string=))
+                  ("mustcheck" (cl-set-difference new-kw '("permanent" "archived") :test #'string=))
+                  ("archived"  (cl-set-difference new-kw '("mustcheck" "permanent") :test #'string=))
+                  (_ new-kw))))
         
         (setq new-kw (sort new-kw #'string<))
         (denote-rename-file file 'keep-current new-kw 'keep-current 'keep-current 'keep-current)
