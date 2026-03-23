@@ -112,6 +112,16 @@
   (interactive)
   (spk/denote-toggle-keyword))
 
+(defun spk/denote-toggle-buffer-keyword ()
+  "从当前 Denote 笔记已有的标签中选择一个进行 toggle 操作。"
+  (interactive)
+  (when-let* ((file (buffer-file-name))
+              ((denote-file-has-identifier-p file))
+              (current-kws (denote-extract-keywords-from-path file))
+              ;; 只有当文件有标签时才弹出选择
+              (target (completing-read "Select keyword to toggle: " current-kws nil nil)))
+    (spk/denote-toggle-keyword target)))
+
 ;; 获取当天的denote-journal 文件，这里和原始的用法不同，默认认为一天只会有一个journal文件
 (defun spk/find-today-journal-denote-entry ()
   "Get today denote journal entry."
@@ -270,7 +280,7 @@
 (global-set-key (kbd "C-c n q") 'spk/denote-find-ref-file)
 (global-set-key (kbd "C-c n r") 'denote-find-backlink)
 (global-set-key (kbd "C-c n t") 'spk/denote-toggle-card-state)
-(global-set-key (kbd "C-c n a") 'spk/denote-toggle-keyword)
+(global-set-key (kbd "C-c n a") 'spk/denote-toggle-buffer-keyword)
 
 (evil-leader/set-key
   ;; org-roam 的快捷键，笔记迁移完成后删除
@@ -283,7 +293,7 @@
   "oi" 'denote-insert-link
   "ol" 'spk/org-insert-ref-file
   "ot" 'spk/denote-toggle-card-state
-  "oa" 'spk/denote-toggle-keyword
+  "oa" 'spk/denote-toggle-buffer-keyword
   "oq" 'spk/denote-find-ref-file
   "oj" 'spk/open-link-at-point
   "odt" 'spk/find-today-journal-denote-entry
