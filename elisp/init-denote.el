@@ -32,6 +32,15 @@
 ;; 不忽略org-mode 的 fontiffy-links-mode
 (add-hook 'org-mode-hook #'denote-fontify-links-mode)
 
+(defun spk/dired-denote-status-colors ()
+  "在 Dired 中突出显示 Denote 状态标签。"
+  (font-lock-add-keywords 
+   'dired-mode 
+   '((".*_mustcheck.*" . 'error)        ; 红色/橙色，表示待处理
+     (".*_permanent.*" . 'success)      ; 绿色，表示已固化
+     (".*_archived.*" . 'shadow))))    ; 灰色，表示归档
+(add-hook 'dired-mode-hook #'spk/dired-denote-status-colors)
+
 (setq denote-save-buffers nil)
 ;; 常用的关键字，这里需要仔细配置一下
 (setq denote-known-keywords '("emacs" "linux" "work" "reading" "programming" "wiki" "literature"))
