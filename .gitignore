@@ -35,6 +35,9 @@ games/
 request/
 elpa/
 
+# ignore lsp bridge path
+lsp-bridge/
+
 # ignore straight repos
 straight/
 transient/
