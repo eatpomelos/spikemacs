@@ -194,7 +194,7 @@
         
         (goto-char (point-min))
         (show-all)
-        (switch-to-buffer (current-buffer))
+        (pop-to-buffer (current-buffer))
         (setq buffer-read-only t)
         (message "MustCheck: %d items." (length mustcheck-files))))))
 
