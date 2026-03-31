@@ -27,9 +27,9 @@
 ;; 设置折叠时显示的符号
 (setq org-ellipsis
       (cond
-       ((and IS-LINUX (not IS-WSL)) "⤵")
-       (IS-WSL "▼")
-       (t "[展开]...")
+       ((and IS-LINUX (not IS-WSL)) " ⤵")
+       (IS-WSL " ▼...")
+       (t " [展开]...")
        ))
 ;; 设置一下自己的任务管理的一些简单的配置,要是想放弃一个任务的时候，要进行说明，以后可能会再次启用这个任务
 (setq org-todo-keywords '((sequence "TODO(t)" "PENDING(i)" "PAUSE(p@)" "|" "DONE(d)" "ABORT(a@/!)")))
