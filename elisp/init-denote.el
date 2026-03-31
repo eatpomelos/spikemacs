@@ -32,20 +32,25 @@
 ;; 不忽略org-mode 的 fontiffy-links-mode
 (add-hook 'org-mode-hook #'denote-fontify-links-mode)
 
+(defvar-local spk--denote-last-keywords nil 
+  "存储当前缓冲区最后一次添加的 Denote 高亮关键字。")
+
 (defun spk/dired-denote-status-colors ()
   (require 'denote)
-  ;; 先清除旧规则，防止重复叠加导致卡顿
-  (font-lock-remove-keywords 'dired-mode spk--denote-last-keywords)
+  ;; 清除旧规则
+  (when spk--denote-last-keywords
+    (font-lock-remove-keywords nil spk--denote-last-keywords))
   
   (let ((keywords 
          `((,(concat denote-date-identifier-regexp ".*\\(?1:_mustcheck\\).*") (0 'error t))
            (,(concat denote-date-identifier-regexp ".*\\(?1:_permanent\\).*") (0 'success t))
            (,(concat denote-date-identifier-regexp ".*\\(?1:_archived\\).*")  (0 'shadow t)))))
-    (setq-local spk--denote-last-keywords keywords) ; 记录当前规则以便后续清除
-    (font-lock-add-keywords nil keywords)))
+    (setq spk--denote-last-keywords keywords)
+    (font-lock-add-keywords nil keywords)
+    ;; 触发重新渲染
+    (font-lock-flush)))
 
 (add-hook 'dired-mode-hook #'spk/dired-denote-status-colors)
-;; 必须加上刷新钩子，否则 'g' 刷新后高亮会消失
 (add-hook 'dired-after-readin-hook #'font-lock-flush)
 
 (setq denote-save-buffers nil)
