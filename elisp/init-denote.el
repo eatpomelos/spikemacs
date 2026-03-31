@@ -33,13 +33,20 @@
 (add-hook 'org-mode-hook #'denote-fontify-links-mode)
 
 (defun spk/dired-denote-status-colors ()
-  "在 Dired 中突出显示 Denote 状态标签。"
-  (font-lock-add-keywords 
-   'dired-mode 
-   '((".*_mustcheck.*" . 'error)        ; 红色/橙色，表示待处理
-     (".*_permanent.*" . 'success)      ; 绿色，表示已固化
-     (".*_archived.*" . 'shadow))))    ; 灰色，表示归档
+  (require 'denote)
+  ;; 先清除旧规则，防止重复叠加导致卡顿
+  (font-lock-remove-keywords 'dired-mode spk--denote-last-keywords)
+  
+  (let ((keywords 
+         `((,(concat denote-date-identifier-regexp ".*\\(?1:_mustcheck\\).*") (0 'error t))
+           (,(concat denote-date-identifier-regexp ".*\\(?1:_permanent\\).*") (0 'success t))
+           (,(concat denote-date-identifier-regexp ".*\\(?1:_archived\\).*")  (0 'shadow t)))))
+    (setq-local spk--denote-last-keywords keywords) ; 记录当前规则以便后续清除
+    (font-lock-add-keywords nil keywords)))
+
 (add-hook 'dired-mode-hook #'spk/dired-denote-status-colors)
+;; 必须加上刷新钩子，否则 'g' 刷新后高亮会消失
+(add-hook 'dired-after-readin-hook #'font-lock-flush)
 
 (setq denote-save-buffers nil)
 ;; 常用的关键字，这里需要仔细配置一下
