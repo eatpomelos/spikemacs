@@ -189,9 +189,13 @@
                        (title (denote-retrieve-filename-title file)))
                   (insert (format "[[denote:%s][%s]]\n" id title)))))))
         (org-mode)
+        (evil-local-set-key 'normal "q" #'quit-window)
+        (evil-local-set-key 'normal "g" #'spk/list-mustcheck-links)
+        
         (goto-char (point-min))
         (show-all)
-        (switch-to-buffer-other-window (current-buffer))
+        (switch-to-buffer (current-buffer))
+        (setq buffer-read-only t)
         (message "MustCheck: %d items." (length mustcheck-files))))))
 
 ;; 定义一个函数，实现打开当前光标下的链接功能
