@@ -54,8 +54,8 @@
 (add-hook 'dired-after-readin-hook #'font-lock-flush)
 
 (setq denote-save-buffers nil)
-;; 常用的关键字，这里需要仔细配置一下
-(setq denote-known-keywords '("emacs" "linux" "work" "reading" "programming" "wiki" "literature"))
+;; 笔记分类关键字，文献类，个人wiki类型
+(setq denote-known-keywords '("literature" "wiki" "example" "idea" "index"))
 ;; 定义自己的控制标签，用来标识一个文件的生命周期
 (setq spk-denote-known-keywords '("mustcheck" "archived" "permanent"))
 (setq denote-infer-keywords t)
@@ -137,7 +137,8 @@
   (interactive)
   (when-let* ((file (buffer-file-name))
               ((denote-file-has-identifier-p file))
-              (current-kws (denote-extract-keywords-from-path file))
+              (current-kws (delete-dups (nconc (denote-extract-keywords-from-path file)
+                                               denote-known-keywords)))
               ;; 只有当文件有标签时才弹出选择
               (target (completing-read "Select keyword to toggle: " current-kws nil nil)))
     (spk/denote-toggle-keyword target)))
