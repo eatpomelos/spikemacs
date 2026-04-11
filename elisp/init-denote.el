@@ -83,65 +83,64 @@
         ("reading"      ?r ,spk-denote-reading-directory)
         ))
 
-(defun spk/denote-toggle-keyword (&optional target)
+(defun spk/denote-toggle-keyword (target &optional mutex)
   "快速开关当前文件的关键字标签。
-若未提供 TARGET，则从 `spk-denote-known-keywords` 中 Ivy 选一个。"
+TARGET 是可选的标签列表，MUTEX 若为非 nil，则确保 TARGET 中的标签互斥。"
   (interactive)
   (let* ((file (or (buffer-file-name)
                    (dired-get-filename nil t))))
     (unless (and file (file-exists-p file) (denote-file-has-identifier-p file))
       (user-error "无效操作：当前文件不是有效的 Denote 笔记"))
+    
     (let* ((current-kw (denote-extract-keywords-from-path file))
-           (actual-target (or target 
-                              (completing-read "Select state tag: " 
-                                               (cl-remove-if (lambda (k) (member k current-kw))
-                                                             spk-denote-known-keywords))))
+           ;; 修正：提供默认列表逻辑
+           (actual-target (completing-read "Select state tag: " (or target spk-denote-known-keywords)))
+           (is-adding (not (member actual-target current-kw)))
+           ;; 处理互斥逻辑
+           (actual-current-kw
+            (if mutex
+                (cl-remove-if (lambda (k) (member k (if (listp target) target (list target))))
+                              current-kw)
+              current-kw))
+           ;; 计算最终标签列表
+           (total-current-kw
+            (if is-adding
+                (cons actual-target actual-current-kw)
+              (remove actual-target actual-current-kw)))
+           ;; 环境变量设置
            (denote-rename-confirmations nil)
            (denote-save-buffers t)
            (denote-after-rename-file-hook nil))
-
-      ;; 如果添加 permanent，自动移除 mustcheck；
-      ;; 如果添加 mustcheck，自动移除 permanent。
-      (let* ((is-adding (not (member actual-target current-kw)))
-             (new-kw (if is-adding
-                         (cons actual-target current-kw)
-                       (remove actual-target current-kw))))
-        ;; 自动清理互斥状态
-        (when is-adding
-          (setq new-kw 
-                (pcase actual-target
-                  ("permanent" (cl-set-difference new-kw '("mustcheck" "archived") :test #'string=))
-                  ("mustcheck" (cl-set-difference new-kw '("permanent" "archived") :test #'string=))
-                  ("archived"  (cl-set-difference new-kw '("mustcheck" "permanent") :test #'string=))
-                  (_ new-kw))))
         
-        (setq new-kw (sort new-kw #'string<))
-        (denote-rename-file file 'keep-current new-kw 'keep-current 'keep-current 'keep-current)
+        (setq total-current-kw (sort (delete-dups total-current-kw) #'string<))
+        (denote-rename-file file 'keep-current total-current-kw 'keep-current 'keep-current 'keep-current)
         
-        ;; 如果在 Dired 模式，刷新当前行
         (when (derived-mode-p 'dired-mode)
           (dired-revert))
 
-        (message "'%s' %s (Current: %s)" 
+        (message "Keyword '%s' %s. (Current: %s)" 
                  actual-target
                  (if is-adding "Added" "Removed")
-                 (mapconcat #'identity new-kw ", "))))))
+                 (mapconcat #'identity total-current-kw ", ")))))
 
 ;; 快速移除mustcheck
 (defun spk/denote-toggle-card-state ()
   (interactive)
-  (spk/denote-toggle-keyword))
+  (spk/denote-toggle-keyword nil t))
+
+;; 快速修改卡片类别
+(defun spk/denote-toggle-card-class ()
+  (interactive)
+  (spk/denote-toggle-keyword denote-known-keywords t))
 
 (defun spk/denote-toggle-buffer-keyword ()
   "从当前 Denote 笔记已有的标签中选择一个进行 toggle 操作。"
   (interactive)
   (when-let* ((file (buffer-file-name))
-              ((denote-file-has-identifier-p file))
-              (current-kws (delete-dups (nconc (denote-extract-keywords-from-path file)
-                                               denote-known-keywords)))
-              ;; 只有当文件有标签时才弹出选择
-              (target (completing-read "Select keyword to toggle: " current-kws nil nil)))
-    (spk/denote-toggle-keyword target)))
+              ((denote-file-has-identifier-p file)))
+      (spk/denote-toggle-keyword (denote-extract-keywords-from-path file))
+      ))
+
 
 ;; 获取当天的denote-journal 文件，这里和原始的用法不同，默认认为一天只会有一个journal文件
 (defun spk/find-today-journal-denote-entry ()
@@ -305,6 +304,7 @@
 (global-set-key (kbd "C-c n q") 'spk/denote-find-ref-file)
 (global-set-key (kbd "C-c n r") 'denote-find-backlink)
 (global-set-key (kbd "C-c n t") 'spk/denote-toggle-card-state)
+(global-set-key (kbd "C-c n c") 'spk/denote-toggle-card-class)
 (global-set-key (kbd "C-c n a") 'spk/denote-toggle-buffer-keyword)
 
 (evil-leader/set-key
@@ -318,6 +318,7 @@
   "oi" 'denote-insert-link
   "ol" 'spk/org-insert-ref-file
   "ot" 'spk/denote-toggle-card-state
+  "oc" 'spk/denote-toggle-card-class
   "oa" 'spk/denote-toggle-buffer-keyword
   "oq" 'spk/denote-find-ref-file
   "oj" 'spk/open-link-at-point
