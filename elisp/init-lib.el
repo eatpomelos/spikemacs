@@ -64,15 +64,16 @@
   (interactive)
   (when (posframe-workable-p) 
     (posframe-show spk-info-mode-pos-buf
-                   :background-color (face-background 'default nil t)
-                   :foreground-color (face-foreground 'font-lock-string-face nil t)
+                   ;; 使用延迟高亮色作为背景，极其显眼
+                   :background-color (face-background 'lazy-highlight nil t)
+                   :foreground-color (face-foreground 'default nil t)
                    :internal-border-width 2
                    :left-fringe 7
                    :right-fringe 7
                    :y-pixel-offset 25
                    :max-width 100     ; 或者设置最大宽度
                    :lines-truncate t
-                   :internal-border-color (face-background 'highlight) ; 极弱对比度
+                   :internal-border-color (face-foreground 'warning nil t)
                    :override-parameters	'((alpha . 95))
                    :position (point))
     (unwind-protect
