@@ -72,6 +72,9 @@
   (pyim-basedict-enable)
   (pyim-isearch-mode 1)
 
+  (setq ivy-re-builders-alist
+      '((t . pyim-cregexp-ivy)))
+
   (setq default-input-method "pyim"
         pyim-default-scheme 'xiaohe-shuangpin
         pyim-assistant-scheme 'quanpin
