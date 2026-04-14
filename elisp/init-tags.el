@@ -72,25 +72,25 @@
   (let* (candidates
          ;; 在多重目录下，如果存在大小写不一致的tags文件，就会导致获取到的根目录出错，在进行跳转时拼接完整路径出错.
          (time (current-time))
-		 (root-dir (+spk-get-file-dir (if IS-WINDOWS (file-name-nondirectory cache-file) "TAGS")))
+	 (root-dir (+spk-get-file-dir (file-name-nondirectory cache-file)))
          full-file-path
-		 selected)
-	(when cache-file
-	  (with-temp-buffer
-		(insert-file cache-file)
-		(goto-char (point-min))
+	 selected)
+    (when cache-file
+      (with-temp-buffer
+	(insert-file cache-file)
+	(goto-char (point-min))
         
         (setq candidates
-          (cl-loop while (not (eobp))
-                   collect (buffer-substring (line-beginning-position) (line-end-position))
-                   do (forward-line)))
- 
-		(when (and candidates (setq selected (ivy-read (format "Find file in %s: " (spk/time-cost time)) candidates)))
+              (cl-loop while (not (eobp))
+                       collect (buffer-substring (line-beginning-position) (line-end-position))
+                       do (forward-line)))
+        
+	(when (and candidates (setq selected (ivy-read (format "Find file in %s: " (spk/time-cost time)) candidates)))
           (message "root-dir %s" root-dir)
-		  (setq full-file-path (expand-file-name selected root-dir))
+	  (setq full-file-path (expand-file-name selected root-dir))
           (when open-p (find-file full-file-path))
           full-file-path
-		  ))))
+	  ))))
   )
 
 (defun spk/project-fast-find-file ()
