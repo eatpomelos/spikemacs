@@ -77,3 +77,8 @@ rime/
 eaf/
 pyim/
 popweb/
+
+# 忽略生成的缓存文件
+.spk-project-files
+.spk-project-all-files
+TAGS
