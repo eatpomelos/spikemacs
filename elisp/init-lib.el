@@ -58,29 +58,53 @@
   (interactive)
   (setq spk-bulletin-tmp-ctx nil))
 
-;; 在 Info 模式下提供一个快速查看快捷键的函数   
-(defun spk/bulletin-peek ()
-  "Info help peek."
+(defvar spk-bulletin-hide-timer nil "Timer to hide the bulletin posframe.")
+
+(defun spk/bulletin-peek (&optional sticky)
+  "Info help peek (non-blocking version)."
   (interactive)
-  (when (posframe-workable-p) 
+  (when (posframe-workable-p)
+    ;; 1. 如果之前已经有一个隐藏计时器在跑，先取消它，防止冲突
+    (when sticky
+      (when (timerp spk-bulletin-hide-timer)
+        (cancel-timer spk-bulletin-hide-timer)))
+
+    ;; 2. 显示 posframe
     (posframe-show spk-info-mode-pos-buf
-                   ;; 使用延迟高亮色作为背景，极其显眼
                    :background-color (face-background 'lazy-highlight nil t)
                    :foreground-color (face-foreground 'default nil t)
                    :internal-border-width 2
                    :left-fringe 7
                    :right-fringe 7
                    :y-pixel-offset 25
-                   :max-width 100     ; 或者设置最大宽度
+                   :max-width 100
                    :lines-truncate t
                    :internal-border-color (face-foreground 'warning nil t)
-                   :override-parameters	'((alpha . 95))
+                   :override-parameters '((alpha . 95))
                    :position (point))
-    (unwind-protect
-        (sit-for 10)
-      (posframe-hide spk-info-mode-pos-buf))
-    )
-  )
+
+    ;; 3. 启动一个异步计时器，10秒后隐藏，不干扰当前的键盘输入
+    (if sticky
+        (setq spk-bulletin-hide-timer
+              (run-with-timer 10 nil
+                              (lambda ()
+                                (posframe-hide spk-info-mode-pos-buf)
+                                (setq spk-bulletin-hide-timer nil))))
+      (unwind-protect
+          (sit-for 10)
+        (posframe-hide spk-info-mode-pos-buf)))
+    ))
+
+(defun spk/bulletin-close ()
+  "Manually close the bulletin posframe and cancel any active timers."
+  (interactive)
+  ;; 1. 取消隐藏计时器
+  (when (timerp spk-bulletin-hide-timer)
+    (cancel-timer spk-bulletin-hide-timer)
+    (setq spk-bulletin-hide-timer nil))
+  ;; 2. 隐藏窗口
+  (posframe-hide spk-info-mode-pos-buf)
+  (message "Bulletin closed."))
 
 (defun spk/tiny-vc-msg ()
   (interactive)

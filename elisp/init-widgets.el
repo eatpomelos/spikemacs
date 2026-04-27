@@ -84,6 +84,8 @@
 (global-set-key (kbd "C-c y") #'consult-yank-from-kill-ring)
 
 (global-set-key (kbd "C-c h") #'spk/smart-bulletin-peek)
+(global-set-key (kbd "C-c k") #'spk/bulletin-close)
+
 
 ;; 高亮当前行的函数，偶尔会出问题，暂时未解决 
 (setq spk-ovs nil)
