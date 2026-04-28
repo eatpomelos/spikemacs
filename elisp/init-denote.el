@@ -54,9 +54,10 @@
 (add-hook 'dired-after-readin-hook #'font-lock-flush)
 
 (setq denote-save-buffers nil)
-;; 笔记分类关键字，文献类，个人wiki类型
-(setq denote-known-keywords '("literature" "wiki" "example" "idea" "index"))
+;; 笔记分类关键字，文献类，个人wiki类型，用growing替代index，说明这张卡片会持续增长
+(setq denote-known-keywords '("literature" "wiki" "growing" "example" "idea"))
 ;; 定义自己的控制标签，用来标识一个文件的生命周期
+;; (setq spk-denote-state-keywords '("mustcheck" "archived" "permanent"))
 (setq spk-denote-state-keywords '("mustcheck" "archived" "permanent"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)

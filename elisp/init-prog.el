@@ -6,6 +6,7 @@
 (straight-use-package 'yasnippet)
 (straight-use-package 'ninja-mode)
 (straight-use-package 'gn-mode)
+(straight-use-package 'dts-mode)
 (straight-use-package 'dogears)
 
 ;; nixos相关配置
