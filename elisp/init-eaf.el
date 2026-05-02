@@ -10,8 +10,20 @@
 (add-to-list 'load-path spk-local-eaf-dir)
 ;; (add-to-list 'load-path spk-local-eaf-app-dir)
 
+;; 设置一个自行忽略的mode列表，不受eaf-oepn接管
+(defvar spk-eaf-open-ignore-mode-list '(dired-mode) "List for ignore `eaf--file-file-advisor'.")
+
+(defun spk/eaf--find-file-advisor (orig-fn file &rest args)
+  (if (member major-mode spk-eaf-open-ignore-mode-list)
+      (funcall orig-fn file nil)
+    (eaf--find-file orig-fn file nil args))
+  )
 ;; 关闭默认eaf接管find-file选项，由于find-file和org-find-file这两个接口太底层了，所以会导致意料之外的接管
 (setq-default eaf-find-file-advisor-enable nil)
+
+;; 自行添加advice，过滤掉不想让eaf-oepn接管的mode，这里主要是dired
+(advice-add #'find-file :around #'spk/eaf--find-file-advisor)
+(advice-add #'org-open-file :around #'spk/eaf--find-file-advisor)
 
 (require 'eaf)
 
