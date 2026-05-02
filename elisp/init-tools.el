@@ -36,14 +36,15 @@
   (setq default-input-method "rime"
         rime-show-candidate 'posframe
         rime-posframe-style 'vertical)
-  (global-set-key (kbd "C-<SPC>") 'toggle-input-method)
+  (when IS-WSL
+    (global-set-key (kbd "C-<SPC>") 'toggle-input-method))
   (when IS-WSL
     (setq rime-emacs-module-header-root
           (file-truename
            (concat (file-name-directory
                     (directory-file-name (file-name-directory
-                                    (file-truename
-                                     (directory-file-name "/run/current-system/sw/bin/emacs"))))) "/include")))
+                                          (file-truename
+                                           (directory-file-name "/run/current-system/sw/bin/emacs"))))) "/include")))
     (setq rime-librime-root
           (file-name-directory
            (directory-file-name
@@ -54,8 +55,7 @@
     (unless (file-exists-p rime-share-data-dir)
       (make-directory rime-share-data-dir)
       )
-    )
-  )
+    ))
 
 (when IS-WSL
   (straight-use-package
