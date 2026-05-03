@@ -43,6 +43,7 @@
   
   (let ((keywords 
          `((,(concat denote-date-identifier-regexp ".*\\(?1:_mustcheck\\).*") (0 'error t))
+           (,(concat denote-date-identifier-regexp ".*\\(?1:_incubating\\).*") (0 'error t))
            (,(concat denote-date-identifier-regexp ".*\\(?1:_permanent\\).*") (0 'success t))
            (,(concat denote-date-identifier-regexp ".*\\(?1:_archived\\).*")  (0 'shadow t)))))
     (setq spk--denote-last-keywords keywords)
