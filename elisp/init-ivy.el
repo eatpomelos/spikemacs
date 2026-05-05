@@ -22,7 +22,7 @@
   (setq enable-recursive-minibuffers t)
 
   (counsel-mode 1)
-  ;; 开启ivy-mode 对于类似org-roam都会提供补全选项，很方便
+  ;; 开启ivy-mode 会提供补全选项，很方便
   (ivy-mode t)
   ;; 在windows上用everthing 来替代locate命令
   (when IS-WINDOWS
