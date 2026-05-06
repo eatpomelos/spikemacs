@@ -116,14 +116,7 @@ TARGET 可以是 ((\"keyword\" . \"说明\")) 格式的 alist。"
     (let* ((current-kw (denote-extract-keywords-from-path file))
            (candidates (or target spk-denote-class-keywords))
            (actual-target 
-            (completing-read "Select state tag: "
-                             (lambda (string pred action)
-                               (if (eq action 'metadata)
-                                   `(metadata (annotation-function 
-                                               . ,(lambda (s) 
-                                                    (let ((desc (cdr (assoc s candidates))))
-                                                      (if desc (format " -- %s" desc) "")))))
-                                 (complete-with-action action candidates string pred)))))
+            (spk/completing-read "Select state tag: " candidates))
            (is-adding (not (member actual-target current-kw)))
            (actual-current-kw
             (if mutex
@@ -151,8 +144,6 @@ TARGET 可以是 ((\"keyword\" . \"说明\")) 格式的 alist。"
                actual-target
                (if is-adding "Added" "Removed")
                (mapconcat #'identity total-current-kw ", ")))))
-
-
 
 ;; 快速移除mustcheck
 (defun spk/denote-toggle-card-state ()
@@ -254,17 +245,22 @@ TARGET 可以是 ((\"keyword\" . \"说明\")) 格式的 alist。"
 
 (defun spk/list-keyword-cards ()
   (interactive)
-  (if-let* ((kwd
-             (completing-read "Input a keyword: "
-                              (lambda (string pred action)
-                                (if (eq action 'metadata)
-                                    `(metadata (annotation-function 
-                                                . ,(lambda (s) 
-                                                     (let ((desc (cdr (assoc s spk-all-known-keywords))))
-                                                       (if desc (format " -- %s" desc) "")))))
-                                  (complete-with-action action spk-all-known-keywords string pred))))
-             ))
-      (spk/list-cards-keyword kwd)))
+  (spk/list-cards-keyword
+   (spk/completing-read "Input a keyword: " spk-all-known-keywords)))
+
+;; (defun spk/list-keyword-cards ()
+;;   (interactive)
+;;   (if-let* ((kwd
+;;              (completing-read "Input a keyword: "
+;;                               (lambda (string pred action)
+;;                                 (if (eq action 'metadata)
+;;                                     `(metadata (annotation-function 
+;;                                                 . ,(lambda (s) 
+;;                                                      (let ((desc (cdr (assoc s spk-all-known-keywords))))
+;;                                                        (if desc (format " -- %s" desc) "")))))
+;;                                   (complete-with-action action spk-all-known-keywords string pred))))
+;;              ))
+;;       (spk/list-cards-keyword kwd)))
 
 ;; 定义一个函数，实现打开当前光标下的链接功能
 (defun spk/open-link-at-point ()

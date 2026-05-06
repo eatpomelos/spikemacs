@@ -22,6 +22,22 @@
 (defvar spk-bulletin-help-alist nil "alist for mode update function.")
 (defvar spk-bulletin-tmp-ctx nil "temp context.")
 
+(defun spk/completing-read (prompt candidates &optional default)
+  "通用的带注解补全函数。
+PROMPT 是提示字符串。
+CANDIDATES 是 ((\"key\" . \"desc\")) 格式的 alist 或字符串列表。
+DEFAULT 是默认值。"
+  (completing-read 
+   prompt
+   (lambda (string pred action)
+     (if (eq action 'metadata)
+         `(metadata (annotation-function 
+                     . ,(lambda (s)
+                          (let ((desc (cdr (assoc s candidates))))
+                            (if (stringp desc) (format " -- %s" desc) "")))))
+       (complete-with-action action candidates string pred)))
+   nil t nil nil default))
+
 ;; 增加一个函数用于显示临时内容
 (defun spk/set-pos-buf-ctx (&optional input start-line line-limit)
   "set current marked text to posfram buffer."
