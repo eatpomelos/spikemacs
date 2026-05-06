@@ -248,20 +248,6 @@ TARGET 可以是 ((\"keyword\" . \"说明\")) 格式的 alist。"
   (spk/list-cards-keyword
    (spk/completing-read "Input a keyword: " spk-all-known-keywords)))
 
-;; (defun spk/list-keyword-cards ()
-;;   (interactive)
-;;   (if-let* ((kwd
-;;              (completing-read "Input a keyword: "
-;;                               (lambda (string pred action)
-;;                                 (if (eq action 'metadata)
-;;                                     `(metadata (annotation-function 
-;;                                                 . ,(lambda (s) 
-;;                                                      (let ((desc (cdr (assoc s spk-all-known-keywords))))
-;;                                                        (if desc (format " -- %s" desc) "")))))
-;;                                   (complete-with-action action spk-all-known-keywords string pred))))
-;;              ))
-;;       (spk/list-cards-keyword kwd)))
-
 ;; 定义一个函数，实现打开当前光标下的链接功能
 (defun spk/open-link-at-point ()
   "Open link at point."
