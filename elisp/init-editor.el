@@ -60,11 +60,11 @@
   (set-locale-environment "utf-8")
   (set-terminal-coding-system 'utf-8)
   (modify-coding-system-alist 'process "*" 'utf-8)
-  (setq default-process-coding-system '(utf-8 . utf-8))
+  (setq default-process-coding-system '(utf-8 . utf-8)))
 
   ;; 配置 selectrum 
-  (straight-use-package 'selectrum)
-  (selectrum-mode +1))
+(straight-use-package 'vertico)
+(vertico-mode)
 
 ;; 在 org-mode 中打开自动折行功能，避免一行过长
 (add-hook 'org-mode-hook #'auto-fill-mode)

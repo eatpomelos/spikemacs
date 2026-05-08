@@ -85,7 +85,7 @@
                        collect (buffer-substring (line-beginning-position) (line-end-position))
                        do (forward-line)))
         
-	(when (and candidates (setq selected (ivy-read (format "Find file in %s: " (spk/time-cost time)) candidates)))
+	(when (and candidates (setq selected (spk/completing-read (format "Find file in %s: " (spk/time-cost time)) candidates)))
           (message "root-dir %s" root-dir)
 	  (setq full-file-path (expand-file-name selected root-dir))
           (when open-p (find-file full-file-path))

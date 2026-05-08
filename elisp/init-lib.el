@@ -241,7 +241,7 @@ pfix is the postfix of file"
 			 selected-line
 			 selected-file
 			 linenum)
-		(setq selected-line (ivy-read (format hint keyword directory (spk/time-cost time))
+		(setq selected-line (spk/completing-read (format hint keyword directory (spk/time-cost time))
 									  lines))
 		(cond
 		 (grep-p
