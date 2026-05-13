@@ -4,7 +4,7 @@
 
 ;; 使用go-translate 来辅助翻译
 (straight-use-package 'pdd)
-(straight-use-package 'go-translate)
+(straight-use-package 'gt)
 
 (require 'init-tools)
 
