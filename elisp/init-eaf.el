@@ -22,8 +22,8 @@
 (setq-default eaf-find-file-advisor-enable nil)
 
 ;; 自行添加advice，过滤掉不想让eaf-oepn接管的mode，这里主要是dired
-(advice-add #'find-file :around #'spk/eaf--find-file-advisor)
-(advice-add #'org-open-file :around #'spk/eaf--find-file-advisor)
+;; (advice-add #'find-file :around #'spk/eaf--find-file-advisor)
+;; (advice-add #'org-open-file :around #'spk/eaf--find-file-advisor)
 
 (require 'eaf)
 
@@ -138,7 +138,7 @@
 (global-set-key (kbd "C-c SPC") 'evil-switch-to-windows-last-buffer)
 (global-set-key (kbd "C-c p a") 'spk/project-fast-find-all-file)
 (global-set-key (kbd "C-c p f") 'spk/find-file-entry)
-(global-set-key (kbd "C-c f l") 'counsel-locate)
+(global-set-key (kbd "C-c f l") 'consult-locate)
 
 (with-eval-after-load 'eaf-pyqterminal
   (global-set-key (kbd "C-c e RET") 'eaf-open-pyqterminal)

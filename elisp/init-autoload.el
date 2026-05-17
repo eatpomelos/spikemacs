@@ -7,16 +7,6 @@
 (autoload #'evil-smartparens-mode "evil-smartparens")
 (autoload #'evilnc-comment-or-uncomment-lines "evil-nerd-commenter")
 
-;; init-ivy
-(autoload #'counsel-M-x "ivy")
-(autoload #'swiper "ivy")
-(autoload #'counsel-mode "counsel")
-(autoload #'ivy-rich-mode "ivy-rich")
-;; 这一行配置可选，应该是自己自动加载的
-(autoload #'ivy-occur "wgrep")
-;; 使用这个包主要的原因是想要在执行M-x时，命令按照历史来排列 
-(autoload #'counsel-M-x "smex")
-
 ;; init-org
 ;; 在设置延迟加载的时候，指定其余函数来进行加载和require的形式是否有区别？
 (autoload #'org-bars-mode "org-bars")

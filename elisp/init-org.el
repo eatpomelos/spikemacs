@@ -1,8 +1,7 @@
-;; 和 org 相关的配置  -*- lexical-binding: t; -*-
+;; -*- lexical-binding: t; -*-
 
 ;; 由于使用 strainght.el 升级 package 中 org 有一个变量的名字发生了改变，此处使用本地 org 包防止出现使用错误
 (straight-use-package '(org :type built-in))
-(straight-use-package 'org-pomodoro)
 ;; 增加 org 转换 srt 的插件
 (straight-use-package 'ox-rst)
 (straight-use-package 'markdown-mode)
@@ -17,12 +16,9 @@
 
 (straight-use-package
  '(org-bars :type git
-			:host github
-			:repo "tonyaldon/org-bars"
-			))
-
-;; 默认在 markdown 文件中使用 org-mode
-(add-to-list 'auto-mode-alist '("\\.md\\'" . org-mode))
+	    :host github
+	    :repo "tonyaldon/org-bars"
+	    ))
 
 ;; 设置折叠时显示的符号
 (setq org-ellipsis
@@ -31,6 +27,7 @@
        (IS-WSL " ▼...")
        (t " [展开]...")
        ))
+
 ;; 设置一下自己的任务管理的一些简单的配置,要是想放弃一个任务的时候，要进行说明，以后可能会再次启用这个任务
 (setq org-todo-keywords '((sequence "TODO(t)" "PENDING(i)" "PAUSE(p@)" "|" "DONE(d)" "ABORT(a@/!)")))
 (setq org-todo-keyword-faces '(("PENDING" . error)
@@ -41,78 +38,15 @@
   "Default directory of document files."
   )
 
-(defvar spk-org-directory
-  (concat spk-doc-dir "spk-notes/org/")
-  "Default directory of org files."
-  )
-
 ;; 如果目录不存在则创建
 (unless (file-exists-p spk-doc-dir)
   (make-directory spk-doc-dir)
   )
-;; 设置自己的个人笔记目录
-(defvar spk-local-notes-dir
-  (concat spk-org-directory "notes/")
-  "Local notes path.")
 
 ;; 在打开org文件时，自动折叠其中的block块
 (setq org-hide-block-startup t)
 ;; 设置org文件导出时的默认路径
 (setq spk-org-report_dir (concat spk-local-dir "ox-report/"))
-
-;; 设置 agenda 文件,注意以下这种写法，不加括号直接用字符串是不行的
-(setq org-agenda-files '("~/spk-docs/spk-notes/org"
-			             "~/spk-docs/spk-notes/org/notes"
-                         "~/spk-docs/spk-notes/roam/daily"
-                         "~/.emacs.d/.local/pravite"))
-
-;; 设置笔记中用到的一些路径，包括日志路径、笔记路径，以及待办项目路径
-(setq spk-capture-todo-file (expand-file-name "todo.org" spk-org-directory)
-      spk-capture-journal-file (expand-file-name "journal.org" spk-org-directory)
-      spk-capture-notes-file (expand-file-name "notes.org" spk-org-directory)
-      ;; 用来存放一些工具的使用笔记，包括正则表达式等一些有用的语法，或者是其他工具软件的使用方法
-      spk-notes-tools-file (expand-file-name "tools.org" spk-local-notes-dir)
-      spk-notes-language-file (expand-file-name "languages.org" spk-local-notes-dir)
-      spk-notes-reading-file (expand-file-name "reading.org" spk-local-notes-dir)
-      spk-notes-tips-file (expand-file-name "tips.org" spk-local-notes-dir)
-      )
-
-;; 后续提高速度可以用 eval-after-load 来控制
-(setq org-capture-templates
-      '(("t" "Todo" entry (file+headline spk-capture-todo-file "Workspace")
-         "* TODO [#B] %?\n  %i\n %U"
-         :empty-lines 1)
-        ("i" "Ideas" entry (file+headline spk-capture-notes-file "Ideas")
-         "* %?\n %i\n %U")
-        ("w" "work" entry (file+headline spk-capture-todo-file "Work")
-         "* TODO [#A] %?\n %i\n %U"
-         :empty-lines 1)
-        ("l" "links" entry (file+headline spk-capture-notes-file "Quick notes")
-         "* TODO [#C] %?\n %i\n %a \n %U"
-         :empty-lines 1)
-	("s" "suggestions" entry (file+headline spk-notes-tips-file "Tips")
-         "* %?\n %i\n \n %U")
-        ("j" "Journal Entry"
-         entry (file+olp+datetree spk-capture-journal-file)
-         "* %U %? \n%i\n%a"
-         :prepend t)
-	;; 用于保存本地笔记的模板
-	("n" "Templates for local notes")
-	("nq" "Quick notes" entry (file+headline spk-capture-notes-file "Quick notes")
-         "* %?\n  %i\n %U"
-         :empty-lines 1)
-        ("ne" "Emacs notes" entry (file+headline spk-capture-notes-file "Emacs notes")
-         "* %?\n %i\n %U"
-         :empty-lines 1)
-	("nr" "Reading notes" entry (file+headline spk-notes-reading-file "Reading notes")
-         "* %?\n  %i\n %U"
-         :empty-lines 1)
-        ("nt" "Tools notes" entry (file+headline spk-notes-tools-file "Tools notes")
-         "* %?\n %i\n %U"
-         :empty-lines 1) 
-        ("nl" "Language notes" entry (file+headline spk-notes-language-file "Languages notes")
-         "* %?\n %i\n %U"
-         :empty-lines 1)))
 
 ;; 下面使用的是别人提供的模板，主要是 latex 中使用的一些东西
 ;;org-export latex

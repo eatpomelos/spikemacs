@@ -8,33 +8,36 @@
 
 (require 'init-tools)
 
-;;;###autoload 
+;;;###autoload
 (defun spk/find-file-entry ()
   (interactive)
-  (cond ((+spk-get-complete-file ".spk-project-files") (spk/project-fast-find-file))
-        ((+spk-get-complete-file ".spk-project-all-files") (spk/project-fast-find-all-file))
-        ((and (+spk-get-complete-file "compile_commands.json") IS-LINUX)
-         (projectile-find-file-in-directory (file-name-directory
-                                             (+spk-get-complete-file "compile_commands.json"))))
-        ((+spk-get-complete-file ".git") (project-find-file))
-        ((+spk-get-complete-file ".svn") (spk/project-find-file))
-        (t (counsel-find-file))
-        )
-  )
+  (let ((spk-proj   (+spk-get-complete-file ".spk-project-files"))
+        (spk-all    (+spk-get-complete-file ".spk-project-all-files"))
+        (comp-json  (+spk-get-complete-file "compile_commands.json"))
+        (git-dir    (+spk-get-complete-file ".git"))
+        (svn-dir    (+spk-get-complete-file ".svn")))
+    (cond 
+     (spk-proj (spk/project-fast-find-file))
+     (spk-all  (spk/project-fast-find-all-file))
+     ((and comp-json (boundp 'IS-LINUX) IS-LINUX)
+      (projectile-find-file-in-directory (file-name-directory comp-json)))
+     (git-dir (call-interactively #'project-find-file))
+     (svn-dir (spk/project-find-file))
+     (t (spk--blind-find-file-in-dir 'default-directory)))))
 
 ;;;###autoload
 (defun spk/find-local-conf ()
   "Find local config in the local path."
   (interactive)
-  (counsel-find-file spk-elisp-dir))
+  (spk--blind-find-file-in-dir 'spk-elisp-dir))
 
 (when IS-LINUX
-  (setq spk-usr-conf-dir (concat (format "/home/%s%s" user-login-name "/.config")))
+  (setq spk-usr-conf-dir (concat (format "/home/%s%s" user-login-name "/.config/")))
 ;;;###autoload
   (defun spk/find-usr-conf ()
     "Find local config in the local path."
     (interactive)
-    (counsel-find-file spk-usr-conf-dir))
+    (spk--blind-find-file-in-dir 'spk-usr-conf-dir))
   (evil-leader/set-key
     "fv" 'spk/find-usr-conf)
   )
@@ -138,7 +141,7 @@
   (let* ((dir spk-local-code-dir))
     (unless (file-exists-p spk-local-code-dir)
       (mkdir spk-local-code-dir))
-    (counsel-find-file spk-local-code-dir)))
+    (spk--blind-find-file-in-dir 'spk-local-code-dir)))
 
 ;; 在上级多少层目录查找文件
 ;;;###autoload
@@ -183,7 +186,7 @@
 ;;;###autoload
 (defun spk/find-repo-code ()
   (interactive)
-  (counsel-find-file "~/.emacs.d/straight/build"))
+  (spk--blind-find-file-in-dir "~/.emacs.d/straight/build/"))
 
 (when IS-WINDOWS
   ;;;###autoload
@@ -240,11 +243,6 @@
                                         (kill-line 0)
                                         (indent-according-to-mode)))
 
-;;;###autoload
-(defun spk/counsel-rg-current-dir ()
-  (interactive)
-  (counsel-rg nil default-directory))
-
 ;; keybindings
 (evil-leader/set-key
   "fp" 'spk/find-local-conf
@@ -252,7 +250,7 @@
   "fs" 'spk/find-file
   "fo" 'spk/open-file-with-system-application
   "t" 'spk/find-local-templet
-  "sc" 'spk/counsel-rg-current-dir
+  "sc" 'consult-ripgrep
   )
 
 ;; 使用go-traslate 来帮助翻译
@@ -304,5 +302,3 @@
 ;; 使用emacs中自带的calculator 日常计算的时候使用
 (evil-set-initial-state 'calculator-mode 'emacs)
 (provide 'init-widgets)
-
-(ivy--queue-exhibit) 

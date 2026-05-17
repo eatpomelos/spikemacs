@@ -22,6 +22,26 @@
 (defvar spk-bulletin-help-alist nil "alist for mode update function.")
 (defvar spk-bulletin-tmp-ctx nil "temp context.")
 
+(defun spk--blind-find-file-in-dir (dir-or-symbol)
+  "通用核心：支持传入全局变量符号或直接传入路径字符串，唤醒 Vertico 补全。
+DIR-OR-SYMBOL 可以是变量符号（如 'spk-elisp-dir），也可以是路径字符串。"
+  (let ((dir-path (cond
+                   ((and (symbolp dir-or-symbol) (boundp dir-or-symbol))
+                    (symbol-value dir-or-symbol))
+                   ((stringp dir-or-symbol)
+                    dir-or-symbol)
+                   (t nil))))
+    
+    ;; 统一展开波浪号并进行防御性检查
+    (if dir-path
+        (setq dir-path (expand-file-name dir-path)))
+    
+    (if (and dir-path (file-directory-p dir-path))
+        ;; 核心魔法：临时切换目录上下文，完美唤醒 Vertico 并拦截 Dired
+        (let ((default-directory dir-path))
+          (call-interactively #'find-file))
+      (message "错误：[%s] 路径未定义或目录不存在！" dir-path))))
+
 (defun spk/completing-read (prompt candidates &optional default)
   "通用的带注解补全函数。
 PROMPT 是提示字符串。
@@ -221,9 +241,7 @@ pfix is the postfix of file"
   (let* ((keyword (if symbol symbol
 					(read-string "Please input keyword: "))))
     (if (string= keyword "")
-		(if (functionp 'counsel-find-file) 
-			(counsel-find-file directory)
-		  (find-file directory))
+        (spk--blind-find-file-in-dir directory)
       ;; 当没有给后缀的时候默认为任意字符
       (let* ((postfix (if pfix pfix ""))
 			 (find-cmd (format "find %s -path \"*/.git\" -prune -o -type f -regex \"^.*%s.*%s\" -print"

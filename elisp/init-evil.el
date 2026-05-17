@@ -26,9 +26,9 @@
   (evil-leader/set-key
     "fj" 'dired-jump
     "fy" 'spk/yank-buffer-filename
-    "fr" 'counsel-recentf
+    "fr" 'consult-recent-file
     "bd" 'kill-current-buffer
-    "bb" 'counsel-switch-buffer
+    "bb" 'consult-buffer
     "bs" 'spk/switch-to-scratch
     "TAB" 'evil-switch-to-windows-last-buffer
     "hp" 'spk/find-repo-code

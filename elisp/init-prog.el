@@ -66,7 +66,6 @@
   (let ((inhibit-message nil))
     (setq yas-snippets-dirs (concat spk-dir "snippets/"))
     (setq yas--loaddir (concat spk-dir "snippets"))
-    (yas-compile-directory yas-snippets-dirs)
     (yas-reload-all)))
 
 (require 'init-tags)
@@ -141,7 +140,7 @@
     (unless root-dir
       (setq root-dir (+spk-get-file-dir "compile_commands.json")))
     (if root-dir
-        (counsel-find-file root-dir)
+        (spk--blind-find-file-in-dir root-dir)
       (message "Not in a project")))
   )
 
@@ -198,13 +197,11 @@
 
 ;; key bindings
 (evil-leader/set-key
-  "pt" 'counsel-etags-find-tag-at-point
   "ps" 'spk/project-search-symbol-at-point
   "pi" 'spk/project-search-symbol-from-input
   "pff" 'spk/find-file-entry
   "pfr" 'spk/project-find-file-in-root
   "pfa" 'spk/project-fast-find-all-file
-  "pfe" 'counsel-etags-find-tag
   "pfd" 'spk/project-find-docs-dir
   "eb" 'eval-buffer
   "mf" 'er/mark-defun
@@ -222,17 +219,9 @@
 (define-key evil-normal-state-map (kbd ",e") #'end-of-defun)
 
 (setq dogears-functions '(
-                          ;; find-file
-                          ;; other-window switch-to-buffer
-                          ;; tab-bar-select-tab
-                          ;; pop-to-mark-command
-                          ;; pop-global-mark
-                          ;; goto-last-change
                           xref-find-definitions
                           xref-find-references
                           lsp-bridge-find-def
-                          ;; switch-to-buffer-other-frame
-                          ;; switch-to-buffer-other-window
                           ))
 
 (with-eval-after-load 'dogears
@@ -268,9 +257,6 @@
     )
   (define-key deadgrep-mode-map  "q" 'spk/deadgrep-exit)
 
-  ;; 默认分割窗口时分在右边 
-  ;; (setq split-window-preferred-function 'split-window-right)
-  
   (define-key deadgrep-mode-map (kbd "RET") 'deadgrep-visit-result-other-window)
   
   ;; 用下面的advice来是实现deadgrep匹配项的预览，此函数需要配合winum使用

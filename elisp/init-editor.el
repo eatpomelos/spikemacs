@@ -2,17 +2,12 @@
 (straight-use-package 'expand-region)
 (straight-use-package 'restart-emacs)
 (straight-use-package 'json-mode)
+(straight-use-package 'avy)             ;;提供多种跳转命令
 (straight-use-package 'sis)
 (straight-use-package 'pangu-spacing)
-(straight-use-package 'orderless)
 (straight-use-package 'vterm)
-(straight-use-package 'consult)
 (straight-use-package 'vundo)
 
-;; 使用xclip解决在wsl的终端无法共享剪切板的问题
-(straight-use-package 'xclip)
-
-(setq completion-styles '(orderless))
 
 ;; 将此库文件更新为 fork 版本
 (straight-use-package
@@ -23,8 +18,11 @@
    )
  )
 
-(require 'xclip)
-(xclip-mode t)
+(when IS-WSL
+  ;; 使用xclip解决在wsl的终端无法共享剪切板的问题
+  (straight-use-package 'xclip)
+  (require 'xclip)
+  (xclip-mode t))
 
 ;; 打开版本控制的文件时不询问
 (setq vc-follow-symlinks t)
@@ -60,11 +58,8 @@
   (set-locale-environment "utf-8")
   (set-terminal-coding-system 'utf-8)
   (modify-coding-system-alist 'process "*" 'utf-8)
-  (setq default-process-coding-system '(utf-8 . utf-8)))
-
-  ;; 配置 selectrum 
-(straight-use-package 'vertico)
-(vertico-mode)
+  (setq default-process-coding-system '(utf-8 . utf-8))
+  )
 
 ;; 在 org-mode 中打开自动折行功能，避免一行过长
 (add-hook 'org-mode-hook #'auto-fill-mode)
@@ -76,8 +71,8 @@
 ;; 指定 github 上的包，并下载，由于当前的环境配置中 linux 下的环境没有界面因此使用此 package 会导致 emacs 卡死
 (straight-use-package
  '(company-english-helper :type git
-			              :host github
-			              :repo "manateelazycat/company-english-helper"))
+			  :host github
+			  :repo "manateelazycat/company-english-helper"))
 ;; 指定一个函数从文件中自动加载，暂时理解成指定一个函数为 autoload，当使用这个函数时自动加载那个文件
 
 (define-key global-map (kbd "C-=") 'er/expand-region)
@@ -110,8 +105,7 @@
   (evil-leader/set-key
     "mop" 'er/mark-org-parent
     "moe" 'er/mark-org-element
-    "ms" 'er/mark-symbol
-    "m\]" 'er/mark-sentence))
+    "ms" 'er/mark-symbol))
 
 
 (when (is-gui)
@@ -120,10 +114,12 @@
   (global-set-key (kbd "C-:") 'symbol-overlay-jump-prev)
   (global-set-key (kbd "C-;") 'symbol-overlay-jump-next))
 
-;; ;; 设置英语检错，设置有问题，暂时未解决
+;; ;; 设置英语检错
 (when IS-WINDOWS
   (setq ispell-program-name "aspell")
   (setq ispell-process-directory "~/MSYS2/mingw64/bin/")
+  ;; 在windows上用everthing 来替代locate命令
+  (setq locate-command "es")
   )
 
 ;; 由于高亮显示占用了 evil 的快捷键，且暂时不使用其自定义的快捷键，禁用 symbol-overlay-mode
@@ -212,7 +208,7 @@
   "rn" 'restart-emacs-start-new-emacs
   "nr" 'narrow-to-region
   "nw" 'widen
-  "b \RET" 'counsel-bookmark
+  "b \RET" 'consult-bookmark
   "sy" 'symbol-overlay-save-symbol
   )
 

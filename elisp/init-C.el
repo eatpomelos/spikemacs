@@ -109,4 +109,3 @@ and push it to `kill-ring'."
 (defalias 'cmode 'c-mode)
 
 (provide 'init-C)
-

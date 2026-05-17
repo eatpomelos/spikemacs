@@ -3,17 +3,6 @@
 ;; function 格式为 spk/xx-xx
 ;; variables 格式为 spk-xx-xx
 
-;; ;; 试用懒猫大神的启动速度优化思路
-;; (straight-use-package 'benchmark-init)
-;; (let (
-;;     ;; 清空避免加载远程文件的时候分析文件。
-;;     (file-name-handler-alist nil))
-;; (require 'benchmark-init-modes)
-;; (require 'benchmark-init)
-;; (benchmark-init/activate)
-;; ;; 下面才写你的其它配置
-;; )
-
 ;; 因为使用了一些高于26版本的api，暂时不支持低于此版本的emacs
 (when (version< emacs-version "26.0")
   (error "Emacs's version less than 26.0, can not load init files.")
@@ -51,7 +40,7 @@
   (global-display-line-numbers-mode t)
   (with-temp-message ""
     (require 'init-evil)
-    (require 'init-ivy)
+    (require 'init-vertico)
     
     (require 'init-window)
      ;; 可以延后加载的插件
@@ -64,8 +53,7 @@
          (require 'init-magit)
          (require 'init-dired)
 
-         ;; company 的配置包括 which-key
-         (require 'init-company)
+         (require 'init-corfu)
          ;; 和编程相关的配置统一由init-prog.el 文件一起加载，在文件中分别加载各语言的配置文件
          (require 'init-prog)
          ;; 部分配置只需要在linux上加载，这里使用宏进行控制，目前nixos上eaf先不加载
@@ -80,7 +68,7 @@
          ;; 这个文件按需求创建，主要是存放不同系统下自己可能使用的一些特定工具函数
          (spk-require 'init-private)
          (require 'init-ui)
-	 ))
+         ))
 
     ;; 在scratch中插入启动时间
     (add-hook 'window-setup-hook
