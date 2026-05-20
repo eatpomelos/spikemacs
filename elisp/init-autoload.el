@@ -37,7 +37,6 @@
 (autoload #'deadgrep "deadgrep")
 
 (autoload #'ctags-auto-update-mode "ctags-update")
-(autoload #'company-mode "company-ctags")
 
 (autoload #'rainbow-delimiters-mode "rainbow-delimiters")
 (autoload #'lispy-mode "lispy")
@@ -63,8 +62,6 @@
 (autoload #'dirvish-side "dirvish")
 
 ;; init-company
-(autoload #'company-mode "company")
-(autoload #'company-box-mode "company-box")
 (autoload #'yas-minor-mode "yasnippet")
 (autoload #'which-key-mode "which-key")
 ;; init-themes

@@ -56,9 +56,6 @@
                              (evil-define-key* 'normal c-mode-map "gp" #'lsp-bridge-peek)
                              )))
 
-;; 在开启 lsp 的时候，移除 company-mode 的 hook，使用 lsp 的补全
-(remove-hook 'prog-mode-hook 'company-mode)
-
 (add-hook 'perl-mode-hook 'lsp-bridge-mode)
 (add-hook 'emacs-lisp-mode-hook 'lsp-bridge-mode)
 (add-hook 'python-mode-hook 'lsp-bridge-mode)

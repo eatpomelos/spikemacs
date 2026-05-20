@@ -1,7 +1,6 @@
 ;; 用来放置与ctags相关的配置  -*- lexical-binding: t; -*-
 (straight-use-package 'ctags)
 (straight-use-package 'ctags-update)
-(straight-use-package 'company-ctags)
 ;; (straight-use-package 'counsel-etags)
 
 (defconst spk-ctags-file-cache-file ".spk-project-files"

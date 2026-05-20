@@ -12,7 +12,6 @@
 ;; nixos相关配置
 (straight-use-package 'nix-mode)
 (straight-use-package 'nixos-options)
-(straight-use-package 'company-nixos-options)
 
 (add-to-list 'auto-mode-alist '("\\.gn$" . gn-mode))
 (add-to-list 'auto-mode-alist '("\\.gni$" . gn-mode))
