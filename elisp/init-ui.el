@@ -9,10 +9,10 @@
 (straight-use-package
  '(image-slicing :host github :repo "ginqi7/image-slicing"))
 
+;; 使用nerd 图标
 (with-eval-after-load 'marginalia
-  (if IS-WSL
-      (all-the-icons-completion-mode 1)
-    (nerd-icons-completion-mode 1)))
+  (nerd-icons-completion-mode 1)
+  )
 
 (require 'image-slicing)
 (add-to-list 'shr-external-rendering-functions
