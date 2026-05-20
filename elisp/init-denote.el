@@ -29,6 +29,10 @@
 
 (add-hook 'completion-list-mode-hook #'consult-preview-at-point-mode)
 
+;; 覆盖基于修改事件的排序函数，什么都不干，避免插入链接时较慢，主要通过关键字来查找
+(with-eval-after-load 'denote
+  (defun spk/denote-sort-bypass-dummy (_file-a _file-b) nil)
+  (advice-add 'denote-sort-modified-time-greaterp :override #'spk/denote-sort-bypass-dummy))
 
 (add-hook 'markdown-mode-hook #'denote-fontify-links-mode)
 (add-hook 'text-mode-hook #'denote-fontify-links-mode)
