@@ -412,7 +412,7 @@ TARGET 可以是 ((\"keyword\" . \"说明\")) 格式的 alist。"
 
 (evil-leader/set-key
   "oo" 'spk/list-mustcheck-cards
-  "og" 'spk/list-growing-cards
+  "og" 'spk/list-incubating-cards
   "ok" 'spk/list-keyword-cards
   "of" 'consult-notes
   "os" 'consult-notes-search-in-all-notes

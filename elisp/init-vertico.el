@@ -24,7 +24,15 @@
 
 (with-eval-after-load 'vertico
   ;; 开启 Vertico 的输入框目录清理功能
-  (require 'vertico-directory))
+  (require 'vertico-directory)
+  ;; 在 Minibuffer 中，按 RET 直接进入目录，按 DEL (Backspace) 回退一级目录
+  (define-key vertico-map (kbd "RET") #'vertico-directory-enter)
+  (define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
+  
+  ;; 在 Minibuffer 里用 C-j 和 C-k 上下移动
+  (define-key vertico-map (kbd "C-j") #'vertico-next)
+  (define-key vertico-map (kbd "C-k") #'vertico-previous)
+  )
   
   (evil-leader/set-key
     "fl" 'consult-locate
