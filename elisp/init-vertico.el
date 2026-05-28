@@ -21,6 +21,7 @@
 (with-eval-after-load 'which-key
   (setq which-key-idle-delay 1))
 
+(autoload #'embark-act "wgrep")
 
 (with-eval-after-load 'vertico
   ;; 开启 Vertico 的输入框目录清理功能
@@ -39,5 +40,9 @@
     "x" 'execute-extended-command
     "lt" 'consult-theme
     )
+
+;; 在wsl下不开启默认预览，避免卡顿
+(when IS-WSL
+  (setq consult-preview-key nil))
 
 (provide 'init-vertico)

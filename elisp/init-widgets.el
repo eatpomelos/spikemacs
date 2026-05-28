@@ -243,6 +243,9 @@
                                         (kill-line 0)
                                         (indent-according-to-mode)))
 
+(defun spk/consult-rg-current-dir ()
+  (interactive)
+  (consult-ripgrep default-directory))
 ;; keybindings
 (evil-leader/set-key
   "fp" 'spk/find-local-conf
@@ -250,7 +253,7 @@
   "fs" 'spk/find-file
   "fo" 'spk/open-file-with-system-application
   "t" 'spk/find-local-templet
-  "sc" 'consult-ripgrep
+  "sc" 'spk/consult-rg-current-dir
   )
 
 ;; 使用go-traslate 来帮助翻译
