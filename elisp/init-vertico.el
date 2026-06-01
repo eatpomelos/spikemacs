@@ -21,7 +21,8 @@
 (with-eval-after-load 'which-key
   (setq which-key-idle-delay 1))
 
-(autoload #'embark-act "wgrep")
+(require 'wgrep)
+;; (autoload #'embark-act "wgrep")
 
 (with-eval-after-load 'vertico
   ;; 开启 Vertico 的输入框目录清理功能

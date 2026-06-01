@@ -201,22 +201,22 @@ TARGET 可以是 ((\"keyword\" . \"说明\")) 格式的 alist。"
 (defun spk/list-cards-keyword (keyword)
   "列出当前denote卡片中带keyword关键字的卡片"
   (let* ((files (denote-directory-files))
-         (mustcheck-files (seq-filter
+         (matched-files (seq-filter
                            (lambda (file)
                              (string-match-p (format "__.*%s" keyword) file))
                            files))
          (grouped-files (seq-group-by (lambda (f)
                                         (file-name-nondirectory
                                          (directory-file-name (file-name-directory f))))
-                                      mustcheck-files)))
+                                      matched-files)))
     (with-current-buffer (get-buffer-create (format "*Denote %s*" keyword))
       (let ((inhibit-read-only t))
         (erase-buffer)
         (insert (make-string 30 ?=) "\n")
-        (insert (format "*TOTAL %s: %d*\n" (upcase keyword) (length mustcheck-files)))
+        (insert (format "*TOTAL %s: %d*\n" (upcase keyword) (length matched-files)))
         (insert (make-string 30 ?=) "\n")
 
-        (if (null mustcheck-files)
+        (if (null matched-files)
             (insert "No pending items.")
           (dolist (group grouped-files)
             (let ((dir-name (car group))
@@ -234,7 +234,7 @@ TARGET 可以是 ((\"keyword\" . \"说明\")) 格式的 alist。"
         (show-all)
         (pop-to-buffer (current-buffer))
         (setq buffer-read-only t)
-        (message (format "%s: %d items." keyword (length mustcheck-files)))))))
+        (message (format "%s: %d items." keyword (length matched-files)))))))
 
 (defun spk/list-mustcheck-cards ()
   "列出当前denote卡片中被标记为mustcheck的卡片"
