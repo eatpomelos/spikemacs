@@ -44,27 +44,6 @@
 
 (setq-default display-time-format " %F %R")
 
-(defun spk/consult-buffer-select ()
-  (interactive)
-  (let* ((consult-buffer-sources '(consult-source-buffer))
-         (consult-buffer-filter
-               '(
-                 "\\` "
-                 "\\`\\*Completions\\*\\'"
-                 "\\`\\*Multiple Choice Help\\*\\'"
-                 "\\`\\*Flymake log\\*\\'"
-                 "\\`\\*Semantic SymRef\\*\\'"
-                 "\\`\\*vc\\*\\'"
-                 "\\`newsrc-dribble\\'" ;; Gnus
-                 "\\`\\*tramp/.*\\*\\'"
-                 "\\` \\*.*\\'"
-                 "\\`COMMIT_EDITMSG\\'"
-                 )))
-    (consult-buffer))
-  )
-
-(global-set-key (kbd "C-c s") 'spk/consult-buffer-select)
-
 ;; 使用awesome-tray来优化显示
 (straight-use-package
  '(awesome-tray :type git

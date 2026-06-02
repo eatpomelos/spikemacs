@@ -61,10 +61,10 @@
     "wH" 'evil-window-move-far-left
     "wJ" 'evil-window-move-very-bottom
     "wK" 'evil-window-move-very-top
-  	"mm" 'spk/last-point-record
-	"mw" 'spk/window-layout-record
-	"mj" 'spk/last-edit-jump
-	"mp" 'winner-undo
+    "mm" 'spk/last-point-record
+    "mw" 'spk/window-layout-record
+    "mj" 'spk/last-edit-jump
+    "mp" 'winner-undo
     )
 
   ;; 把一些辅助插件的buffer加入到ignore列表中，不进行winum排序
@@ -88,6 +88,27 @@
   (global-set-key (kbd "C-c m j") 'spk/last-edit-jump)
   (global-set-key (kbd "C-c m p") 'winner-undo)
   )
+
+(defun spk/consult-buffer-select ()
+  (interactive)
+  (let* ((consult-buffer-sources '(consult-source-buffer))
+         (consult-buffer-filter
+               '(
+                 "\\` "
+                 "\\`\\*Completions\\*\\'"
+                 "\\`\\*Multiple Choice Help\\*\\'"
+                 "\\`\\*Flymake log\\*\\'"
+                 "\\`\\*Semantic SymRef\\*\\'"
+                 "\\`\\*vc\\*\\'"
+                 "\\`newsrc-dribble\\'" ;; Gnus
+                 "\\`\\*tramp/.*\\*\\'"
+                 "\\` \\*.*\\'"
+                 "\\`COMMIT_EDITMSG\\'"
+                 )))
+    (consult-buffer))
+  )
+
+(global-set-key (kbd "C-c s") 'spk/consult-buffer-select)
 
 ;; 默认开启fringe时不设置边缘pixel
 (fringe-mode 0)
