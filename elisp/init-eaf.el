@@ -22,8 +22,8 @@
 (setq-default eaf-find-file-advisor-enable nil)
 
 ;; 自行添加advice，过滤掉不想让eaf-oepn接管的mode，这里主要是dired
-;; (advice-add #'find-file :around #'spk/eaf--find-file-advisor)
-;; (advice-add #'org-open-file :around #'spk/eaf--find-file-advisor)
+(advice-add #'find-file :around #'spk/eaf--find-file-advisor)
+(advice-add #'org-open-file :around #'spk/eaf--find-file-advisor)
 
 (require 'eaf)
 
