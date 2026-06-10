@@ -24,6 +24,30 @@
   (require 'xclip)
   (xclip-mode t))
 
+;; wayland下，借助外部工具接管emacs的剪贴板，避免emacs中文拷贝不到外部浏览器的问题
+(when (and IS-LINUX (string= (getenv "XDG_SESSION_TYPE") 'wayland))
+  ;; 尝试强制 Emacs 在 X11 下使用 UTF-8 与系统剪贴板通信
+  (set-selection-coding-system 'utf-8)
+  (set-next-selection-coding-system 'utf-8)
+  
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT STRING))
+  
+  ;; 借助外部工具（如 wl-copy/wl-paste）来接管 Emacs 的剪贴板（可选）
+  (when (and (executable-find "wl-copy") (executable-find "wl-paste"))
+    (defun spk/compat-wl-copy (text)
+      (let ((process-connection-type nil))
+        (let ((proc (start-process "wl-copy" nil "wl-copy" "--type" "text/plain;charset=utf-8")))
+          (process-send-string proc text)
+          (process-send-eof proc))))
+    
+    (defun spk/compat-wl-paste ()
+      (shell-command-to-string "wl-paste --no-newline --type text/plain;charset=utf-8"))
+    
+    (setq interprogram-cut-function 'spk/compat-wl-copy)
+    (setq interprogram-paste-function 'spk/compat-wl-paste))
+  )
+
+
 ;; 打开版本控制的文件时不询问
 (setq vc-follow-symlinks t)
 
