@@ -40,12 +40,13 @@
           (process-send-string proc text)
           (process-send-eof proc))))
     
-    (defun spk/compat-wl-paste ()
-      (shell-command-to-string "wl-paste --no-newline --type text/plain;charset=utf-8"))
+    ;; (defun spk/compat-wl-paste ()
+    ;;   (shell-command-to-string "wl-paste --no-newline --type text/plain;charset=utf-8"))
     
     (setq interprogram-cut-function 'spk/compat-wl-copy)
-    (setq interprogram-paste-function 'spk/compat-wl-paste))
-  )
+    ;; (setq interprogram-paste-function 'spk/compat-wl-paste)
+    )
+ )
 
 
 ;; 打开版本控制的文件时不询问
