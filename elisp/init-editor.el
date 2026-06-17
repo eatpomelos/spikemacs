@@ -18,6 +18,9 @@
    )
  )
 
+;; 在vterm下使用emacs-state
+(evil-set-initial-state 'vterm-mode 'emacs)
+
 (when (or IS-WSL (is-gui))
   ;; 使用xclip解决在wsl的终端无法共享剪切板的问题
   (straight-use-package 'xclip)
@@ -29,6 +32,8 @@
   (global-clipetty-mode)
   (straight-use-package 'kkp)
   (global-kkp-mode)
+  ;; 解决在终端下C-/ 被修改的问题
+  (define-key key-translation-map (kbd "C-_") (kbd "C-/"))
   )
 
 ;; wayland下，借助外部工具接管emacs的剪贴板，避免emacs中文拷贝不到外部浏览器的问题
