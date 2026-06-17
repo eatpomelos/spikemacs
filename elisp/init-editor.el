@@ -18,11 +18,18 @@
    )
  )
 
-(when IS-WSL
+(when (or IS-WSL (is-gui))
   ;; 使用xclip解决在wsl的终端无法共享剪切板的问题
   (straight-use-package 'xclip)
   (require 'xclip)
   (xclip-mode t))
+
+(when (is-tui)
+  (straight-use-package 'clipetty)
+  (global-clipetty-mode)
+  (straight-use-package 'kkp)
+  (global-kkp-mode)
+  )
 
 ;; wayland下，借助外部工具接管emacs的剪贴板，避免emacs中文拷贝不到外部浏览器的问题
 (when (and IS-LINUX (string= (getenv "XDG_SESSION_TYPE") 'wayland))
@@ -46,7 +53,7 @@
     (setq interprogram-cut-function 'spk/compat-wl-copy)
     ;; (setq interprogram-paste-function 'spk/compat-wl-paste)
     )
- )
+  )
 
 
 ;; 打开版本控制的文件时不询问
