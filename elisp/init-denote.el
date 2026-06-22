@@ -167,6 +167,19 @@ TARGET 可以是 ((\"keyword\" . \"说明\")) 格式的 alist。"
       (spk/denote-toggle-keyword (denote-extract-keywords-from-path file))
       ))
 
+(unless (boundp 'denote-journal--filename-date-regexp)
+  (defun denote-journal--filename-date-regexp (&optional date)
+    "Regular expression to match journal entries for today or optional DATE.
+DATE has the same format as that returned by `denote-valid-date-p'."
+    (let* ((identifier (format "%sT[0-9]\\{6\\}" (format-time-string "%Y%m%d" date)))
+           (order denote-file-name-components-order)
+           (id-index (seq-position order 'identifier))
+           (kw-index (seq-position order 'keywords)))
+      (if (> kw-index id-index)
+          (format "%s.*?%s" identifier (denote-journal--keyword-regex))
+        (format "%s.*?@@%s" (denote-journal--keyword-regex) identifier)))))
+
+
 ;; 获取当天的denote-journal 文件，这里和原始的用法不同，默认认为一天只会有一个journal文件
 (defun spk/find-today-journal-denote-entry ()
   "获取今天的日记（增强过滤版）。"

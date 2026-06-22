@@ -21,8 +21,8 @@
 ;; 在vterm下使用emacs-state
 (evil-set-initial-state 'vterm-mode 'emacs)
 
-(when (or IS-WSL (is-gui))
   ;; 使用xclip解决在wsl的终端无法共享剪切板的问题
+(when (or (is-tui) IS-WSL)
   (straight-use-package 'xclip)
   (require 'xclip)
   (xclip-mode t))
