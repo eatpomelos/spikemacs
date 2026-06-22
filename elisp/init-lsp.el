@@ -15,8 +15,6 @@
 
 (unless (is-gui)
   (straight-use-package
-   '(popon :host nil :repo "https://codeberg.org/akib/emacs-popon.git"))
-  (straight-use-package
    '(acm-terminal :host github :repo "twlz0ne/acm-terminal")))
 
 (require 'yasnippet)
@@ -32,6 +30,7 @@
 (add-hook 'nix-mode-hook 'lsp-bridge-mode)
 
 (setq acm-enable-tabby nil)
+
 ;;;###autoload
 (defun spk/find-def-entry ()
   (interactive)

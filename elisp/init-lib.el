@@ -17,6 +17,17 @@
 (straight-use-package 'posframe)
 (require 'posframe)
 
+(if (display-graphic-p)
+   (straight-use-package
+    '(popon :host nil :repo "https://codeberg.org/akib/emacs-popon.git"))
+  (straight-use-package 'popon)
+  )
+(require 'popon)
+
+;; 用来存放当前活跃的 TUI popon 实例引用
+(defvar spk-bulletin-active-popon nil "Current active popon instance for TUI.")
+(defvar spk-bulletin-hide-timer nil "Timer to hide the bulletin window.")
+
 ;; 使用 posframe 实现一个简单的弹窗来显示 info 模式下的快捷键，参考 posframe 提供的 demo
 (defvar spk-info-mode-pos-buf " *spk-info-posframe-buffer*")
 (defvar spk-bulletin-help-alist nil "alist for mode update function.")
@@ -94,18 +105,15 @@ DEFAULT 是默认值。"
   (interactive)
   (setq spk-bulletin-tmp-ctx nil))
 
-(defvar spk-bulletin-hide-timer nil "Timer to hide the bulletin posframe.")
+(defun spk/bulletin--peek-gui (sticky)
+  "内部函数：处理 GUI 模式下的 posframe 渲染。"
+  (when (and (fboundp 'posframe-workable-p) (posframe-workable-p))
+    ;; 清理可能残留的 TUI 组件
+    (when spk-bulletin-active-popon
+      (popon-kill spk-bulletin-active-popon)
+      (setq spk-bulletin-active-popon nil))
 
-(defun spk/bulletin-peek (&optional sticky)
-  "Info help peek (non-blocking version)."
-  (interactive)
-  (when (posframe-workable-p)
-    ;; 1. 如果之前已经有一个隐藏计时器在跑，先取消它，防止冲突
-    (when sticky
-      (when (timerp spk-bulletin-hide-timer)
-        (cancel-timer spk-bulletin-hide-timer)))
-
-    ;; 2. 显示 posframe
+    ;; 喧染 GUI 弹窗
     (posframe-show spk-info-mode-pos-buf
                    :background-color (face-background 'lazy-highlight nil t)
                    :foreground-color (face-foreground 'default nil t)
@@ -119,17 +127,86 @@ DEFAULT 是默认值。"
                    :override-parameters '((alpha . 95))
                    :position (point))
 
-    ;; 3. 启动一个异步计时器，10秒后隐藏，不干扰当前的键盘输入
-    (if sticky
-        (setq spk-bulletin-hide-timer
-              (run-with-timer 10 nil
-                              (lambda ()
-                                (posframe-hide spk-info-mode-pos-buf)
-                                (setq spk-bulletin-hide-timer nil))))
-      (unwind-protect
-          (sit-for 10)
-        (posframe-hide spk-info-mode-pos-buf)))
-    ))
+    ;; 注册消隐
+    (setq spk-bulletin-hide-timer
+          (run-with-timer (if sticky 15 6) nil
+                          (lambda ()
+                            (posframe-hide spk-info-mode-pos-buf)
+                            (setq spk-bulletin-hide-timer nil))))))
+
+(defun spk/bulletin--peek-tui (sticky)
+  "内部函数：处理 TUI 模式下的 popon 文本矩阵渲染。"
+  (when (featurep 'popon)
+    ;; 物理清理上一次的浮窗 Overlay
+    (when spk-bulletin-active-popon
+      (popon-kill spk-bulletin-active-popon)
+      (setq spk-bulletin-active-popon nil))
+
+    (let ((ctx-string (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
+                        (buffer-string))))
+      (unless (string-empty-p ctx-string)
+        (let ((pos (popon-x-y-at-pos (point))))
+          (when pos
+            (setcdr pos (1+ (cdr pos))) ; Y坐标加 1 下移一行，防遮挡光标
+            (setq spk-bulletin-active-popon (popon-create ctx-string pos))
+
+            ;; 注册 TUI 异步销毁
+            (setq spk-bulletin-hide-timer
+                  (run-with-timer (if sticky 15 6) nil
+                                  (lambda ()
+                                    (when spk-bulletin-active-popon
+                                      (popon-kill spk-bulletin-active-popon)
+                                      (setq spk-bulletin-active-popon nil))
+                                    (setq spk-bulletin-hide-timer nil))))))))))
+
+(defun spk/bulletin--peek-tui (sticky)
+  "内部函数：处理 TUI 模式下的 popon 文本矩阵渲染，并注册按键后自动销毁钩子。"
+  (when (featurep 'popon)
+    ;; 物理清理上一次的浮窗 Overlay
+    (when spk-bulletin-active-popon
+      (popon-kill spk-bulletin-active-popon)
+      (setq spk-bulletin-active-popon nil))
+
+    (let ((ctx-string (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
+                        (buffer-string))))
+      (unless (string-empty-p ctx-string)
+        (let ((pos (popon-x-y-at-pos (point))))
+          (when pos
+            (setcdr pos (1+ (cdr pos))) ; Y坐标加 1 下移一行，防遮挡光标
+            (setq spk-bulletin-active-popon (popon-create ctx-string pos))
+
+            (add-hook 'post-command-hook #'spk/bulletin--tui-auto-close-hook)
+
+            ;; 注册 TUI 异步超时销毁
+            (setq spk-bulletin-hide-timer
+                  (run-with-timer (if sticky 15 6) nil
+                                  (lambda ()
+                                    (spk/bulletin--cleanup-tui-popon))))))))))
+
+;; tui自动移除的hook
+(defun spk/bulletin--cleanup-tui-popon ()
+  "内部工具：物理销毁 TUI 弹窗并卸载相关钩子。"
+  (when spk-bulletin-active-popon
+    (popon-kill spk-bulletin-active-popon)
+    (setq spk-bulletin-active-popon nil))
+  ;; 务必移除钩子，防止常驻后台消耗性能
+  (remove-hook 'post-command-hook #'spk/bulletin--tui-auto-close-hook))
+
+(defun spk/bulletin--tui-auto-close-hook ()
+  "内部钩子：当用户执行了任何按键命令后，自动关闭 TUI 浮窗。"
+  ;; 将 smart 版本和 M-x 扩展命令加入白名单，防止误杀
+  (unless (memq this-command '( spk/bulletin-peek 
+                                spk/smart-bulletin-peek 
+                                execute-extended-command))
+    (spk/bulletin--cleanup-tui-popon)))
+
+(defun spk/bulletin-peek (&optional sticky)
+  "Info help peek (non-blocking version)."
+  (interactive)
+  (if (is-gui)
+      (spk/bulletin--peek-gui sticky)
+    (spk/bulletin--peek-tui sticky))
+  )
 
 (defun spk/bulletin-close ()
   "Manually close the bulletin posframe and cancel any active timers."
@@ -170,7 +247,7 @@ DEFAULT 是默认值。"
   ;; 没有设置tmp内容才更新
   (unless spk-bulletin-tmp-ctx
     (spk/update-bulletin-content))
-  (spk/bulletin-peek))
+  (call-interactively 'spk/bulletin-peek))
 
 (defun is-gui ()
   (display-graphic-p))
