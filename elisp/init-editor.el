@@ -151,6 +151,12 @@
   (global-set-key (kbd "C-:") 'symbol-overlay-jump-prev)
   (global-set-key (kbd "C-;") 'symbol-overlay-jump-next))
 
+(unless (is-gui)
+  (global-set-key (kbd "C-c \'") 'symbol-overlay-put)
+  (global-set-key (kbd "C-c \"") 'symbol-overlay-rename)
+  (global-set-key (kbd "C-<up>") 'symbol-overlay-jump-prev)
+  (global-set-key (kbd "C-<down>") 'symbol-overlay-jump-next))
+
 ;; ;; 设置英语检错
 (when IS-WINDOWS
   (setq ispell-program-name "aspell")
