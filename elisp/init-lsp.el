@@ -76,8 +76,11 @@
 (add-hook 'lsp-bridge-mode-hook #'spk/disable-corfu-in-lsp-bridge)
 
 (setq lsp-bridge-search-words-rebuild-cache-idle 0.5)
+;; 在终端下不开启文档窗口，避免光标位置错乱
+(setq lsp-bridge-popup-documentation-frame (is-gui))
+(setq lsp-bridge-enable-hover-diagnostic (is-gui))
+(setq acm-enable-doc (is-gui))
 
-(setq lsp-bridge-popup-documentation-frame t)
 
 (add-hook 'python-mode-hook (lambda ()
                               (evil-define-key* 'normal python-mode-map "gd" #'lsp-bridge-find-def)
