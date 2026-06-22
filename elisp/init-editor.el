@@ -155,7 +155,10 @@
   (global-set-key (kbd "C-c \'") 'symbol-overlay-put)
   (global-set-key (kbd "C-c \"") 'symbol-overlay-rename)
   (global-set-key (kbd "C-<up>") 'symbol-overlay-jump-prev)
-  (global-set-key (kbd "C-<down>") 'symbol-overlay-jump-next))
+  (global-set-key (kbd "C-<down>") 'symbol-overlay-jump-next)
+  (define-key evil-normal-state-map (kbd "C-n") #'symbol-overlay-jump-next)
+  (define-key evil-normal-state-map (kbd "C-p") #'symbol-overlay-jump-prev)
+  )
 
 ;; ;; 设置英语检错
 (when IS-WINDOWS
