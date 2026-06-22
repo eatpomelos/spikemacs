@@ -105,34 +105,29 @@ DEFAULT 是默认值。"
   (interactive)
   (setq spk-bulletin-tmp-ctx nil))
 
-(defun spk/bulletin--peek-gui (sticky)
-  "内部函数：处理 GUI 模式下的 posframe 渲染。"
-  (when (and (fboundp 'posframe-workable-p) (posframe-workable-p))
-    ;; 清理可能残留的 TUI 组件
-    (when spk-bulletin-active-popon
-      (popon-kill spk-bulletin-active-popon)
-      (setq spk-bulletin-active-popon nil))
-
-    ;; 喧染 GUI 弹窗
-    (posframe-show spk-info-mode-pos-buf
-                   :background-color (face-background 'lazy-highlight nil t)
-                   :foreground-color (face-foreground 'default nil t)
-                   :internal-border-width 2
-                   :left-fringe 7
-                   :right-fringe 7
-                   :y-pixel-offset 25
-                   :max-width 100
-                   :lines-truncate t
-                   :internal-border-color (face-foreground 'warning nil t)
-                   :override-parameters '((alpha . 95))
-                   :position (point))
-
-    ;; 注册消隐
-    (setq spk-bulletin-hide-timer
-          (run-with-timer (if sticky 15 6) nil
-                          (lambda ()
-                            (posframe-hide spk-info-mode-pos-buf)
-                            (setq spk-bulletin-hide-timer nil))))))
+(defun spk/bulletin-peek-gui (&optional sticky)
+  "Info help peek (non-blocking version)."
+  (interactive)
+  (when (posframe-workable-p)
+    ;; 1. 如果之前已经有一个隐藏计时器在跑，先取消它，防止冲突
+    (when sticky
+      (when (timerp spk-bulletin-hide-timer)
+        (cancel-timer spk-bulletin-hide-timer)))
+     (posframe-show spk-info-mode-pos-buf
+                    :background-color (face-background 'lazy-highlight nil t)
+                    :foreground-color (face-foreground 'default nil t)
+                    :override-parameters '((alpha . 95))
+                    :position (point))
+    ;; 3. 启动一个异步计时器，10秒后隐藏，不干扰当前的键盘输入
+    (if sticky
+        (setq spk-bulletin-hide-timer
+              (run-with-timer 10 nil
+                              (lambda ()
+                                (posframe-hide spk-info-mode-pos-buf)
+                                (setq spk-bulletin-hide-timer nil))))
+      (unwind-protect
+          (sit-for 10)
+        (posframe-hide spk-info-mode-pos-buf)))))
 
 (defun spk/bulletin--peek-tui (sticky)
   "内部函数：处理 TUI 模式下的 popon 文本矩阵渲染。"
