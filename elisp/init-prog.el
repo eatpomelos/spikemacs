@@ -304,6 +304,7 @@
 ;; 在通用的编程设置完成之后，读取针对相应编程语言的设置
 (require 'init-elisp)
 (require 'init-C)
+(require 'init-llm)
 (require 'init-rust)
 
 ;; 仅在linux上使用init-lsp，由于当前在windows上使用共享文件的方式来进行编码，导致有一些文件的路径不对

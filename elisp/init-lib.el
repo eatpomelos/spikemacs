@@ -13,6 +13,7 @@
 (defconst IS-WSL    (and IS-LINUX (string-match "Microsoft" (shell-command-to-string "uname -r"))))
 (defconst IS-NIXOS (string= (system-name) "nixos"))
 
+(require 'use-package)
 ;; 使用 posframe 暂时实现一些简单的需求
 (straight-use-package 'posframe)
 (require 'posframe)
