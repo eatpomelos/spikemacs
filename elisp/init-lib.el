@@ -17,11 +17,60 @@
 (straight-use-package 'posframe)
 (require 'posframe)
 
-(if (display-graphic-p)
+(defun is-gui ()
+  (display-graphic-p))
+
+(defun is-tui ()
+ (not (display-graphic-p)))
+
+(defmacro +spk-get-memavailable ()
+  `(string-to-number (shell-command-to-string "grep MemAvailable /proc/meminfo | awk '{print $2}'")))
+
+;; 基于当前文件比较简单的情况，features名和文件名一致才可以
+(defmacro spk-require (feature)
+  `(when (file-exists-p (concat ,spk-elisp-dir (format "%s.el" ,feature)))
+     (require ,feature)))
+
+;; MACROS
+;; 把斜线转换成反斜线
+(defmacro +spk-slash-2-backslash (str)
+  `(replace-regexp-in-string "/" "\\\\" ,str nil nil 0))
+
+;; 此函数在windows下不区分大小写，这会导致在一些时候拿取路径会出错 
+(defmacro +spk-get-file-dir (file)
+  `(locate-dominating-file default-directory ,file))
+
+;; 输入一个文件名，并在当前的路径搜索这个文件，返回这个文件的完整路径
+(defmacro +spk-get-complete-file (file-name)
+  `(let* ((files-dir (+spk-get-file-dir ,file-name)))
+	 (when files-dir
+	   (concat files-dir ,file-name))))
+
+(if (is-tui)
    (straight-use-package
     '(popon :host nil :repo "https://codeberg.org/akib/emacs-popon.git"))
   (straight-use-package 'popon)
   )
+
+;;;###autoload
+(defun spk/basic-adv-cmd (basic-cmd adv-cmd)
+  "Enhance basic functionality."
+  (call-interactively basic-cmd)
+  ;; 激活一个临时键图，有效期内按下同一个键执行另一个函数
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map (this-command-keys) adv-cmd)
+     map)
+   t)
+  )
+
+;;;###autoload
+(defun spk/time-cost (start-time)
+  "Just like `counsel-etags--time-cost'."
+  (let* ((time-passed (float-time (time-since start-time))))
+	(format "%.02f seconds"
+			time-passed)))
+
 (require 'popon)
 
 ;; 用来存放当前活跃的 TUI popon 实例引用
@@ -244,35 +293,6 @@ DEFAULT 是默认值。"
     (spk/update-bulletin-content))
   (call-interactively 'spk/bulletin-peek))
 
-(defun is-gui ()
-  (display-graphic-p))
-
-(defun is-tui ()
- (not (display-graphic-p)))
-
-(defmacro +spk-get-memavailable ()
-  `(string-to-number (shell-command-to-string "grep MemAvailable /proc/meminfo | awk '{print $2}'")))
-
-;; 基于当前文件比较简单的情况，features名和文件名一致才可以
-(defmacro spk-require (feature)
-  `(when (file-exists-p (concat ,spk-elisp-dir (format "%s.el" ,feature)))
-     (require ,feature)))
-
-;; MACROS
-;; 把斜线转换成反斜线
-(defmacro +spk-slash-2-backslash (str)
-  `(replace-regexp-in-string "/" "\\\\" ,str nil nil 0))
-
-;; 此函数在windows下不区分大小写，这会导致在一些时候拿取路径会出错 
-(defmacro +spk-get-file-dir (file)
-  `(locate-dominating-file default-directory ,file))
-
-;; 输入一个文件名，并在当前的路径搜索这个文件，返回这个文件的完整路径
-(defmacro +spk-get-complete-file (file-name)
-  `(let* ((files-dir (+spk-get-file-dir ,file-name)))
-	 (when files-dir
-	   (concat files-dir ,file-name))))
-
 ;; 设置不同语言的特定文件类型，由于需求比较简单，暂时不考虑使用auto-mode-alist 
 (setq spk-lang-file-type-postfix-alist
       '( (c-mode . "\\.[ch]")
@@ -282,25 +302,6 @@ DEFAULT 是默认值。"
 
 (defmacro +spk-current-buffer-file-postfix ()
   `(cdr (assoc major-mode spk-lang-file-type-postfix-alist)))
-
-;;;###autoload
-(defun spk/basic-adv-cmd (basic-cmd adv-cmd)
-  "Enhance basic functionality."
-  (call-interactively basic-cmd)
-  ;; 激活一个临时键图，有效期内按下同一个键执行另一个函数
-  (set-transient-map
-   (let ((map (make-sparse-keymap)))
-     (define-key map (this-command-keys) adv-cmd)
-     map)
-   t)
-  )
-
-;;;###autoload
-(defun spk/time-cost (start-time)
-  "Just like `counsel-etags--time-cost'."
-  (let* ((time-passed (float-time (time-since start-time))))
-	(format "%.02f seconds"
-			time-passed)))
 
 ;; 能不能改成异步执行，避免阻塞emacs？执行这个命令的时候，会导致emacs卡死，可能由于后台执行的命令引起的，实际上在后台运行此命令也会导致卡死，在大型项目中谨慎使用 
 ;;;###autoload
