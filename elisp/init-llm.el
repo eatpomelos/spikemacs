@@ -33,7 +33,8 @@
   :straight t
   :after gptel)
 
-(global-set-key (kbd "C-c p") 'gptel-agent)
+(when (is-tui)
+  (global-set-key (kbd "C-c p") 'gptel-agent))
 
 (provide 'init-llm)
  
