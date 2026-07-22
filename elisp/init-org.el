@@ -262,6 +262,10 @@
     )
   )
 
+;; 在终端下执行C-c C-, 其中 C-, 会被捕获，为了编辑的一致性，这里把C-c ,绑定到常用的命令
+(when (is-tui)
+  (define-key org-mode-map (kbd "C-c ,") #'org-insert-structure-template))
+
 ;; 加载ox-rst
 (require 'ox-rst)
 (with-eval-after-load 'ox-rst
