@@ -180,31 +180,6 @@ DEFAULT 是默认值。"
         (posframe-hide spk-info-mode-pos-buf)))))
 
 (defun spk/bulletin--peek-tui (sticky)
-  "内部函数：处理 TUI 模式下的 popon 文本矩阵渲染。"
-  (when (featurep 'popon)
-    ;; 物理清理上一次的浮窗 Overlay
-    (when spk-bulletin-active-popon
-      (popon-kill spk-bulletin-active-popon)
-      (setq spk-bulletin-active-popon nil))
-
-    (let ((ctx-string (with-current-buffer (get-buffer-create spk-info-mode-pos-buf)
-                        (buffer-string))))
-      (unless (string-empty-p ctx-string)
-        (let ((pos (popon-x-y-at-pos (point))))
-          (when pos
-            (setcdr pos (1+ (cdr pos))) ; Y坐标加 1 下移一行，防遮挡光标
-            (setq spk-bulletin-active-popon (popon-create ctx-string pos))
-
-            ;; 注册 TUI 异步销毁
-            (setq spk-bulletin-hide-timer
-                  (run-with-timer (if sticky 15 6) nil
-                                  (lambda ()
-                                    (when spk-bulletin-active-popon
-                                      (popon-kill spk-bulletin-active-popon)
-                                      (setq spk-bulletin-active-popon nil))
-                                    (setq spk-bulletin-hide-timer nil))))))))))
-
-(defun spk/bulletin--peek-tui (sticky)
   "内部函数：处理 TUI 模式下的 popon 文本矩阵渲染，并注册按键后自动销毁钩子。"
   (when (featurep 'popon)
     ;; 物理清理上一次的浮窗 Overlay
@@ -260,8 +235,10 @@ DEFAULT 是默认值。"
   (when (timerp spk-bulletin-hide-timer)
     (cancel-timer spk-bulletin-hide-timer)
     (setq spk-bulletin-hide-timer nil))
-  ;; 2. 隐藏窗口
-  (posframe-hide spk-info-mode-pos-buf)
+  ;; 2. 隐藏窗口 (GUI: posframe, TUI: popon)
+  (if (is-gui)
+      (posframe-hide spk-info-mode-pos-buf)
+    (spk/bulletin--cleanup-tui-popon))
   (message "Bulletin closed."))
 
 (defun spk/tiny-vc-msg ()
