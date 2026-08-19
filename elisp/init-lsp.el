@@ -1,9 +1,4 @@
 ;; 只在 linux 下使用 lsp，暂时不配置其他的东西  -*- lexical-binding: t; -*-
-(straight-use-package 'projectile)
-
-(setq projectile-git-fd-args "-H -0 -E .git -tf -c never")
-;; (setq projectile-fd-executable "fd")
-
 (straight-use-package
  '(lsp-bridge
    :type git
