@@ -155,7 +155,7 @@ DEFAULT 是默认值。"
   (interactive)
   (setq spk-bulletin-tmp-ctx nil))
 
-(defun spk/bulletin-peek-gui (&optional sticky)
+(defun spk/bulletin--peek-gui (&optional sticky)
   "Info help peek (non-blocking version)."
   (interactive)
   (when (posframe-workable-p)
