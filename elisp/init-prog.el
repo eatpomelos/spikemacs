@@ -205,7 +205,7 @@
   "eb" 'eval-buffer
   "mf" 'er/mark-defun
   "sp" 'dg                              ;;deadgrep
-  "hm" 'manual-entry
+  "hm" 'woman
   )
 
 ;; 充分利用avy的api来进行跳转等操作,可以考虑用bind-key的api来定义快捷键
