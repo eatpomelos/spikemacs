@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (straight-use-package 'vertico)
 (straight-use-package 'orderless) ;; 支持无序搜索
 (straight-use-package 'marginalia) ;; marginalia，替换ivy-rich

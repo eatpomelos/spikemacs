@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;; 在init.el 启动之前运行的文件 
 
 ;; 加快启动速度

@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;; 编程规范：
 ;; macro 格式为 +spk-xx-xx
 ;; function 格式为 spk/xx-xx
