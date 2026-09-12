@@ -1,5 +1,11 @@
 ;; 配置 emacs 上的evil 相关的插件  -*- lexical-binding: t; -*-
 
+;; 必须在 evil 加载之前设置，否则 evil 会注册默认键绑定，
+;; 与 evil-collection 冲突导致部分功能失效。
+;; straight.el 更新后 (straight-use-package 'evil) 会立即加载 evil，
+;; 所以这行必须放在所有 straight-use-package 之前。
+(setq evil-want-keybinding nil)
+
 (straight-use-package 'evil)
 (straight-use-package 'evil-leader)
 (straight-use-package 'evil-surround)
@@ -9,19 +15,22 @@
 (straight-use-package 'evil-collection)
 (straight-use-package 'key-chord)
 
-;; See https://github.com/emacs-evil/evil-collection/issues/60 
-(setq evil-want-keybinding nil)
+;; 在启用 global-evil-leader-mode 之前先设置 leader 键
+;; 直接设置变量，避免 evil-leader/set-leader 在 evil 未完全初始化时调用报错
+(setq evil-leader/leader "<SPC>")
+
+;; 必须在 (evil-mode 1) 之前启用，否则初始 buffer（*scratch*, *Messages* 等）
+;; 不会启用 evil-leader-mode，导致 leader 键失效。
+;; 参见 evil-leader.el 注释：
+;; "You should enable `global-evil-leader-mode' before you enable `evil-mode'"
+(global-evil-leader-mode t)
+
 (evil-mode 1)
 
 (with-eval-after-load 'evil
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
   
-  ;; See https://github.com/emacs-evil/evil-collection/issues/60 
-  (setq evil-want-keybinding nil)
-  (global-evil-leader-mode t)
-  (evil-leader/set-leader "<SPC>")
-
   ;; evil leader keybinding，当加载evil的时候这些函数还没有加载，后续优化顺序
   (evil-leader/set-key
     "fj" 'dired-jump

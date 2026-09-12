@@ -38,7 +38,7 @@
       (file-name-handler-alist nil)
       )
   (global-display-line-numbers-mode t)
-  (with-temp-message ""
+  (with-temp-message "hello spikely!"
     (require 'init-evil)
     (require 'init-vertico)
     
