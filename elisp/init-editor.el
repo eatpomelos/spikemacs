@@ -3,7 +3,6 @@
 (straight-use-package 'restart-emacs)
 (straight-use-package 'json-mode)
 (straight-use-package 'avy)             ;;提供多种跳转命令
-(straight-use-package 'sis)
 (straight-use-package 'pangu-spacing)
 (straight-use-package 'vterm)
 (straight-use-package 'vundo)
@@ -70,22 +69,6 @@
       long-line-threshold 1000
       large-hscroll-threshold 1000
       syntax-wholeline-max 1000)
-
-(if IS-WINDOWS
-    ;; windows 上 sis 设置
-    (sis-ism-lazyman-config nil t 'w32)
-  ;; linux上使用fcitx5，这里需要多设置一个英文输入法，这里的1是安装的rime
-  (sis-ism-lazyman-config "2" "1" 'fcitx5)
-  )
-
-;; enable the /cursor color/ mode
-(sis-global-cursor-color-mode t)
-;; enable the /respect/ mode
-(sis-global-respect-mode t)
-;; enable the /context/ mode for all buffers
-(sis-global-context-mode t)
-;; enable the /inline english/ mode for all buffers
-(sis-global-inline-mode t)
 
 
 ;; 需要注意的是下面的相关配置会导致 org-mode 使用 latex 导出 pdf 时失败，暂时屏蔽以下配置，后续优化
