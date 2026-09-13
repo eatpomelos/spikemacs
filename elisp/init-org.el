@@ -272,7 +272,7 @@
   ;; 与实际使用时相比，一级标题也使用了=，这里在原来的基础上增加一个=
   (setq org-rst-headline-underline-characters '(?= ?- ?~ ?^ ?: ?' ?\ ?_))
   (setq org-rst-link-use-ref-role t)
-  (defadvice org-rst-export-to-rst (after spk-org-rst-hack activate)
+  (define-advice org-rst-export-to-rst (:after (&rest _) spk-org-rst-hack)
     (let* ((rst-file (concat (file-name-sans-extension (buffer-file-name)) ".rst"))
            (exec-script (concat spk-scripts-dir "org-ox-rst-table-multicol"))
            (cmd-str nil)
@@ -280,8 +280,7 @@
       (setq cmd-str (format "%s %s" exec-script rst-file))
       (message "prepare to exec:%s" cmd-str)
 	  (shell-command cmd-str)
-      )
-    ))
+      )))
 
 ;; 添加相应 hook
 (add-hook 'org-mode-hook 'org-num-mode)

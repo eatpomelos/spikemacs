@@ -1,4 +1,4 @@
-;; 这里应该是后面要调用一些接口，这里使用cl-lib
+;; 这里应该是后面要调用一些接口，这里使用cl-lib  -*- lexical-binding: t; -*-
 (require 'cl-lib)
 
 ;; 定义自己的theme,之后定义好了可以添加在group里面，通过设置dufcustom来实现

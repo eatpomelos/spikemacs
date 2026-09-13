@@ -260,8 +260,7 @@
   
   ;; 用下面的advice来是实现deadgrep匹配项的预览，此函数需要配合winum使用
   (setq spk-last-window (winum-get-number))
-  (defadvice deadgrep-visit-result-other-window
-      (before spk-save-last-window activate)
+  (define-advice deadgrep-visit-result-other-window (:before (&rest _) spk-save-last-window)
     (setq spk-last-window (winum-get-number)))
  
   ;; 当跳转到下一个deadgrep匹配项时，自动跳转视图，并将光标移动回来
@@ -280,12 +279,12 @@
 
 ;; ;; 高亮更改文本,但是这个配置不好用的地方在于你保存了之后，不会自动取消你之前改变的文本
 ;; 当保存了buffer之后，移除之前的高亮,另外，当移除更改的时候也需要移除高亮
-(defadvice save-buffer (after spike-remove-highlight activate)
+(define-advice save-buffer (:after (&rest _) spike-remove-highlight)
   (when (highlight-changes-mode)
     (highlight-changes-remove-highlight (point-min) (point-max))))
 
 ;; 当撤销到最后一步的时候也需要取消高亮
-(defadvice undo (after spik-remove-highlight activate)
+(define-advice undo (:after (&rest _) spik-remove-highlight)
   (when (highlight-changes-mode)
     (unless (buffer-modified-p)
       (highlight-changes-remove-highlight (point-min) (point-max)))))

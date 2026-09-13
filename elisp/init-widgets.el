@@ -118,8 +118,7 @@
   )
 
 ;; 解决当在一个buffer中设置了高亮行的overlay时kill-buffer导致spk-ovs内容出错问题
-(defadvice kill-buffer
-    (before spk-hl-line-hack activate)
+(define-advice kill-buffer (:before (&rest _) spk-hl-line-hack)
   (mapc #'(lambda (e)
             (when (equal (overlay-buffer e) (current-buffer))
               (delete-overlay e)
@@ -132,7 +131,7 @@
 (defun spk/yank-buffer-filename ()
   "Copy the current buffer's path to the kill ring."
   (interactive)
-  (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
+  (if-let* ((filename (or buffer-file-name (bound-and-true-p list-buffers-directory))))
       (progn
         (kill-new (abbreviate-file-name filename))
         (message filename))
@@ -290,10 +289,8 @@
 ;; 配置加载时设置一词默认值
 (spk/gt-update-posframe-colors)
 
-(defadvice load-theme
-      (after spk-gt-load-theme-hack activate)
-  (spk/gt-update-posframe-colors)
-)
+(define-advice load-theme (:after (&rest _) spk-gt-load-theme-hack)
+  (spk/gt-update-posframe-colors))
 
 (gt-translator
  :engines (list (gt-google-engine :if 'word)               ; 只有当翻译内容为单词时启用

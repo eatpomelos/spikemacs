@@ -75,10 +75,8 @@
 
   (awesome-tray-enable)
   ;; 加载主题之后打开awesome-tray
-  (defadvice load-theme
-      (after spk-load-theme-hack activate)
-    (awesome-tray-enable)
-    )
+  (define-advice load-theme (:after (&rest _) spk-load-theme-hack)
+    (awesome-tray-enable))
   )
 
 (provide 'init-ui)
