@@ -4,6 +4,23 @@
 (straight-use-package 'flycheck-plantuml)
 (straight-use-package 'pcap-mode)
 
+;; cppreference / C & C++ 离线文档：devdocs.io 的 C 和 C++ docset 内容即 cppreference
+;; 首次使用：M-x devdocs-install 选中 c 与 cpp 下载；之后 M-x devdocs-lookup 查光标处符号
+(straight-use-package 'devdocs)
+
+(with-eval-after-load 'devdocs
+  ;; docset 存放在本地数据目录，与其它本地数据统一管理
+  (setq devdocs-data-dir (concat spk-local-dir "devdocs/"))
+  (unless (file-exists-p devdocs-data-dir)
+    (make-directory devdocs-data-dir t)))
+
+;; help 前缀 "h" 下新增文档查询快捷键
+(evil-leader/set-key
+  "hd" 'devdocs-lookup     ;; 查询光标处符号的文档
+  "hs" 'devdocs-search     ;; 全文搜索已安装的文档
+  "hi" 'devdocs-install    ;; 安装/管理 docset (首次装 c 和 cpp)
+  "hu" 'devdocs-update)    ;; 更新已安装的 docset
+
 (when (and IS-LINUX (not IS-WSL))
   (straight-use-package 'calibredb)
   (require 'calibredb)
