@@ -7,8 +7,11 @@
 (straight-use-package 'ninja-mode)
 (straight-use-package 'gn-mode)
 (straight-use-package 'dts-mode)
-(straight-use-package 'dogears)
 
+(straight-use-package
+ '(vjump
+   :local-repo "~/.emacs.d/elisp/packages/vjump" 
+   ))
 ;; nixos相关配置
 (straight-use-package 'nix-mode)
 (straight-use-package 'nixos-options)
@@ -217,33 +220,22 @@
 (define-key evil-normal-state-map (kbd ",a") #'spk/jump-to-beginning-of-defname)
 (define-key evil-normal-state-map (kbd ",e") #'end-of-defun)
 
-(setq dogears-functions '(
-                          xref-find-definitions
-                          xref-find-references
-                          lsp-bridge-find-def
-                          ))
+(require 'vjump)
+(with-eval-after-load 'vjump
+  (global-set-key (kbd "C-\|") 'vjump-list)
+  
+  (evil-set-initial-state 'vjump-list-mode 'emacs)
+  
+  (define-key vjump-list-mode-map "h" 'vjump-list-left)
+  (define-key vjump-list-mode-map "j" 'vjump-list-down)
+  (define-key vjump-list-mode-map "k" 'vjump-list-up)
+  (define-key vjump-list-mode-map "l" 'vjump-list-right)
 
-(with-eval-after-load 'dogears
-  (setq dogears-idle 1
-        dogears-limit 200
-        dogears-position-delta 100)
-  
-  (setq dogears-ignore-modes (append '(help-mode imenu-list-major-mode) dogears-ignore-modes))
-  
-  (global-set-key (kbd "C-\{") 'dogears-back)
-  (global-set-key (kbd "C-\}") 'dogears-forward)
-  (global-set-key (kbd "C-\|") 'dogears-list)
-  (evil-set-initial-state 'dogears-list-mode 'emacs)
-  
-  (define-key dogears-list-mode-map "h" 'backward-char)
-  (define-key dogears-list-mode-map "j" 'next-line)
-  (define-key dogears-list-mode-map "k" 'previous-line)
-  (define-key dogears-list-mode-map "l" 'forward-char)
-
+  (evil-global-set-key 'normal  "gm" #'vjump-mark)
   )
 
-;; (add-hook 'prog-mode-hook #'dogears-mode)
-(dogears-mode t)
+(vjump-mode t)
+
 (defalias 'dg 'deadgrep)
 
 ;; 是否有匹配多个map的按键配置方案?
