@@ -8,7 +8,6 @@
 ;; vjump：跳转历史。记录 xref/lsp 等命令产生的跳转，back/forward 导航，
 ;; vjump-list 把日志渲染成探索树；行为断言在 vjump-test.el。
 ;; 设计要点：日志即真相（append-only，newest-first）；树从日志渲染期派生，
-;; 存储层永远是线性表。参考 ~/spk-docs/Code/elisp/vundo/SKILL.md 与本目录 AGENTS.md。
 
 ;;; Code:
 
@@ -274,13 +273,14 @@ ponytail: 位置匹配 O(n²)（n ≤ vjump-limit），更大规模换 hash。"
                (setq node (cons rec nil))
                ;; origin 为全新位置时挂 anchor 章（导航记录）的节点，
                ;; 而非时间前驱——回去后漂移再跳，岔在回到的节点上。
-               ;; 查 anchor 必须在 push 新节点之前：delta 容差会让
-               ;; 刚建的漂移节点匹配到自己的 anchor 而自环、变孤儿
+               ;; anchor 用精确匹配：目标节点与 anchor 恒精确同位（重访
+               ;; 合并只在精确同位时发生），容差会被更晚创建的近距子孙
+               ;; 节点劫持（mark/分岔挂错父，表现为"不分叉"）
                (let ((p (if (vjump--rec-origin-p rec)
                             (let ((an (vjump--rec-anchor rec)))
                               (or (and an
                                        (cl-find an nodes :key #'car
-                                                 :test #'vjump--rec-eq-p))
+                                                 :test #'vjump--rec-exact-p))
                                   prev))
                           prev)))
                  (push node nodes)

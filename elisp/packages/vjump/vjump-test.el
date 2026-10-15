@@ -59,18 +59,19 @@
           (insert (format "line %d %s\n" i name)))))
     f))
 
+(defvar vjump--t-dest 1
+  "模拟同文件跳转命令的目标位置。")
+
 (defun vjump--t-jump ()
-  "模拟同步跳转（xref-find-definitions 形态）：命令内完成位移。"
+  "模拟同步跳转（xref-find-definitions 形态）：命令内完成位移。
+落点 = vjump--t-dest（默认 1 即 point-min）。"
   (find-file vjump--t-target)
-  (goto-char (point-min)))
+  (goto-char vjump--t-dest))
 
 (defun vjump--t-async-jump ()
   "模拟异步跳转（lsp-bridge-find-def 形态）：命令返回时未位移，
 位移由命令之外的外部回调完成。"
   nil)
-
-(defvar vjump--t-dest 1
-  "模拟同文件跳转命令的目标位置。")
 
 (defun vjump--t-goto ()
   "模拟同文件同步跳转：位移到 vjump--t-dest。"
@@ -456,7 +457,36 @@
         (vjump--grid-render))
       (vjump--t "唯一选中: 相近节点只画一个 x"
                 (= 1 (count-matches "x" (point-min) (point-max)))))
-    (kill-buffer tmp)))
+    (kill-buffer tmp))
+
+  ;; --- 17. anchor 挂靠精确匹配：近距子孙不劫持分岔 ---
+  (vjump--t-reset '(vjump--t-jump))
+  (find-file vjump--t-a)
+  (goto-char 10)
+  (setq vjump--t-target vjump--t-b vjump--t-dest 150)
+  (vjump--t-jump)                         ; A→B2(b@150)
+  (setq vjump--cur 1)
+  (vjump--goto (nth 1 vjump--log))       ; 回 A
+  (setq vjump--t-dest 100)
+  (vjump--t-jump)                         ; A→B1(b@100)
+  (setq vjump--t-dest 160)
+  (vjump--t-jump)                         ; B1→C(b@160)，距 B1 60 < delta
+  (setq vjump--cur 1)
+  (vjump--goto (nth 1 vjump--log))       ; 回 B1（中间节点）
+  (goto-char 300)                         ; 距 B1/C 均 > delta（文件 40 行内）
+  (vjump-mark)                            ; 期望 B1 下分岔 M
+  (let* ((kids (cdr (vjump--tree)))      ; A 的子 = [B2, B1]
+         (b1 (nth 1 kids))
+         (b1-kids (cdr b1))
+         (c (nth 0 b1-kids))
+         (m (nth 1 b1-kids)))
+    (vjump--t "anchor: B1 两岔（C + M）" (= (length b1-kids) 2))
+    (vjump--t "anchor: C 挂 B1 下且无子"
+              (and (= (vjump--rec-point (car c)) 160)
+                   (null (cdr c))))
+    (vjump--t "anchor: M 挂 B1 下而非 C 下"
+              (and (= (vjump--rec-point (car m)) 300)
+                   (vjump--rec-origin-p (car m))))))
 
 (defun vjump-self-test ()
   "运行内置行为断言。
